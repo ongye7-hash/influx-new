@@ -815,15 +815,15 @@ export default function OrderPage() {
                             )}>
                               <IconComponent className="h-5 w-5" />
                             </div>
-                            <div className="flex-1 min-w-0 overflow-hidden">
+                            <div className="flex-1 min-w-0">
                               {/* 서비스 번호 + 기본 정보 */}
-                              <div className="flex items-center gap-2">
-                                <h4 className="font-semibold text-sm truncate">{service.name}</h4>
+                              <div>
+                                <h4 className="font-semibold text-sm line-clamp-2">{service.name}</h4>
                               </div>
 
                               {/* 원본 설명 (핵심 정보) */}
                               {parsedInfo.originalDesc && (
-                                <p className="text-xs text-muted-foreground mt-1 line-clamp-1">
+                                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                                   {parsedInfo.originalDesc}
                                 </p>
                               )}
