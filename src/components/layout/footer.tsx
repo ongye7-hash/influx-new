@@ -2,20 +2,17 @@
 
 import Link from "next/link";
 import { Logo } from "./logo";
-import {
-  Instagram,
-  Youtube,
-  Twitter,
-  Mail,
-  Globe
-} from "lucide-react";
+import { Mail, Globe } from "lucide-react";
+import { FaInstagram, FaYoutube, FaTwitter, FaTiktok, FaFacebook, FaTelegram } from "react-icons/fa";
+import { cn } from "@/lib/utils";
 
 const footerLinks = {
   services: [
     { name: "유튜브 서비스", href: "/services/youtube" },
     { name: "인스타그램 서비스", href: "/services/instagram" },
     { name: "틱톡 서비스", href: "/services/tiktok" },
-    { name: "트위터 서비스", href: "/services/twitter" },
+    { name: "페이스북 서비스", href: "/services/facebook" },
+    { name: "텔레그램 서비스", href: "/services/telegram" },
   ],
   support: [
     { name: "자주 묻는 질문", href: "/faq" },
@@ -31,9 +28,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { name: "Instagram", href: "#", icon: Instagram },
-  { name: "Youtube", href: "#", icon: Youtube },
-  { name: "Twitter", href: "#", icon: Twitter },
+  { name: "Instagram", href: "#", icon: FaInstagram, color: "hover:text-[#E1306C]" },
+  { name: "Youtube", href: "#", icon: FaYoutube, color: "hover:text-[#FF0000]" },
+  { name: "Twitter", href: "#", icon: FaTwitter, color: "hover:text-[#1DA1F2]" },
+  { name: "TikTok", href: "#", icon: FaTiktok, color: "hover:text-white" },
 ];
 
 export function Footer() {
@@ -59,7 +57,11 @@ export function Footer() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="h-10 w-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className={cn(
+                    "h-10 w-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground transition-all duration-200",
+                    "hover:bg-muted/80 hover:scale-110",
+                    item.color
+                  )}
                 >
                   <item.icon className="h-5 w-5" />
                 </Link>

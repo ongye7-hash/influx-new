@@ -17,19 +17,23 @@ import {
   CheckCircle,
   AlertCircle,
   Sparkles,
-  Users,
-  Play,
-  Heart,
-  Eye,
-  MessageCircle,
-  ThumbsUp,
-  MessageSquare,
-  AtSign,
   RefreshCw,
   Star,
-  TrendingUp,
   MoreHorizontal,
+  Layers,
 } from 'lucide-react';
+import {
+  FaYoutube,
+  FaInstagram,
+  FaTiktok,
+  FaFacebook,
+  FaTelegram,
+  FaTwitter,
+  FaTwitch,
+  FaDiscord,
+  FaBitcoin,
+} from 'react-icons/fa';
+import { SiThreads } from 'react-icons/si';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -63,39 +67,25 @@ import { formatCurrency, formatCompactNumber, cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
 // ============================================
-// 아이콘 매핑
+// 아이콘 매핑 (react-icons 브랜드 로고)
 // ============================================
-const ICON_MAP: Record<string, React.ElementType> = {
-  Users,
-  Play,
-  Heart,
-  Eye,
-  MessageCircle,
-  ThumbsUp,
-  MessageSquare,
-  AtSign,
-  Sparkles,
-  TrendingUp,
-  MoreHorizontal,
-};
-
 function getCategoryIcon(slug: string | null): React.ElementType {
-  if (!slug) return Sparkles;
-  const iconName = {
-    all: 'Sparkles',
-    instagram: 'Users',
-    youtube: 'Play',
-    tiktok: 'Heart',
-    twitter: 'Eye',
-    telegram: 'MessageCircle',
-    facebook: 'ThumbsUp',
-    discord: 'MessageSquare',
-    threads: 'AtSign',
-    twitch: 'Play',
-    coinmarketcap: 'TrendingUp',
-    other: 'MoreHorizontal',
-  }[slug.toLowerCase()] || 'Sparkles';
-  return ICON_MAP[iconName] || Sparkles;
+  if (!slug) return Layers;
+  const iconMap: Record<string, React.ElementType> = {
+    all: Layers,
+    instagram: FaInstagram,
+    youtube: FaYoutube,
+    tiktok: FaTiktok,
+    twitter: FaTwitter,
+    telegram: FaTelegram,
+    facebook: FaFacebook,
+    discord: FaDiscord,
+    threads: SiThreads,
+    twitch: FaTwitch,
+    coinmarketcap: FaBitcoin,
+    other: MoreHorizontal,
+  };
+  return iconMap[slug.toLowerCase()] || Layers;
 }
 
 function getCategoryColor(slug: string | null): string {
