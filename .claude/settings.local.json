@@ -27,7 +27,8 @@
       "Bash(tasklist:*)",
       "Bash(taskkill:*)",
       "Bash(cmd //c \"taskkill /F /PID 10632\")",
-      "Bash(cmd //c \"taskkill /F /IM node.exe\")"
+      "Bash(cmd //c \"taskkill /F /IM node.exe\")",
+      "WebFetch(domain:ytresellers.com)"
     ]
   }
 }
