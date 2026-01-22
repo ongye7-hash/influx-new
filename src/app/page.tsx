@@ -228,9 +228,15 @@ function HeroSection() {
           <div className="mt-16 pt-8 border-t border-white/10">
             <p className="text-sm text-white/40 mb-6">전 세계 크리에이터가 신뢰하는 플랫폼</p>
             <div className="flex justify-center gap-10 items-center">
-              <YoutubeIcon className="w-8 h-8 text-red-500 opacity-60 hover:opacity-100 transition-opacity" />
-              <InstagramIcon className="w-8 h-8 text-pink-500 opacity-60 hover:opacity-100 transition-opacity" />
-              <TiktokIcon className="w-8 h-8 text-white opacity-60 hover:opacity-100 transition-opacity" />
+              <Link href="/services/youtube" className="hover:scale-110 transition-transform">
+                <YoutubeIcon className="w-8 h-8 text-red-500 opacity-60 hover:opacity-100 transition-opacity" />
+              </Link>
+              <Link href="/services/instagram" className="hover:scale-110 transition-transform">
+                <InstagramIcon className="w-8 h-8 text-pink-500 opacity-60 hover:opacity-100 transition-opacity" />
+              </Link>
+              <Link href="/services/tiktok" className="hover:scale-110 transition-transform">
+                <TiktokIcon className="w-8 h-8 text-white opacity-60 hover:opacity-100 transition-opacity" />
+              </Link>
               <FacebookIcon className="w-8 h-8 text-blue-500 opacity-60 hover:opacity-100 transition-opacity" />
             </div>
           </div>
@@ -526,11 +532,13 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <Logo size="md" />
 
-          <div className="flex items-center gap-6 text-sm text-white/40">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/40">
+            <Link href="/services/youtube" className="hover:text-white/80 transition-colors">유튜브</Link>
+            <Link href="/services/instagram" className="hover:text-white/80 transition-colors">인스타그램</Link>
+            <Link href="/services/tiktok" className="hover:text-white/80 transition-colors">틱톡</Link>
+            <Link href="/blog" className="hover:text-white/80 transition-colors">인사이트</Link>
             <Link href="/terms" className="hover:text-white/80 transition-colors">이용약관</Link>
             <Link href="/privacy" className="hover:text-white/80 transition-colors">개인정보처리방침</Link>
-            <Link href="/blog" className="hover:text-white/80 transition-colors">인사이트</Link>
-            <Link href="/support" className="hover:text-white/80 transition-colors">고객센터</Link>
           </div>
 
           <div className="text-sm text-white/30">
