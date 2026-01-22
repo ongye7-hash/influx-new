@@ -39,7 +39,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+// Tabs 컴포넌트 미사용 - 플랫폼 탭으로 대체됨
 import {
   Select,
   SelectContent,
@@ -65,6 +65,26 @@ import { orderKeys } from '@/hooks/use-orders';
 import { supabase } from '@/lib/supabase';
 import { formatCurrency, formatCompactNumber, cn } from '@/lib/utils';
 import { toast } from 'sonner';
+
+// ============================================
+// 고정 플랫폼 탭 정의
+// ============================================
+const PLATFORM_TABS = [
+  { id: 'all', name: '전체보기', icon: Layers, color: 'from-slate-500 to-slate-600' },
+  { id: 'favorites', name: '즐겨찾기', icon: Star, color: 'from-yellow-400 to-orange-500' },
+  { id: 'instagram', name: '인스타그램', icon: FaInstagram, color: 'from-pink-500 to-purple-500' },
+  { id: 'tiktok', name: '틱톡', icon: FaTiktok, color: 'from-gray-900 to-gray-700' },
+  { id: 'youtube', name: '유튜브', icon: FaYoutube, color: 'from-red-500 to-red-600' },
+  { id: 'facebook', name: '페이스북', icon: FaFacebook, color: 'from-blue-600 to-blue-700' },
+  { id: 'twitter', name: '트위터', icon: FaTwitter, color: 'from-sky-400 to-sky-500' },
+  { id: 'telegram', name: '텔레그램', icon: FaTelegram, color: 'from-sky-500 to-blue-500' },
+  { id: 'twitch', name: '트위치', icon: FaTwitch, color: 'from-purple-500 to-purple-600' },
+  { id: 'coinmarketcap', name: '코인마켓캡', icon: FaBitcoin, color: 'from-amber-500 to-yellow-500' },
+  { id: 'other', name: '이 외 플랫폼', icon: MoreHorizontal, color: 'from-gray-500 to-gray-600' },
+] as const;
+
+// 주요 플랫폼 슬러그 (이 외 플랫폼 필터링용)
+const MAIN_PLATFORM_SLUGS = ['instagram', 'tiktok', 'youtube', 'facebook', 'twitter', 'telegram', 'twitch', 'coinmarketcap'];
 
 // ============================================
 // 아이콘 매핑 (react-icons 브랜드 로고)
@@ -137,20 +157,13 @@ export default function OrderPage() {
   );
 
   // 상태
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
+  const [selectedPlatformTab, setSelectedPlatformTab] = useState<string>('all');
   const [selectedServiceId, setSelectedServiceId] = useState<string>('');
   const [link, setLink] = useState('');
   const [quantity, setQuantity] = useState<number>(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
-  // 첫 번째 카테고리 자동 선택
-  useEffect(() => {
-    if (categories.length > 0 && !selectedCategoryId) {
-      setSelectedCategoryId(categories[0].id);
-    }
-  }, [categories, selectedCategoryId]);
 
   // 재주문 데이터 처리
   useEffect(() => {
@@ -160,8 +173,12 @@ export default function OrderPage() {
         const { serviceId, link: reorderLink, quantity: reorderQty } = JSON.parse(reorderData);
         const service = services.find(s => s.id === serviceId);
         if (service) {
-          if (service.category_id) {
-            setSelectedCategoryId(service.category_id);
+          // 해당 서비스의 카테고리 슬러그를 찾아서 탭 설정
+          const category = categories.find(c => c.id === service.category_id);
+          if (category?.slug && MAIN_PLATFORM_SLUGS.includes(category.slug.toLowerCase())) {
+            setSelectedPlatformTab(category.slug.toLowerCase());
+          } else {
+            setSelectedPlatformTab('other');
           }
           setSelectedServiceId(serviceId);
           setLink(reorderLink || '');
@@ -172,21 +189,37 @@ export default function OrderPage() {
         localStorage.removeItem('influx_reorder');
       }
     }
-  }, [services]);
+  }, [services, categories]);
 
-  // 현재 카테고리의 서비스 목록
-  const categoryServices = useMemo(() =>
-    services.filter(s => s.category_id === selectedCategoryId),
-    [services, selectedCategoryId]
-  );
+  // 현재 탭에 해당하는 서비스 목록
+  const tabServices = useMemo(() => {
+    switch (selectedPlatformTab) {
+      case 'all':
+        return services;
+      case 'favorites':
+        return favoriteServices;
+      case 'other':
+        // 주요 플랫폼이 아닌 카테고리의 서비스들
+        return services.filter(s => {
+          const cat = categories.find(c => c.id === s.category_id);
+          return !cat?.slug || !MAIN_PLATFORM_SLUGS.includes(cat.slug.toLowerCase());
+        });
+      default:
+        // 특정 플랫폼 탭 - 카테고리 슬러그로 필터링
+        return services.filter(s => {
+          const cat = categories.find(c => c.id === s.category_id);
+          return cat?.slug?.toLowerCase() === selectedPlatformTab;
+        });
+    }
+  }, [services, favoriteServices, categories, selectedPlatformTab]);
 
   // 검색 필터링된 서비스
   const filteredServices = useMemo(() => {
-    if (!searchQuery) return categoryServices;
-    return categoryServices.filter(s =>
+    if (!searchQuery) return tabServices;
+    return tabServices.filter(s =>
       s.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [categoryServices, searchQuery]);
+  }, [tabServices, searchQuery]);
 
   // 선택된 서비스
   const selectedService = useMemo(() =>
@@ -210,9 +243,9 @@ export default function OrderPage() {
     return true;
   }, [selectedService, link, quantity, estimatedPrice, balance]);
 
-  // 카테고리 변경 시 서비스 초기화
-  const handleCategoryChange = useCallback((categoryId: string) => {
-    setSelectedCategoryId(categoryId);
+  // 플랫폼 탭 변경 시 서비스 초기화
+  const handlePlatformTabChange = useCallback((tabId: string) => {
+    setSelectedPlatformTab(tabId);
     setSelectedServiceId('');
     setQuantity(0);
     setSearchQuery('');
@@ -355,240 +388,232 @@ export default function OrderPage() {
         </div>
       </div>
 
-      {/* 즐겨찾기 서비스 (빠른 선택) */}
-      {favoriteServices.length > 0 && (
-        <Card className="border-yellow-200 bg-gradient-to-r from-yellow-50/50 to-orange-50/50 dark:from-yellow-950/20 dark:to-orange-950/20">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-              즐겨찾기 서비스
-              <Badge variant="secondary" className="ml-2">{favoriteServices.length}</Badge>
-            </CardTitle>
-            <CardDescription>자주 사용하는 서비스를 빠르게 선택하세요</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {favoriteServices.map((service) => {
-                const category = categories.find(c => c.id === service.category_id);
-                const IconComponent = getCategoryIcon(category?.slug || null);
-                const colorClass = getCategoryColor(category?.slug || null);
-                return (
-                  <Button
-                    key={service.id}
-                    variant="outline"
-                    size="sm"
-                    className="h-auto py-2 px-3 flex items-center gap-2 hover:bg-primary/5 group"
-                    onClick={() => {
-                      if (service.category_id) {
-                        setSelectedCategoryId(service.category_id);
-                      }
-                      handleServiceChange(service.id);
-                    }}
-                  >
-                    <div className={cn(
-                      'h-5 w-5 rounded flex items-center justify-center text-white bg-gradient-to-br',
-                      colorClass
-                    )}>
-                      <IconComponent className="h-3 w-3" />
-                    </div>
-                    <div className="text-left">
-                      <span className="font-medium text-xs block">{service.name}</span>
-                      <span className="text-xs text-muted-foreground">{formatCurrency(service.price)}/1K</span>
-                    </div>
-                    <button
-                      onClick={(e) => toggleFavorite(service.id, e)}
-                      className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400 hover:fill-yellow-500" />
-                    </button>
-                  </Button>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      {/* 플랫폼 탭 */}
+      <div className="flex flex-wrap gap-2 p-2 bg-muted/30 rounded-xl">
+        {PLATFORM_TABS.map((tab) => {
+          const IconComponent = tab.icon;
+          const isActive = selectedPlatformTab === tab.id;
+          const count = tab.id === 'favorites'
+            ? favoriteServices.length
+            : tab.id === 'all'
+              ? services.length
+              : tabServices.length;
+
+          return (
+            <Button
+              key={tab.id}
+              variant={isActive ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => handlePlatformTabChange(tab.id)}
+              className={cn(
+                "flex items-center gap-2 h-10",
+                isActive && `bg-gradient-to-r ${tab.color} text-white hover:opacity-90`,
+                tab.id === 'favorites' && isActive && "!bg-gradient-to-r from-yellow-400 to-orange-500"
+              )}
+            >
+              <IconComponent className={cn(
+                "h-4 w-4",
+                tab.id === 'favorites' && isActive && "fill-white"
+              )} />
+              <span className="hidden sm:inline">{tab.name}</span>
+              {(tab.id === 'favorites' || tab.id === 'all') && count > 0 && (
+                <Badge
+                  variant="secondary"
+                  className={cn(
+                    "ml-1 h-5 px-1.5 text-xs",
+                    isActive ? "bg-white/20 text-white" : ""
+                  )}
+                >
+                  {count}
+                </Badge>
+              )}
+            </Button>
+          );
+        })}
+      </div>
 
       {/* 메인 컨텐츠 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* 왼쪽: 카테고리 & 서비스 선택 */}
+        {/* 왼쪽: 서비스 선택 */}
         <div className="lg:col-span-2 space-y-6">
-          {/* 카테고리 탭 */}
-          <Tabs value={selectedCategoryId} onValueChange={handleCategoryChange}>
-            <TabsList className="w-full h-auto flex-wrap gap-1 bg-muted/50 p-1">
-              {categories.map((category) => {
-                const IconComponent = getCategoryIcon(category.slug);
-                const colorClass = getCategoryColor(category.slug);
-                return (
-                  <TabsTrigger
-                    key={category.id}
-                    value={category.id}
-                    className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm"
-                  >
-                    <div className={cn(
-                      'h-6 w-6 rounded-md flex items-center justify-center text-white bg-gradient-to-br',
-                      colorClass
-                    )}>
-                      <IconComponent className="h-3.5 w-3.5" />
-                    </div>
-                    <span className="hidden sm:inline">{category.name}</span>
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
-
-            {categories.map((category) => {
-              const IconComponent = getCategoryIcon(category.slug);
-              const colorClass = getCategoryColor(category.slug);
-              const catServices = services.filter(s => s.category_id === category.id);
-
-              return (
-                <TabsContent key={category.id} value={category.id} className="mt-6">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <div className={cn(
-                          'h-8 w-8 rounded-lg flex items-center justify-center text-white bg-gradient-to-br',
-                          colorClass
-                        )}>
-                          <IconComponent className="h-4 w-4" />
-                        </div>
-                        {category.name} 서비스
-                      </CardTitle>
-                      <CardDescription>
-                        {catServices.length}개의 서비스 중 원하는 서비스를 선택하세요
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      {/* 서비스 검색 & 선택 */}
-                      <div className="space-y-2">
-                        <Label>서비스 선택</Label>
-                        <Select value={selectedServiceId} onValueChange={handleServiceChange}>
-                          <SelectTrigger className="w-full h-12">
-                            <SelectValue placeholder="서비스를 선택하세요" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <div className="p-2">
-                              <div className="relative">
-                                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                <Input
-                                  placeholder="서비스 검색..."
-                                  value={searchQuery}
-                                  onChange={(e) => setSearchQuery(e.target.value)}
-                                  className="pl-8 h-9"
-                                />
-                              </div>
-                            </div>
-                            <SelectGroup>
-                              <SelectLabel>{category.name}</SelectLabel>
-                              {filteredServices.map((service) => (
-                                <SelectItem
-                                  key={service.id}
-                                  value={service.id}
-                                  className="py-3"
-                                >
-                                  <div className="flex items-center gap-2 w-full">
-                                    <button
-                                      onClick={(e) => toggleFavorite(service.id, e)}
-                                      className="shrink-0 hover:scale-110 transition-transform"
-                                    >
-                                      <Star
-                                        className={cn(
-                                          "h-4 w-4 transition-colors",
-                                          favorites.includes(service.id)
-                                            ? "fill-yellow-400 text-yellow-400"
-                                            : "text-muted-foreground/40 hover:text-yellow-400"
-                                        )}
-                                      />
-                                    </button>
-                                    <div className="flex flex-col flex-1 min-w-0">
-                                      <span className="font-medium truncate">{service.name}</span>
-                                      <span className="text-xs text-muted-foreground">
-                                        {formatCurrency(service.price)}/1K · {service.average_time || '0-1시간'}
-                                        {service.is_refill && ' · 리필보장'}
-                                      </span>
-                                    </div>
-                                  </div>
-                                </SelectItem>
-                              ))}
-                              {filteredServices.length === 0 && (
-                                <div className="py-6 text-center text-muted-foreground">
-                                  검색 결과가 없습니다
-                                </div>
-                              )}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                {(() => {
+                  const currentTab = PLATFORM_TABS.find(t => t.id === selectedPlatformTab);
+                  const IconComponent = currentTab?.icon || Layers;
+                  return (
+                    <>
+                      <div className={cn(
+                        'h-8 w-8 rounded-lg flex items-center justify-center text-white bg-gradient-to-br',
+                        currentTab?.color || 'from-slate-500 to-slate-600'
+                      )}>
+                        <IconComponent className={cn(
+                          "h-4 w-4",
+                          selectedPlatformTab === 'favorites' && "fill-white"
+                        )} />
                       </div>
+                      {currentTab?.name || '전체보기'} 서비스
+                    </>
+                  );
+                })()}
+              </CardTitle>
+              <CardDescription>
+                {filteredServices.length}개의 서비스
+                {selectedPlatformTab === 'favorites' && filteredServices.length === 0 && ' - 별 아이콘을 클릭해 즐겨찾기에 추가하세요'}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* 서비스 검색 */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="서비스 검색..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 h-11"
+                />
+              </div>
 
-                      {/* 선택된 서비스 정보 */}
-                      {selectedService && selectedService.category_id === category.id && (
-                        <div className="p-4 rounded-xl bg-muted/50 space-y-3">
-                          <div className="flex items-start justify-between">
-                            <div className="flex items-start gap-3">
-                              <button
-                                onClick={(e) => {
-                                  toggleFavorite(selectedService.id, e);
-                                  toast.success(
-                                    favorites.includes(selectedService.id)
-                                      ? '즐겨찾기에서 제거되었습니다'
-                                      : '즐겨찾기에 추가되었습니다',
-                                    { duration: 2000 }
-                                  );
-                                }}
-                                className="mt-0.5 hover:scale-110 transition-transform"
-                              >
-                                <Star
-                                  className={cn(
-                                    "h-5 w-5 transition-colors",
-                                    favorites.includes(selectedService.id)
-                                      ? "fill-yellow-400 text-yellow-400"
-                                      : "text-muted-foreground hover:text-yellow-400"
-                                  )}
-                                />
-                              </button>
-                              <div>
-                                <h4 className="font-semibold">{selectedService.name}</h4>
-                                <p className="text-sm text-muted-foreground mt-1">
-                                  {selectedService.description || '고품질 서비스'}
-                                </p>
+              {/* 서비스 목록 */}
+              {filteredServices.length === 0 ? (
+                <div className="py-12 text-center">
+                  {selectedPlatformTab === 'favorites' ? (
+                    <>
+                      <Star className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
+                      <p className="text-muted-foreground mb-2">즐겨찾기한 서비스가 없습니다</p>
+                      <p className="text-sm text-muted-foreground">서비스 옆 별 아이콘을 클릭해 즐겨찾기에 추가하세요</p>
+                      <Button
+                        variant="outline"
+                        className="mt-4"
+                        onClick={() => handlePlatformTabChange('all')}
+                      >
+                        전체보기
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
+                      <p className="text-muted-foreground">
+                        {searchQuery ? '검색 결과가 없습니다' : '해당 플랫폼의 서비스가 없습니다'}
+                      </p>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div className="grid gap-3 max-h-[500px] overflow-y-auto pr-2">
+                  {filteredServices.map((service) => {
+                    const category = categories.find(c => c.id === service.category_id);
+                    const IconComponent = getCategoryIcon(category?.slug || null);
+                    const colorClass = getCategoryColor(category?.slug || null);
+                    const isSelected = selectedServiceId === service.id;
+
+                    return (
+                      <div
+                        key={service.id}
+                        className={cn(
+                          "p-4 rounded-xl border cursor-pointer transition-all hover:shadow-md",
+                          isSelected
+                            ? "border-primary bg-primary/5 ring-2 ring-primary/20"
+                            : "hover:border-primary/50"
+                        )}
+                        onClick={() => handleServiceChange(service.id)}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-start gap-3">
+                            <div className={cn(
+                              'h-10 w-10 rounded-lg flex items-center justify-center text-white bg-gradient-to-br shrink-0',
+                              colorClass
+                            )}>
+                              <IconComponent className="h-5 w-5" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2">
+                                <h4 className="font-semibold truncate">{service.name}</h4>
+                                {service.is_refill && (
+                                  <Badge variant="secondary" className="bg-green-100 text-green-700 shrink-0">
+                                    리필
+                                  </Badge>
+                                )}
+                              </div>
+                              <p className="text-sm text-muted-foreground mt-1">
+                                {category?.name || '기타'} · {service.average_time || '0-1시간'}
+                              </p>
+                              <div className="flex items-center gap-4 mt-2 text-sm">
+                                <span className="font-medium text-primary">
+                                  {formatCurrency(service.price)}/1K
+                                </span>
+                                <span className="text-muted-foreground">
+                                  최소 {formatCompactNumber(service.min_quantity)}
+                                </span>
                               </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                              {selectedService.is_refill && (
-                                <Badge variant="secondary" className="bg-green-100 text-green-700">
-                                  <CheckCircle className="h-3 w-3 mr-1" />
-                                  리필보장
-                                </Badge>
-                              )}
-                            </div>
                           </div>
-                          <div className="flex flex-wrap gap-4 text-sm">
-                            <div>
-                              <span className="text-muted-foreground">단가:</span>
-                              <span className="ml-1 font-medium">{formatCurrency(selectedService.price)}/1K</span>
-                            </div>
-                            <div>
-                              <span className="text-muted-foreground">최소:</span>
-                              <span className="ml-1 font-medium">{formatCompactNumber(selectedService.min_quantity)}</span>
-                            </div>
-                            <div>
-                              <span className="text-muted-foreground">최대:</span>
-                              <span className="ml-1 font-medium">{formatCompactNumber(selectedService.max_quantity)}</span>
-                            </div>
-                            <div>
-                              <span className="text-muted-foreground">소요시간:</span>
-                              <span className="ml-1 font-medium">{selectedService.average_time || '0-1시간'}</span>
-                            </div>
-                          </div>
+                          <button
+                            onClick={(e) => {
+                              toggleFavorite(service.id, e);
+                              toast.success(
+                                favorites.includes(service.id)
+                                  ? '즐겨찾기에서 제거되었습니다'
+                                  : '즐겨찾기에 추가되었습니다',
+                                { duration: 2000 }
+                              );
+                            }}
+                            className="p-2 hover:bg-muted rounded-lg transition-colors"
+                          >
+                            <Star className={cn(
+                              "h-5 w-5 transition-colors",
+                              favorites.includes(service.id)
+                                ? "fill-yellow-400 text-yellow-400"
+                                : "text-muted-foreground hover:text-yellow-400"
+                            )} />
+                          </button>
                         </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              );
-            })}
-          </Tabs>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* 선택된 서비스 정보 */}
+              {selectedService && (
+                <div className="p-4 rounded-xl bg-muted/50 space-y-3 border-t mt-4">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h4 className="font-semibold">{selectedService.name}</h4>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {selectedService.description || '고품질 서비스'}
+                      </p>
+                    </div>
+                    {selectedService.is_refill && (
+                      <Badge variant="secondary" className="bg-green-100 text-green-700">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        리필보장
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-4 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">단가:</span>
+                      <span className="ml-1 font-medium">{formatCurrency(selectedService.price)}/1K</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">최소:</span>
+                      <span className="ml-1 font-medium">{formatCompactNumber(selectedService.min_quantity)}</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">최대:</span>
+                      <span className="ml-1 font-medium">{formatCompactNumber(selectedService.max_quantity)}</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">소요시간:</span>
+                      <span className="ml-1 font-medium">{selectedService.average_time || '0-1시간'}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
 
         {/* 오른쪽: 주문서 */}
