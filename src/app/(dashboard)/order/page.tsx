@@ -712,36 +712,42 @@ export default function OrderPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* 서비스 유형 필터 (2차 카테고리) */}
-              {selectedPlatformTab !== 'favorites' && availableServiceTypes.length > 2 && (
-                <div className="flex flex-wrap gap-2 p-3 bg-muted/30 rounded-lg">
-                  <span className="text-xs text-muted-foreground self-center mr-2">유형:</span>
-                  {availableServiceTypes.map((type) => {
-                    const count = type.id === 'all'
-                      ? platformFilteredServices.length
-                      : platformFilteredServices.filter(s => getServiceType(s.name) === type.id).length;
-                    const isActive = selectedServiceType === type.id;
-                    return (
-                      <Button
-                        key={type.id}
-                        variant={isActive ? 'default' : 'outline'}
-                        size="sm"
-                        onClick={() => handleServiceTypeChange(type.id)}
-                        className={cn(
-                          "h-8 text-xs",
-                          isActive && "bg-primary"
-                        )}
-                      >
-                        {type.name}
-                        <Badge variant="secondary" className={cn(
-                          "ml-1.5 h-4 px-1 text-[10px]",
-                          isActive ? "bg-white/20 text-white" : ""
-                        )}>
-                          {count}
-                        </Badge>
-                      </Button>
-                    );
-                  })}
+              {/* 서비스 유형 필터 (서브카테고리) */}
+              {selectedPlatformTab !== 'favorites' && selectedPlatformTab !== 'all' && availableServiceTypes.length > 1 && (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Layers className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-medium">서비스 유형</span>
+                    <span className="text-xs text-muted-foreground">({platformFilteredServices.length}개)</span>
+                  </div>
+                  <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                    {availableServiceTypes.map((type) => {
+                      const count = type.id === 'all'
+                        ? platformFilteredServices.length
+                        : platformFilteredServices.filter(s => getServiceType(s.name) === type.id).length;
+                      const isActive = selectedServiceType === type.id;
+                      return (
+                        <Button
+                          key={type.id}
+                          variant={isActive ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => handleServiceTypeChange(type.id)}
+                          className={cn(
+                            "h-9 px-4 text-sm whitespace-nowrap shrink-0",
+                            isActive && "bg-primary shadow-md"
+                          )}
+                        >
+                          {type.name}
+                          <Badge variant="secondary" className={cn(
+                            "ml-2 h-5 px-1.5 text-xs",
+                            isActive ? "bg-white/20 text-white" : ""
+                          )}>
+                            {count}
+                          </Badge>
+                        </Button>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 
