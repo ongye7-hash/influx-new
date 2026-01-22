@@ -6,9 +6,10 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  ArrowRight, Send, Users, Eye, MessageCircle,
+  ArrowRight, Users, Eye, MessageCircle,
   Zap, TrendingUp, Star, Award, Home, Shield, Bell
 } from 'lucide-react';
+import { FaTelegram } from 'react-icons/fa';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -199,7 +200,7 @@ export default function TelegramServicesPage() {
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
             <Badge className="bg-sky-500/20 text-sky-400 border-sky-500/30 mb-6">
-              <Send className="w-3 h-3 mr-1" />
+              <FaTelegram className="w-4 h-4 mr-1.5 text-[#0088CC]" />
               Telegram 성장 솔루션
             </Badge>
 

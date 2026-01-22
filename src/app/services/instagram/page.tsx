@@ -6,9 +6,10 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  ArrowRight, Instagram, Users, Heart, Eye, MessageCircle,
+  ArrowRight, Users, Heart, Eye, MessageCircle,
   Zap, TrendingUp, CheckCircle2, Star, Award, Home, Shield
 } from 'lucide-react';
+import { FaInstagram } from 'react-icons/fa';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -199,7 +200,7 @@ export default function InstagramServicesPage() {
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
             <Badge className="bg-pink-500/20 text-pink-400 border-pink-500/30 mb-6">
-              <Instagram className="w-3 h-3 mr-1" />
+              <FaInstagram className="w-4 h-4 mr-1.5 text-[#E1306C]" />
               Instagram 성장 솔루션
             </Badge>
 

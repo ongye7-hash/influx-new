@@ -6,9 +6,10 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  ArrowRight, Music, Users, Heart, Eye, Share2,
+  ArrowRight, Users, Heart, Eye, Share2,
   Zap, TrendingUp, CheckCircle2, Star, Award, Home, Shield
 } from 'lucide-react';
+import { FaTiktok } from 'react-icons/fa';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -199,7 +200,7 @@ export default function TikTokServicesPage() {
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
             <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30 mb-6">
-              <Music className="w-3 h-3 mr-1" />
+              <FaTiktok className="w-4 h-4 mr-1.5" />
               TikTok 성장 솔루션
             </Badge>
 
