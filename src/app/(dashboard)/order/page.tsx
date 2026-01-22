@@ -788,7 +788,7 @@ export default function OrderPage() {
                   )}
                 </div>
               ) : (
-                <div className="grid gap-3 max-h-[500px] overflow-y-auto pr-2">
+                <div className="grid gap-3 lg:max-h-[500px] lg:overflow-y-auto lg:pr-2">
                   {filteredServices.map((service) => {
                     const category = categories.find(c => c.id === service.category_id);
                     const IconComponent = getCategoryIcon(category?.slug || null);
