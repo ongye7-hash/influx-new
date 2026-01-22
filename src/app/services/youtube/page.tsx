@@ -6,9 +6,10 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  ArrowRight, Play, Users, Eye, ThumbsUp, Clock, Shield,
+  ArrowRight, Users, Eye, ThumbsUp, Clock, Shield,
   Zap, TrendingUp, CheckCircle2, Star, Award, Home
 } from 'lucide-react';
+import { FaYoutube } from 'react-icons/fa';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -199,7 +200,7 @@ export default function YouTubeServicesPage() {
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
             <Badge className="bg-red-500/20 text-red-400 border-red-500/30 mb-6">
-              <Play className="w-3 h-3 mr-1" />
+              <FaYoutube className="w-4 h-4 mr-1.5 text-[#FF0000]" />
               YouTube 성장 솔루션
             </Badge>
 

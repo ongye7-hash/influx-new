@@ -866,7 +866,39 @@
 }
 
 /* ============================================
-   10. RESPONSIVE HELPERS
+   10. MOBILE TOUCH & INTERACTION FIXES
+   ============================================ */
+@layer base {
+  /* Prevent iOS zoom on input focus (ensure 16px minimum) */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  @media (min-width: 768px) {
+    input, select, textarea {
+      font-size: inherit !important;
+    }
+  }
+
+  /* Improve touch targets on mobile */
+  button, [role="button"], a, input, select, textarea {
+    touch-action: manipulation;
+  }
+
+  /* Prevent text selection on interactive elements */
+  button, [role="button"] {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Ensure proper tap highlight */
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: rgba(37, 99, 235, 0.1);
+  }
+}
+
+/* ============================================
+   11. RESPONSIVE HELPERS
    ============================================ */
 @layer utilities {
   /* Mobile-first typography */
