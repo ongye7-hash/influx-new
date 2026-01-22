@@ -44,9 +44,9 @@ import type { Deposit, PaymentMethod } from '@/types/database';
 // 설정값
 // ============================================
 const BANK_INFO = {
-  bankName: '국민은행',
-  accountNumber: '123-456-789012',
-  accountHolder: '(주)루프셀앤미디어',
+  bankName: '하나은행',
+  accountNumber: '260-910802-69907',
+  accountHolder: 'ㅂㅈㅎ',
 };
 
 // USDT TRC-20 지갑 주소 (환경변수 또는 상수)

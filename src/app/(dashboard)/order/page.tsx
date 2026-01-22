@@ -27,6 +27,8 @@ import {
   AtSign,
   RefreshCw,
   Star,
+  TrendingUp,
+  MoreHorizontal,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -73,11 +75,14 @@ const ICON_MAP: Record<string, React.ElementType> = {
   MessageSquare,
   AtSign,
   Sparkles,
+  TrendingUp,
+  MoreHorizontal,
 };
 
 function getCategoryIcon(slug: string | null): React.ElementType {
   if (!slug) return Sparkles;
   const iconName = {
+    all: 'Sparkles',
     instagram: 'Users',
     youtube: 'Play',
     tiktok: 'Heart',
@@ -86,6 +91,9 @@ function getCategoryIcon(slug: string | null): React.ElementType {
     facebook: 'ThumbsUp',
     discord: 'MessageSquare',
     threads: 'AtSign',
+    twitch: 'Play',
+    coinmarketcap: 'TrendingUp',
+    other: 'MoreHorizontal',
   }[slug.toLowerCase()] || 'Sparkles';
   return ICON_MAP[iconName] || Sparkles;
 }

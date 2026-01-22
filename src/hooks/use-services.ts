@@ -106,6 +106,7 @@ export function useServices(): UseServicesReturn {
 // Helper: 카테고리 아이콘 매핑
 // ============================================
 export const CATEGORY_ICONS: Record<string, string> = {
+  all: 'Sparkles',
   instagram: 'Users',
   youtube: 'Play',
   tiktok: 'Heart',
@@ -114,11 +115,15 @@ export const CATEGORY_ICONS: Record<string, string> = {
   facebook: 'ThumbsUp',
   discord: 'MessageSquare',
   threads: 'AtSign',
+  twitch: 'Play',
+  coinmarketcap: 'TrendingUp',
+  other: 'MoreHorizontal',
   default: 'Sparkles',
 };
 
 // 카테고리 색상 매핑
 export const CATEGORY_COLORS: Record<string, string> = {
+  all: 'from-violet-500 to-purple-600',
   instagram: 'from-pink-500 to-purple-600',
   youtube: 'from-red-500 to-red-600',
   tiktok: 'from-cyan-400 to-blue-500',
@@ -127,5 +132,8 @@ export const CATEGORY_COLORS: Record<string, string> = {
   facebook: 'from-blue-600 to-blue-700',
   discord: 'from-indigo-500 to-indigo-600',
   threads: 'from-gray-700 to-gray-900',
+  twitch: 'from-purple-500 to-purple-700',
+  coinmarketcap: 'from-orange-400 to-orange-600',
+  other: 'from-gray-500 to-gray-700',
   default: 'from-violet-500 to-purple-600',
 };
