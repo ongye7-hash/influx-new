@@ -172,25 +172,41 @@ export default function AdminServicesPage() {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      // Fetch services with relations
-      const { data: servicesData } = await supabase
-        .from('services')
-        .select(`
-          *,
-          category:categories(*),
-          provider:providers(*)
-        `)
-        .order('sort_order', { ascending: true });
-
       // Fetch providers
       const { data: providersData } = await supabase
         .from('providers')
         .select('*')
         .eq('is_active', true);
 
-      // Categories are loaded via service.category relation, no need for separate fetch
+      // 서비스는 페이지네이션으로 전체 조회 (Supabase 1000개 제한 우회)
+      let allServices: ServiceWithDetails[] = [];
+      let page = 0;
+      const pageSize = 1000;
+      let hasMore = true;
 
-      setServices((servicesData as ServiceWithDetails[]) || MOCK_SERVICES);
+      while (hasMore) {
+        const { data, error } = await supabase
+          .from('services')
+          .select(`
+            *,
+            category:categories(*),
+            provider:providers(*)
+          `)
+          .order('sort_order', { ascending: true })
+          .range(page * pageSize, (page + 1) * pageSize - 1);
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          allServices = [...allServices, ...(data as ServiceWithDetails[])];
+          page++;
+          hasMore = data.length === pageSize;
+        } else {
+          hasMore = false;
+        }
+      }
+
+      setServices(allServices.length > 0 ? allServices : MOCK_SERVICES);
       setProviders(providersData || MOCK_PROVIDERS);
     } catch (error) {
       console.error('Error fetching data:', error);

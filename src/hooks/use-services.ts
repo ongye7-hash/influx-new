@@ -41,27 +41,44 @@ export function useServices(): UseServicesReturn {
     setError(null);
 
     try {
-      // 서비스와 카테고리 동시 조회
-      const [servicesResult, categoriesResult] = await Promise.all([
-        supabase
+      // 카테고리 먼저 조회
+      const categoriesResult = await supabase
+        .from('categories')
+        .select('*')
+        .eq('is_active', true)
+        .order('sort_order', { ascending: true });
+
+      if (categoriesResult.error) throw categoriesResult.error;
+
+      // 서비스는 페이지네이션으로 전체 조회 (Supabase 1000개 제한 우회)
+      let allServices: ServiceWithCategory[] = [];
+      let page = 0;
+      const pageSize = 1000;
+      let hasMore = true;
+
+      while (hasMore) {
+        const { data, error } = await supabase
           .from('services')
           .select(`
             *,
             category:categories(*)
           `)
           .eq('is_active', true)
-          .order('sort_order', { ascending: true }),
-        supabase
-          .from('categories')
-          .select('*')
-          .eq('is_active', true)
-          .order('sort_order', { ascending: true }),
-      ]);
+          .order('sort_order', { ascending: true })
+          .range(page * pageSize, (page + 1) * pageSize - 1);
 
-      if (servicesResult.error) throw servicesResult.error;
-      if (categoriesResult.error) throw categoriesResult.error;
+        if (error) throw error;
 
-      setServices(servicesResult.data as ServiceWithCategory[] || []);
+        if (data && data.length > 0) {
+          allServices = [...allServices, ...(data as ServiceWithCategory[])];
+          page++;
+          hasMore = data.length === pageSize;
+        } else {
+          hasMore = false;
+        }
+      }
+
+      setServices(allServices);
       setCategories(categoriesResult.data || []);
     } catch (err) {
       console.error('[useServices] Error:', err);
