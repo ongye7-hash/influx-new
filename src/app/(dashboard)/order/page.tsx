@@ -800,7 +800,7 @@ export default function OrderPage() {
                       <div
                         key={service.id}
                         className={cn(
-                          "p-4 rounded-xl border cursor-pointer transition-all hover:shadow-md",
+                          "p-4 rounded-xl border cursor-pointer transition-all hover:shadow-md overflow-hidden",
                           isSelected
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                             : "hover:border-primary/50"
@@ -815,15 +815,15 @@ export default function OrderPage() {
                             )}>
                               <IconComponent className="h-5 w-5" />
                             </div>
-                            <div className="flex-1 min-w-0">
+                            <div className="flex-1 min-w-0 overflow-hidden">
                               {/* 서비스 번호 + 기본 정보 */}
-                              <div>
-                                <h4 className="font-semibold text-sm line-clamp-2">{service.name}</h4>
+                              <div className="overflow-hidden">
+                                <h4 className="font-semibold text-sm line-clamp-2 break-words">{service.name}</h4>
                               </div>
 
                               {/* 원본 설명 (핵심 정보) */}
                               {parsedInfo.originalDesc && (
-                                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                                <p className="text-xs text-muted-foreground mt-1 line-clamp-2 break-words">
                                   {parsedInfo.originalDesc}
                                 </p>
                               )}
