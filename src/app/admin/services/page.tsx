@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import {
   Search,
   RefreshCw,
@@ -17,7 +17,25 @@ import {
   AlertTriangle,
   Filter,
   Edit2,
+  CheckSquare,
+  Square,
+  Trash2,
+  Power,
+  PowerOff,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  Star,
+  StarOff,
 } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -64,75 +82,40 @@ interface ServiceWithDetails extends Service {
 }
 
 // ============================================
-// Mock Data
+// Constants
 // ============================================
-const MOCK_SERVICES: ServiceWithDetails[] = [
-  {
-    id: 'svc-1',
-    provider_id: 'prov-1',
-    category_id: 'cat-1',
-    provider_service_id: '1',
-    name: 'Instagram 팔로워 [고품질]',
-    description: '고품질 실제 팔로워',
-    platform: 'instagram',
-    price: 15,
-    rate: 10,
-    margin: 50,
-    min_quantity: 100,
-    max_quantity: 100000,
-    is_active: true,
-    average_time: '1-2시간',
-    sort_order: 1,
-    created_at: '',
-    updated_at: '',
-    category: { id: 'cat-1', name: 'Instagram 팔로워', slug: 'instagram-followers', platform: 'instagram', icon: null, description: null, sort_order: 1, is_active: true, created_at: '', updated_at: '' },
-    provider: { id: 'prov-1', name: 'MainProvider', api_url: '', api_key: '', balance: null, currency: 'KRW', rate_multiplier: 1, is_active: true, priority: 1, description: null, created_at: '', updated_at: '' },
-  },
-  {
-    id: 'svc-2',
-    provider_id: 'prov-1',
-    category_id: 'cat-2',
-    provider_service_id: '10',
-    name: 'YouTube 조회수 [실시간]',
-    description: '실시간 조회수',
-    platform: 'youtube',
-    price: 5,
-    rate: 3,
-    margin: 67,
-    min_quantity: 500,
-    max_quantity: 1000000,
-    is_active: true,
-    average_time: '0-6시간',
-    sort_order: 2,
-    created_at: '',
-    updated_at: '',
-    category: { id: 'cat-2', name: 'YouTube 조회수', slug: 'youtube-views', platform: 'youtube', icon: null, description: null, sort_order: 2, is_active: true, created_at: '', updated_at: '' },
-  },
-  {
-    id: 'svc-3',
-    provider_id: 'prov-1',
-    category_id: 'cat-3',
-    provider_service_id: '21',
-    name: 'TikTok 좋아요',
-    description: '실제 좋아요',
-    platform: 'tiktok',
-    price: 5,
-    rate: 3,
-    margin: 67,
-    min_quantity: 100,
-    max_quantity: 100000,
-    is_active: false,
-    average_time: '0-1시간',
-    sort_order: 3,
-    created_at: '',
-    updated_at: '',
-    category: { id: 'cat-3', name: 'TikTok 좋아요', slug: 'tiktok-likes', platform: 'tiktok', icon: null, description: null, sort_order: 3, is_active: true, created_at: '', updated_at: '' },
-  },
-];
+const PAGE_SIZE_OPTIONS = [25, 50, 100, 200];
+const DEFAULT_MARGIN = 30;
 
-const MOCK_PROVIDERS: Provider[] = [
-  { id: 'prov-1', name: 'MainProvider', api_url: 'https://api.provider1.com', api_key: 'xxx', balance: 1500000, currency: 'KRW', rate_multiplier: 1, is_active: true, priority: 1, description: '주요 도매처', created_at: '', updated_at: '' },
-];
+// ============================================
+// Helpers
+// ============================================
+
+// description JSON 또는 서비스명에서 플랫폼 추출
+function extractPlatform(service: { name: string; description?: string | null }): string {
+  // 1. description JSON에서 추출 시도
+  if (service.description) {
+    try {
+      const meta = JSON.parse(service.description);
+      if (meta.platform) return meta.platform;
+    } catch {}
+  }
+
+  // 2. 서비스명에서 추출
+  const name = service.name.toLowerCase();
+  if (name.includes('instagram') || name.includes('인스타')) return 'Instagram';
+  if (name.includes('youtube') || name.includes('유튜브')) return 'YouTube';
+  if (name.includes('tiktok') || name.includes('틱톡')) return 'TikTok';
+  if (name.includes('facebook') || name.includes('페이스북')) return 'Facebook';
+  if (name.includes('twitter') || name.includes('트위터')) return 'Twitter';
+  if (name.includes('telegram') || name.includes('텔레그램')) return 'Telegram';
+  if (name.includes('twitch') || name.includes('트위치')) return 'Twitch';
+  if (name.includes('discord') || name.includes('디스코드')) return 'Discord';
+  if (name.includes('spotify') || name.includes('스포티파이')) return 'Spotify';
+  if (name.includes('threads') || name.includes('쓰레드')) return 'Threads';
+
+  return '-';
+}
 
 // ============================================
 // Main Admin Services Page
@@ -144,12 +127,17 @@ export default function AdminServicesPage() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [platformFilter, setPlatformFilter] = useState<string>('all');
-  const [showActiveOnly, setShowActiveOnly] = useState(false);
+  const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(50);
 
   // Margin settings
   const [showMarginDialog, setShowMarginDialog] = useState(false);
-  const [globalMargin, setGlobalMargin] = useState(30);
+  const [globalMargin, setGlobalMargin] = useState(DEFAULT_MARGIN);
   const [isApplyingMargin, setIsApplyingMargin] = useState(false);
+  const [marginTarget, setMarginTarget] = useState<'all' | 'selected' | 'filtered'>('all');
 
   // Sync dialog
   const [showSyncDialog, setShowSyncDialog] = useState(false);
@@ -168,7 +156,13 @@ export default function AdminServicesPage() {
   });
   const [isEditSubmitting, setIsEditSubmitting] = useState(false);
 
-  // Fetch data
+  // Bulk selection
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [isBulkProcessing, setIsBulkProcessing] = useState(false);
+
+  // ============================================
+  // Data Fetching
+  // ============================================
   const fetchData = async () => {
     setIsLoading(true);
     try {
@@ -181,7 +175,7 @@ export default function AdminServicesPage() {
       // 서비스는 페이지네이션으로 전체 조회 (Supabase 1000개 제한 우회)
       let allServices: ServiceWithDetails[] = [];
       let page = 0;
-      const pageSize = 1000;
+      const fetchPageSize = 1000;
       let hasMore = true;
 
       while (hasMore) {
@@ -192,26 +186,25 @@ export default function AdminServicesPage() {
             category:categories(*),
             provider:providers(*)
           `)
-          .order('sort_order', { ascending: true })
-          .range(page * pageSize, (page + 1) * pageSize - 1);
+          .order('provider_service_id', { ascending: true })
+          .range(page * fetchPageSize, (page + 1) * fetchPageSize - 1);
 
         if (error) throw error;
 
         if (data && data.length > 0) {
           allServices = [...allServices, ...(data as ServiceWithDetails[])];
           page++;
-          hasMore = data.length === pageSize;
+          hasMore = data.length === fetchPageSize;
         } else {
           hasMore = false;
         }
       }
 
-      setServices(allServices.length > 0 ? allServices : MOCK_SERVICES);
-      setProviders(providersData || MOCK_PROVIDERS);
+      setServices(allServices);
+      setProviders(providersData || []);
     } catch (error) {
       console.error('Error fetching data:', error);
-      setServices(MOCK_SERVICES);
-      setProviders(MOCK_PROVIDERS);
+      toast.error('데이터를 불러오는데 실패했습니다');
     } finally {
       setIsLoading(false);
     }
@@ -221,27 +214,114 @@ export default function AdminServicesPage() {
     fetchData();
   }, []);
 
+  // ============================================
+  // Computed Values
+  // ============================================
+
+  // Get unique platforms from services (extracted from name/description)
+  const platforms = useMemo(() => {
+    const platformSet = new Set<string>();
+    services.forEach(s => {
+      const platform = extractPlatform(s);
+      if (platform && platform !== '-') {
+        platformSet.add(platform);
+      }
+    });
+    return Array.from(platformSet).sort();
+  }, [services]);
+
   // Filter services
-  const filteredServices = services.filter((service) => {
-    const matchesSearch =
-      !searchQuery ||
-      service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      service.provider_service_id?.includes(searchQuery);
+  const filteredServices = useMemo(() => {
+    return services.filter((service) => {
+      const matchesSearch =
+        !searchQuery ||
+        service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        service.provider_service_id?.includes(searchQuery);
 
-    const matchesPlatform = platformFilter === 'all' || service.platform === platformFilter;
-    const matchesActive = !showActiveOnly || service.is_active;
+      const servicePlatform = extractPlatform(service);
+      const matchesPlatform = platformFilter === 'all' || servicePlatform === platformFilter;
 
-    return matchesSearch && matchesPlatform && matchesActive;
-  });
+      const matchesStatus =
+        statusFilter === 'all' ||
+        (statusFilter === 'active' && service.is_active) ||
+        (statusFilter === 'inactive' && !service.is_active) ||
+        (statusFilter === 'featured' && service.is_featured);
+
+      return matchesSearch && matchesPlatform && matchesStatus;
+    });
+  }, [services, searchQuery, platformFilter, statusFilter]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredServices.length / pageSize);
+  const paginatedServices = useMemo(() => {
+    const startIndex = (currentPage - 1) * pageSize;
+    return filteredServices.slice(startIndex, startIndex + pageSize);
+  }, [filteredServices, currentPage, pageSize]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, platformFilter, statusFilter, pageSize]);
 
   // Stats
-  const stats = {
+  const stats = useMemo(() => ({
     total: services.length,
     active: services.filter((s) => s.is_active).length,
-    platforms: [...new Set(services.map((s) => s.platform).filter(Boolean))].length,
+    filtered: filteredServices.length,
     avgMargin: services.length > 0
       ? Math.round(services.reduce((sum, s) => sum + (s.margin || 0), 0) / services.length)
       : 0,
+  }), [services, filteredServices]);
+
+  // Selection states
+  const isAllPageSelected = paginatedServices.length > 0 &&
+    paginatedServices.every(s => selectedIds.has(s.id));
+  const isSomePageSelected = paginatedServices.some(s => selectedIds.has(s.id)) && !isAllPageSelected;
+
+  // ============================================
+  // Handlers
+  // ============================================
+
+  // Toggle page selection
+  const handleSelectPage = () => {
+    setSelectedIds(prev => {
+      const newSet = new Set(prev);
+      if (isAllPageSelected) {
+        paginatedServices.forEach(s => newSet.delete(s.id));
+      } else {
+        paginatedServices.forEach(s => newSet.add(s.id));
+      }
+      return newSet;
+    });
+  };
+
+  // Select all filtered
+  const handleSelectAllFiltered = () => {
+    setSelectedIds(new Set(filteredServices.map(s => s.id)));
+    toast.success(`${filteredServices.length}개 서비스가 선택되었습니다`);
+  };
+
+  // Toggle single selection
+  const toggleSelection = (serviceId: string) => {
+    setSelectedIds(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(serviceId)) {
+        newSet.delete(serviceId);
+      } else {
+        newSet.add(serviceId);
+      }
+      return newSet;
+    });
+  };
+
+  // Clear selection
+  const clearSelection = () => {
+    setSelectedIds(new Set());
+  };
+
+  // Pagination handlers
+  const goToPage = (page: number) => {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
   };
 
   // Sync services from provider
@@ -261,7 +341,6 @@ export default function AdminServicesPage() {
     setSyncProgress({ current: 0, total: 0 });
 
     try {
-      // Fetch services from provider API
       const providerServices = await fetchProviderServices({
         id: provider.id,
         name: provider.name,
@@ -276,14 +355,12 @@ export default function AdminServicesPage() {
 
       setSyncProgress({ current: 0, total: providerServices.length });
 
-      // Process each service
       let successCount = 0;
       for (let i = 0; i < providerServices.length; i++) {
         const ps = providerServices[i];
         setSyncProgress({ current: i + 1, total: providerServices.length });
 
         try {
-          // Check if service already exists
           const { data: existingData } = await supabase
             .from('services')
             .select('id')
@@ -292,7 +369,6 @@ export default function AdminServicesPage() {
             .single();
           const existing = existingData as { id: string } | null;
 
-          // Calculate price with default margin
           const baseRate = ps.rate || 0;
           const priceWithMargin = Math.ceil(baseRate * (1 + globalMargin / 100));
 
@@ -307,20 +383,18 @@ export default function AdminServicesPage() {
             min_quantity: ps.min,
             max_quantity: ps.max,
             average_time: ps.averageTime || null,
-            is_active: false, // Default to inactive, admin activates manually
+            is_active: false,
             is_refill: ps.hasRefill || false,
             is_cancel: ps.hasCancel || false,
             is_drip_feed: ps.hasDripfeed || false,
           };
 
           if (existing) {
-            // Update existing service
             await supabase
               .from('services')
               .update(serviceData as never)
               .eq('id', existing.id);
           } else {
-            // Insert new service
             await supabase
               .from('services')
               .insert(serviceData as never);
@@ -343,31 +417,61 @@ export default function AdminServicesPage() {
     }
   };
 
-  // Apply global margin
+  // Apply margin
   const handleApplyMargin = async () => {
     setIsApplyingMargin(true);
-    try {
-      // Update all services with new margin
-      const updates = services.map((service) => {
-        const baseRate = service.rate || 0;
-        const newPrice = Math.ceil(baseRate * (1 + globalMargin / 100));
-        return {
-          id: service.id,
-          margin: globalMargin,
-          price: newPrice,
-        };
-      });
 
-      for (const update of updates) {
-        await supabase
-          .from('services')
-          .update({ margin: update.margin, price: update.price } as never)
-          .eq('id', update.id);
+    let targetServices: ServiceWithDetails[] = [];
+
+    if (marginTarget === 'selected' && selectedIds.size > 0) {
+      targetServices = services.filter(s => selectedIds.has(s.id));
+    } else if (marginTarget === 'filtered') {
+      targetServices = filteredServices;
+    } else {
+      targetServices = services;
+    }
+
+    if (targetServices.length === 0) {
+      toast.error('적용할 서비스가 없습니다');
+      setIsApplyingMargin(false);
+      return;
+    }
+
+    try {
+      let successCount = 0;
+      const batchSize = 100;
+
+      for (let i = 0; i < targetServices.length; i += batchSize) {
+        const batch = targetServices.slice(i, i + batchSize);
+
+        await Promise.all(batch.map(async (service) => {
+          const baseRate = service.rate || 0;
+          const newPrice = Math.ceil(baseRate * (1 + globalMargin / 100));
+
+          const { error } = await supabase
+            .from('services')
+            .update({ margin: globalMargin, price: newPrice } as never)
+            .eq('id', service.id);
+
+          if (!error) successCount++;
+        }));
       }
 
-      toast.success(`${services.length}개 서비스에 ${globalMargin}% 마진이 적용되었습니다`);
+      // Update local state
+      setServices(prev => prev.map(s => {
+        if (targetServices.find(ts => ts.id === s.id)) {
+          const baseRate = s.rate || 0;
+          return {
+            ...s,
+            margin: globalMargin,
+            price: Math.ceil(baseRate * (1 + globalMargin / 100))
+          };
+        }
+        return s;
+      }));
+
+      toast.success(`${successCount}개 서비스에 ${globalMargin}% 마진이 적용되었습니다`);
       setShowMarginDialog(false);
-      fetchData();
     } catch (error) {
       console.error('Error applying margin:', error);
       toast.error('마진 적용 중 오류가 발생했습니다');
@@ -384,11 +488,11 @@ export default function AdminServicesPage() {
         .update({ is_active: isActive } as never)
         .eq('id', serviceId);
 
-      setServices((prev) =>
-        prev.map((s) => (s.id === serviceId ? { ...s, is_active: isActive } : s))
+      setServices(prev =>
+        prev.map(s => (s.id === serviceId ? { ...s, is_active: isActive } : s))
       );
 
-      toast.success(isActive ? '서비스가 활성화되었습니다' : '서비스가 비활성화되었습니다');
+      toast.success(isActive ? '서비스 활성화됨' : '서비스 비활성화됨');
     } catch (error) {
       console.error('Error toggling service:', error);
       toast.error('처리 중 오류가 발생했습니다');
@@ -401,7 +505,7 @@ export default function AdminServicesPage() {
     setEditForm({
       name: service.name,
       price: service.price,
-      margin: service.margin || 0,
+      margin: service.margin || DEFAULT_MARGIN,
       min_quantity: service.min_quantity,
       max_quantity: service.max_quantity,
     });
@@ -428,12 +532,9 @@ export default function AdminServicesPage() {
 
       if (error) throw error;
 
-      // Update local state
-      setServices((prev) =>
-        prev.map((s) =>
-          s.id === selectedService.id
-            ? { ...s, ...editForm }
-            : s
+      setServices(prev =>
+        prev.map(s =>
+          s.id === selectedService.id ? { ...s, ...editForm } : s
         )
       );
 
@@ -448,237 +549,566 @@ export default function AdminServicesPage() {
     }
   };
 
+  // Bulk activate
+  const handleBulkActivate = async () => {
+    if (selectedIds.size === 0) return;
+
+    setIsBulkProcessing(true);
+    try {
+      const idsArray = Array.from(selectedIds);
+
+      const { error } = await supabase
+        .from('services')
+        .update({ is_active: true } as never)
+        .in('id', idsArray);
+
+      if (error) throw error;
+
+      setServices(prev =>
+        prev.map(s => (selectedIds.has(s.id) ? { ...s, is_active: true } : s))
+      );
+
+      toast.success(`${selectedIds.size}개 서비스가 활성화되었습니다`);
+      clearSelection();
+    } catch (error) {
+      console.error('Error bulk activating:', error);
+      toast.error('일괄 활성화 중 오류가 발생했습니다');
+    } finally {
+      setIsBulkProcessing(false);
+    }
+  };
+
+  // Bulk deactivate
+  const handleBulkDeactivate = async () => {
+    if (selectedIds.size === 0) return;
+
+    setIsBulkProcessing(true);
+    try {
+      const idsArray = Array.from(selectedIds);
+
+      const { error } = await supabase
+        .from('services')
+        .update({ is_active: false } as never)
+        .in('id', idsArray);
+
+      if (error) throw error;
+
+      setServices(prev =>
+        prev.map(s => (selectedIds.has(s.id) ? { ...s, is_active: false } : s))
+      );
+
+      toast.success(`${selectedIds.size}개 서비스가 비활성화되었습니다`);
+      clearSelection();
+    } catch (error) {
+      console.error('Error bulk deactivating:', error);
+      toast.error('일괄 비활성화 중 오류가 발생했습니다');
+    } finally {
+      setIsBulkProcessing(false);
+    }
+  };
+
+  // Bulk delete
+  const handleBulkDelete = async () => {
+    if (selectedIds.size === 0) return;
+
+    const confirmed = window.confirm(
+      `정말 ${selectedIds.size}개 서비스를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`
+    );
+    if (!confirmed) return;
+
+    setIsBulkProcessing(true);
+    try {
+      const idsArray = Array.from(selectedIds);
+
+      const { error } = await supabase
+        .from('services')
+        .delete()
+        .in('id', idsArray);
+
+      if (error) throw error;
+
+      setServices(prev => prev.filter(s => !selectedIds.has(s.id)));
+
+      toast.success(`${selectedIds.size}개 서비스가 삭제되었습니다`);
+      clearSelection();
+    } catch (error) {
+      console.error('Error bulk deleting:', error);
+      toast.error('일괄 삭제 중 오류가 발생했습니다');
+    } finally {
+      setIsBulkProcessing(false);
+    }
+  };
+
+  // Bulk margin (selected only)
+  const openBulkMarginDialog = () => {
+    setMarginTarget('selected');
+    setShowMarginDialog(true);
+  };
+
+  // Toggle featured (추천)
+  const handleToggleFeatured = async (serviceId: string, isFeatured: boolean) => {
+    try {
+      await supabase
+        .from('services')
+        .update({ is_featured: isFeatured } as never)
+        .eq('id', serviceId);
+
+      setServices(prev =>
+        prev.map(s => (s.id === serviceId ? { ...s, is_featured: isFeatured } : s))
+      );
+
+      toast.success(isFeatured ? '추천 서비스로 설정됨' : '추천 해제됨');
+    } catch (error) {
+      console.error('Error toggling featured:', error);
+      toast.error('처리 중 오류가 발생했습니다');
+    }
+  };
+
+  // Bulk set featured
+  const handleBulkFeatured = async (featured: boolean) => {
+    if (selectedIds.size === 0) return;
+
+    setIsBulkProcessing(true);
+    try {
+      const idsArray = Array.from(selectedIds);
+
+      const { error } = await supabase
+        .from('services')
+        .update({ is_featured: featured } as never)
+        .in('id', idsArray);
+
+      if (error) throw error;
+
+      setServices(prev =>
+        prev.map(s => (selectedIds.has(s.id) ? { ...s, is_featured: featured } : s))
+      );
+
+      toast.success(`${selectedIds.size}개 서비스 ${featured ? '추천 설정' : '추천 해제'}됨`);
+      clearSelection();
+    } catch (error) {
+      console.error('Error bulk featured:', error);
+      toast.error('일괄 처리 중 오류가 발생했습니다');
+    } finally {
+      setIsBulkProcessing(false);
+    }
+  };
+
+  // ============================================
+  // Render
+  // ============================================
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">서비스 관리</h1>
-          <p className="text-muted-foreground">
-            도매처 서비스 동기화 및 마진 설정
+          <p className="text-muted-foreground text-sm">
+            총 {stats.total.toLocaleString()}개 서비스 | 활성 {stats.active.toLocaleString()}개
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setShowMarginDialog(true)}>
+          <Button variant="outline" size="sm" onClick={() => { setMarginTarget('all'); setShowMarginDialog(true); }}>
             <Percent className="mr-2 h-4 w-4" />
-            마진 일괄 설정
+            마진 설정
           </Button>
-          <Button onClick={() => setShowSyncDialog(true)}>
+          <Button size="sm" onClick={() => setShowSyncDialog(true)}>
             <Download className="mr-2 h-4 w-4" />
-            서비스 동기화
+            동기화
           </Button>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Package className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">전체 서비스</p>
-                <p className="text-2xl font-bold">{stats.total}</p>
-              </div>
-            </div>
-          </CardContent>
+      <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
+        <Card className="p-3">
+          <div className="flex items-center gap-2">
+            <Package className="h-4 w-4 text-primary" />
+            <span className="text-sm text-muted-foreground">전체</span>
+            <span className="ml-auto font-bold">{stats.total.toLocaleString()}</span>
+          </div>
         </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-emerald-100 flex items-center justify-center">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">활성 서비스</p>
-                <p className="text-2xl font-bold">{stats.active}</p>
-              </div>
-            </div>
-          </CardContent>
+        <Card className="p-3">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+            <span className="text-sm text-muted-foreground">활성</span>
+            <span className="ml-auto font-bold text-emerald-600">{stats.active.toLocaleString()}</span>
+          </div>
         </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                <Filter className="h-5 w-5 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">플랫폼</p>
-                <p className="text-2xl font-bold">{stats.platforms}</p>
-              </div>
-            </div>
-          </CardContent>
+        <Card className="p-3">
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4 text-blue-600" />
+            <span className="text-sm text-muted-foreground">필터됨</span>
+            <span className="ml-auto font-bold text-blue-600">{stats.filtered.toLocaleString()}</span>
+          </div>
         </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-amber-100 flex items-center justify-center">
-                <Percent className="h-5 w-5 text-amber-600" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">평균 마진</p>
-                <p className="text-2xl font-bold">{stats.avgMargin}%</p>
-              </div>
-            </div>
-          </CardContent>
+        <Card className="p-3">
+          <div className="flex items-center gap-2">
+            <Percent className="h-4 w-4 text-amber-600" />
+            <span className="text-sm text-muted-foreground">평균마진</span>
+            <span className="ml-auto font-bold text-amber-600">{stats.avgMargin}%</span>
+          </div>
         </Card>
       </div>
 
       {/* Filters */}
       <Card>
-        <CardContent className="p-4">
-          <div className="flex flex-col sm:flex-row gap-4">
+        <CardContent className="p-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="서비스명, ID로 검색..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 h-9"
               />
             </div>
             <Select value={platformFilter} onValueChange={setPlatformFilter}>
-              <SelectTrigger className="w-full sm:w-[180px]">
+              <SelectTrigger className="w-full sm:w-[150px] h-9">
                 <SelectValue placeholder="플랫폼" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">전체 플랫폼</SelectItem>
-                <SelectItem value="instagram">Instagram</SelectItem>
-                <SelectItem value="youtube">YouTube</SelectItem>
-                <SelectItem value="tiktok">TikTok</SelectItem>
-                <SelectItem value="twitter">Twitter</SelectItem>
-                <SelectItem value="telegram">Telegram</SelectItem>
+                {platforms.map(platform => (
+                  <SelectItem key={platform} value={platform || ''}>
+                    {platform}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
-            <div className="flex items-center gap-2">
-              <Switch
-                id="active-only"
-                checked={showActiveOnly}
-                onCheckedChange={setShowActiveOnly}
-              />
-              <Label htmlFor="active-only" className="text-sm">활성만</Label>
-            </div>
-            <Button variant="outline" onClick={fetchData} disabled={isLoading}>
-              <RefreshCw className={cn('mr-2 h-4 w-4', isLoading && 'animate-spin')} />
-              새로고침
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-full sm:w-[120px] h-9">
+                <SelectValue placeholder="상태" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">전체 상태</SelectItem>
+                <SelectItem value="active">활성</SelectItem>
+                <SelectItem value="inactive">비활성</SelectItem>
+                <SelectItem value="featured">추천만</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button variant="outline" size="sm" onClick={fetchData} disabled={isLoading} className="h-9">
+              <RefreshCw className={cn('h-4 w-4', isLoading && 'animate-spin')} />
             </Button>
           </div>
         </CardContent>
       </Card>
 
+      {/* Bulk Action Bar */}
+      {selectedIds.size > 0 && (
+        <Card className="border-primary bg-primary/5">
+          <CardContent className="p-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <CheckSquare className="h-5 w-5 text-primary" />
+                <span className="font-medium">{selectedIds.size}개 선택</span>
+                {selectedIds.size < filteredServices.length && (
+                  <Button variant="link" size="sm" className="h-auto p-0 text-primary" onClick={handleSelectAllFiltered}>
+                    필터된 전체 {filteredServices.length}개 선택
+                  </Button>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleBulkActivate}
+                  disabled={isBulkProcessing}
+                  className="h-8 bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100"
+                >
+                  <Power className="mr-1 h-3 w-3" />
+                  활성화
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleBulkDeactivate}
+                  disabled={isBulkProcessing}
+                  className="h-8 bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100"
+                >
+                  <PowerOff className="mr-1 h-3 w-3" />
+                  비활성화
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={openBulkMarginDialog}
+                  disabled={isBulkProcessing}
+                  className="h-8"
+                >
+                  <Percent className="mr-1 h-3 w-3" />
+                  마진설정
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleBulkFeatured(true)}
+                  disabled={isBulkProcessing}
+                  className="h-8 bg-yellow-50 border-yellow-300 text-yellow-700 hover:bg-yellow-100"
+                >
+                  <Star className="mr-1 h-3 w-3" />
+                  추천설정
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleBulkFeatured(false)}
+                  disabled={isBulkProcessing}
+                  className="h-8"
+                >
+                  <StarOff className="mr-1 h-3 w-3" />
+                  추천해제
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleBulkDelete}
+                  disabled={isBulkProcessing}
+                  className="h-8 bg-red-50 border-red-200 text-red-700 hover:bg-red-100"
+                >
+                  <Trash2 className="mr-1 h-3 w-3" />
+                  삭제
+                </Button>
+                <Button variant="ghost" size="sm" onClick={clearSelection} className="h-8">
+                  <X className="mr-1 h-3 w-3" />
+                  해제
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Services Table */}
       <Card>
-        <CardHeader>
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Package className="h-5 w-5" />
-            서비스 목록
-            {filteredServices.length > 0 && (
-              <Badge variant="outline">{filteredServices.length}개</Badge>
-            )}
-          </CardTitle>
+        <CardHeader className="py-3 px-4">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Package className="h-4 w-4" />
+              서비스 목록
+            </CardTitle>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">표시:</span>
+              <Select value={String(pageSize)} onValueChange={(v) => setPageSize(Number(v))}>
+                <SelectTrigger className="w-[80px] h-8">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {PAGE_SIZE_OPTIONS.map(size => (
+                    <SelectItem key={size} value={String(size)}>{size}개</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           {isLoading ? (
-            <div className="space-y-4">
+            <div className="p-4 space-y-3">
               {[1, 2, 3, 4, 5].map((i) => (
-                <Skeleton key={i} className="h-16 w-full" />
+                <Skeleton key={i} className="h-12 w-full" />
               ))}
             </div>
-          ) : filteredServices.length > 0 ? (
-            <div className="overflow-x-auto -mx-6">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="pl-6 w-[50px]">ID</TableHead>
-                    <TableHead>서비스명</TableHead>
-                    <TableHead>플랫폼</TableHead>
-                    <TableHead>원가</TableHead>
-                    <TableHead>판매가</TableHead>
-                    <TableHead>마진</TableHead>
-                    <TableHead>수량</TableHead>
-                    <TableHead className="text-center">상태</TableHead>
-                    <TableHead className="pr-6 text-right">작업</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredServices.map((service) => (
-                    <TableRow key={service.id} className={cn(!service.is_active && 'opacity-50')}>
-                      <TableCell className="pl-6 font-mono text-xs">
-                        {service.provider_service_id}
-                      </TableCell>
-                      <TableCell>
-                        <div className="max-w-[300px]">
-                          <p className="font-medium truncate">{service.name}</p>
-                          <p className="text-xs text-muted-foreground truncate">
-                            {service.category?.name || '-'}
-                          </p>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline" className="capitalize">
-                          {service.platform || '-'}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-muted-foreground">
-                          {formatCurrency(service.rate || 0)}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="font-medium">
-                          {formatCurrency(service.price)}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={service.margin && service.margin >= 50 ? 'default' : 'secondary'}
+          ) : paginatedServices.length > 0 ? (
+            <>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead className="w-[40px] pl-4">
+                        <button
+                          onClick={handleSelectPage}
+                          className="flex items-center justify-center w-5 h-5 rounded border hover:bg-muted transition-colors"
+                        >
+                          {isAllPageSelected ? (
+                            <CheckSquare className="h-4 w-4 text-primary" />
+                          ) : isSomePageSelected ? (
+                            <div className="w-2.5 h-2.5 bg-primary/60 rounded-sm" />
+                          ) : (
+                            <Square className="h-4 w-4 text-muted-foreground" />
+                          )}
+                        </button>
+                      </TableHead>
+                      <TableHead className="w-[60px]">ID</TableHead>
+                      <TableHead className="min-w-[200px]">서비스명</TableHead>
+                      <TableHead className="w-[90px]">플랫폼</TableHead>
+                      <TableHead className="w-[80px] text-right">원가</TableHead>
+                      <TableHead className="w-[80px] text-right">판매가</TableHead>
+                      <TableHead className="w-[60px] text-center">마진</TableHead>
+                      <TableHead className="w-[50px] text-center">추천</TableHead>
+                      <TableHead className="w-[50px] text-center">상태</TableHead>
+                      <TableHead className="w-[40px] pr-4"></TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {paginatedServices.map((service) => {
+                      const platform = extractPlatform(service);
+                      return (
+                        <TableRow
+                          key={service.id}
                           className={cn(
-                            service.margin && service.margin >= 50 && 'bg-emerald-100 text-emerald-700'
+                            'hover:bg-muted/50',
+                            !service.is_active && 'opacity-60',
+                            selectedIds.has(service.id) && 'bg-primary/5',
+                            service.is_featured && 'bg-yellow-50/50'
                           )}
                         >
-                          {service.margin || 0}%
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-xs text-muted-foreground">
-                          {service.min_quantity.toLocaleString()} - {service.max_quantity.toLocaleString()}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <Switch
-                          checked={service.is_active}
-                          onCheckedChange={(checked) => handleToggleActive(service.id, checked)}
-                        />
-                      </TableCell>
-                      <TableCell className="pr-6 text-right">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8"
-                          onClick={() => openEditDialog(service)}
-                          title="서비스 수정"
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+                          <TableCell className="pl-4">
+                            <button
+                              onClick={() => toggleSelection(service.id)}
+                              className="flex items-center justify-center w-5 h-5 rounded border hover:bg-muted transition-colors"
+                            >
+                              {selectedIds.has(service.id) ? (
+                                <CheckSquare className="h-4 w-4 text-primary" />
+                              ) : (
+                                <Square className="h-4 w-4 text-muted-foreground" />
+                              )}
+                            </button>
+                          </TableCell>
+                          <TableCell className="font-mono text-xs text-muted-foreground">
+                            {service.provider_service_id}
+                          </TableCell>
+                          <TableCell>
+                            <TooltipProvider delayDuration={300}>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <p className="font-medium text-sm truncate max-w-[250px] cursor-help">
+                                    {service.is_featured && <Star className="inline h-3 w-3 text-yellow-500 mr-1" />}
+                                    {service.name}
+                                  </p>
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="max-w-md">
+                                  <p className="text-sm">{service.name}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className="text-xs">
+                              {platform}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right text-xs text-muted-foreground">
+                            {formatCurrency(service.rate || 0)}
+                          </TableCell>
+                          <TableCell className="text-right text-sm font-medium">
+                            {formatCurrency(service.price)}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <Badge
+                              variant="secondary"
+                              className={cn(
+                                'text-xs',
+                                (service.margin || 0) >= 30 && 'bg-emerald-100 text-emerald-700'
+                              )}
+                            >
+                              {service.margin || 0}%
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <button
+                              onClick={() => handleToggleFeatured(service.id, !service.is_featured)}
+                              className={cn(
+                                'p-1 rounded hover:bg-muted transition-colors',
+                                service.is_featured && 'text-yellow-500'
+                              )}
+                            >
+                              {service.is_featured ? (
+                                <Star className="h-4 w-4 fill-current" />
+                              ) : (
+                                <Star className="h-4 w-4 text-muted-foreground" />
+                              )}
+                            </button>
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <Switch
+                              checked={service.is_active}
+                              onCheckedChange={(checked) => handleToggleActive(service.id, checked)}
+                              className="scale-75"
+                            />
+                          </TableCell>
+                          <TableCell className="pr-4">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-7 w-7"
+                              onClick={() => openEditDialog(service)}
+                            >
+                              <Edit2 className="h-3.5 w-3.5" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Pagination */}
+              <div className="flex items-center justify-between px-4 py-3 border-t">
+                <div className="text-sm text-muted-foreground">
+                  {((currentPage - 1) * pageSize) + 1}-{Math.min(currentPage * pageSize, filteredServices.length)} / {filteredServices.length}
+                </div>
+                <div className="flex items-center gap-1">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8"
+                    onClick={() => goToPage(1)}
+                    disabled={currentPage === 1}
+                  >
+                    <ChevronsLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8"
+                    onClick={() => goToPage(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <div className="flex items-center gap-1 mx-2">
+                    <Input
+                      type="number"
+                      min={1}
+                      max={totalPages}
+                      value={currentPage}
+                      onChange={(e) => goToPage(Number(e.target.value))}
+                      className="w-14 h-8 text-center"
+                    />
+                    <span className="text-sm text-muted-foreground">/ {totalPages}</span>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8"
+                    onClick={() => goToPage(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8"
+                    onClick={() => goToPage(totalPages)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <ChevronsRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </>
           ) : (
             <div className="text-center py-12">
               <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-medium mb-2">서비스가 없습니다</h3>
               <p className="text-muted-foreground mb-4">
-                도매처에서 서비스를 동기화해주세요
+                {searchQuery || platformFilter !== 'all' || statusFilter !== 'all'
+                  ? '검색 조건에 맞는 서비스가 없습니다'
+                  : '도매처에서 서비스를 동기화해주세요'}
               </p>
-              <Button onClick={() => setShowSyncDialog(true)}>
-                <Download className="mr-2 h-4 w-4" />
-                서비스 동기화
-              </Button>
             </div>
           )}
         </CardContent>
@@ -693,7 +1123,7 @@ export default function AdminServicesPage() {
               도매처 서비스 동기화
             </DialogTitle>
             <DialogDescription>
-              도매처 API에서 서비스 목록을 가져와 데이터베이스에 저장합니다.
+              도매처 API에서 서비스 목록을 가져옵니다.
             </DialogDescription>
           </DialogHeader>
 
@@ -708,7 +1138,6 @@ export default function AdminServicesPage() {
                   {providers.map((provider) => (
                     <SelectItem key={provider.id} value={provider.id}>
                       {provider.name}
-                      {provider.balance && ` (잔액: ${formatCurrency(provider.balance)})`}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -724,15 +1153,12 @@ export default function AdminServicesPage() {
                 max={100}
                 step={5}
               />
-              <p className="text-xs text-muted-foreground">
-                새로 추가되는 서비스에 적용될 기본 마진율입니다.
-              </p>
             </div>
 
             {isSyncing && (
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span>동기화 진행 중...</span>
+                  <span>동기화 중...</span>
                   <span>{syncProgress.current} / {syncProgress.total}</span>
                 </div>
                 <div className="h-2 bg-muted rounded-full overflow-hidden">
@@ -760,10 +1186,7 @@ export default function AdminServicesPage() {
                   동기화 중...
                 </>
               ) : (
-                <>
-                  <Download className="mr-2 h-4 w-4" />
-                  동기화 시작
-                </>
+                '동기화 시작'
               )}
             </Button>
           </DialogFooter>
@@ -776,22 +1199,43 @@ export default function AdminServicesPage() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Percent className="h-5 w-5" />
-              마진율 일괄 설정
+              마진율 설정
             </DialogTitle>
             <DialogDescription>
-              모든 서비스에 동일한 마진율을 적용합니다.
+              {marginTarget === 'selected'
+                ? `선택된 ${selectedIds.size}개 서비스에 마진을 적용합니다.`
+                : marginTarget === 'filtered'
+                ? `필터된 ${filteredServices.length}개 서비스에 마진을 적용합니다.`
+                : `전체 ${services.length}개 서비스에 마진을 적용합니다.`}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-4">
-            <div className="p-4 rounded-lg bg-amber-50 border border-amber-200">
-              <div className="flex items-start gap-2">
-                <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                <div className="text-sm text-amber-800">
-                  <p className="font-medium">주의사항</p>
-                  <p>이 작업은 모든 서비스의 판매가격에 영향을 미칩니다.</p>
+            {marginTarget === 'all' && (
+              <div className="p-3 rounded-lg bg-amber-50 border border-amber-200">
+                <div className="flex items-start gap-2">
+                  <AlertTriangle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-amber-800">
+                    모든 서비스의 판매가격이 변경됩니다.
+                  </p>
                 </div>
               </div>
+            )}
+
+            <div className="space-y-2">
+              <Label>적용 대상</Label>
+              <Select value={marginTarget} onValueChange={(v) => setMarginTarget(v as typeof marginTarget)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">전체 서비스 ({services.length}개)</SelectItem>
+                  <SelectItem value="filtered">필터된 서비스 ({filteredServices.length}개)</SelectItem>
+                  {selectedIds.size > 0 && (
+                    <SelectItem value="selected">선택된 서비스 ({selectedIds.size}개)</SelectItem>
+                  )}
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-2">
@@ -805,14 +1249,10 @@ export default function AdminServicesPage() {
               />
             </div>
 
-            <div className="p-4 rounded-lg bg-muted/50">
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <div className="text-muted-foreground">적용 대상</div>
-                <div className="font-medium">{services.length}개 서비스</div>
-                <div className="text-muted-foreground">예시 (원가 1,000원)</div>
-                <div className="font-medium">
-                  → 판매가 {formatCurrency(Math.ceil(1000 * (1 + globalMargin / 100)))}
-                </div>
+            <div className="p-3 rounded-lg bg-muted/50 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">예시 (원가 ₩1,000)</span>
+                <span className="font-medium">→ 판매가 {formatCurrency(Math.ceil(1000 * (1 + globalMargin / 100)))}</span>
               </div>
             </div>
           </div>
@@ -828,10 +1268,7 @@ export default function AdminServicesPage() {
                   적용 중...
                 </>
               ) : (
-                <>
-                  <CheckCircle2 className="mr-2 h-4 w-4" />
-                  일괄 적용
-                </>
+                '적용하기'
               )}
             </Button>
           </DialogFooter>
@@ -846,9 +1283,6 @@ export default function AdminServicesPage() {
               <Edit2 className="h-5 w-5" />
               서비스 수정
             </DialogTitle>
-            <DialogDescription>
-              서비스 정보를 수정합니다.
-            </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-4">
@@ -857,7 +1291,6 @@ export default function AdminServicesPage() {
               <Input
                 value={editForm.name}
                 onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                placeholder="서비스명"
               />
             </div>
 
@@ -868,7 +1301,6 @@ export default function AdminServicesPage() {
                   type="number"
                   value={editForm.price}
                   onChange={(e) => setEditForm({ ...editForm, price: parseInt(e.target.value) || 0 })}
-                  placeholder="판매가"
                 />
               </div>
               <div className="space-y-2">
@@ -877,7 +1309,6 @@ export default function AdminServicesPage() {
                   type="number"
                   value={editForm.margin}
                   onChange={(e) => setEditForm({ ...editForm, margin: parseInt(e.target.value) || 0 })}
-                  placeholder="마진율"
                 />
               </div>
             </div>
@@ -889,7 +1320,6 @@ export default function AdminServicesPage() {
                   type="number"
                   value={editForm.min_quantity}
                   onChange={(e) => setEditForm({ ...editForm, min_quantity: parseInt(e.target.value) || 0 })}
-                  placeholder="최소 수량"
                 />
               </div>
               <div className="space-y-2">
@@ -898,20 +1328,17 @@ export default function AdminServicesPage() {
                   type="number"
                   value={editForm.max_quantity}
                   onChange={(e) => setEditForm({ ...editForm, max_quantity: parseInt(e.target.value) || 0 })}
-                  placeholder="최대 수량"
                 />
               </div>
             </div>
 
             {selectedService && (
-              <div className="p-4 rounded-lg bg-muted/50">
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div className="text-muted-foreground">서비스 ID</div>
-                  <div className="font-mono">{selectedService.provider_service_id}</div>
-                  <div className="text-muted-foreground">원가</div>
-                  <div>{formatCurrency(selectedService.rate || 0)}</div>
-                  <div className="text-muted-foreground">플랫폼</div>
-                  <div className="capitalize">{selectedService.platform || '-'}</div>
+              <div className="p-3 rounded-lg bg-muted/50 text-sm">
+                <div className="grid grid-cols-2 gap-1">
+                  <span className="text-muted-foreground">ID</span>
+                  <span className="font-mono">{selectedService.provider_service_id}</span>
+                  <span className="text-muted-foreground">원가</span>
+                  <span>{formatCurrency(selectedService.rate || 0)}</span>
                 </div>
               </div>
             )}
@@ -928,10 +1355,7 @@ export default function AdminServicesPage() {
                   저장 중...
                 </>
               ) : (
-                <>
-                  <CheckCircle2 className="mr-2 h-4 w-4" />
-                  저장
-                </>
+                '저장'
               )}
             </Button>
           </DialogFooter>
