@@ -6,7 +6,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Calendar, Clock, Tag, BookOpen } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, Clock, Tag, BookOpen, Home } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -224,6 +224,13 @@ export default async function BlogDetailPage({ params }: PageProps) {
               <Logo size="md" />
             </Link>
             <nav className="flex items-center gap-4">
+              <Link
+                href="/"
+                className="text-sm font-medium text-white/60 hover:text-white transition-colors flex items-center gap-1"
+              >
+                <Home className="w-4 h-4" />
+                홈
+              </Link>
               <Link
                 href="/blog"
                 className="text-sm font-medium text-white hover:text-primary transition-colors"

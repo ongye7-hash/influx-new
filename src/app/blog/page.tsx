@@ -5,7 +5,7 @@
 
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Calendar, Clock, Tag, TrendingUp, Sparkles } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, Tag, TrendingUp, Sparkles, Home } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -147,8 +147,15 @@ export default function BlogPage() {
             </Link>
             <nav className="flex items-center gap-4">
               <Link
+                href="/"
+                className="text-sm font-medium text-white/60 hover:text-white transition-colors flex items-center gap-1"
+              >
+                <Home className="w-4 h-4" />
+                홈
+              </Link>
+              <Link
                 href="/blog"
-                className="text-sm font-medium text-white hover:text-primary transition-colors"
+                className="text-sm font-medium text-primary"
               >
                 인사이트
               </Link>
