@@ -15,6 +15,8 @@ import {
   Crown,
   Zap,
   Loader2,
+  BookOpen,
+  Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -99,6 +101,27 @@ export function MobileNav() {
 
           {/* Navigation */}
           <nav className="flex-1 px-4 py-2 overflow-y-auto">
+            {/* 처음 오신 분들을 위한 가이드 - 특별 탭 */}
+            <Link
+              href="/guide"
+              onClick={() => setOpen(false)}
+              className={cn(
+                "flex items-center gap-3 px-4 py-4 rounded-xl text-base font-bold transition-all duration-200 mb-3",
+                "bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20",
+                pathname === "/guide"
+                  ? "from-blue-500/20 to-purple-500/20 border-blue-500/40 text-blue-600 dark:text-blue-400"
+                  : "text-blue-600 dark:text-blue-400"
+              )}
+            >
+              <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500">
+                <BookOpen className="h-4 w-4 text-white" />
+              </div>
+              <span className="flex items-center gap-2">
+                처음 오신 분들을 위한 가이드
+                <Sparkles className="h-4 w-4 text-yellow-500" />
+              </span>
+            </Link>
+
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               return (
