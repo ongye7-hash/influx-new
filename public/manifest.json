@@ -1,0 +1,23 @@
+{
+  "name": "INFLUX - SNS 마케팅 플랫폼",
+  "short_name": "INFLUX",
+  "description": "빠르고 안정적인 SNS 마케팅 서비스",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a1a",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
