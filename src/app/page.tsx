@@ -19,6 +19,7 @@ import {
   Shield,
 } from 'lucide-react';
 import { FaYoutube, FaInstagram, FaTiktok, FaFacebook } from 'react-icons/fa';
+import { CustomerReviews } from '@/components/landing/customer-reviews';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -594,6 +595,7 @@ export default function LandingPage() {
       <HeroSection />
       <StatsSection />
       <PricingTeaser />
+      <CustomerReviews />
       <section id="features">
         <FeaturesSection />
       </section>
