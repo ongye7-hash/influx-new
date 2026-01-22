@@ -388,6 +388,8 @@ export default function OrderPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState<'price_asc' | 'price_desc' | 'popular'>('popular');
+  const [displayCount, setDisplayCount] = useState(20);
 
   // 재주문 데이터 처리
   useEffect(() => {
@@ -454,12 +456,39 @@ export default function OrderPage() {
   }, [platformFilteredServices, selectedServiceType]);
 
   // 검색 필터링된 서비스
-  const filteredServices = useMemo(() => {
+  const searchedServices = useMemo(() => {
     if (!searchQuery) return tabServices;
     return tabServices.filter(s =>
       s.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [tabServices, searchQuery]);
+
+  // 정렬된 서비스
+  const sortedServices = useMemo(() => {
+    const sorted = [...searchedServices];
+    switch (sortBy) {
+      case 'price_asc':
+        return sorted.sort((a, b) => a.price - b.price);
+      case 'price_desc':
+        return sorted.sort((a, b) => b.price - a.price);
+      case 'popular':
+      default:
+        return sorted.sort((a, b) => a.sort_order - b.sort_order);
+    }
+  }, [searchedServices, sortBy]);
+
+  // 표시할 서비스 (더보기 적용)
+  const displayedServices = useMemo(() => {
+    return sortedServices.slice(0, displayCount);
+  }, [sortedServices, displayCount]);
+
+  // 더보기 가능 여부
+  const hasMore = sortedServices.length > displayCount;
+
+  // 더보기 핸들러
+  const handleLoadMore = useCallback(() => {
+    setDisplayCount(prev => prev + 20);
+  }, []);
 
   // 선택된 서비스
   const selectedService = useMemo(() =>
@@ -490,6 +519,7 @@ export default function OrderPage() {
     setSelectedServiceId('');
     setQuantity(0);
     setSearchQuery('');
+    setDisplayCount(20);
   }, []);
 
   // 서비스 유형 변경
@@ -497,6 +527,7 @@ export default function OrderPage() {
     setSelectedServiceType(typeId);
     setSelectedServiceId('');
     setQuantity(0);
+    setDisplayCount(20);
   }, []);
 
   // 서비스 변경 시 수량 초기화
@@ -707,49 +738,48 @@ export default function OrderPage() {
                 })()}
               </CardTitle>
               <CardDescription>
-                {filteredServices.length}개의 서비스
-                {selectedPlatformTab === 'favorites' && filteredServices.length === 0 && ' - 별 아이콘을 클릭해 즐겨찾기에 추가하세요'}
+                {sortedServices.length}개의 서비스
+                {selectedPlatformTab === 'favorites' && sortedServices.length === 0 && ' - 별 아이콘을 클릭해 즐겨찾기에 추가하세요'}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* 서비스 유형 필터 (서브카테고리) */}
-              {selectedPlatformTab !== 'favorites' && selectedPlatformTab !== 'all' && availableServiceTypes.length > 1 && (
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Layers className="h-4 w-4 text-primary" />
-                    <span className="text-sm font-medium">서비스 유형</span>
-                    <span className="text-xs text-muted-foreground">({platformFilteredServices.length}개)</span>
-                  </div>
-                  <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                    {availableServiceTypes.map((type) => {
-                      const count = type.id === 'all'
-                        ? platformFilteredServices.length
-                        : platformFilteredServices.filter(s => getServiceType(s.name) === type.id).length;
-                      const isActive = selectedServiceType === type.id;
-                      return (
-                        <Button
-                          key={type.id}
-                          variant={isActive ? 'default' : 'outline'}
-                          size="sm"
-                          onClick={() => handleServiceTypeChange(type.id)}
-                          className={cn(
-                            "h-9 px-4 text-sm whitespace-nowrap shrink-0",
-                            isActive && "bg-primary shadow-md"
-                          )}
-                        >
-                          {type.name}
-                          <Badge variant="secondary" className={cn(
-                            "ml-2 h-5 px-1.5 text-xs",
-                            isActive ? "bg-white/20 text-white" : ""
-                          )}>
-                            {count}
-                          </Badge>
-                        </Button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+              {/* 필터 및 정렬 컨트롤 */}
+              <div className="flex flex-wrap gap-3">
+                {/* 서비스 유형 필터 (드롭다운) */}
+                {selectedPlatformTab !== 'favorites' && selectedPlatformTab !== 'all' && availableServiceTypes.length > 1 && (
+                  <Select value={selectedServiceType} onValueChange={handleServiceTypeChange}>
+                    <SelectTrigger className="w-[160px] h-10">
+                      <Layers className="h-4 w-4 mr-2 text-primary" />
+                      <SelectValue placeholder="서비스 유형" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableServiceTypes.map((type) => {
+                        const count = type.id === 'all'
+                          ? platformFilteredServices.length
+                          : platformFilteredServices.filter(s => getServiceType(s.name) === type.id).length;
+                        return (
+                          <SelectItem key={type.id} value={type.id}>
+                            {type.name} ({count})
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
+                )}
+
+                {/* 정렬 드롭다운 */}
+                <Select value={sortBy} onValueChange={(val) => setSortBy(val as 'price_asc' | 'price_desc' | 'popular')}>
+                  <SelectTrigger className="w-[140px] h-10">
+                    <TrendingUp className="h-4 w-4 mr-2 text-primary" />
+                    <SelectValue placeholder="정렬" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="popular">인기순</SelectItem>
+                    <SelectItem value="price_asc">가격 낮은순</SelectItem>
+                    <SelectItem value="price_desc">가격 높은순</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
               {/* 서비스 검색 */}
               <div className="relative">
@@ -763,7 +793,7 @@ export default function OrderPage() {
               </div>
 
               {/* 서비스 목록 */}
-              {filteredServices.length === 0 ? (
+              {sortedServices.length === 0 ? (
                 <div className="py-12 text-center">
                   {selectedPlatformTab === 'favorites' ? (
                     <>
@@ -788,8 +818,8 @@ export default function OrderPage() {
                   )}
                 </div>
               ) : (
-                <div className="grid gap-3 lg:max-h-[500px] lg:overflow-y-auto lg:pr-2">
-                  {filteredServices.map((service) => {
+                <div className="grid gap-3 lg:max-h-[600px] lg:overflow-y-auto lg:pr-2">
+                  {displayedServices.map((service) => {
                     const category = categories.find(c => c.id === service.category_id);
                     const IconComponent = getCategoryIcon(category?.slug || null);
                     const colorClass = getCategoryColor(category?.slug || null);
@@ -901,6 +931,20 @@ export default function OrderPage() {
                       </div>
                     );
                   })}
+
+                  {/* 더보기 버튼 */}
+                  {hasMore && (
+                    <div className="pt-4 pb-2">
+                      <Button
+                        variant="outline"
+                        onClick={handleLoadMore}
+                        className="w-full h-12 text-sm font-medium hover:bg-primary/5"
+                      >
+                        <ChevronDown className="h-4 w-4 mr-2" />
+                        더보기 ({displayCount} / {sortedServices.length}개)
+                      </Button>
+                    </div>
+                  )}
                 </div>
               )}
 
