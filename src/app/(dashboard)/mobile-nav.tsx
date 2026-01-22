@@ -19,7 +19,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { Separator } from '@/components/ui/separator';
 import { cn, formatCurrency } from '@/lib/utils';
 import { useAuth } from '@/hooks/use-auth';
@@ -67,6 +67,7 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-80 p-0">
+        <SheetTitle className="sr-only">메뉴</SheetTitle>
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center h-16 px-6 border-b border-border">

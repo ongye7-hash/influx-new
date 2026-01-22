@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -139,6 +139,7 @@ export function Header({ user }: HeaderProps) {
                     </Button>
                   </SheetTrigger>
                   <SheetContent side="right" className="w-[280px] sm:w-[350px]">
+                    <SheetTitle className="sr-only">메뉴</SheetTitle>
                     <div className="flex flex-col gap-6 mt-6">
                       <Logo size="lg" linkTo="/" />
 
