@@ -98,7 +98,7 @@ export default function DashboardPage() {
       return orderDate.getMonth() === now.getMonth() && orderDate.getFullYear() === now.getFullYear();
     });
 
-    const totalSpent = orders.reduce((sum, o) => sum + Number(o.amount), 0);
+    const totalSpent = orders.reduce((sum, o) => sum + (Number(o.amount) || 0), 0);
     const processingOrders = orders.filter(o =>
       o.status === 'processing' || o.status === 'in_progress' || o.status === 'pending'
     );

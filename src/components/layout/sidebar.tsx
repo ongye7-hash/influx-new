@@ -23,6 +23,7 @@ import {
   Gift,
   BookOpen,
   Sparkles,
+  Home,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -33,6 +34,7 @@ import { toast } from 'sonner';
 
 // 메인 네비게이션
 const routes = [
+  { label: '홈', icon: Home, href: '/' },
   { label: '대시보드', icon: LayoutDashboard, href: '/dashboard' },
   { label: '새 주문', icon: ShoppingCart, href: '/order' },
   { label: '대량 주문', icon: Layers, href: '/mass-order' },

@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle, Loader2 } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle, Loader2, Home } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -234,10 +234,26 @@ function LoginContent() {
       </div>
 
       {/* Right Side - Form */}
-      <div className="flex-1 flex items-center justify-center p-6 sm:p-12 bg-background">
+      <div className="flex-1 flex flex-col p-6 sm:p-12 bg-background">
+        {/* Top Navigation */}
+        <div className="flex justify-between items-center mb-8">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Home className="h-4 w-4" />
+            홈으로
+          </Link>
+          <div className="lg:hidden">
+            <Logo size="sm" />
+          </div>
+        </div>
+
+        {/* Form Container */}
+        <div className="flex-1 flex items-center justify-center">
         <div className="w-full max-w-md space-y-8">
-          {/* Mobile Logo */}
-          <div className="lg:hidden flex justify-center mb-8">
+          {/* Mobile Logo - Hidden since we have it in nav */}
+          <div className="lg:hidden flex justify-center mb-8 hidden">
             <Logo size="lg" />
           </div>
 
@@ -482,6 +498,7 @@ function LoginContent() {
             </Link>
             로 문의해주세요
           </p>
+        </div>
         </div>
       </div>
     </div>

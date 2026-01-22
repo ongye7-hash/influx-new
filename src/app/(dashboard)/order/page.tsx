@@ -541,7 +541,7 @@ export default function OrderPage() {
                               </p>
                               <div className="flex items-center gap-4 mt-2 text-sm">
                                 <span className="font-medium text-primary">
-                                  {formatCurrency(service.price)}/1K
+                                  {formatCurrency(service.price)}/1,000개
                                 </span>
                                 <span className="text-muted-foreground">
                                   최소 {formatCompactNumber(service.min_quantity)}
@@ -595,7 +595,7 @@ export default function OrderPage() {
                   <div className="flex flex-wrap gap-4 text-sm">
                     <div>
                       <span className="text-muted-foreground">단가:</span>
-                      <span className="ml-1 font-medium">{formatCurrency(selectedService.price)}/1K</span>
+                      <span className="ml-1 font-medium">{formatCurrency(selectedService.price)}/1,000개</span>
                     </div>
                     <div>
                       <span className="text-muted-foreground">최소:</span>
