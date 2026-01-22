@@ -202,9 +202,16 @@ export default function AdminServicesPage() {
 
       setServices(allServices);
       setProviders(providersData || []);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      toast.error('데이터를 불러오는데 실패했습니다');
+    } catch (error: unknown) {
+      let errorMessage = '데이터를 불러오는데 실패했습니다';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'object' && error !== null) {
+        const err = error as { message?: string; code?: string; details?: string };
+        errorMessage = err.message || err.details || err.code || errorMessage;
+      }
+      console.error('Error fetching data:', errorMessage, error);
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
