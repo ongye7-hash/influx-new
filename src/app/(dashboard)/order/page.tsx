@@ -932,17 +932,37 @@ export default function OrderPage() {
                     );
                   })}
 
-                  {/* 더보기 버튼 */}
-                  {hasMore && (
-                    <div className="pt-4 pb-2">
-                      <Button
-                        variant="outline"
-                        onClick={handleLoadMore}
-                        className="w-full h-12 text-sm font-medium hover:bg-primary/5"
-                      >
-                        <ChevronDown className="h-4 w-4 mr-2" />
-                        더보기 ({displayCount} / {sortedServices.length}개)
-                      </Button>
+                  {/* 더보기 / 전체보기 / 접기 버튼 */}
+                  {sortedServices.length > 20 && (
+                    <div className="pt-4 pb-2 flex gap-2">
+                      {hasMore ? (
+                        <>
+                          <Button
+                            variant="outline"
+                            onClick={handleLoadMore}
+                            className="flex-1 h-11 text-sm font-medium hover:bg-primary/5"
+                          >
+                            <ChevronDown className="h-4 w-4 mr-2" />
+                            더보기 ({displayCount} / {sortedServices.length})
+                          </Button>
+                          <Button
+                            variant="outline"
+                            onClick={() => setDisplayCount(sortedServices.length)}
+                            className="h-11 px-4 text-sm font-medium hover:bg-primary/5"
+                          >
+                            전체보기
+                          </Button>
+                        </>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          onClick={() => setDisplayCount(20)}
+                          className="w-full h-11 text-sm font-medium hover:bg-primary/5"
+                        >
+                          <ChevronUp className="h-4 w-4 mr-2" />
+                          접기
+                        </Button>
+                      )}
                     </div>
                   )}
                 </div>
