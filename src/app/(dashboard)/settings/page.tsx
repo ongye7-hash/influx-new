@@ -95,16 +95,17 @@ const TIER_CONFIG = {
 };
 
 // ============================================
-// API 키 생성 함수
+// API 키 타입
 // ============================================
-function generateApiKey(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const prefix = 'influx_';
-  let key = '';
-  for (let i = 0; i < 32; i++) {
-    key += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return prefix + key;
+interface ApiKeyData {
+  id: string;
+  api_key: string;
+  name: string;
+  is_active: boolean;
+  total_requests: number;
+  total_orders: number;
+  last_used_at: string | null;
+  created_at: string;
 }
 
 // ============================================
@@ -135,11 +136,12 @@ export default function SettingsPage() {
   const [telegramChatId, setTelegramChatId] = useState('');
 
   // API 키 상태
-  const [apiKey, setApiKey] = useState<string | null>(null);
-  const [showApiKey, setShowApiKey] = useState(false);
+  const [apiKeys, setApiKeys] = useState<ApiKeyData[]>([]);
+  const [showApiKey, setShowApiKey] = useState<Record<string, boolean>>({});
   const [isGeneratingKey, setIsGeneratingKey] = useState(false);
+  const [isLoadingKeys, setIsLoadingKeys] = useState(true);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [apiKeyCreatedAt, setApiKeyCreatedAt] = useState<string | null>(null);
+  const [keyToDelete, setKeyToDelete] = useState<string | null>(null);
 
   // 추천 코드 생성 함수
   const generateReferralCode = async (userId: string) => {
@@ -159,18 +161,33 @@ export default function SettingsPage() {
     }
   };
 
+  // API 키 로드 함수
+  const loadApiKeys = async (userId: string) => {
+    setIsLoadingKeys(true);
+    try {
+      const { data, error } = await supabase
+        .from('api_keys' as never)
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setApiKeys((data as ApiKeyData[]) || []);
+    } catch (error) {
+      console.error('Failed to load API keys:', error);
+    } finally {
+      setIsLoadingKeys(false);
+    }
+  };
+
   // 초기 데이터 로드
   useEffect(() => {
     if (profile) {
       setUsername(profile.username || profile.full_name || '');
       setPhone(profile.phone || '');
-      // API 키 로드 (로컬 스토리지에서)
-      const savedKey = localStorage.getItem(`api_key_${profile.id}`);
-      const savedKeyDate = localStorage.getItem(`api_key_date_${profile.id}`);
-      if (savedKey) {
-        setApiKey(savedKey);
-        setApiKeyCreatedAt(savedKeyDate);
-      }
+
+      // API 키 로드 (Supabase에서)
+      loadApiKeys(profile.id);
 
       // 추천 코드가 없으면 자동 생성
       if (!profile.referral_code) {
@@ -253,22 +270,40 @@ export default function SettingsPage() {
       return;
     }
 
+    if (apiKeys.length >= 5) {
+      toast.error('API 키는 최대 5개까지 생성할 수 있습니다');
+      return;
+    }
+
     setIsGeneratingKey(true);
 
     try {
-      const newKey = generateApiKey();
-      const now = new Date().toISOString();
+      // 32자리 랜덤 hex 키 생성
+      const randomBytes = new Uint8Array(16);
+      crypto.getRandomValues(randomBytes);
+      const newKey = Array.from(randomBytes)
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
 
-      // 로컬 스토리지에 저장 (실제 서비스에서는 서버에 저장)
-      localStorage.setItem(`api_key_${profile.id}`, newKey);
-      localStorage.setItem(`api_key_date_${profile.id}`, now);
+      // Supabase에 저장
+      const { data, error } = await supabase
+        .from('api_keys' as never)
+        .insert({
+          user_id: profile.id,
+          api_key: newKey,
+          name: `API Key ${apiKeys.length + 1}`,
+        } as never)
+        .select()
+        .single();
 
-      setApiKey(newKey);
-      setApiKeyCreatedAt(now);
-      setShowApiKey(true);
+      if (error) throw error;
+
+      const apiKeyData = data as unknown as ApiKeyData;
+      setApiKeys([apiKeyData, ...apiKeys]);
+      setShowApiKey({ ...showApiKey, [apiKeyData.id]: true });
 
       toast.success('API 키가 생성되었습니다', {
-        description: '키를 안전한 곳에 저장하세요. 다시 확인할 수 없습니다.',
+        description: '키를 안전한 곳에 저장하세요.',
       });
     } catch (error) {
       console.error('Error generating API key:', error);
@@ -279,26 +314,54 @@ export default function SettingsPage() {
   };
 
   // API 키 삭제
-  const handleDeleteApiKey = () => {
-    if (!profile?.id) return;
+  const handleDeleteApiKey = async () => {
+    if (!keyToDelete) return;
 
-    localStorage.removeItem(`api_key_${profile.id}`);
-    localStorage.removeItem(`api_key_date_${profile.id}`);
-    setApiKey(null);
-    setApiKeyCreatedAt(null);
-    setShowDeleteDialog(false);
-    toast.success('API 키가 삭제되었습니다');
+    try {
+      const { error } = await supabase
+        .from('api_keys' as never)
+        .delete()
+        .eq('id', keyToDelete);
+
+      if (error) throw error;
+
+      setApiKeys(apiKeys.filter(k => k.id !== keyToDelete));
+      setShowDeleteDialog(false);
+      setKeyToDelete(null);
+      toast.success('API 키가 삭제되었습니다');
+    } catch (error) {
+      console.error('Error deleting API key:', error);
+      toast.error('API 키 삭제에 실패했습니다');
+    }
   };
 
   // API 키 복사
-  const handleCopyApiKey = async () => {
-    if (!apiKey) return;
-
+  const handleCopyApiKey = async (key: string) => {
     try {
-      await navigator.clipboard.writeText(apiKey);
+      await navigator.clipboard.writeText(key);
       toast.success('API 키가 복사되었습니다');
     } catch {
       toast.error('복사에 실패했습니다');
+    }
+  };
+
+  // API 키 활성화/비활성화
+  const handleToggleApiKey = async (keyId: string, isActive: boolean) => {
+    try {
+      const { error } = await supabase
+        .from('api_keys' as never)
+        .update({ is_active: isActive } as never)
+        .eq('id', keyId);
+
+      if (error) throw error;
+
+      setApiKeys(apiKeys.map(k =>
+        k.id === keyId ? { ...k, is_active: isActive } : k
+      ));
+      toast.success(isActive ? 'API 키가 활성화되었습니다' : 'API 키가 비활성화되었습니다');
+    } catch (error) {
+      console.error('Error toggling API key:', error);
+      toast.error('API 키 상태 변경에 실패했습니다');
     }
   };
 
@@ -308,12 +371,11 @@ export default function SettingsPage() {
     ? Math.min(100, (totalSpent / tier.requirement) * 100)
     : 100;
 
-  // API 키 마스킹
-  const maskedApiKey = apiKey
-    ? showApiKey
-      ? apiKey
-      : apiKey.substring(0, 12) + '•'.repeat(20) + apiKey.substring(apiKey.length - 4)
-    : null;
+  // API 키 마스킹 함수
+  const maskApiKey = (key: string, keyId: string) => {
+    if (showApiKey[keyId]) return key;
+    return key.substring(0, 8) + '•'.repeat(16) + key.substring(key.length - 4);
+  };
 
   // 로딩 상태
   if (authLoading) {
@@ -635,105 +697,130 @@ export default function SettingsPage() {
                 API 키 관리
               </CardTitle>
               <CardDescription>
-                외부 시스템과 연동하기 위한 API 키를 관리합니다.
+                리셀러 API를 사용하여 외부 시스템과 연동하세요. 최대 5개까지 생성 가능합니다.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {apiKey ? (
-                <>
-                  {/* 기존 API 키 표시 */}
-                  <div className="space-y-4">
-                    <div className="p-4 rounded-lg bg-muted/50 border">
+              {/* API 키 생성 버튼 */}
+              <div className="flex justify-between items-center">
+                <p className="text-sm text-muted-foreground">
+                  {apiKeys.length}/5 키 사용 중
+                </p>
+                <Button
+                  onClick={handleGenerateApiKey}
+                  disabled={isGeneratingKey || apiKeys.length >= 5}
+                >
+                  {isGeneratingKey ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      생성 중...
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="mr-2 h-4 w-4" />
+                      새 API 키 생성
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              {/* API 키 목록 */}
+              {isLoadingKeys ? (
+                <div className="space-y-3">
+                  <Skeleton className="h-24 w-full" />
+                  <Skeleton className="h-24 w-full" />
+                </div>
+              ) : apiKeys.length > 0 ? (
+                <div className="space-y-3">
+                  {apiKeys.map((keyData) => (
+                    <div key={keyData.id} className="p-4 rounded-lg bg-muted/50 border">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <Key className="h-4 w-4 text-primary" />
-                          <span className="font-medium">API 키</span>
+                          <span className="font-medium">{keyData.name}</span>
                         </div>
-                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                          <CheckCircle className="h-3 w-3 mr-1" />
-                          활성
-                        </Badge>
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            checked={keyData.is_active}
+                            onCheckedChange={(checked) => handleToggleApiKey(keyData.id, checked)}
+                          />
+                          <Badge
+                            variant="outline"
+                            className={keyData.is_active
+                              ? "bg-green-50 text-green-700 border-green-200"
+                              : "bg-gray-50 text-gray-500 border-gray-200"
+                            }
+                          >
+                            {keyData.is_active ? (
+                              <>
+                                <CheckCircle className="h-3 w-3 mr-1" />
+                                활성
+                              </>
+                            ) : '비활성'}
+                          </Badge>
+                        </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <code className="flex-1 p-3 bg-background rounded-lg font-mono text-sm break-all">
-                          {maskedApiKey}
+                          {maskApiKey(keyData.api_key, keyData.id)}
                         </code>
                         <Button
                           variant="outline"
                           size="icon"
-                          onClick={() => setShowApiKey(!showApiKey)}
-                          title={showApiKey ? '숨기기' : '보기'}
+                          onClick={() => setShowApiKey({
+                            ...showApiKey,
+                            [keyData.id]: !showApiKey[keyData.id]
+                          })}
+                          title={showApiKey[keyData.id] ? '숨기기' : '보기'}
                         >
-                          {showApiKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          {showApiKey[keyData.id] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         </Button>
                         <Button
                           variant="outline"
                           size="icon"
-                          onClick={handleCopyApiKey}
+                          onClick={() => handleCopyApiKey(keyData.api_key)}
                           title="복사"
                         >
                           <Copy className="h-4 w-4" />
                         </Button>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="text-destructive hover:text-destructive"
+                          onClick={() => {
+                            setKeyToDelete(keyData.id);
+                            setShowDeleteDialog(true);
+                          }}
+                          title="삭제"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
-                      {apiKeyCreatedAt && (
-                        <p className="text-xs text-muted-foreground mt-2">
-                          생성일: {new Date(apiKeyCreatedAt).toLocaleDateString('ko-KR', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })}
-                        </p>
-                      )}
+                      <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
+                        <span>요청: {keyData.total_requests.toLocaleString()}회</span>
+                        <span>주문: {keyData.total_orders.toLocaleString()}건</span>
+                        <span>
+                          생성: {new Date(keyData.created_at).toLocaleDateString('ko-KR')}
+                        </span>
+                        {keyData.last_used_at && (
+                          <span>
+                            마지막 사용: {new Date(keyData.last_used_at).toLocaleDateString('ko-KR')}
+                          </span>
+                        )}
+                      </div>
                     </div>
-
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        onClick={handleGenerateApiKey}
-                        disabled={isGeneratingKey}
-                      >
-                        <RefreshCw className={cn("mr-2 h-4 w-4", isGeneratingKey && "animate-spin")} />
-                        키 재발급
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="text-destructive hover:text-destructive"
-                        onClick={() => setShowDeleteDialog(true)}
-                      >
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        키 삭제
-                      </Button>
-                    </div>
-                  </div>
-                </>
+                  ))}
+                </div>
               ) : (
-                <>
-                  {/* API 키 없음 */}
-                  <div className="text-center py-8">
-                    <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                      <Key className="h-8 w-8 text-muted-foreground" />
-                    </div>
-                    <h3 className="font-medium mb-2">API 키가 없습니다</h3>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      API 키를 생성하여 외부 시스템과 연동하세요.
-                    </p>
-                    <Button onClick={handleGenerateApiKey} disabled={isGeneratingKey}>
-                      {isGeneratingKey ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          생성 중...
-                        </>
-                      ) : (
-                        <>
-                          <Plus className="mr-2 h-4 w-4" />
-                          API 키 생성
-                        </>
-                      )}
-                    </Button>
+                <div className="text-center py-8">
+                  <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                    <Key className="h-8 w-8 text-muted-foreground" />
                   </div>
-                </>
+                  <h3 className="font-medium mb-2">API 키가 없습니다</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    API 키를 생성하여 리셀러 API와 연동하세요.
+                  </p>
+                </div>
               )}
 
               <Separator />
@@ -746,7 +833,7 @@ export default function SettingsPage() {
                     <p className="font-medium text-amber-800">API 키 보안 안내</p>
                     <ul className="text-sm text-amber-700 space-y-1">
                       <li>• API 키는 비밀번호처럼 안전하게 보관하세요.</li>
-                      <li>• 키가 노출된 경우 즉시 재발급하세요.</li>
+                      <li>• 키가 노출된 경우 즉시 삭제하고 새로 생성하세요.</li>
                       <li>• 키를 코드에 직접 포함하지 마세요.</li>
                     </ul>
                   </div>
@@ -758,63 +845,67 @@ export default function SettingsPage() {
           {/* API 문서 */}
           <Card>
             <CardHeader>
-              <CardTitle>API 사용 가이드</CardTitle>
+              <CardTitle>API 사용 가이드 (SMM Panel 표준)</CardTitle>
               <CardDescription>
-                INFLUX API를 사용하여 주문을 자동화하세요.
+                INFLUX 리셀러 API를 사용하여 주문을 자동화하세요.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-3">
-                <h4 className="font-medium">Base URL</h4>
+                <h4 className="font-medium">API URL</h4>
                 <code className="block p-3 bg-muted rounded-lg font-mono text-sm">
-                  https://www.influx-lab.com/api/v1
+                  https://www.influx-lab.com/api/v2
                 </code>
               </div>
 
               <Separator />
 
               <div className="space-y-3">
-                <h4 className="font-medium">인증 방법</h4>
+                <h4 className="font-medium">요청 형식</h4>
                 <p className="text-sm text-muted-foreground">
-                  모든 API 요청에 헤더로 API 키를 포함해야 합니다.
+                  모든 요청은 POST 방식이며, form-urlencoded 형식으로 전송합니다.
                 </p>
-                <code className="block p-3 bg-muted rounded-lg font-mono text-sm">
-                  Authorization: Bearer YOUR_API_KEY
-                </code>
               </div>
 
               <Separator />
 
               <div className="space-y-3">
-                <h4 className="font-medium">주요 엔드포인트</h4>
+                <h4 className="font-medium">지원 액션</h4>
                 <div className="space-y-2">
                   <div className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="outline" className="bg-green-50 text-green-700">GET</Badge>
-                      <code className="font-mono text-sm">/services</code>
+                      <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
+                      <code className="font-mono text-sm">action=services</code>
                     </div>
                     <p className="text-sm text-muted-foreground">서비스 목록 조회</p>
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
                       <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
-                      <code className="font-mono text-sm">/orders</code>
+                      <code className="font-mono text-sm">action=add</code>
                     </div>
-                    <p className="text-sm text-muted-foreground">새 주문 생성</p>
+                    <p className="text-sm text-muted-foreground">새 주문 생성 (service, link, quantity 필수)</p>
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="outline" className="bg-green-50 text-green-700">GET</Badge>
-                      <code className="font-mono text-sm">/orders/:id</code>
+                      <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
+                      <code className="font-mono text-sm">action=status</code>
                     </div>
-                    <p className="text-sm text-muted-foreground">주문 상태 조회</p>
+                    <p className="text-sm text-muted-foreground">주문 상태 조회 (order 또는 orders 필수)</p>
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="outline" className="bg-green-50 text-green-700">GET</Badge>
-                      <code className="font-mono text-sm">/balance</code>
+                      <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
+                      <code className="font-mono text-sm">action=balance</code>
                     </div>
                     <p className="text-sm text-muted-foreground">잔액 조회</p>
+                  </div>
+                  <div className="p-3 bg-muted rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
+                      <code className="font-mono text-sm">action=refill</code>
+                    </div>
+                    <p className="text-sm text-muted-foreground">리필 요청 (order 필수)</p>
                   </div>
                 </div>
               </div>
@@ -822,23 +913,44 @@ export default function SettingsPage() {
               <Separator />
 
               <div className="space-y-3">
-                <h4 className="font-medium">주문 생성 예시</h4>
-                <pre className="p-4 bg-muted rounded-lg font-mono text-sm overflow-x-auto">
-{`curl -X POST https://www.influx-lab.com/api/v1/orders \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "service_id": "SERVICE_ID",
-    "link": "https://youtube.com/watch?v=VIDEO_ID",
-    "quantity": 1000
-  }'`}
+                <h4 className="font-medium">서비스 목록 조회 예시</h4>
+                <pre className="p-4 bg-muted rounded-lg font-mono text-sm overflow-x-auto whitespace-pre-wrap">
+{`curl -X POST https://www.influx-lab.com/api/v2 \\
+  -d "key=YOUR_API_KEY" \\
+  -d "action=services"`}
                 </pre>
               </div>
 
-              <Button variant="outline" className="w-full" onClick={() => window.open('/api-docs', '_blank')}>
-                <ExternalLink className="mr-2 h-4 w-4" />
-                전체 API 문서 보기
-              </Button>
+              <div className="space-y-3">
+                <h4 className="font-medium">주문 생성 예시</h4>
+                <pre className="p-4 bg-muted rounded-lg font-mono text-sm overflow-x-auto whitespace-pre-wrap">
+{`curl -X POST https://www.influx-lab.com/api/v2 \\
+  -d "key=YOUR_API_KEY" \\
+  -d "action=add" \\
+  -d "service=1" \\
+  -d "link=https://instagram.com/p/ABC123" \\
+  -d "quantity=1000"`}
+                </pre>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="font-medium">주문 상태 조회 예시</h4>
+                <pre className="p-4 bg-muted rounded-lg font-mono text-sm overflow-x-auto whitespace-pre-wrap">
+{`curl -X POST https://www.influx-lab.com/api/v2 \\
+  -d "key=YOUR_API_KEY" \\
+  -d "action=status" \\
+  -d "order=ORDER_ID"`}
+                </pre>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="font-medium">잔액 조회 예시</h4>
+                <pre className="p-4 bg-muted rounded-lg font-mono text-sm overflow-x-auto whitespace-pre-wrap">
+{`curl -X POST https://www.influx-lab.com/api/v2 \\
+  -d "key=YOUR_API_KEY" \\
+  -d "action=balance"`}
+                </pre>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
