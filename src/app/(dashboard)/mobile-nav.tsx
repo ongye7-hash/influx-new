@@ -17,6 +17,12 @@ import {
   Loader2,
   BookOpen,
   Sparkles,
+  Home,
+  Layers,
+  Receipt,
+  Gift,
+  Headphones,
+  Shield,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
@@ -26,14 +32,20 @@ import { useAuth } from '@/hooks/use-auth';
 import { toast } from 'sonner';
 
 const navigation = [
+  { name: '홈', href: '/', icon: Home },
   { name: '대시보드', href: '/dashboard', icon: LayoutDashboard },
   { name: '새 주문', href: '/order', icon: ShoppingCart },
-  { name: '주문 내역', href: '/orders', icon: History },
-  { name: '충전하기', href: '/deposit', icon: CreditCard },
+  { name: '대량 주문', href: '/mass-order', icon: Layers },
+  { name: '주문내역', href: '/orders', icon: History },
+  { name: '포인트 충전', href: '/deposit', icon: CreditCard },
+  { name: '잔액 내역', href: '/transactions', icon: Receipt },
+  { name: '친구 추천', href: '/referral', icon: Gift },
+  { name: '고객센터', href: '/support', icon: Headphones },
+  { name: '설정', href: '/settings', icon: Settings },
 ];
 
 const adminNavigation = [
-  { name: '관리자', href: '/admin', icon: Settings },
+  { name: '관리자', href: '/admin', icon: Shield },
 ];
 
 const tierConfig = {
