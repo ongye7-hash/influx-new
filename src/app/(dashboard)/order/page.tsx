@@ -482,7 +482,7 @@ export default function OrderPage() {
       </div>
 
       {/* 플랫폼 탭 */}
-      <div className="flex flex-wrap gap-2 p-2 bg-muted/30 rounded-xl">
+      <div className="flex gap-2 p-2 bg-muted/30 rounded-xl overflow-x-auto scrollbar-hide">
         {PLATFORM_TABS.map((tab) => {
           const IconComponent = tab.icon;
           const isActive = selectedPlatform === tab.id;
@@ -499,7 +499,7 @@ export default function OrderPage() {
               size="sm"
               onClick={() => handlePlatformChange(tab.id)}
               className={cn(
-                "flex items-center gap-2 h-10",
+                "flex items-center gap-2 h-10 flex-shrink-0 whitespace-nowrap",
                 isActive && `bg-gradient-to-r ${tab.color} text-white hover:opacity-90`
               )}
             >
