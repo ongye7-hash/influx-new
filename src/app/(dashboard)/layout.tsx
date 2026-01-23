@@ -43,7 +43,7 @@ export default async function DashboardLayout({
           </div>
 
           {/* 모바일 로고 */}
-          <span className="font-bold text-xl md:hidden bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent ml-3">
+          <span className="font-bold text-xl md:hidden bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent ml-3">
             INFLUX
           </span>
 

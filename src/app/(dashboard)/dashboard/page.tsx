@@ -33,7 +33,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
 
 // 플랫폼 색상 매핑
 const PLATFORM_GRADIENT: Record<string, string> = {
-  instagram: "from-pink-500 to-purple-500",
+  instagram: "from-[#E1306C] to-[#F77737]",
   youtube: "from-red-500 to-orange-500",
   tiktok: "from-gray-900 to-gray-700",
   facebook: "from-blue-600 to-blue-700",
@@ -142,8 +142,8 @@ export default function DashboardPage() {
         change: "+0.5%",
         trend: "up" as const,
         icon: TrendingUp,
-        color: "text-purple-600",
-        bg: "bg-purple-100",
+        color: "text-[#00C896]",
+        bg: "bg-[#00C896]/10",
       },
     ];
   }, [orders]);

@@ -270,8 +270,8 @@ async function main() {
   console.log(`  마진: ${DEFAULT_MARGIN}% (어드민에서 일괄 설정)`);
   console.log('═'.repeat(50) + '\n');
 
-  // Load filtered services (확장된 필터 적용)
-  const filteredServicesPath = path.join(__dirname, 'filtered_services_expanded.json');
+  // Load filtered services (한국/전세계 필터 적용)
+  const filteredServicesPath = path.join(__dirname, 'filtered_services_korea_only.json');
   const filteredServices = JSON.parse(fs.readFileSync(filteredServicesPath, 'utf8'));
   console.log(`📋 총 ${filteredServices.length}개 서비스 로드됨\n`);
 

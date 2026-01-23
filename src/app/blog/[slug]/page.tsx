@@ -94,12 +94,12 @@ function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
         <path d="M60 20H80V35H65V50H50V35H60V20Z" fill="url(#logoGradDetail)" />
         <defs>
           <linearGradient id="logoGradDetail" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="100%" stopColor="#A855F7" />
+            <stop offset="0%" stopColor="#0064FF" />
+            <stop offset="100%" stopColor="#00C896" />
           </linearGradient>
         </defs>
       </svg>
-      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent')}>
+      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent')}>
         INFLUX
       </span>
     </div>
@@ -239,7 +239,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
               </Link>
               <Button
                 asChild
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full"
+                className="bg-gradient-to-r from-[#0064FF] to-[#00C896] hover:from-[#0052D4] hover:to-[#00B085] text-white rounded-full"
               >
                 <Link href="/login">
                   시작하기
@@ -254,9 +254,9 @@ export default async function BlogDetailPage({ params }: PageProps) {
       {/* Article Hero */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950/30 to-purple-950/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-[#0a1628] to-[#0d2840]/20" />
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#00C896]/10 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
@@ -302,7 +302,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
             {/* Author & Share */}
             <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#0064FF] to-[#00C896] flex items-center justify-center text-white font-bold">
                   I
                 </div>
                 <div>
@@ -385,7 +385,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
       )}
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-950/50 to-purple-950/50 border-t border-white/5">
+      <section className="py-20 bg-gradient-to-r from-[#0a1628]/50 to-[#0d2840]/50 border-t border-white/5">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 break-keep">
             지금 바로 시작하세요

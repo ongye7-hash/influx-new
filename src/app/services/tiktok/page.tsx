@@ -55,12 +55,12 @@ function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
         <path d="M60 20H80V35H65V50H50V35H60V20Z" fill="url(#logoGradTT)" />
         <defs>
           <linearGradient id="logoGradTT" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="100%" stopColor="#A855F7" />
+            <stop offset="0%" stopColor="#0064FF" />
+            <stop offset="100%" stopColor="#00C896" />
           </linearGradient>
         </defs>
       </svg>
-      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent')}>
+      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent')}>
         INFLUX
       </span>
     </div>

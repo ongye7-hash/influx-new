@@ -140,7 +140,7 @@ function ReviewCard({ review, className }: { review: Review; className?: string 
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           {/* 아바타 */}
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0064FF] to-[#00C896] flex items-center justify-center text-white text-xs font-bold">
             {review.username.charAt(0).toUpperCase()}
           </div>
           <div>
@@ -222,13 +222,13 @@ export function CustomerReviews() {
   return (
     <section className="py-20 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-purple-950/20 to-slate-950" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-[#0d2840]/30 to-slate-950" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium mb-6">
-            <MessageSquare className="w-4 h-4 text-purple-400" />
+            <MessageSquare className="w-4 h-4 text-[#00C896]" />
             <span className="text-white/80">실시간 고객 후기</span>
             <span className="relative flex h-2 w-2 ml-1">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -237,7 +237,7 @@ export function CustomerReviews() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4D9FFF] to-[#00C896]">
               {totalReviews.toLocaleString()}
             </span>
             명의 고객이 선택했습니다

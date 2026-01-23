@@ -47,11 +47,11 @@ function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
         <defs>
           <linearGradient id="logoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="100%" stopColor="#A855F7" />
+            <stop offset="100%" stopColor="#00C896" />
           </linearGradient>
         </defs>
       </svg>
-      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent')}>
+      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent')}>
         INFLUX
       </span>
     </div>
@@ -71,7 +71,7 @@ function BlogCard({ post, featured = false }: { post: ReturnType<typeof getAllPo
         featured && 'md:col-span-2'
       )}>
         {/* Top Gradient Border on Hover */}
-        <div className="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="h-1 bg-gradient-to-r from-[#0064FF] via-[#00C896] to-[#4D9FFF] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         <CardContent className={cn('relative p-6', featured && 'md:p-8')}>
           {/* Category & Reading Time */}
@@ -156,7 +156,7 @@ export default function BlogPage() {
               </Link>
               <Button
                 asChild
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full"
+                className="bg-gradient-to-r from-[#0064FF] to-[#00C896] hover:from-[#0052D4] hover:to-[#00B085] text-white rounded-full"
               >
                 <Link href="/login">
                   시작하기
@@ -169,10 +169,10 @@ export default function BlogPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/50 to-purple-50/50">
+      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/50 to-[#00C896]/5">
         {/* Background Decorations */}
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-200/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-200/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#00C896]/20 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
@@ -183,7 +183,7 @@ export default function BlogPage() {
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight break-keep">
               크리에이터를 위한
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#0064FF] via-[#00C896] to-[#4D9FFF]">
                 실전 성장 전략
               </span>
             </h1>
@@ -235,7 +235,7 @@ export default function BlogPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+      <section className="py-20 bg-gradient-to-r from-[#0064FF] via-[#00C896] to-[#4D9FFF]">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 break-keep">
             이론만으로는 부족합니다

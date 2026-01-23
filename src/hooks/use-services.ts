@@ -140,8 +140,8 @@ export const CATEGORY_ICONS: Record<string, string> = {
 
 // 카테고리 색상 매핑
 export const CATEGORY_COLORS: Record<string, string> = {
-  all: 'from-violet-500 to-purple-600',
-  instagram: 'from-pink-500 to-purple-600',
+  all: 'from-[#0064FF] to-[#00C896]',
+  instagram: 'from-[#E1306C] to-[#F77737]',
   youtube: 'from-red-500 to-red-600',
   tiktok: 'from-cyan-400 to-blue-500',
   twitter: 'from-blue-400 to-blue-600',
@@ -149,8 +149,8 @@ export const CATEGORY_COLORS: Record<string, string> = {
   facebook: 'from-blue-600 to-blue-700',
   discord: 'from-indigo-500 to-indigo-600',
   threads: 'from-gray-700 to-gray-900',
-  twitch: 'from-purple-500 to-purple-700',
+  twitch: 'from-[#9146FF] to-[#6441A5]',
   coinmarketcap: 'from-orange-400 to-orange-600',
   other: 'from-gray-500 to-gray-700',
-  default: 'from-violet-500 to-purple-600',
+  default: 'from-[#0064FF] to-[#00C896]',
 };

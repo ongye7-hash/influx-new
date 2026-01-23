@@ -199,6 +199,11 @@ function PaymentMethodBadge({ method }: { method: PaymentMethod }) {
       icon: Bitcoin,
       className: 'bg-orange-100 text-orange-700 border-orange-200',
     },
+    kakaopay: {
+      label: '카카오페이',
+      icon: Wallet,
+      className: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+    },
   }[method] || { label: method, icon: Wallet, className: '' };
 
   const Icon = config.icon;

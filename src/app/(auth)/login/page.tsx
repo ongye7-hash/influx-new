@@ -160,8 +160,8 @@ function LoginContent() {
         <div className="absolute inset-0">
           {/* Floating circles */}
           <div className="absolute top-20 left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }} />
-          <div className="absolute top-1/2 left-1/3 w-48 h-48 bg-blue-400/20 rounded-full blur-2xl animate-float" style={{ animationDelay: "2s" }} />
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#00C896]/15 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/2 left-1/3 w-48 h-48 bg-[#0064FF]/15 rounded-full blur-2xl animate-float" style={{ animationDelay: "2s" }} />
 
           {/* Grid pattern */}
           <div
@@ -186,8 +186,8 @@ function LoginContent() {
               <path d="M60 20H80V35H65V50H50V35H60V20Z" fill="url(#loginGrad)" />
               <defs>
                 <linearGradient id="loginGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#3B82F6" />
-                  <stop offset="100%" stopColor="#A855F7" />
+                  <stop offset="0%" stopColor="#0064FF" />
+                  <stop offset="100%" stopColor="#00C896" />
                 </linearGradient>
               </defs>
             </svg>

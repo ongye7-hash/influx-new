@@ -155,16 +155,16 @@ export default function GuidePage() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 p-8 md:p-12">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0064FF]/10 via-[#00C896]/10 to-[#4D9FFF]/10 border border-[#0064FF]/20 p-8 md:p-12">
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#00C896]/10 rounded-full blur-3xl" />
 
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-[#0064FF] to-[#00C896]">
               <BookOpen className="w-6 h-6 text-white" />
             </div>
-            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0">
+            <Badge className="bg-gradient-to-r from-[#0064FF] to-[#00C896] text-white border-0">
               <Sparkles className="w-3 h-3 mr-1" />
               신규 회원 필독
             </Badge>
@@ -172,7 +172,7 @@ export default function GuidePage() {
 
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
             처음 오신 분들을 위한
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent">
               {" "}완벽 가이드
             </span>
           </h1>
@@ -183,7 +183,7 @@ export default function GuidePage() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <Button asChild className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
+            <Button asChild className="bg-gradient-to-r from-[#0064FF] to-[#00C896] hover:from-[#0052D4] hover:to-[#00B085]">
               <Link href="/deposit">
                 <CreditCard className="w-4 h-4 mr-2" />
                 충전하고 시작하기
@@ -220,7 +220,7 @@ export default function GuidePage() {
             icon={ShoppingCart}
             title="서비스 선택 및 주문"
             description="새 주문 메뉴에서 원하는 플랫폼과 서비스를 선택합니다. 링크 입력 후 수량을 정하고 주문을 완료합니다."
-            color="bg-purple-500"
+            color="bg-[#00C896]"
           />
           <StepCard
             step={3}
@@ -304,7 +304,7 @@ export default function GuidePage() {
       <Card className="border-0 bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Gift className="w-5 h-5 text-purple-500" />
+            <Gift className="w-5 h-5 text-[#00C896]" />
             INFLUX만의 특별한 혜택
           </CardTitle>
         </CardHeader>
@@ -348,7 +348,7 @@ export default function GuidePage() {
       </Card>
 
       {/* CTA */}
-      <Card className="border-0 bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+      <Card className="border-0 bg-gradient-to-r from-[#0064FF] to-[#00C896] text-white">
         <CardContent className="p-8 text-center">
           <h2 className="text-2xl font-bold mb-2">준비되셨나요?</h2>
           <p className="text-white/80 mb-6">
@@ -358,7 +358,7 @@ export default function GuidePage() {
             <Button
               asChild
               size="lg"
-              className="bg-white text-purple-600 hover:bg-white/90"
+              className="bg-white text-[#0064FF] hover:bg-white/90"
             >
               <Link href="/deposit">
                 <CreditCard className="w-4 h-4 mr-2" />

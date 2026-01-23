@@ -55,12 +55,12 @@ function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
         <path d="M60 20H80V35H65V50H50V35H60V20Z" fill="url(#logoGradIG)" />
         <defs>
           <linearGradient id="logoGradIG" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="100%" stopColor="#A855F7" />
+            <stop offset="0%" stopColor="#0064FF" />
+            <stop offset="100%" stopColor="#00C896" />
           </linearGradient>
         </defs>
       </svg>
-      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent')}>
+      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent')}>
         INFLUX
       </span>
     </div>
@@ -84,7 +84,7 @@ function ServiceCard({
   return (
     <Card className="border-0 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group">
       <CardContent className="p-6">
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#E1306C] to-[#F77737] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
           <Icon className="w-6 h-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-white mb-2">{title}</h3>
@@ -177,7 +177,7 @@ export default function InstagramServicesPage() {
               </Link>
               <Button
                 asChild
-                className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full"
+                className="bg-gradient-to-r from-[#E1306C] to-[#F77737] hover:from-[#C91B5A] hover:to-[#E56628] text-white rounded-full"
               >
                 <Link href="/login">
                   시작하기
@@ -192,9 +192,9 @@ export default function InstagramServicesPage() {
       {/* Hero Section */}
       <section className="relative py-20 md:py-32 overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-pink-950/20 to-purple-950/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-pink-950/20 to-[#F77737]/10" />
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#F77737]/10 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -207,7 +207,7 @@ export default function InstagramServicesPage() {
             {/* Title */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight break-keep">
               인스타그램
-              <span className="bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent"> 인플루언서 </span>
+              <span className="bg-gradient-to-r from-[#E1306C] to-[#F77737] bg-clip-text text-transparent"> 인플루언서 </span>
               되기
             </h1>
 
@@ -222,7 +222,7 @@ export default function InstagramServicesPage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full px-8 h-14 text-lg font-bold"
+                className="bg-gradient-to-r from-[#E1306C] to-[#F77737] hover:from-[#C91B5A] hover:to-[#E56628] text-white rounded-full px-8 h-14 text-lg font-bold"
               >
                 <Link href="/login">
                   무료로 시작하기
@@ -378,7 +378,7 @@ export default function InstagramServicesPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-6 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full"
+                className="w-full mt-6 bg-gradient-to-r from-[#E1306C] to-[#F77737] hover:from-[#C91B5A] hover:to-[#E56628] text-white rounded-full"
               >
                 <Link href="/login">
                   패키지 주문하기
@@ -426,7 +426,7 @@ export default function InstagramServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-pink-950/50 to-purple-950/50 border-t border-white/5">
+      <section className="py-20 bg-gradient-to-r from-pink-950/50 to-[#F77737]/20 border-t border-white/5">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 break-keep">
             지금 인스타그램 성장을 시작하세요

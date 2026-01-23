@@ -20,6 +20,11 @@ import {
 } from 'lucide-react';
 import { FaYoutube, FaInstagram, FaTiktok, FaFacebook } from 'react-icons/fa';
 import { CustomerReviews } from '@/components/landing/customer-reviews';
+import { OrderTicker } from '@/components/landing/order-ticker';
+import { FreeTrialSection } from '@/components/landing/free-trial';
+import { PromoBanner } from '@/components/landing/promo-banner';
+import { InlineCountdown } from '@/components/landing/countdown-timer';
+import { TrustBadgesInline, TrustBadgesSection } from '@/components/landing/trust-badges';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -45,12 +50,12 @@ function Logo({ size = 'md', className }: { size?: 'sm' | 'md' | 'lg'; className
         <path d="M60 20H80V35H65V50H50V35H60V20Z" fill="url(#logoGrad)" />
         <defs>
           <linearGradient id="logoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="100%" stopColor="#A855F7" />
+            <stop offset="0%" stopColor="#0064FF" />
+            <stop offset="100%" stopColor="#00C896" />
           </linearGradient>
         </defs>
       </svg>
-      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent')}>
+      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent')}>
         INFLUX
       </span>
     </div>
@@ -107,22 +112,22 @@ function useCountUp(end: number, duration: number = 2000, startOnView: boolean =
 }
 
 // ============================================
-// Deep Navy Gradient Background
+// Modern Gradient Background (토스 스타일)
 // ============================================
 function GradientBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Deep Navy Base */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950" />
+      {/* 깔끔한 딥 네이비 베이스 */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0d2137] to-[#0a1628]" />
 
-      {/* Aurora Blobs */}
+      {/* 블루 글로우 */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] aurora-blob-1" />
       <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] aurora-blob-2" />
       <div className="absolute bottom-0 left-1/3 w-[700px] h-[400px] aurora-blob-3" />
 
       {/* Grid Pattern Overlay */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
                            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
@@ -144,17 +149,20 @@ function HeroSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center break-keep">
           {/* 실시간 배지 */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium mb-10 animate-fade-in-up">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-            </span>
-            <span className="text-white/80">지금 <span className="text-green-400 font-bold">2,431명</span>이 채널을 성장시키고 있습니다</span>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+              </span>
+              <span className="text-white/80">지금 <span className="text-green-400 font-bold">2,431명</span>이 채널을 성장시키고 있습니다</span>
+            </div>
+            <InlineCountdown />
           </div>
 
           {/* 메인 헤드라인 */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.15] text-white">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4D9FFF] via-[#00C896] to-[#4ECCA3]">
               유튜브 수익 창출,
             </span>
             <span className="block mt-2">이제 더 이상 꿈이 아닙니다</span>
@@ -190,6 +198,9 @@ function HeroSection() {
               </Link>
             </Button>
           </div>
+
+          {/* 보장 배지 */}
+          <TrustBadgesInline />
 
           {/* 신뢰 배지 */}
           <div className="mt-16 pt-8 border-t border-white/10">
@@ -236,21 +247,21 @@ function StatCard({ end, suffix, label, prefix, decimals }: StatItemProps) {
     <div ref={ref} className="relative group">
       <Card className="overflow-hidden border-0 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
         <CardContent className="p-6 text-center">
-          <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+          <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#4D9FFF] to-[#00C896] bg-clip-text text-transparent mb-2">
             {prefix}{displayValue}{suffix}
           </div>
           <div className="text-white/60 font-medium break-keep">{label}</div>
 
           <div className="mt-4 h-1 bg-white/10 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-1000"
+              className="h-full bg-gradient-to-r from-[#0064FF] to-[#00C896] rounded-full transition-all duration-1000"
               style={{ width: `${Math.min(100, (count / end) * 100)}%` }}
             />
           </div>
         </CardContent>
       </Card>
 
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0064FF]/20 to-[#00C896]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
     </div>
   );
 }
@@ -274,7 +285,7 @@ function StatsSection() {
             실시간 통계
           </Badge>
           <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            국내 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">1위</span> SMM 플랫폼의 저력
+            국내 <span className="bg-gradient-to-r from-[#4D9FFF] to-[#00C896] bg-clip-text text-transparent">1위</span> SMM 플랫폼의 저력
           </h2>
         </div>
 
@@ -345,7 +356,7 @@ function PricingTeaser() {
           <Button
             asChild
             size="lg"
-            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full px-8 h-14 font-semibold transition-all duration-300 hover:scale-105"
+            className="bg-gradient-to-r from-[#0064FF] to-[#00C896] hover:from-[#0052D4] hover:to-[#00B085] text-white rounded-full px-8 h-14 font-semibold transition-all duration-300 hover:scale-105"
           >
             <Link href="/order">
               전체 가격표 보기
@@ -393,12 +404,12 @@ function FeaturesSection() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 break-keep">
-          <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm border-purple-500/30 text-purple-400 bg-purple-500/10">
+          <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm border-[#00C896]/30 text-[#00C896] bg-[#00C896]/10">
             <Award className="w-4 h-4 mr-2" />
             왜 INFLUX인가요?
           </Badge>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            성공하는 크리에이터의 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">비밀 무기</span>
+            성공하는 크리에이터의 <span className="bg-gradient-to-r from-[#4D9FFF] to-[#00C896] bg-clip-text text-transparent">비밀 무기</span>
           </h2>
           <p className="text-lg text-white/50 max-w-2xl mx-auto">
             10년 이상의 노하우로 최고의 품질과 서비스를 약속드립니다
@@ -454,7 +465,7 @@ function FeaturesSection() {
 function CTASection() {
   return (
     <section className="py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-slate-950">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0d2840] to-slate-950">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
       </div>
 
@@ -548,15 +559,15 @@ export default function LandingPage() {
           100% { opacity: 1; transform: translateY(0); }
         }
         .aurora-blob-1 {
-          background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+          background: radial-gradient(ellipse at center, rgba(0, 100, 255, 0.2) 0%, transparent 70%);
           animation: aurora-1 15s ease-in-out infinite;
         }
         .aurora-blob-2 {
-          background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+          background: radial-gradient(ellipse at center, rgba(0, 200, 150, 0.15) 0%, transparent 70%);
           animation: aurora-2 20s ease-in-out infinite;
         }
         .aurora-blob-3 {
-          background: radial-gradient(ellipse at center, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
+          background: radial-gradient(ellipse at center, rgba(77, 159, 255, 0.12) 0%, transparent 70%);
           animation: aurora-3 18s ease-in-out infinite;
         }
         .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
@@ -579,7 +590,7 @@ export default function LandingPage() {
               </Button>
               <Button
                 asChild
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full transition-all duration-300 hover:scale-105"
+                className="bg-gradient-to-r from-[#0064FF] to-[#00C896] hover:from-[#0052D4] hover:to-[#00B085] text-white rounded-full transition-all duration-300 hover:scale-105"
               >
                 <Link href="/login">
                   시작하기
@@ -594,13 +605,21 @@ export default function LandingPage() {
       {/* Sections */}
       <HeroSection />
       <StatsSection />
+      <TrustBadgesSection />
       <PricingTeaser />
+      <FreeTrialSection />
       <CustomerReviews />
       <section id="features">
         <FeaturesSection />
       </section>
       <CTASection />
       <Footer />
+
+      {/* Real-time Order Ticker */}
+      <OrderTicker />
+
+      {/* Promotional Banner */}
+      <PromoBanner />
     </div>
   );
 }

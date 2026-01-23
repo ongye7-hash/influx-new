@@ -78,8 +78,8 @@ const TIER_CONFIG = {
   },
   premium: {
     label: '프리미엄',
-    color: 'text-purple-600',
-    bg: 'bg-purple-100',
+    color: 'text-[#00C896]',
+    bg: 'bg-[#00C896]/10',
     discount: 10,
     nextTier: 'enterprise',
     requirement: 5000000,

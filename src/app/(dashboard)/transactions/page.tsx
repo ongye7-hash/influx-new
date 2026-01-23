@@ -67,8 +67,8 @@ const TRANSACTION_CONFIG: Record<TransactionType, {
   },
   bonus: {
     icon: Gift,
-    color: 'text-purple-600',
-    bgColor: 'bg-purple-100',
+    color: 'text-[#00C896]',
+    bgColor: 'bg-[#00C896]/10',
   },
   adjustment: {
     icon: Wrench,

@@ -39,7 +39,7 @@ export function Logo({
       {/* Text Logo */}
       {showText && (
         <span className={cn("font-bold tracking-tight", text)}>
-          <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent">
             INFLUX
           </span>
         </span>

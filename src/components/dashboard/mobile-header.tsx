@@ -47,7 +47,7 @@ const adminNavigation = [
 const tierConfig = {
   basic: { label: "일반", color: "text-muted-foreground", bg: "bg-muted" },
   vip: { label: "VIP", color: "text-amber-600", bg: "bg-amber-100" },
-  premium: { label: "프리미엄", color: "text-purple-600", bg: "bg-purple-100" },
+  premium: { label: "프리미엄", color: "text-[#00C896]", bg: "bg-[#00C896]/10" },
   enterprise: { label: "엔터프라이즈", color: "text-blue-600", bg: "bg-blue-100" },
 };
 

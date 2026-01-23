@@ -52,6 +52,12 @@ const navigation = [
     href: "/deposit",
     icon: CreditCard,
   },
+  {
+    name: "무료 체험",
+    href: "/free-trial",
+    icon: Sparkles,
+    badge: "FREE",
+  },
 ];
 
 const secondaryNav = [
@@ -79,7 +85,7 @@ const adminNav = [
 const tierConfig = {
   basic: { label: "일반", color: "text-muted-foreground", bg: "bg-muted" },
   vip: { label: "VIP", color: "text-amber-600", bg: "bg-amber-100" },
-  premium: { label: "프리미엄", color: "text-purple-600", bg: "bg-purple-100" },
+  premium: { label: "프리미엄", color: "text-[#00C896]", bg: "bg-[#00C896]/10" },
   enterprise: { label: "엔터프라이즈", color: "text-blue-600", bg: "bg-blue-100" },
 };
 
@@ -101,14 +107,14 @@ export function Sidebar({ user }: SidebarProps) {
           href="/guide"
           className={cn(
             "flex items-center gap-3 px-4 py-4 rounded-xl text-base font-bold transition-all duration-200 mb-3",
-            "bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20",
-            "hover:from-blue-500/20 hover:to-purple-500/20 hover:border-blue-500/30",
+            "bg-gradient-to-r from-[#0064FF]/10 to-[#00C896]/10 border border-[#0064FF]/20",
+            "hover:from-[#0064FF]/20 hover:to-[#00C896]/20 hover:border-[#0064FF]/30",
             pathname === "/guide"
-              ? "from-blue-500/20 to-purple-500/20 border-blue-500/40 text-blue-600 dark:text-blue-400"
-              : "text-blue-600 dark:text-blue-400"
+              ? "from-[#0064FF]/20 to-[#00C896]/20 border-[#0064FF]/40 text-[#0064FF] dark:text-[#4D9FFF]"
+              : "text-[#0064FF] dark:text-[#4D9FFF]"
           )}
         >
-          <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500">
+          <div className="p-1.5 rounded-lg bg-gradient-to-br from-[#0064FF] to-[#00C896]">
             <BookOpen className="h-4 w-4 text-white" />
           </div>
           <span className="flex items-center gap-2">
@@ -119,6 +125,7 @@ export function Sidebar({ user }: SidebarProps) {
 
         {navigation.map((item) => {
           const isActive = pathname === item.href;
+          const navItem = item as typeof item & { badge?: string };
           return (
             <Link
               key={item.name}
@@ -132,7 +139,15 @@ export function Sidebar({ user }: SidebarProps) {
             >
               <item.icon className={cn("h-5 w-5", isActive && "text-primary-foreground")} />
               {item.name}
-              {isActive && <ChevronRight className="ml-auto h-4 w-4" />}
+              {navItem.badge && (
+                <span className={cn(
+                  "ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded",
+                  isActive ? "bg-white/20 text-white" : "bg-accent text-white"
+                )}>
+                  {navItem.badge}
+                </span>
+              )}
+              {isActive && !navItem.badge && <ChevronRight className="ml-auto h-4 w-4" />}
             </Link>
           );
         })}

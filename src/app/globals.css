@@ -125,152 +125,154 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
 
-  /* Brand Colors (Direct Access) */
-  --color-brand: #2563EB;
-  --color-brand-dark: #1D4ED8;
-  --color-brand-light: #3B82F6;
-  --color-brand-accent: #7C3AED;
+  /* Brand Colors (Direct Access) - 새 컬러 */
+  --color-brand: #0064FF;
+  --color-brand-dark: #0052D4;
+  --color-brand-light: #4D9FFF;
+  --color-brand-accent: #FF6B35;
 }
 
 /* ============================================
    3. COLOR PALETTE - Light Mode
+   INFLUX 2.0 - 토스/뱅크샐러드 스타일 (신뢰 + 활력)
    ============================================ */
 :root {
   /* Base Radius */
-  --radius: 0.75rem;
+  --radius: 0.625rem;
 
-  /* Background Colors */
-  --background: #F8FAFC;
-  --foreground: #0F172A;
+  /* Background Colors - 순백 베이스 */
+  --background: #FFFFFF;
+  --foreground: #191F28;
 
-  /* Card */
+  /* Card - 미세한 그림자로 깊이감 */
   --card: #FFFFFF;
-  --card-foreground: #0F172A;
+  --card-foreground: #191F28;
 
   /* Popover */
   --popover: #FFFFFF;
-  --popover-foreground: #0F172A;
+  --popover-foreground: #191F28;
 
-  /* Primary - Royal Blue (신뢰감) */
-  --primary: #2563EB;
+  /* Primary - 토스 블루 (신뢰감 + 현대적) */
+  --primary: #0064FF;
   --primary-foreground: #FFFFFF;
 
-  /* Secondary - Soft Gray */
-  --secondary: #F1F5F9;
-  --secondary-foreground: #1E293B;
+  /* Secondary - 쿨 그레이 */
+  --secondary: #F2F4F6;
+  --secondary-foreground: #4E5968;
 
-  /* Muted */
-  --muted: #F1F5F9;
-  --muted-foreground: #64748B;
+  /* Muted - 배경용 */
+  --muted: #F7F8FA;
+  --muted-foreground: #8B95A1;
 
-  /* Accent - Trendy Violet (그라데이션용) */
-  --accent: #7C3AED;
+  /* Accent - 코랄 오렌지 (활력, CTA용) */
+  --accent: #FF6B35;
   --accent-foreground: #FFFFFF;
 
   /* Destructive */
-  --destructive: #EF4444;
+  --destructive: #F04452;
   --destructive-foreground: #FFFFFF;
 
   /* Border & Input */
-  --border: #E2E8F0;
-  --input: #E2E8F0;
-  --ring: #2563EB;
+  --border: #E5E8EB;
+  --input: #E5E8EB;
+  --ring: #0064FF;
 
-  /* Chart Colors */
-  --chart-1: #2563EB;
-  --chart-2: #7C3AED;
-  --chart-3: #10B981;
-  --chart-4: #F59E0B;
-  --chart-5: #EF4444;
+  /* Chart Colors - 선명하고 구분되는 컬러 */
+  --chart-1: #0064FF;
+  --chart-2: #FF6B35;
+  --chart-3: #00C896;
+  --chart-4: #FFB800;
+  --chart-5: #F04452;
 
-  /* Sidebar */
+  /* Sidebar - 화이트 베이스 */
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #0F172A;
-  --sidebar-primary: #2563EB;
+  --sidebar-foreground: #191F28;
+  --sidebar-primary: #0064FF;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F1F5F9;
-  --sidebar-accent-foreground: #1E293B;
-  --sidebar-border: #E2E8F0;
-  --sidebar-ring: #2563EB;
+  --sidebar-accent: #F2F4F6;
+  --sidebar-accent-foreground: #4E5968;
+  --sidebar-border: #E5E8EB;
+  --sidebar-ring: #0064FF;
 
-  /* Semantic Colors */
-  --success: #10B981;
-  --success-light: #D1FAE5;
-  --warning: #F59E0B;
-  --warning-light: #FEF3C7;
-  --error: #EF4444;
-  --error-light: #FEE2E2;
-  --info: #3B82F6;
-  --info-light: #DBEAFE;
+  /* Semantic Colors - 선명한 시그널 컬러 */
+  --success: #00C896;
+  --success-light: #E8FBF5;
+  --warning: #FFB800;
+  --warning-light: #FFF8E6;
+  --error: #F04452;
+  --error-light: #FFEBEE;
+  --info: #0064FF;
+  --info-light: #E6F0FF;
 }
 
 /* ============================================
    4. COLOR PALETTE - Dark Mode
+   INFLUX 2.0 - 딥 다크 (고급스러운 느낌)
    ============================================ */
 .dark {
-  /* Background - Deep Navy */
-  --background: #0B1120;
-  --foreground: #F1F5F9;
+  /* Background - 트루 다크 */
+  --background: #121212;
+  --foreground: #F5F5F5;
 
-  /* Card */
-  --card: #131C31;
-  --card-foreground: #F1F5F9;
+  /* Card - 약간 밝은 다크 */
+  --card: #1E1E1E;
+  --card-foreground: #F5F5F5;
 
   /* Popover */
-  --popover: #131C31;
-  --popover-foreground: #F1F5F9;
+  --popover: #1E1E1E;
+  --popover-foreground: #F5F5F5;
 
-  /* Primary */
-  --primary: #3B82F6;
-  --primary-foreground: #FFFFFF;
+  /* Primary - 밝은 블루 */
+  --primary: #4D9FFF;
+  --primary-foreground: #121212;
 
   /* Secondary */
-  --secondary: #1E293B;
-  --secondary-foreground: #F1F5F9;
+  --secondary: #2A2A2A;
+  --secondary-foreground: #E0E0E0;
 
   /* Muted */
-  --muted: #1E293B;
-  --muted-foreground: #94A3B8;
+  --muted: #2A2A2A;
+  --muted-foreground: #9E9E9E;
 
-  /* Accent */
-  --accent: #8B5CF6;
-  --accent-foreground: #FFFFFF;
+  /* Accent - 밝은 오렌지 */
+  --accent: #FF8A5C;
+  --accent-foreground: #121212;
 
   /* Destructive */
-  --destructive: #F87171;
-  --destructive-foreground: #FFFFFF;
+  --destructive: #FF6B6B;
+  --destructive-foreground: #121212;
 
   /* Border & Input */
-  --border: #1E293B;
-  --input: #1E293B;
-  --ring: #3B82F6;
+  --border: #333333;
+  --input: #333333;
+  --ring: #4D9FFF;
 
   /* Chart Colors */
-  --chart-1: #3B82F6;
-  --chart-2: #8B5CF6;
-  --chart-3: #34D399;
-  --chart-4: #FBBF24;
-  --chart-5: #F87171;
+  --chart-1: #4D9FFF;
+  --chart-2: #FF8A5C;
+  --chart-3: #4ECCA3;
+  --chart-4: #FFD93D;
+  --chart-5: #FF6B6B;
 
   /* Sidebar */
-  --sidebar: #0F172A;
-  --sidebar-foreground: #F1F5F9;
-  --sidebar-primary: #3B82F6;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #1E293B;
-  --sidebar-accent-foreground: #F1F5F9;
-  --sidebar-border: #1E293B;
-  --sidebar-ring: #3B82F6;
+  --sidebar: #1A1A1A;
+  --sidebar-foreground: #F5F5F5;
+  --sidebar-primary: #4D9FFF;
+  --sidebar-primary-foreground: #121212;
+  --sidebar-accent: #2A2A2A;
+  --sidebar-accent-foreground: #E0E0E0;
+  --sidebar-border: #333333;
+  --sidebar-ring: #4D9FFF;
 
   /* Semantic Colors */
-  --success: #34D399;
-  --success-light: #064E3B;
-  --warning: #FBBF24;
-  --warning-light: #78350F;
-  --error: #F87171;
-  --error-light: #7F1D1D;
-  --info: #60A5FA;
-  --info-light: #1E3A8A;
+  --success: #4ECCA3;
+  --success-light: #1A3D34;
+  --warning: #FFD93D;
+  --warning-light: #3D3A1A;
+  --error: #FF6B6B;
+  --error-light: #3D1A1A;
+  --info: #4D9FFF;
+  --info-light: #1A2A3D;
 }
 
 /* ============================================
@@ -399,16 +401,35 @@
     @apply rounded-xl font-semibold text-white;
     @apply transition-all duration-200 ease-out;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
-    background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+    background: linear-gradient(135deg, #0064FF 0%, #00C896 100%);
   }
 
   .btn-gradient:hover {
     transform: translateY(-2px);
-    background: linear-gradient(135deg, #1D4ED8 0%, #6D28D9 100%);
-    box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.3);
+    background: linear-gradient(135deg, #0052D4 0%, #00A67E 100%);
+    box-shadow: 0 15px 35px -5px rgba(0, 100, 255, 0.35);
   }
 
   .btn-gradient:active {
+    transform: translateY(0);
+  }
+
+  /* CTA 버튼 - 주목도 높은 오렌지 */
+  .btn-cta {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply rounded-xl font-bold text-white;
+    @apply transition-all duration-200 ease-out;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    background: linear-gradient(135deg, #FF6B35 0%, #FFB800 100%);
+  }
+
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #E55A25 0%, #E5A500 100%);
+    box-shadow: 0 15px 35px -5px rgba(255, 107, 53, 0.4);
+  }
+
+  .btn-cta:active {
     transform: translateY(0);
   }
 
@@ -522,21 +543,21 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
-  /* VIP Gradient Card */
+  /* VIP Gradient Card - 골드 느낌 */
   .glass-vip {
     @apply relative overflow-hidden;
     @apply rounded-2xl p-6;
     background: linear-gradient(
       135deg,
-      rgba(124, 58, 237, 0.15) 0%,
-      rgba(37, 99, 235, 0.1) 50%,
-      rgba(124, 58, 237, 0.15) 100%
+      rgba(255, 184, 0, 0.15) 0%,
+      rgba(255, 107, 53, 0.1) 50%,
+      rgba(255, 184, 0, 0.15) 100%
     );
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(124, 58, 237, 0.3);
+    border: 1px solid rgba(255, 184, 0, 0.3);
     box-shadow:
-      0 20px 50px rgba(124, 58, 237, 0.15),
+      0 20px 50px rgba(255, 184, 0, 0.15),
       0 8px 16px rgba(0, 0, 0, 0.05),
       inset 0 2px 0 rgba(255, 255, 255, 0.5);
   }
@@ -544,13 +565,13 @@
   .dark .glass-vip {
     background: linear-gradient(
       135deg,
-      rgba(124, 58, 237, 0.25) 0%,
-      rgba(37, 99, 235, 0.2) 50%,
-      rgba(124, 58, 237, 0.25) 100%
+      rgba(255, 184, 0, 0.25) 0%,
+      rgba(255, 107, 53, 0.2) 50%,
+      rgba(255, 184, 0, 0.25) 100%
     );
-    border: 1px solid rgba(139, 92, 246, 0.4);
+    border: 1px solid rgba(255, 217, 61, 0.4);
     box-shadow:
-      0 20px 50px rgba(139, 92, 246, 0.2),
+      0 20px 50px rgba(255, 217, 61, 0.2),
       0 8px 16px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
@@ -558,9 +579,9 @@
   /* Balance Card - 지갑 잔액용 */
   .glass-balance {
     @apply relative overflow-hidden rounded-2xl p-6;
-    background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+    background: linear-gradient(135deg, #0064FF 0%, #00C896 100%);
     box-shadow:
-      0 20px 50px rgba(37, 99, 235, 0.4),
+      0 20px 50px rgba(0, 100, 255, 0.35),
       0 8px 16px rgba(0, 0, 0, 0.1);
   }
 
@@ -585,17 +606,21 @@
    7. UTILITY CLASSES
    ============================================ */
 @layer utilities {
-  /* Gradient Backgrounds */
+  /* Gradient Backgrounds - 새 컬러 */
   .gradient-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, #0064FF 0%, #00C896 100%);
   }
 
   .gradient-primary-soft {
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(0, 100, 255, 0.08) 0%, rgba(0, 200, 150, 0.08) 100%);
+  }
+
+  .gradient-accent {
+    background: linear-gradient(135deg, #FF6B35 0%, #FFB800 100%);
   }
 
   .gradient-hero {
-    background: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #2563EB 100%);
+    background: linear-gradient(135deg, #0064FF 0%, #00C896 50%, #0064FF 100%);
     background-size: 200% 200%;
     animation: gradient-shift 8s ease infinite;
   }
@@ -605,9 +630,17 @@
     50% { background-position: 100% 50%; }
   }
 
-  /* Text Gradient */
+  /* Text Gradient - 블루-그린 */
   .text-gradient {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, #0064FF 0%, #00C896 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Text Gradient - 오렌지-옐로우 */
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #FF6B35 0%, #FFB800 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -620,7 +653,7 @@
 
   .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
   }
 
   .hover-scale {
@@ -632,7 +665,11 @@
   }
 
   .hover-glow:hover {
-    box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 0 30px rgba(0, 100, 255, 0.25);
+  }
+
+  .hover-glow-accent:hover {
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
   }
 
   /* Shimmer Loading Effect */

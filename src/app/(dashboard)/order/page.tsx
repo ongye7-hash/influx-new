@@ -89,7 +89,7 @@ const PLATFORM_TABS = [
   { id: 'all', name: '전체', icon: Layers, color: 'from-slate-500 to-slate-600' },
   { id: 'recommended', name: '인플럭스 추천', icon: Sparkles, color: 'from-amber-400 to-orange-500' },
   { id: 'favorites', name: '즐겨찾기', icon: Star, color: 'from-yellow-400 to-orange-500' },
-  { id: 'Instagram', name: '인스타그램', icon: FaInstagram, color: 'from-pink-500 to-purple-500' },
+  { id: 'Instagram', name: '인스타그램', icon: FaInstagram, color: 'from-[#E1306C] to-[#F77737]' },
   { id: 'YouTube', name: '유튜브', icon: FaYoutube, color: 'from-red-500 to-red-600' },
   { id: 'TikTok', name: '틱톡', icon: FaTiktok, color: 'from-gray-900 to-gray-700' },
   { id: 'Facebook', name: '페이스북', icon: FaFacebook, color: 'from-blue-600 to-blue-700' },
@@ -776,6 +776,83 @@ export default function OrderPage() {
                   </p>
                 )}
               </div>
+
+              {/* 고급 옵션 (Drip-feed 지원 서비스만) */}
+              {selectedService.metadata?.details?.dripfeed && (
+                <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 space-y-4">
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-blue-600" />
+                    <span className="font-medium text-blue-900">점진적 배송 (Drip-feed)</span>
+                    <Badge variant="outline" className="text-xs bg-blue-100 text-blue-700 border-blue-300">선택</Badge>
+                  </div>
+                  <p className="text-xs text-blue-700">
+                    자연스러운 성장을 위해 주문량을 여러 번에 나눠 배송합니다.
+                  </p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <Label className="text-xs text-blue-700">배송 횟수</Label>
+                      <Select defaultValue="1">
+                        <SelectTrigger className="h-9 bg-white border-blue-200">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1회 (일괄 배송)</SelectItem>
+                          <SelectItem value="2">2회 나눠 배송</SelectItem>
+                          <SelectItem value="3">3회 나눠 배송</SelectItem>
+                          <SelectItem value="5">5회 나눠 배송</SelectItem>
+                          <SelectItem value="7">7회 나눠 배송</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs text-blue-700">배송 간격</Label>
+                      <Select defaultValue="60">
+                        <SelectTrigger className="h-9 bg-white border-blue-200">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="30">30분마다</SelectItem>
+                          <SelectItem value="60">1시간마다</SelectItem>
+                          <SelectItem value="120">2시간마다</SelectItem>
+                          <SelectItem value="360">6시간마다</SelectItem>
+                          <SelectItem value="720">12시간마다</SelectItem>
+                          <SelectItem value="1440">24시간마다</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 실시간 가격 계산기 */}
+              {quantity > 0 && quantity >= selectedService.min_quantity && quantity <= selectedService.max_quantity && (
+                <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Calculator className="h-4 w-4 text-emerald-600" />
+                    <span className="font-medium text-emerald-900">가격 계산</span>
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between text-emerald-700">
+                      <span>단가 (1,000개당)</span>
+                      <span>{formatCurrency(selectedService.price)}</span>
+                    </div>
+                    <div className="flex justify-between text-emerald-700">
+                      <span>주문 수량</span>
+                      <span>{quantity.toLocaleString()}개</span>
+                    </div>
+                    <div className="border-t border-emerald-200 pt-2 flex justify-between font-bold text-emerald-900">
+                      <span>총 결제 금액</span>
+                      <span className="text-lg">{formatCurrency(estimatedPrice)}</span>
+                    </div>
+                    {estimatedPrice >= 50000 && (
+                      <div className="flex justify-between text-amber-700 bg-amber-50 p-2 rounded-lg">
+                        <span>🎁 5만원 이상 적립금</span>
+                        <span className="font-medium">+{formatCurrency(Math.floor(estimatedPrice * 0.05))}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Average time */}
               <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30 border">

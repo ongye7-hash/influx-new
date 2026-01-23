@@ -139,7 +139,7 @@ export interface Transaction {
   created_at: string;
 }
 
-export type PaymentMethod = 'bank_transfer' | 'crypto';
+export type PaymentMethod = 'bank_transfer' | 'crypto' | 'kakaopay';
 
 export interface Deposit {
   id: string;
@@ -357,6 +357,133 @@ export interface Database {
       payment_status: PaymentStatus;
     };
   };
+}
+
+// ============================================
+// New Feature Types
+// ============================================
+
+// 리뷰 시스템
+export interface Review {
+  id: string;
+  user_id: string;
+  service_id: string;
+  order_id: string | null;
+  rating: number;
+  content: string | null;
+  is_verified: boolean;
+  is_featured: boolean;
+  is_visible: boolean;
+  helpful_count: number;
+  reply: string | null;
+  replied_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// 무료 체험 서비스
+export interface FreeTrialService {
+  id: string;
+  service_id: string;
+  trial_quantity: number;
+  daily_limit: number;
+  today_used: number;
+  is_active: boolean;
+  created_at: string;
+}
+
+// 무료 체험 신청
+export interface FreeTrial {
+  id: string;
+  user_id: string;
+  service_id: string;
+  trial_service_id: string;
+  link: string;
+  quantity: number;
+  status: OrderStatus;
+  provider_order_id: string | null;
+  error_message: string | null;
+  ip_address: string | null;
+  user_agent: string | null;
+  created_at: string;
+  completed_at: string | null;
+}
+
+// A/B 테스트
+export interface ABTest {
+  id: string;
+  name: string;
+  description: string | null;
+  test_key: string;
+  variants: string[];
+  traffic_allocation: Record<string, number>;
+  status: 'draft' | 'running' | 'paused' | 'completed';
+  started_at: string | null;
+  ended_at: string | null;
+  target_audience: Record<string, unknown>;
+  winner_variant: string | null;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// 카카오페이 결제
+export interface KakaopayPayment {
+  id: string;
+  user_id: string;
+  deposit_id: string | null;
+  tid: string | null;
+  partner_order_id: string;
+  partner_user_id: string;
+  total_amount: number;
+  tax_free_amount: number;
+  vat_amount: number;
+  status: 'ready' | 'approved' | 'canceled' | 'failed';
+  approved_at: string | null;
+  canceled_at: string | null;
+  payment_method_type: string | null;
+  card_info: Record<string, unknown> | null;
+  next_redirect_pc_url: string | null;
+  next_redirect_mobile_url: string | null;
+  next_redirect_app_url: string | null;
+  error_code: string | null;
+  error_message: string | null;
+  metadata: Record<string, unknown>;
+  created_at: string;
+  updated_at: string;
+}
+
+// 타겟팅 옵션
+export interface TargetingOptions {
+  id: string;
+  service_id: string;
+  supports_gender_targeting: boolean;
+  gender_options: string[];
+  gender_price_multiplier: number;
+  supports_age_targeting: boolean;
+  age_ranges: string[];
+  age_price_multiplier: number;
+  supports_country_targeting: boolean;
+  countries: string[];
+  country_price_multiplier: number;
+  supports_language_targeting: boolean;
+  languages: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+// Drip-feed 로그
+export interface DripFeedLog {
+  id: string;
+  order_id: string;
+  run_number: number;
+  quantity: number;
+  provider_order_id: string | null;
+  status: OrderStatus;
+  error_message: string | null;
+  started_at: string;
+  completed_at: string | null;
+  created_at: string;
 }
 
 // ============================================
