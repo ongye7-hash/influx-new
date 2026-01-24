@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn, formatCurrency } from '@/lib/utils';
 import {
   LayoutDashboard,
@@ -24,12 +24,17 @@ import {
   BookOpen,
   Sparkles,
   Home,
+  UserPlus,
+  Zap,
+  Star,
+  LogIn,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Logo } from '@/components/layout/logo';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { useAuth } from '@/hooks/use-auth';
+import { useGuestStore } from '@/stores/guest-store';
 import { toast } from 'sonner';
 
 // 메인 네비게이션
@@ -59,19 +64,32 @@ const tierConfig = {
   enterprise: { label: '엔터프라이즈', color: 'text-blue-600', bg: 'bg-blue-100 dark:bg-blue-900/30' },
 };
 
-export function Sidebar() {
+interface SidebarProps {
+  isGuestMode?: boolean;
+}
+
+export function Sidebar({ isGuestMode = false }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const { profile, signOut } = useAuth();
+  const exitGuestMode = useGuestStore((state) => state.exitGuestMode);
+  const getEngagementScore = useGuestStore((state) => state.getEngagementScore);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const balance = profile?.balance || 0;
   const tier = tierConfig[profile?.tier as keyof typeof tierConfig] || tierConfig.basic;
   const isAdmin = profile?.is_admin === true;
+  const engagementScore = isGuestMode ? getEngagementScore() : 0;
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
     toast.success('로그아웃 중...');
     await signOut();
+  };
+
+  const handleExitGuestMode = () => {
+    exitGuestMode();
+    router.push('/login');
   };
 
   return (
@@ -152,81 +170,172 @@ export function Sidebar() {
         )}
       </nav>
 
-      {/* Balance Card */}
-      <div className="p-4">
-        <div className="glass-balance text-white rounded-2xl p-5 relative overflow-hidden">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full border-4 border-white" />
-            <div className="absolute -right-4 -bottom-4 w-24 h-24 rounded-full border-4 border-white" />
-          </div>
+      {/* Balance Card - 회원용 */}
+      {!isGuestMode && (
+        <div className="p-4">
+          <div className="glass-balance text-white rounded-2xl p-5 relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full border-4 border-white" />
+              <div className="absolute -right-4 -bottom-4 w-24 h-24 rounded-full border-4 border-white" />
+            </div>
 
-          {/* Content */}
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Wallet className="h-5 w-5" />
-                <span className="text-sm font-medium text-white/80">내 잔액</span>
-              </div>
-              <div className={cn("px-2 py-0.5 rounded-full text-xs font-semibold", tier.bg, tier.color)}>
-                <div className="flex items-center gap-1">
-                  {profile?.tier === "vip" && <Crown className="h-3 w-3" />}
-                  {tier.label}
+            {/* Content */}
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Wallet className="h-5 w-5" />
+                  <span className="text-sm font-medium text-white/80">내 잔액</span>
+                </div>
+                <div className={cn("px-2 py-0.5 rounded-full text-xs font-semibold", tier.bg, tier.color)}>
+                  <div className="flex items-center gap-1">
+                    {profile?.tier === "vip" && <Crown className="h-3 w-3" />}
+                    {tier.label}
+                  </div>
                 </div>
               </div>
+
+              <div className="mb-4">
+                <div className="text-3xl font-bold">
+                  {formatCurrency(balance)}
+                </div>
+                <div className="flex items-center gap-1 text-white/60 text-sm mt-1">
+                  <TrendingUp className="h-4 w-4" />
+                  충전하고 서비스 이용하기
+                </div>
+              </div>
+
+              <Button
+                asChild
+                variant="secondary"
+                className="w-full bg-white/20 hover:bg-white/30 text-white border-0"
+              >
+                <Link href="/deposit">
+                  <CreditCard className="mr-2 h-4 w-4" />
+                  충전하기
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 비회원용 가입 유도 카드 */}
+      {isGuestMode && (
+        <div className="p-4">
+          <div className="bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 text-white rounded-2xl p-5 relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full border-4 border-white" />
+              <div className="absolute -right-4 -bottom-4 w-24 h-24 rounded-full border-4 border-white" />
             </div>
 
-            <div className="mb-4">
-              <div className="text-3xl font-bold">
-                {formatCurrency(balance)}
+            {/* Content */}
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-3">
+                <Sparkles className="h-5 w-5 text-yellow-200" />
+                <span className="text-sm font-bold">지금 가입하면</span>
               </div>
-              <div className="flex items-center gap-1 text-white/60 text-sm mt-1">
-                <TrendingUp className="h-4 w-4" />
-                충전하고 서비스 이용하기
-              </div>
-            </div>
 
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center gap-2 text-sm">
+                  <Gift className="h-4 w-4 text-yellow-200" />
+                  <span>가입 즉시 <span className="font-bold">1,000P</span></span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Zap className="h-4 w-4 text-yellow-200" />
+                  <span>첫충전 <span className="font-bold">20% 보너스</span></span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Star className="h-4 w-4 text-yellow-200" />
+                  <span>무료 체험 서비스</span>
+                </div>
+              </div>
+
+              {/* 참여도 표시 */}
+              {engagementScore > 0 && (
+                <div className="mb-3 bg-white/10 rounded-lg p-2">
+                  <div className="text-xs text-white/80 mb-1">둘러보기 진행률</div>
+                  <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-yellow-300 rounded-full transition-all"
+                      style={{ width: `${Math.min(engagementScore, 100)}%` }}
+                    />
+                  </div>
+                  <div className="text-xs text-white/60 mt-1">
+                    {engagementScore >= 50 ? '충분히 둘러보셨네요!' : '더 둘러보세요!'}
+                  </div>
+                </div>
+              )}
+
+              <Button
+                asChild
+                variant="secondary"
+                className="w-full bg-white hover:bg-white/90 text-orange-600 font-bold border-0"
+              >
+                <Link href="/login">
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  30초 만에 가입하기
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* User Info & Logout - 회원용 */}
+      {!isGuestMode && (
+        <div className="p-4 border-t border-border">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <span className="text-primary font-semibold">
+                {profile?.email?.charAt(0).toUpperCase() || "U"}
+              </span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium truncate">{profile?.email || "user@example.com"}</p>
+              <p className="text-xs text-muted-foreground">{tier.label} 회원</p>
+            </div>
             <Button
-              asChild
-              variant="secondary"
-              className="w-full bg-white/20 hover:bg-white/30 text-white border-0"
+              variant="ghost"
+              size="icon"
+              className="text-muted-foreground hover:text-destructive"
+              onClick={handleLogout}
+              disabled={isLoggingOut}
             >
-              <Link href="/deposit">
-                <CreditCard className="mr-2 h-4 w-4" />
-                충전하기
-              </Link>
+              {isLoggingOut ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <LogOut className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* User Info & Logout */}
-      <div className="p-4 border-t border-border">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-            <span className="text-primary font-semibold">
-              {profile?.email?.charAt(0).toUpperCase() || "U"}
-            </span>
+      {/* User Info - 비회원용 */}
+      {isGuestMode && (
+        <div className="p-4 border-t border-border">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+              <span className="text-amber-600 font-semibold">G</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium">비회원</p>
+              <p className="text-xs text-muted-foreground">둘러보기 모드</p>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-muted-foreground hover:text-primary"
+              onClick={handleExitGuestMode}
+              title="로그인 페이지로"
+            >
+              <LogIn className="h-5 w-5" />
+            </Button>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">{profile?.email || "user@example.com"}</p>
-            <p className="text-xs text-muted-foreground">{tier.label} 회원</p>
-          </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-muted-foreground hover:text-destructive"
-            onClick={handleLogout}
-            disabled={isLoggingOut}
-          >
-            {isLoggingOut ? (
-              <Loader2 className="h-5 w-5 animate-spin" />
-            ) : (
-              <LogOut className="h-5 w-5" />
-            )}
-          </Button>
         </div>
-      </div>
+      )}
     </aside>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   Menu,
   LayoutDashboard,
@@ -23,12 +23,16 @@ import {
   Gift,
   Headphones,
   Shield,
+  UserPlus,
+  Star,
+  LogIn,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { Separator } from '@/components/ui/separator';
 import { cn, formatCurrency } from '@/lib/utils';
 import { useAuth } from '@/hooks/use-auth';
+import { useGuestStore } from '@/stores/guest-store';
 import { toast } from 'sonner';
 
 const navigation = [
@@ -56,20 +60,34 @@ const tierConfig = {
   enterprise: { label: '엔터프라이즈', color: 'text-blue-600', bg: 'bg-blue-100 dark:bg-blue-900/30' },
 };
 
-export function MobileNav() {
+interface MobileNavProps {
+  isGuestMode?: boolean;
+}
+
+export function MobileNav({ isGuestMode = false }: MobileNavProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { profile, signOut } = useAuth();
+  const exitGuestMode = useGuestStore((state) => state.exitGuestMode);
+  const getEngagementScore = useGuestStore((state) => state.getEngagementScore);
 
   const tier = tierConfig[profile?.tier as keyof typeof tierConfig] || tierConfig.basic;
   const isAdmin = profile?.is_admin === true;
+  const engagementScore = isGuestMode ? getEngagementScore() : 0;
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
     setOpen(false);
     toast.success('로그아웃 중...');
     await signOut();
+  };
+
+  const handleExitGuestMode = () => {
+    exitGuestMode();
+    setOpen(false);
+    router.push('/login');
   };
 
   return (
@@ -92,26 +110,75 @@ export function MobileNav() {
             </Link>
           </div>
 
-          {/* Balance Card */}
-          <div className="p-4">
-            <div className="glass-balance text-white rounded-2xl p-4 relative overflow-hidden">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <Wallet className="h-4 w-4" />
-                  <span className="text-sm text-white/80">내 잔액</span>
-                </div>
-                <div className={cn("px-2 py-0.5 rounded-full text-xs font-semibold", tier.bg, tier.color)}>
-                  <div className="flex items-center gap-1">
-                    {profile?.tier === "vip" && <Crown className="h-3 w-3" />}
-                    {tier.label}
+          {/* Balance Card - 회원용 */}
+          {!isGuestMode && (
+            <div className="p-4">
+              <div className="glass-balance text-white rounded-2xl p-4 relative overflow-hidden">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Wallet className="h-4 w-4" />
+                    <span className="text-sm text-white/80">내 잔액</span>
+                  </div>
+                  <div className={cn("px-2 py-0.5 rounded-full text-xs font-semibold", tier.bg, tier.color)}>
+                    <div className="flex items-center gap-1">
+                      {profile?.tier === "vip" && <Crown className="h-3 w-3" />}
+                      {tier.label}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="text-2xl font-bold">
-                {formatCurrency(profile?.balance || 0)}
+                <div className="text-2xl font-bold">
+                  {formatCurrency(profile?.balance || 0)}
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
+          {/* 비회원용 가입 유도 카드 */}
+          {isGuestMode && (
+            <div className="p-4">
+              <div className="bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 text-white rounded-2xl p-4 relative overflow-hidden">
+                <div className="flex items-center gap-2 mb-2">
+                  <Sparkles className="h-4 w-4 text-yellow-200" />
+                  <span className="text-sm font-bold">지금 가입하면</span>
+                </div>
+                <div className="space-y-1.5 mb-3 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Gift className="h-3.5 w-3.5 text-yellow-200" />
+                    <span>가입 즉시 <span className="font-bold">1,000P</span></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Zap className="h-3.5 w-3.5 text-yellow-200" />
+                    <span>첫충전 <span className="font-bold">20% 보너스</span></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Star className="h-3.5 w-3.5 text-yellow-200" />
+                    <span>무료 체험 서비스</span>
+                  </div>
+                </div>
+                {engagementScore > 0 && (
+                  <div className="bg-white/10 rounded-lg p-2 mb-3">
+                    <div className="text-xs text-white/80 mb-1">둘러보기 진행률</div>
+                    <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-yellow-300 rounded-full"
+                        style={{ width: `${Math.min(engagementScore, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+                <Link href="/login" onClick={() => setOpen(false)}>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="w-full bg-white hover:bg-white/90 text-orange-600 font-bold border-0"
+                  >
+                    <UserPlus className="mr-2 h-4 w-4" />
+                    30초 만에 가입하기
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          )}
 
           {/* Navigation */}
           <nav className="flex-1 px-4 py-2 overflow-y-auto">
@@ -192,33 +259,58 @@ export function MobileNav() {
             )}
           </nav>
 
-          {/* User Info & Logout */}
-          <div className="p-4 border-t border-border">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <span className="text-primary font-semibold text-lg">
-                  {profile?.email?.charAt(0).toUpperCase() || "U"}
-                </span>
+          {/* User Info & Logout - 회원용 */}
+          {!isGuestMode && (
+            <div className="p-4 border-t border-border">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="text-primary font-semibold text-lg">
+                    {profile?.email?.charAt(0).toUpperCase() || "U"}
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium truncate">{profile?.email || "user@example.com"}</p>
+                  <p className="text-sm text-muted-foreground">{tier.label} 회원</p>
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-medium truncate">{profile?.email || "user@example.com"}</p>
-                <p className="text-sm text-muted-foreground">{tier.label} 회원</p>
-              </div>
+              <Button
+                variant="outline"
+                className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+              >
+                {isLoggingOut ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <LogOut className="mr-2 h-4 w-4" />
+                )}
+                로그아웃
+              </Button>
             </div>
-            <Button
-              variant="outline"
-              className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-            >
-              {isLoggingOut ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <LogOut className="mr-2 h-4 w-4" />
-              )}
-              로그아웃
-            </Button>
-          </div>
+          )}
+
+          {/* User Info - 비회원용 */}
+          {isGuestMode && (
+            <div className="p-4 border-t border-border">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-12 w-12 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                  <span className="text-amber-600 font-semibold text-lg">G</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium">비회원</p>
+                  <p className="text-sm text-muted-foreground">둘러보기 모드</p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                className="w-full text-primary hover:text-primary hover:bg-primary/10"
+                onClick={handleExitGuestMode}
+              >
+                <LogIn className="mr-2 h-4 w-4" />
+                로그인 / 회원가입
+              </Button>
+            </div>
+          )}
         </div>
       </SheetContent>
     </Sheet>

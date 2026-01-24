@@ -31,7 +31,41 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // 대시보드 페이지 (로그인 필요하지만 SEO용으로 포함)
+  // 서비스 소개 페이지 (SEO 중요!)
+  const servicePages = [
+    {
+      url: `${BASE_URL}/services/instagram`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/services/youtube`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/services/tiktok`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/services/facebook`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/services/telegram`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+  ];
+
+  // 대시보드 페이지 (비회원 둘러보기 가능)
   const dashboardPages = [
     {
       url: `${BASE_URL}/dashboard`,
@@ -58,10 +92,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/guide`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/free-trial`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    {
       url: `${BASE_URL}/support`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/referral`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
     },
     {
       url: `${BASE_URL}/settings`,
@@ -88,5 +140,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...staticPages, ...dashboardPages, ...blogPages];
+  return [...staticPages, ...servicePages, ...dashboardPages, ...blogPages];
 }

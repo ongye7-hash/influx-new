@@ -2,6 +2,10 @@
 
 import { Sidebar } from '@/components/layout/sidebar';
 
-export function ClientSidebar() {
-  return <Sidebar />;
+interface ClientSidebarProps {
+  isGuestMode?: boolean;
+}
+
+export function ClientSidebar({ isGuestMode = false }: ClientSidebarProps) {
+  return <Sidebar isGuestMode={isGuestMode} />;
 }

@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle, Loader2, Home } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle, Loader2, Home, UserCircle, Gift, Zap, Shield } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/hooks/use-auth";
+import { useGuestStore } from "@/stores/guest-store";
 import { toast } from "sonner";
 
 // 소셜 로그인 아이콘
@@ -45,6 +46,7 @@ function LoginContent() {
   const redirectTo = searchParams.get('redirect') || '/dashboard';
 
   const { signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth();
+  const enterGuestMode = useGuestStore((state) => state.enterGuestMode);
 
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -146,6 +148,15 @@ function LoginContent() {
     if (googleError) {
       setError('Google 로그인에 실패했습니다.');
     }
+  };
+
+  // 비회원으로 둘러보기
+  const handleGuestMode = () => {
+    enterGuestMode();
+    toast.success('비회원 모드로 둘러보기를 시작합니다!', {
+      description: '모든 기능을 체험해보고 회원가입하세요.',
+    });
+    router.push('/dashboard');
   };
 
 
@@ -489,6 +500,58 @@ function LoginContent() {
             <GoogleIcon className="h-5 w-5" />
             Google로 계속하기
           </Button>
+
+          {/* 비회원 둘러보기 */}
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <Separator />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                가입 전 둘러보기
+              </span>
+            </div>
+          </div>
+
+          <Button
+            variant="ghost"
+            className="w-full h-12 gap-2 border border-dashed border-muted-foreground/30 hover:border-primary hover:bg-primary/5"
+            type="button"
+            onClick={handleGuestMode}
+          >
+            <UserCircle className="h-5 w-5" />
+            비회원으로 둘러보기
+          </Button>
+
+          {/* 가입 혜택 미리보기 - 전환율 요소 */}
+          <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-4 border border-primary/20">
+            <p className="text-sm font-medium text-center mb-3">
+              지금 가입하면 받는 혜택
+            </p>
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-8 h-8 rounded-full bg-yellow-500/20 flex items-center justify-center">
+                  <Gift className="h-4 w-4 text-yellow-600" />
+                </div>
+                <span className="text-xs font-bold text-yellow-600">1,000P</span>
+                <span className="text-[10px] text-muted-foreground">가입 즉시</span>
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <Zap className="h-4 w-4 text-green-600" />
+                </div>
+                <span className="text-xs font-bold text-green-600">+20%</span>
+                <span className="text-[10px] text-muted-foreground">첫충전 보너스</span>
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+                  <Shield className="h-4 w-4 text-blue-600" />
+                </div>
+                <span className="text-xs font-bold text-blue-600">무료</span>
+                <span className="text-[10px] text-muted-foreground">체험 서비스</span>
+              </div>
+            </div>
+          </div>
 
           {/* Help Text */}
           <p className="text-center text-sm text-muted-foreground">
