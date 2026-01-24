@@ -63,6 +63,13 @@ function Logo({ size = 'md', className }: { size?: 'sm' | 'md' | 'lg'; className
 }
 
 // ============================================
+// Number Formatting Helper
+// ============================================
+function formatNumberWithCommas(num: number): string {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+// ============================================
 // Animated Counter Hook
 // ============================================
 function useCountUp(end: number, duration: number = 2000, startOnView: boolean = true) {
@@ -241,7 +248,7 @@ function StatCard({ end, suffix, label, prefix, decimals }: StatItemProps) {
   const { count, ref } = useCountUp(end, 2500);
   const displayValue = decimals
     ? (count / 10).toFixed(decimals)
-    : count.toLocaleString();
+    : formatNumberWithCommas(count);
 
   return (
     <div ref={ref} className="relative group">
