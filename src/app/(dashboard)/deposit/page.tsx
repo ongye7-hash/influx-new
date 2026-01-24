@@ -190,7 +190,10 @@ export default function DepositPage() {
   // 입금 내역 조회
   // ============================================
   const fetchDeposits = useCallback(async () => {
-    if (!profile?.id) return;
+    if (!profile?.id) {
+      setIsLoadingDeposits(false);
+      return;
+    }
 
     try {
       const { data, error } = await supabase

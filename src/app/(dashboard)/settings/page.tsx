@@ -162,7 +162,11 @@ export default function SettingsPage() {
   };
 
   // API 키 로드 함수
-  const loadApiKeys = async (userId: string) => {
+  const loadApiKeys = async (userId: string | undefined) => {
+    if (!userId) {
+      setIsLoadingKeys(false);
+      return;
+    }
     setIsLoadingKeys(true);
     try {
       const { data, error } = await supabase
@@ -193,6 +197,9 @@ export default function SettingsPage() {
       if (!profile.referral_code) {
         generateReferralCode(profile.id);
       }
+    } else {
+      // 비회원 모드: 로딩 상태 해제
+      setIsLoadingKeys(false);
     }
   }, [profile]);
 
