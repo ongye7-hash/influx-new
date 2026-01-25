@@ -12,17 +12,38 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
+        allow: [
+          '/',
+          '/_next/static/',
+        ],
+        disallow: [
+          '/api/',
+          '/admin/',
+          '/auth/',
+          '/private/',
+          '/_next/image',
+        ],
+      },
+      {
+        userAgent: 'Googlebot',
         allow: '/',
         disallow: [
           '/api/',
           '/admin/',
           '/auth/',
-          '/_next/',
-          '/private/',
         ],
       },
       {
-        userAgent: 'Googlebot',
+        userAgent: 'Yeti', // 네이버
+        allow: '/',
+        disallow: [
+          '/api/',
+          '/admin/',
+          '/auth/',
+        ],
+      },
+      {
+        userAgent: 'Bingbot',
         allow: '/',
         disallow: [
           '/api/',
