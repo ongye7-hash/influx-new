@@ -1,16 +1,22 @@
 // ============================================
 // Blog List Page (인사이트)
-// 다크모드 통일 버전
+// 플랫폼 필터 + 페이지네이션 버전
 // ============================================
 
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Calendar, Clock, Tag, TrendingUp, Sparkles, Home } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, Tag, TrendingUp, Sparkles, Home, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getAllPosts } from '@/lib/blog-posts';
 import { cn } from '@/lib/utils';
+import { PlatformFilter, PLATFORM_FILTERS } from '@/components/blog/platform-filter';
+
+// ============================================
+// Constants
+// ============================================
+const POSTS_PER_PAGE = 9;
 
 // ============================================
 // Metadata
@@ -58,10 +64,120 @@ function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
   );
 }
 
+
+// ============================================
+// Pagination Component
+// ============================================
+function Pagination({
+  currentPage,
+  totalPages,
+  platform
+}: {
+  currentPage: number;
+  totalPages: number;
+  platform: string;
+}) {
+  if (totalPages <= 1) return null;
+
+  const getPageUrl = (page: number) => {
+    const params = new URLSearchParams();
+    if (platform) params.set('platform', platform);
+    if (page > 1) params.set('page', page.toString());
+    const queryString = params.toString();
+    return queryString ? `/blog?${queryString}` : '/blog';
+  };
+
+  const pages: (number | 'ellipsis')[] = [];
+
+  // Always show first page
+  pages.push(1);
+
+  // Show ellipsis if needed
+  if (currentPage > 3) {
+    pages.push('ellipsis');
+  }
+
+  // Show pages around current
+  for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+    if (!pages.includes(i)) {
+      pages.push(i);
+    }
+  }
+
+  // Show ellipsis if needed
+  if (currentPage < totalPages - 2) {
+    pages.push('ellipsis');
+  }
+
+  // Always show last page if more than 1
+  if (totalPages > 1 && !pages.includes(totalPages)) {
+    pages.push(totalPages);
+  }
+
+  return (
+    <div className="flex items-center justify-center gap-2 mt-12">
+      {/* Previous Button */}
+      <Link
+        href={getPageUrl(currentPage - 1)}
+        className={cn(
+          'inline-flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+          currentPage === 1
+            ? 'pointer-events-none opacity-30 text-white/40'
+            : 'bg-white/5 hover:bg-white/10 text-white/70 hover:text-white'
+        )}
+        aria-disabled={currentPage === 1}
+      >
+        <ChevronLeft className="w-4 h-4" />
+        이전
+      </Link>
+
+      {/* Page Numbers */}
+      <div className="flex items-center gap-1">
+        {pages.map((page, index) => (
+          page === 'ellipsis' ? (
+            <span key={`ellipsis-${index}`} className="px-2 text-white/40">...</span>
+          ) : (
+            <Link
+              key={page}
+              href={getPageUrl(page)}
+              className={cn(
+                'w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors',
+                currentPage === page
+                  ? 'bg-gradient-to-r from-[#0064FF] to-[#00C896] text-white'
+                  : 'bg-white/5 hover:bg-white/10 text-white/70 hover:text-white'
+              )}
+            >
+              {page}
+            </Link>
+          )
+        ))}
+      </div>
+
+      {/* Next Button */}
+      <Link
+        href={getPageUrl(currentPage + 1)}
+        className={cn(
+          'inline-flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+          currentPage === totalPages
+            ? 'pointer-events-none opacity-30 text-white/40'
+            : 'bg-white/5 hover:bg-white/10 text-white/70 hover:text-white'
+        )}
+        aria-disabled={currentPage === totalPages}
+      >
+        다음
+        <ChevronRight className="w-4 h-4" />
+      </Link>
+    </div>
+  );
+}
+
 // ============================================
 // Blog Card Component
 // ============================================
 function BlogCard({ post, featured = false }: { post: ReturnType<typeof getAllPosts>[0]; featured?: boolean }) {
+  const platformFilter = PLATFORM_FILTERS.find(f => f.id === post.category);
+  const platformColor = platformFilter?.color || '#0064FF';
+
   return (
     <Link href={`/blog/${post.slug}`} className="block group">
       <Card className={cn(
@@ -71,12 +187,23 @@ function BlogCard({ post, featured = false }: { post: ReturnType<typeof getAllPo
         featured && 'md:col-span-2'
       )}>
         {/* Top Gradient Border on Hover */}
-        <div className="h-1 bg-gradient-to-r from-[#0064FF] via-[#00C896] to-[#4D9FFF] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div
+          className="h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: `linear-gradient(to right, ${platformColor}, ${platformColor}80)` }}
+        />
 
         <CardContent className={cn('relative p-6', featured && 'md:p-8')}>
           {/* Category & Reading Time */}
           <div className="flex items-center gap-3 mb-4">
-            <Badge variant="outline" className="bg-[#0064FF]/10 text-[#4D9FFF] border-[#0064FF]/30">
+            <Badge
+              variant="outline"
+              className="border-white/20"
+              style={{
+                backgroundColor: `${platformColor}15`,
+                color: platformColor,
+                borderColor: `${platformColor}30`
+              }}
+            >
               <Tag className="w-3 h-3 mr-1" />
               {post.category}
             </Badge>
@@ -126,10 +253,32 @@ function BlogCard({ post, featured = false }: { post: ReturnType<typeof getAllPo
 // ============================================
 // Page Component
 // ============================================
-export default function BlogPage() {
-  const posts = getAllPosts();
-  const featuredPost = posts[0];
-  const otherPosts = posts.slice(1);
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ platform?: string; page?: string }>;
+}) {
+  const params = await searchParams;
+  const platform = params.platform || '';
+  const currentPage = Math.max(1, parseInt(params.page || '1', 10));
+
+  // Get all posts and filter by platform
+  const allPosts = getAllPosts();
+  const filteredPosts = platform
+    ? allPosts.filter(post => post.category === platform)
+    : allPosts;
+
+  // Calculate pagination
+  const totalPosts = filteredPosts.length;
+  const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
+  const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+
+  // Featured post (only on first page without filter)
+  const showFeatured = currentPage === 1 && !platform;
+  const featuredPost = showFeatured ? paginatedPosts[0] : null;
+  const displayPosts = showFeatured ? paginatedPosts.slice(1) : paginatedPosts;
 
   return (
     <div className="min-h-screen bg-slate-950">
@@ -189,10 +338,13 @@ export default function BlogPage() {
               </span>
             </h1>
 
-            <p className="text-lg text-white/60 max-w-2xl mx-auto break-keep">
+            <p className="text-lg text-white/60 max-w-2xl mx-auto break-keep mb-8">
               유튜브, 인스타그램, 틱톡 마케팅의 모든 것.
               10년 노하우를 가진 전문가가 알려드리는 성장 비법.
             </p>
+
+            {/* Platform Filters */}
+            <PlatformFilter currentPlatform={platform} />
           </div>
         </div>
       </section>
@@ -200,8 +352,26 @@ export default function BlogPage() {
       {/* Blog Posts Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          {posts.length > 0 ? (
+          {paginatedPosts.length > 0 ? (
             <div className="space-y-8">
+              {/* Results Count */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-sm text-white/60">
+                  {platform ? (
+                    <>
+                      <span className="text-white font-medium">{platform}</span> 관련 글 {totalPosts}개
+                    </>
+                  ) : (
+                    <>총 {totalPosts}개의 글</>
+                  )}
+                </div>
+                {currentPage > 1 && (
+                  <div className="text-sm text-white/40">
+                    페이지 {currentPage} / {totalPages}
+                  </div>
+                )}
+              </div>
+
               {/* Featured Post */}
               {featuredPost && (
                 <div className="mb-12">
@@ -213,23 +383,42 @@ export default function BlogPage() {
                 </div>
               )}
 
-              {/* Other Posts */}
-              {otherPosts.length > 0 && (
+              {/* Posts Grid */}
+              {displayPosts.length > 0 && (
                 <>
-                  <div className="flex items-center gap-2 mb-6">
-                    <span className="text-sm font-medium text-white/60">최신 아티클</span>
-                  </div>
+                  {showFeatured && (
+                    <div className="flex items-center gap-2 mb-6">
+                      <span className="text-sm font-medium text-white/60">최신 아티클</span>
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {otherPosts.map((post) => (
+                    {displayPosts.map((post) => (
                       <BlogCard key={post.slug} post={post} />
                     ))}
                   </div>
                 </>
               )}
+
+              {/* Pagination */}
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                platform={platform}
+              />
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-white/40">아직 등록된 글이 없습니다.</p>
+              <p className="text-white/40 mb-4">
+                {platform ? `'${platform}' 관련 글이 없습니다.` : '아직 등록된 글이 없습니다.'}
+              </p>
+              {platform && (
+                <Link
+                  href="/blog"
+                  className="text-[#00C896] hover:text-[#00E0A8] transition-colors"
+                >
+                  전체 글 보기
+                </Link>
+              )}
             </div>
           )}
         </div>
