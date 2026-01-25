@@ -41,6 +41,9 @@ export const metadata: Metadata = {
   ],
   verification: {
     google: "cZUHSTGI0c7z861Bjl-22lvjAQtuoTv64XdPsReKOcU",
+    other: {
+      "naver-site-verification": "4978d263a7ce773c9844990957aa62ed0264686e",
+    },
   },
   authors: [{ name: "Loopcell & Media" }],
   creator: "Loopcell & Media",
