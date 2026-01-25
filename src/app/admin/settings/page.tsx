@@ -36,7 +36,7 @@ const defaultSettings: SiteSettings = {
   maintenance_mode: false,
   auto_order_processing: true,
   min_deposit_amount: 10000,
-  kakao_channel_url: "https://pf.kakao.com/_influx",
+  kakao_channel_url: "https://pf.kakao.com/_xgpUAX",
 };
 
 export default function AdminSettingsPage() {

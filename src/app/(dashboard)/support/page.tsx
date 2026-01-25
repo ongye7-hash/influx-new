@@ -223,7 +223,7 @@ export default function SupportPage() {
       {/* 빠른 연락처 카드 */}
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="border-primary/20 hover:border-primary/40 transition-colors cursor-pointer"
-              onClick={() => window.open('https://pf.kakao.com/_influx', '_blank')}>
+              onClick={() => window.open('https://pf.kakao.com/_xgpUAX', '_blank')}>
           <CardContent className="p-4 flex items-center gap-4">
             <div className="h-12 w-12 rounded-full bg-yellow-100 flex items-center justify-center">
               <MessageSquare className="h-6 w-6 text-yellow-600" />

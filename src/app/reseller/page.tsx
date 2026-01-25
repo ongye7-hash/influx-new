@@ -161,7 +161,7 @@ export default function ResellerPage() {
                 size="lg"
                 className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10 text-lg h-14 px-8"
               >
-                <Link href="https://pf.kakao.com/_influx" target="_blank">
+                <Link href="https://pf.kakao.com/_xgpUAX" target="_blank">
                   카카오톡 문의
                 </Link>
               </Button>
@@ -373,7 +373,7 @@ export default function ResellerPage() {
                   size="lg"
                   className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10 text-lg h-14 px-8"
                 >
-                  <Link href="https://pf.kakao.com/_influx" target="_blank">
+                  <Link href="https://pf.kakao.com/_xgpUAX" target="_blank">
                     상담 문의
                   </Link>
                 </Button>

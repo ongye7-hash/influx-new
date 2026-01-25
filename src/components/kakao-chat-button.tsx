@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const KAKAO_CHANNEL_URL = 'https://pf.kakao.com/_influx'; // TODO: 실제 채널 URL로 교체
+const KAKAO_CHANNEL_URL = 'https://pf.kakao.com/_xgpUAX';
 
 export function KakaoChatButton() {
   const [isHovered, setIsHovered] = useState(false);

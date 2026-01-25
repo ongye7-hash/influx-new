@@ -29,7 +29,7 @@ export const siteConfig = {
 
   // 소셜 링크
   social: {
-    kakao: "https://pf.kakao.com/_influx", // TODO: 실제 링크로 교체
+    kakao: "https://pf.kakao.com/_xgpUAX",
     instagram: "https://instagram.com/influx_kr",
     youtube: "https://youtube.com/@influx_kr",
   },
