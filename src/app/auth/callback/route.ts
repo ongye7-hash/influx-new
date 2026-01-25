@@ -17,7 +17,13 @@ export async function GET(request: NextRequest) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      return NextResponse.redirect(new URL(next, requestUrl.origin));
+      // 로그인 성공 시 비회원 모드 쿠키 삭제
+      const response = NextResponse.redirect(new URL(next, requestUrl.origin));
+      response.cookies.set('influx_guest_mode', '', {
+        path: '/',
+        expires: new Date(0), // 즉시 만료
+      });
+      return response;
     }
   }
 

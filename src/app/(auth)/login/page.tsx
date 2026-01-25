@@ -60,6 +60,11 @@ function LoginContent() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerUsername, setRegisterUsername] = useState("");
 
+  // 비회원 모드 쿠키 삭제 함수
+  const clearGuestModeCookie = () => {
+    document.cookie = 'influx_guest_mode=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  };
+
   // 로그인 처리
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,6 +85,9 @@ function LoginContent() {
         }
         return;
       }
+
+      // 로그인 성공 시 비회원 모드 쿠키 삭제
+      clearGuestModeCookie();
 
       toast.success('로그인 성공!');
       router.push(redirectTo);
@@ -144,6 +152,8 @@ function LoginContent() {
   // Google 로그인
   const handleGoogleLogin = async () => {
     setError(null);
+    // Google 로그인 시도 전 비회원 모드 쿠키 삭제
+    clearGuestModeCookie();
     const { error: googleError } = await signInWithGoogle();
     if (googleError) {
       setError('Google 로그인에 실패했습니다.');
