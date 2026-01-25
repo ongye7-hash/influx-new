@@ -253,8 +253,8 @@ function StatCard({ end, suffix, label, prefix, decimals }: StatItemProps) {
   return (
     <div ref={ref} className="relative group">
       <Card className="overflow-hidden border-0 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
-        <CardContent className="p-6 text-center">
-          <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#4D9FFF] to-[#00C896] bg-clip-text text-transparent mb-2">
+        <CardContent className="p-4 sm:p-6 text-center">
+          <div className="text-2xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#4D9FFF] to-[#00C896] bg-clip-text text-transparent mb-2 whitespace-nowrap">
             {prefix}{displayValue}{suffix}
           </div>
           <div className="text-white/60 font-medium break-keep">{label}</div>
