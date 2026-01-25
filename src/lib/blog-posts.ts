@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 11,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -287,7 +287,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 9,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -480,7 +480,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 11,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -720,7 +720,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -893,7 +893,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 10,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -1105,7 +1105,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 10,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -1432,7 +1432,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 12,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -1703,7 +1703,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 12,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -1799,7 +1799,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 13,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -1903,7 +1903,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 11,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -1993,7 +1993,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 10,
     category: '기타',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -2076,7 +2076,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 10,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -2166,7 +2166,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 11,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -2248,7 +2248,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-26',
     readingTime: 15,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <div class="bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-xl p-6 mb-8 border border-pink-500/20">
@@ -2625,7 +2625,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-26',
     readingTime: 18,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <div class="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-xl p-6 mb-8 border border-red-500/20">
@@ -3066,7 +3066,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-25',
     readingTime: 13,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -3191,7 +3191,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-24',
     readingTime: 10,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -3310,7 +3310,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-24',
     readingTime: 11,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -3444,7 +3444,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-23',
     readingTime: 9,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -3575,7 +3575,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-23',
     readingTime: 12,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -3699,7 +3699,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-22',
     readingTime: 11,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -3821,7 +3821,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-25',
     readingTime: 10,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -3956,7 +3956,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-25',
     readingTime: 11,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4102,7 +4102,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-20',
     readingTime: 12,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4159,7 +4159,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-19',
     readingTime: 10,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4208,7 +4208,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-18',
     readingTime: 8,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4255,7 +4255,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-17',
     readingTime: 11,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4316,7 +4316,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-16',
     readingTime: 10,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4369,7 +4369,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-15',
     readingTime: 9,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4411,7 +4411,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-14',
     readingTime: 8,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4450,7 +4450,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-13',
     readingTime: 11,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4489,7 +4489,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-12',
     readingTime: 12,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4534,7 +4534,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-11',
     readingTime: 13,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4576,7 +4576,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-10',
     readingTime: 8,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4615,7 +4615,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-09',
     readingTime: 9,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4663,7 +4663,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-08',
     readingTime: 7,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4701,7 +4701,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-07',
     readingTime: 10,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4740,7 +4740,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-06',
     readingTime: 9,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4781,7 +4781,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-05',
     readingTime: 7,
     category: '유튜브',
-    thumbnail: '/thumbnails/youtube-thumb.svg',
+    thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4824,7 +4824,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-04',
     readingTime: 10,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4862,7 +4862,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-03',
     readingTime: 9,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4902,7 +4902,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-02',
     readingTime: 7,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4940,7 +4940,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2026-01-01',
     readingTime: 8,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -4978,7 +4978,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-31',
     readingTime: 9,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5017,7 +5017,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-30',
     readingTime: 11,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5058,7 +5058,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-29',
     readingTime: 10,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5096,7 +5096,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-28',
     readingTime: 11,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5136,7 +5136,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-27',
     readingTime: 8,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5175,7 +5175,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-26',
     readingTime: 9,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5215,7 +5215,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-25',
     readingTime: 8,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5254,7 +5254,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-24',
     readingTime: 10,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5295,7 +5295,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-23',
     readingTime: 11,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5336,7 +5336,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-22',
     readingTime: 13,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5376,7 +5376,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-21',
     readingTime: 6,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5417,7 +5417,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-20',
     readingTime: 7,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5455,7 +5455,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-19',
     readingTime: 9,
     category: '인스타그램',
-    thumbnail: '/thumbnails/instagram-thumb.svg',
+    thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5498,7 +5498,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-18',
     readingTime: 8,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5536,7 +5536,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-17',
     readingTime: 7,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5574,7 +5574,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-16',
     readingTime: 8,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5610,7 +5610,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-15',
     readingTime: 10,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5650,7 +5650,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-14',
     readingTime: 9,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5689,7 +5689,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-13',
     readingTime: 7,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5728,7 +5728,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-12',
     readingTime: 10,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5767,7 +5767,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-11',
     readingTime: 9,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5807,7 +5807,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-10',
     readingTime: 11,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5846,7 +5846,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-09',
     readingTime: 8,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5887,7 +5887,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-08',
     readingTime: 8,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5928,7 +5928,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-07',
     readingTime: 7,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -5967,7 +5967,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-06',
     readingTime: 10,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6000,7 +6000,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-05',
     readingTime: 8,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6033,7 +6033,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-04',
     readingTime: 7,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6066,7 +6066,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-03',
     readingTime: 7,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6098,7 +6098,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-02',
     readingTime: 6,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6131,7 +6131,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-12-01',
     readingTime: 8,
     category: '틱톡',
-    thumbnail: '/thumbnails/tiktok-thumb.svg',
+    thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6174,7 +6174,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-30',
     readingTime: 10,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6208,7 +6208,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-29',
     readingTime: 11,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6246,7 +6246,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-28',
     readingTime: 14,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6285,7 +6285,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-27',
     readingTime: 9,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6318,7 +6318,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-26',
     readingTime: 10,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6351,7 +6351,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-25',
     readingTime: 9,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6385,7 +6385,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-24',
     readingTime: 9,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6419,7 +6419,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-23',
     readingTime: 8,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6452,7 +6452,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-22',
     readingTime: 12,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6487,7 +6487,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-21',
     readingTime: 8,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6521,7 +6521,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-20',
     readingTime: 10,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6554,7 +6554,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-19',
     readingTime: 7,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6587,7 +6587,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-18',
     readingTime: 9,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6632,7 +6632,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-17',
     readingTime: 10,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6683,7 +6683,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-16',
     readingTime: 8,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6728,7 +6728,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-15',
     readingTime: 9,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6773,7 +6773,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-14',
     readingTime: 8,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6818,7 +6818,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-13',
     readingTime: 7,
     category: '페이스북',
-    thumbnail: '/thumbnails/facebook-thumb.svg',
+    thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6866,7 +6866,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-12',
     readingTime: 10,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6911,7 +6911,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-11',
     readingTime: 9,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6954,7 +6954,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-10',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -6998,7 +6998,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-09',
     readingTime: 7,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7042,7 +7042,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-08',
     readingTime: 7,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7086,7 +7086,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-07',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7130,7 +7130,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-06',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7175,7 +7175,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-05',
     readingTime: 9,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7220,7 +7220,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-04',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7264,7 +7264,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-03',
     readingTime: 10,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7308,7 +7308,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-02',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7352,7 +7352,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-11-01',
     readingTime: 11,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7396,7 +7396,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-31',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7440,7 +7440,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-30',
     readingTime: 7,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7484,7 +7484,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-29',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7528,7 +7528,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-28',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7572,7 +7572,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-27',
     readingTime: 9,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7616,7 +7616,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-26',
     readingTime: 8,
     category: '트위터',
-    thumbnail: '/thumbnails/twitter-thumb.svg',
+    thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7663,7 +7663,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-25',
     readingTime: 10,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7707,7 +7707,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-24',
     readingTime: 9,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7751,7 +7751,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-23',
     readingTime: 10,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7795,7 +7795,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-22',
     readingTime: 8,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7839,7 +7839,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-21',
     readingTime: 9,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7883,7 +7883,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-20',
     readingTime: 8,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7927,7 +7927,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-19',
     readingTime: 9,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -7971,7 +7971,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-18',
     readingTime: 7,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8014,7 +8014,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-17',
     readingTime: 7,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8058,7 +8058,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-16',
     readingTime: 8,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8102,7 +8102,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-15',
     readingTime: 7,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8146,7 +8146,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-14',
     readingTime: 9,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8190,7 +8190,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-13',
     readingTime: 7,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8234,7 +8234,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-12',
     readingTime: 6,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8278,7 +8278,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-11',
     readingTime: 7,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8323,7 +8323,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-10',
     readingTime: 6,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8367,7 +8367,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-09',
     readingTime: 8,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8411,7 +8411,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-08',
     readingTime: 6,
     category: '텔레그램',
-    thumbnail: '/thumbnails/telegram-thumb.svg',
+    thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8458,7 +8458,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-07',
     readingTime: 12,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8503,7 +8503,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-06',
     readingTime: 10,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8547,7 +8547,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-05',
     readingTime: 9,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8591,7 +8591,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-04',
     readingTime: 8,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8635,7 +8635,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-03',
     readingTime: 9,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8679,7 +8679,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-02',
     readingTime: 8,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8723,7 +8723,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-01',
     readingTime: 7,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8767,7 +8767,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-30',
     readingTime: 8,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8811,7 +8811,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-29',
     readingTime: 7,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8855,7 +8855,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-28',
     readingTime: 8,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8899,7 +8899,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-27',
     readingTime: 7,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8943,7 +8943,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-26',
     readingTime: 7,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -8987,7 +8987,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-25',
     readingTime: 8,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9031,7 +9031,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-24',
     readingTime: 8,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9075,7 +9075,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-23',
     readingTime: 7,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9119,7 +9119,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-22',
     readingTime: 9,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9163,7 +9163,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-21',
     readingTime: 9,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9207,7 +9207,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-20',
     readingTime: 10,
     category: '트위치',
-    thumbnail: '/thumbnails/twitch-thumb.svg',
+    thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9254,7 +9254,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-19',
     readingTime: 10,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9298,7 +9298,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-18',
     readingTime: 9,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9342,7 +9342,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-17',
     readingTime: 10,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9386,7 +9386,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-16',
     readingTime: 9,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9430,7 +9430,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-15',
     readingTime: 8,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9474,7 +9474,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-14',
     readingTime: 9,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9518,7 +9518,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-13',
     readingTime: 7,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9562,7 +9562,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-12',
     readingTime: 7,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9605,7 +9605,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-11',
     readingTime: 8,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9649,7 +9649,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-10',
     readingTime: 9,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9693,7 +9693,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-09',
     readingTime: 8,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9737,7 +9737,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-08',
     readingTime: 7,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p class="lead text-xl text-muted-foreground">
@@ -9783,7 +9783,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-09',
     readingTime: 9,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>디스코드 서버와 계정의 보안은 커뮤니티 운영에서 가장 중요한 요소입니다. 해킹, 스팸, 악성 사용자로부터 보호하는 방법을 알아보세요.</p>
@@ -9871,7 +9871,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-10',
     readingTime: 8,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>커스텀 이모지와 스티커는 디스코드 서버의 정체성을 표현하는 핵심 요소입니다. 멤버들의 참여도를 높이는 이모지 전략을 알아보세요.</p>
@@ -9953,7 +9953,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-11',
     readingTime: 8,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>디스코드 이벤트 기능을 활용하면 커뮤니티 행사를 체계적으로 관리하고 멤버 참여율을 높일 수 있습니다.</p>
@@ -10031,7 +10031,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-12',
     readingTime: 7,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>디스코드 활동(Activities)은 음성 채널에서 멤버들과 게임, 영상 시청 등을 함께 즐길 수 있는 기능입니다.</p>
@@ -10110,7 +10110,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-13',
     readingTime: 9,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>효과적인 온보딩 시스템은 신규 멤버의 첫인상을 좌우하고 장기적인 활동을 유도합니다.</p>
@@ -10205,7 +10205,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-14',
     readingTime: 8,
     category: '디스코드',
-    thumbnail: '/thumbnails/discord-thumb.svg',
+    thumbnail: '/thumbnails/discord-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>서버 템플릿을 사용하면 검증된 구조로 빠르게 디스코드 서버를 구축할 수 있습니다.</p>
@@ -10291,7 +10291,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-15',
     readingTime: 10,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드(Threads)는 인스타그램과 연동되는 텍스트 기반 SNS로, 2023년 출시 이후 빠르게 성장하고 있습니다. 스레드에서 팔로워를 늘리는 핵심 전략을 알아보세요.</p>
@@ -10373,7 +10373,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-16',
     readingTime: 9,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드의 알고리즘을 이해하면 더 많은 사용자에게 콘텐츠를 노출시킬 수 있습니다. 핵심 작동 원리를 알아보세요.</p>
@@ -10458,7 +10458,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-17',
     readingTime: 10,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드는 텍스트 중심 플랫폼입니다. 참여를 이끌어내는 글쓰기 기법을 마스터하세요.</p>
@@ -10542,7 +10542,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-18',
     readingTime: 8,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드는 대화 중심 플랫폼입니다. 일방적인 게시가 아닌 양방향 소통이 성장의 핵심입니다.</p>
@@ -10619,7 +10619,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-19',
     readingTime: 9,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드와 트위터(X)는 비슷해 보이지만 각각의 특성과 장점이 다릅니다. 목적에 맞는 플랫폼을 선택하세요.</p>
@@ -10728,7 +10728,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-20',
     readingTime: 7,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>프로필은 스레드에서 첫인상을 결정합니다. 방문자를 팔로워로 전환하는 최적화 전략을 알아보세요.</p>
@@ -10814,7 +10814,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-21',
     readingTime: 7,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드의 해시태그 시스템은 트위터와 다릅니다. 플랫폼 특성에 맞는 해시태그 전략을 알아보세요.</p>
@@ -10890,7 +10890,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-22',
     readingTime: 6,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>올바른 시간에 포스팅하면 같은 콘텐츠도 더 많은 참여를 얻을 수 있습니다. 스레드의 최적 포스팅 시간을 알아보세요.</p>
@@ -10975,7 +10975,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-23',
     readingTime: 8,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>트렌드를 빠르게 캐치하고 활용하면 폭발적인 성장을 이룰 수 있습니다. 스레드에서 트렌드를 활용하는 방법을 알아보세요.</p>
@@ -11058,7 +11058,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-24',
     readingTime: 9,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>단순한 팔로워 수보다 활발한 커뮤니티가 더 가치 있습니다. 스레드에서 진정한 커뮤니티를 구축하는 방법을 알아보세요.</p>
@@ -11137,7 +11137,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-25',
     readingTime: 10,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드 자체에는 아직 수익화 기능이 없지만, 팔로워를 활용해 다양한 방식으로 수익을 창출할 수 있습니다.</p>
@@ -11226,7 +11226,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-26',
     readingTime: 8,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>데이터를 분석하면 무엇이 효과적인지 파악하고 전략을 개선할 수 있습니다. 스레드의 분석 도구를 활용하세요.</p>
@@ -11315,7 +11315,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-27',
     readingTime: 8,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>하나의 콘텐츠를 여러 플랫폼에 효과적으로 배포하면 노력 대비 최대 효과를 얻을 수 있습니다.</p>
@@ -11395,7 +11395,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-28',
     readingTime: 7,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드는 텍스트 중심이지만, 적절한 비주얼 콘텐츠는 참여율을 크게 높일 수 있습니다.</p>
@@ -11472,7 +11472,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-29',
     readingTime: 9,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>강력한 개인 브랜드는 팔로워 성장과 수익화의 핵심입니다. 스레드에서 나만의 브랜드를 구축하세요.</p>
@@ -11551,7 +11551,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-09-30',
     readingTime: 10,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드는 브랜드가 고객과 진정성 있게 소통할 수 있는 새로운 채널입니다. 비즈니스 마케팅 전략을 알아보세요.</p>
@@ -11634,7 +11634,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-01',
     readingTime: 8,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드는 페디버스(Fediverse)와 연동되어 분산형 소셜 미디어의 가능성을 열고 있습니다. 이 새로운 개념을 이해하세요.</p>
@@ -11716,7 +11716,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-02',
     readingTime: 9,
     category: '스레드',
-    thumbnail: '/thumbnails/threads-thumb.svg',
+    thumbnail: '/thumbnails/threads-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>스레드에서 성공하는 크리에이터가 되기 위한 실전 팁을 모았습니다. 다른 플랫폼과 다른 스레드만의 특성을 활용하세요.</p>
@@ -11814,7 +11814,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-03',
     readingTime: 12,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>소셜 미디어 마케팅(SMM)은 현대 비즈니스의 필수 역량입니다. 기초부터 탄탄하게 시작하세요.</p>
@@ -11898,7 +11898,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-04',
     readingTime: 10,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>SMM 패널은 소셜 미디어 마케팅을 효율화하는 강력한 도구입니다. 올바르게 활용하는 방법을 알아보세요.</p>
@@ -11977,7 +11977,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-05',
     readingTime: 11,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>명확한 전략 없이 SNS를 운영하면 시간과 자원만 낭비됩니다. 체계적인 SMM 전략을 세워보세요.</p>
@@ -12065,7 +12065,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-06',
     readingTime: 10,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>SMM의 가치를 증명하려면 ROI를 측정해야 합니다. 데이터 기반으로 성과를 분석하세요.</p>
@@ -12147,7 +12147,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-07',
     readingTime: 9,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>자동화를 통해 반복 작업을 줄이고 전략적 활동에 집중하세요. 스마트한 SMM 운영 시스템을 구축해보세요.</p>
@@ -12234,7 +12234,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-08',
     readingTime: 8,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>콘텐츠 캘린더는 일관된 포스팅과 전략적 콘텐츠 배분의 핵심입니다. 체계적인 관리 시스템을 만들어보세요.</p>
@@ -12325,7 +12325,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-09',
     readingTime: 10,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>데이터 없이는 개선도 없습니다. 소셜 미디어 분석을 통해 성과를 측정하고 전략을 최적화하세요.</p>
@@ -12408,7 +12408,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-10',
     readingTime: 9,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>팔로워 수보다 참여율이 더 중요합니다. 활발한 소통으로 진정한 커뮤니티를 만드세요.</p>
@@ -12484,7 +12484,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-11',
     readingTime: 11,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>인플루언서 마케팅은 신뢰를 빌려오는 전략입니다. 올바른 파트너를 찾고 효과적으로 협업하세요.</p>
@@ -12568,7 +12568,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-12',
     readingTime: 12,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>유기적 도달만으로는 한계가 있습니다. 유료 광고로 타겟 고객에게 정확하게 다가가세요.</p>
@@ -12649,7 +12649,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-13',
     readingTime: 10,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>유기적 성장은 시간이 걸리지만 가장 지속 가능한 방법입니다. 꾸준한 노력으로 진정한 팬을 만드세요.</p>
@@ -12734,7 +12734,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-14',
     readingTime: 11,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>SMM 에이전시는 낮은 진입 장벽과 높은 수요를 가진 사업입니다. 체계적으로 시작하고 성장시켜보세요.</p>
@@ -12815,7 +12815,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-15',
     readingTime: 9,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>올바른 도구는 생산성을 크게 높입니다. 용도별 필수 SMM 도구를 알아보세요.</p>
@@ -12895,7 +12895,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-16',
     readingTime: 10,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>적절한 예산 책정은 마케팅 성공의 기반입니다. 규모에 맞는 SMM 예산 전략을 세워보세요.</p>
@@ -12974,7 +12974,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-17',
     readingTime: 11,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>빠르게 변화하는 소셜 미디어 환경에서 트렌드를 파악하는 것은 필수입니다. 2026년 주목해야 할 변화를 알아보세요.</p>
@@ -13060,7 +13060,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-18',
     readingTime: 9,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>실수를 줄이면 성공에 가까워집니다. SMM에서 피해야 할 흔한 실수를 알아보세요.</p>
@@ -13116,7 +13116,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-19',
     readingTime: 8,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>브랜드 보이스는 SNS에서 브랜드를 구별짓는 핵심 요소입니다. 일관된 목소리로 팬을 만드세요.</p>
@@ -13194,7 +13194,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-20',
     readingTime: 10,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>소셜 미디어에서 위기는 언제든 발생할 수 있습니다. 사전 준비와 신속한 대응으로 브랜드를 보호하세요.</p>
@@ -13283,7 +13283,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: '2025-10-21',
     readingTime: 9,
     category: 'SMM',
-    thumbnail: '/thumbnails/smm-thumb.svg',
+    thumbnail: '/thumbnails/smm-thumb.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <p>경쟁사 분석은 시장을 이해하고 차별화 전략을 세우는 데 필수입니다. 체계적인 분석 방법을 알아보세요.</p>
