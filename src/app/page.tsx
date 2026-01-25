@@ -515,7 +515,7 @@ function CTASection() {
 // Footer (전자상거래법 필수 표기사항 포함)
 // ============================================
 const companyInfo = {
-  name: "인플럭스(INFLUX)",
+  name: "루프셀앤미디어",
   ceo: "박주현",
   businessNumber: "420-50-00984",
   salesRegistration: "신고 준비중",
