@@ -3054,6 +3054,1042 @@ export const blogPosts: BlogPost[] = [
       </article>
     `,
   },
+  // ============================================
+  // 틱톡 - TikTok 수익화 완벽 가이드
+  // ============================================
+  {
+    slug: 'tiktok-monetization-creator-fund-2026',
+    title: '틱톡 수익화 완벽 가이드 2026 - 크리에이터 펀드부터 라이브 선물까지',
+    description: '틱톡으로 돈 버는 모든 방법을 총정리합니다. 크리에이터 펀드, 라이브 선물, 브랜드 협찬, 제휴 마케팅까지 틱톡 수익화의 A to Z를 공개합니다.',
+    keywords: ['틱톡 수익화', '틱톡 크리에이터 펀드', '틱톡 라이브', '틱톡 돈벌기', 'TikTok Creator Fund'],
+    author: 'INFLUX 마케팅팀',
+    publishedAt: '2026-01-25',
+    readingTime: 13,
+    category: '틱톡',
+    thumbnail: '/og-image.png',
+    content: `
+      <article class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="lead text-xl text-muted-foreground">
+          틱톡은 단순한 짧은 영상 플랫폼을 넘어 <strong>수십억 달러 규모의 크리에이터 이코노미</strong>를 만들어냈습니다.
+          이 글에서는 틱톡으로 수익을 창출하는 모든 방법을 상세히 알려드립니다.
+        </p>
+
+        <h2 id="tiktok-money-methods">틱톡 수익화 5가지 방법</h2>
+
+        <div class="grid gap-4 my-6">
+          <div class="bg-muted/50 rounded-xl p-6 border">
+            <h3 class="text-lg font-bold mb-2">1. 크리에이터 펀드 (Creator Fund)</h3>
+            <p class="mb-2">조회수당 수익을 지급받는 기본 수익화 프로그램</p>
+            <ul class="space-y-1 mb-0">
+              <li>• 조건: 팔로워 10,000명 이상 + 최근 30일 조회수 100,000회</li>
+              <li>• 수익: 조회수 1,000회당 약 $0.02-0.04 (한국 기준)</li>
+              <li>• 장점: 자동으로 수익 발생, 별도 노력 불필요</li>
+            </ul>
+          </div>
+
+          <div class="bg-muted/50 rounded-xl p-6 border">
+            <h3 class="text-lg font-bold mb-2">2. 틱톡 라이브 선물</h3>
+            <p class="mb-2">라이브 방송 중 시청자가 보내는 가상 선물로 수익 창출</p>
+            <ul class="space-y-1 mb-0">
+              <li>• 조건: 팔로워 1,000명 이상 + 만 18세 이상</li>
+              <li>• 수익: 받은 코인의 약 50%를 현금으로 환전</li>
+              <li>• 팁: 일정한 시간에 정기 라이브로 충성 시청자 확보</li>
+            </ul>
+          </div>
+
+          <div class="bg-muted/50 rounded-xl p-6 border">
+            <h3 class="text-lg font-bold mb-2">3. 브랜드 협찬 (스폰서십)</h3>
+            <p class="mb-2">브랜드와 협업하여 제품/서비스 홍보 콘텐츠 제작</p>
+            <ul class="space-y-1 mb-0">
+              <li>• 수익: 팔로워 10만 기준 영상 1개당 50-200만원</li>
+              <li>• 팁: TikTok Creator Marketplace 등록 필수</li>
+              <li>• 주의: 광고 표시 (#광고, #협찬) 필수</li>
+            </ul>
+          </div>
+
+          <div class="bg-muted/50 rounded-xl p-6 border">
+            <h3 class="text-lg font-bold mb-2">4. 제휴 마케팅 (어필리에이트)</h3>
+            <p class="mb-2">제품 링크를 공유하고 판매 수수료를 받는 방식</p>
+            <ul class="space-y-1 mb-0">
+              <li>• 플랫폼: 쿠팡 파트너스, 아마존 어소시에이츠, TikTok Shop</li>
+              <li>• 수익: 판매액의 3-10% 수수료</li>
+              <li>• 팁: 프로필 링크와 영상 설명에 링크 삽입</li>
+            </ul>
+          </div>
+
+          <div class="bg-muted/50 rounded-xl p-6 border">
+            <h3 class="text-lg font-bold mb-2">5. 자체 상품/서비스 판매</h3>
+            <p class="mb-2">틱톡을 통해 본인의 제품이나 서비스 홍보</p>
+            <ul class="space-y-1 mb-0">
+              <li>• 예시: 온라인 강의, 굿즈, 컨설팅, 전자책</li>
+              <li>• 수익: 100% 본인 수익 (플랫폼 수수료 제외)</li>
+              <li>• 팁: 무료 콘텐츠로 신뢰 구축 → 유료 상품 전환</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 id="realistic-income">현실적인 틱톡 수익 예상</h2>
+
+        <div class="overflow-x-auto my-6">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b">
+                <th class="text-left py-3">팔로워 수</th>
+                <th class="text-left py-3">월 예상 수익</th>
+                <th class="text-left py-3">주요 수익원</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="py-3">1,000-10,000</td>
+                <td class="py-3">0-10만원</td>
+                <td class="py-3">라이브 선물</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">10,000-50,000</td>
+                <td class="py-3">10-50만원</td>
+                <td class="py-3">크리에이터 펀드 + 소규모 협찬</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">50,000-100,000</td>
+                <td class="py-3">50-200만원</td>
+                <td class="py-3">브랜드 협찬 + 제휴 마케팅</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">100,000-500,000</td>
+                <td class="py-3">200-1,000만원</td>
+                <td class="py-3">대형 협찬 + 자체 상품</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">500,000+</td>
+                <td class="py-3">1,000만원+</td>
+                <td class="py-3">다중 수익원 + 브랜드 앰배서더</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-blue-600 dark:text-blue-400">INFLUX 추천</h4>
+          <p class="mt-2 mb-0">
+            틱톡 팔로워와 조회수가 부족하다면, INFLUX의 틱톡 성장 서비스를 활용해보세요.
+            실제 계정 기반의 안전한 성장으로 수익화 조건을 빠르게 달성할 수 있습니다.
+          </p>
+        </div>
+      </article>
+    `,
+  },
+  // ============================================
+  // 페이스북 - 오가닉 도달률 높이기
+  // ============================================
+  {
+    slug: 'facebook-organic-reach-algorithm-2026',
+    title: '페이스북 오가닉 도달률 10배 높이기 - 2026 알고리즘 완전 공략',
+    description: '페이스북 도달률이 1%도 안 나온다고요? 2026년 페이스북 알고리즘을 분석하고, 광고 없이도 도달률을 극대화하는 검증된 전략을 공개합니다.',
+    keywords: ['페이스북 도달률', '페이스북 알고리즘', '페이스북 마케팅', '페이스북 오가닉', 'Facebook 도달'],
+    author: 'INFLUX 마케팅팀',
+    publishedAt: '2026-01-24',
+    readingTime: 10,
+    category: '페이스북',
+    thumbnail: '/og-image.png',
+    content: `
+      <article class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="lead text-xl text-muted-foreground">
+          "페이스북은 죽었다"는 말, 반은 맞고 반은 틀립니다.
+          <strong>올바른 전략</strong>을 사용하면 여전히 페이스북에서 엄청난 오가닉 도달을 만들 수 있습니다.
+        </p>
+
+        <h2 id="facebook-algorithm-2026">2026년 페이스북 알고리즘 핵심</h2>
+
+        <p>
+          Meta는 페이스북 피드를 <strong>"의미 있는 상호작용"</strong>을 중심으로 재편했습니다.
+          단순 좋아요보다 댓글, 공유, 저장이 훨씬 중요해졌습니다.
+        </p>
+
+        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+          <h3 class="text-lg font-bold mb-4">알고리즘 가중치 순위</h3>
+          <ol class="space-y-2 mb-0">
+            <li><strong>1위:</strong> 공유 (특히 메신저로 공유) - 가중치 10x</li>
+            <li><strong>2위:</strong> 댓글 (길수록 좋음) - 가중치 5x</li>
+            <li><strong>3위:</strong> 저장 - 가중치 3x</li>
+            <li><strong>4위:</strong> 반응 (좋아요, 하하, 와우 등) - 가중치 1x</li>
+          </ol>
+        </div>
+
+        <h2 id="content-types">도달률 높은 콘텐츠 유형</h2>
+
+        <div class="grid gap-4 my-6">
+          <div class="flex items-start gap-4 p-4 bg-green-500/10 rounded-xl border border-green-500/30">
+            <span class="text-2xl">🎬</span>
+            <div>
+              <h4 class="font-bold text-green-600 dark:text-green-400">릴스 (Reels)</h4>
+              <p class="text-sm mb-0">페이스북이 가장 밀어주는 포맷. 틱톡 영상 재활용 가능. 평균 도달률 15-30%</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 p-4 bg-blue-500/10 rounded-xl border border-blue-500/30">
+            <span class="text-2xl">📸</span>
+            <div>
+              <h4 class="font-bold text-blue-600 dark:text-blue-400">캐러셀 이미지</h4>
+              <p class="text-sm mb-0">여러 장의 이미지로 스와이프 유도. 체류 시간 증가. 평균 도달률 8-15%</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 p-4 bg-purple-500/10 rounded-xl border border-purple-500/30">
+            <span class="text-2xl">📝</span>
+            <div>
+              <h4 class="font-bold text-purple-600 dark:text-purple-400">텍스트 전용 포스트</h4>
+              <p class="text-sm mb-0">개인적인 이야기, 의견 공유. 댓글 유도에 최적. 평균 도달률 5-10%</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 p-4 bg-red-500/10 rounded-xl border border-red-500/30">
+            <span class="text-2xl">🔗</span>
+            <div>
+              <h4 class="font-bold text-red-600 dark:text-red-400">외부 링크</h4>
+              <p class="text-sm mb-0">페이스북이 싫어함. 가능하면 댓글에 링크 넣기. 평균 도달률 1-3%</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="engagement-tactics">참여율 높이는 전술 7가지</h2>
+
+        <ol class="space-y-4 my-6">
+          <li>
+            <strong>질문으로 끝내기</strong>
+            <p class="text-muted-foreground">모든 포스트 마지막에 질문을 던져 댓글 유도</p>
+          </li>
+          <li>
+            <strong>첫 1시간 집중 공략</strong>
+            <p class="text-muted-foreground">게시 후 1시간 내 참여도가 전체 도달을 결정</p>
+          </li>
+          <li>
+            <strong>모든 댓글에 답글 달기</strong>
+            <p class="text-muted-foreground">댓글 수가 2배로 늘어나고 알고리즘 점수 상승</p>
+          </li>
+          <li>
+            <strong>최적 시간대 포스팅</strong>
+            <p class="text-muted-foreground">한국 기준: 오전 7-9시, 점심 12-1시, 저녁 7-10시</p>
+          </li>
+          <li>
+            <strong>Facebook Groups 활용</strong>
+            <p class="text-muted-foreground">관련 그룹에서 활동하고 페이지로 유입 유도</p>
+          </li>
+          <li>
+            <strong>라이브 방송 정기화</strong>
+            <p class="text-muted-foreground">라이브는 팔로워에게 알림이 가고 도달률 최고</p>
+          </li>
+          <li>
+            <strong>공유하고 싶은 콘텐츠 만들기</strong>
+            <p class="text-muted-foreground">밈, 인포그래픽, 감동 스토리 등 공유 욕구 자극</p>
+          </li>
+        </ol>
+
+        <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-amber-600 dark:text-amber-400">도달률 급락 원인</h4>
+          <ul class="mt-2 mb-0 space-y-1">
+            <li>• 외부 링크 과다 사용</li>
+            <li>• 참여 유도 글 ("좋아요 누르면~" 등) - 페널티 대상</li>
+            <li>• 불규칙한 포스팅</li>
+            <li>• 저품질 이미지/영상</li>
+            <li>• 같은 콘텐츠 반복 게시</li>
+          </ul>
+        </div>
+      </article>
+    `,
+  },
+  // ============================================
+  // 트위터 - X 알고리즘 공략법
+  // ============================================
+  {
+    slug: 'twitter-x-algorithm-viral-2026',
+    title: 'X(트위터) 알고리즘 완전 해부 - 바이럴 트윗 만드는 법 2026',
+    description: '일론 머스크의 X(구 트위터)에서 노출을 극대화하는 방법. 알고리즘 점수 시스템부터 바이럴 트윗 공식까지 X 마케팅의 모든 것을 공개합니다.',
+    keywords: ['트위터 알고리즘', 'X 알고리즘', '트위터 바이럴', '트위터 마케팅', 'X 팔로워'],
+    author: 'INFLUX 마케팅팀',
+    publishedAt: '2026-01-24',
+    readingTime: 11,
+    category: '트위터',
+    thumbnail: '/og-image.png',
+    content: `
+      <article class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="lead text-xl text-muted-foreground">
+          X(구 트위터)의 알고리즘은 <strong>오픈소스로 공개</strong>되어 있습니다.
+          코드를 분석해서 정확히 어떻게 노출이 결정되는지 알려드립니다.
+        </p>
+
+        <h2 id="x-algorithm-score">X 알고리즘 점수 시스템</h2>
+
+        <p>
+          X는 모든 트윗에 <strong>점수</strong>를 매기고, 점수가 높은 트윗을 For You 피드에 노출합니다.
+          아래는 실제 알고리즘 코드에서 추출한 가중치입니다.
+        </p>
+
+        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+          <h3 class="text-lg font-bold mb-4">트윗 점수 계산식</h3>
+          <ul class="space-y-2 mb-0">
+            <li><strong>답글:</strong> +1점</li>
+            <li><strong>리트윗:</strong> +20점</li>
+            <li><strong>좋아요:</strong> +30점 (의외로 높음!)</li>
+            <li><strong>2분 이상 조회:</strong> +10점</li>
+            <li><strong>프로필 클릭:</strong> +12점</li>
+            <li><strong>북마크:</strong> +40점 (가장 높음!)</li>
+            <li><strong>이미지/영상 포함:</strong> +2배 부스트</li>
+          </ul>
+        </div>
+
+        <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-red-600 dark:text-red-400">감점 요소</h4>
+          <ul class="mt-2 mb-0 space-y-1">
+            <li>• 외부 링크 포함: <strong>-50% 노출</strong></li>
+            <li>• "뮤트" 당함: <strong>-74점</strong></li>
+            <li>• "관심없음" 클릭: <strong>-74점</strong></li>
+            <li>• 신고 받음: <strong>-738점</strong></li>
+            <li>• 블록 당함: <strong>계정 전체 신뢰도 하락</strong></li>
+          </ul>
+        </div>
+
+        <h2 id="viral-tweet-formula">바이럴 트윗 공식</h2>
+
+        <h3>1. 훅(Hook)으로 시작하기</h3>
+        <p>
+          첫 줄에서 스크롤을 멈추게 해야 합니다.
+        </p>
+
+        <div class="bg-muted/30 rounded-xl p-4 my-4 border-l-4 border-blue-500">
+          <p class="mb-2 text-sm text-muted-foreground">좋은 훅 예시:</p>
+          <ul class="space-y-1 mb-0">
+            <li>"99%의 사람들이 모르는 사실:"</li>
+            <li>"나는 [X]를 해서 [놀라운 결과]를 얻었다"</li>
+            <li>"[권위자]가 절대 말해주지 않는 것"</li>
+            <li>"[숫자]년 동안 [X]를 하면서 배운 것들"</li>
+          </ul>
+        </div>
+
+        <h3>2. 스레드 활용하기</h3>
+        <p>
+          긴 내용은 스레드로 작성하세요. 스레드는 <strong>일반 트윗 대비 3배</strong> 더 많은 노출을 받습니다.
+        </p>
+
+        <ul class="space-y-2 my-4">
+          <li>• 첫 트윗: 강력한 훅 + "스레드" 표시</li>
+          <li>• 중간: 가치 있는 정보 (5-10개 트윗)</li>
+          <li>• 마지막: CTA + 첫 트윗 리트윗 요청</li>
+        </ul>
+
+        <h3>3. 최적의 포스팅 시간</h3>
+
+        <div class="overflow-x-auto my-6">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b">
+                <th class="text-left py-3">시간대</th>
+                <th class="text-left py-3">특징</th>
+                <th class="text-left py-3">추천 콘텐츠</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="py-3">오전 8-10시</td>
+                <td class="py-3">출근길 체크</td>
+                <td class="py-3">뉴스, 인사이트</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">점심 12-1시</td>
+                <td class="py-3">점심시간 브라우징</td>
+                <td class="py-3">가벼운 콘텐츠, 밈</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">저녁 9-11시</td>
+                <td class="py-3">황금 시간대</td>
+                <td class="py-3">스레드, 심층 콘텐츠</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="blue-checkmark">X Premium (블루 체크) 효과</h2>
+
+        <p>
+          X Premium 구독자는 알고리즘에서 <strong>우대</strong>를 받습니다.
+        </p>
+
+        <ul class="space-y-2 my-4">
+          <li>• For You 피드에 더 자주 노출</li>
+          <li>• 답글이 상단에 배치</li>
+          <li>• 긴 트윗 (10,000자) 작성 가능</li>
+          <li>• 수익 공유 프로그램 참여 가능</li>
+        </ul>
+
+        <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-blue-600 dark:text-blue-400">빠른 성장 팁</h4>
+          <p class="mt-2 mb-0">
+            팔로워 1,000명까지가 가장 어렵습니다.
+            INFLUX의 X 팔로워 서비스로 초기 신뢰도를 구축하고,
+            이후 양질의 콘텐츠로 오가닉 성장을 가속화하세요.
+          </p>
+        </div>
+      </article>
+    `,
+  },
+  // ============================================
+  // 텔레그램 - 채널 마케팅 전략
+  // ============================================
+  {
+    slug: 'telegram-channel-marketing-growth-2026',
+    title: '텔레그램 채널 마케팅 완벽 가이드 2026 - 구독자 1만명 달성 전략',
+    description: '텔레그램은 개발자, 암호화폐, 성인 콘텐츠 커뮤니티의 핵심 플랫폼입니다. 텔레그램 채널과 그룹을 성장시키는 검증된 전략을 공개합니다.',
+    keywords: ['텔레그램 마케팅', '텔레그램 채널', '텔레그램 구독자', '텔레그램 그룹', 'Telegram 성장'],
+    author: 'INFLUX 마케팅팀',
+    publishedAt: '2026-01-23',
+    readingTime: 9,
+    category: '텔레그램',
+    thumbnail: '/og-image.png',
+    content: `
+      <article class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="lead text-xl text-muted-foreground">
+          텔레그램은 <strong>9억 명 이상</strong>의 월간 활성 사용자를 보유한 거대 플랫폼입니다.
+          특히 암호화폐, 테크, 금융 분야에서 커뮤니티 구축에 필수적인 채널이 되었습니다.
+        </p>
+
+        <h2 id="telegram-vs-others">텔레그램이 특별한 이유</h2>
+
+        <div class="grid gap-4 my-6">
+          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+            <span class="text-2xl">📢</span>
+            <div>
+              <h4 class="font-bold">100% 도달률</h4>
+              <p class="text-sm mb-0">알고리즘 필터링 없음. 채널 메시지는 모든 구독자에게 전달</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+            <span class="text-2xl">👥</span>
+            <div>
+              <h4 class="font-bold">무제한 구독자</h4>
+              <p class="text-sm mb-0">채널 구독자 수 제한 없음. 그룹도 200,000명까지 가능</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+            <span class="text-2xl">🤖</span>
+            <div>
+              <h4 class="font-bold">봇 자동화</h4>
+              <p class="text-sm mb-0">텔레그램 봇으로 환영 메시지, 모더레이션, 분석 자동화</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="channel-vs-group">채널 vs 그룹: 무엇을 선택할까?</h2>
+
+        <div class="overflow-x-auto my-6">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b">
+                <th class="text-left py-3">기능</th>
+                <th class="text-left py-3">채널</th>
+                <th class="text-left py-3">그룹</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="py-3">커뮤니케이션</td>
+                <td class="py-3">일방향 (관리자만 포스팅)</td>
+                <td class="py-3">양방향 (모두 대화 가능)</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">적합한 용도</td>
+                <td class="py-3">뉴스, 공지, 콘텐츠 배포</td>
+                <td class="py-3">토론, Q&A, 커뮤니티</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">구독자 한도</td>
+                <td class="py-3">무제한</td>
+                <td class="py-3">200,000명</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">통계</td>
+                <td class="py-3">상세 통계 제공</td>
+                <td class="py-3">제한적</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          <strong>추천:</strong> 채널 + 그룹을 함께 운영하세요.
+          채널에서 콘텐츠를 배포하고, 그룹에서 토론을 유도하는 것이 가장 효과적입니다.
+        </p>
+
+        <h2 id="growth-strategies">텔레그램 채널 성장 전략</h2>
+
+        <ol class="space-y-4 my-6">
+          <li>
+            <strong>크로스 프로모션</strong>
+            <p class="text-muted-foreground">비슷한 규모의 채널과 서로 홍보. 가장 효과적인 무료 성장법</p>
+          </li>
+          <li>
+            <strong>다른 플랫폼에서 유입</strong>
+            <p class="text-muted-foreground">트위터, 유튜브, 디스코드에서 텔레그램 링크 공유</p>
+          </li>
+          <li>
+            <strong>텔레그램 디렉토리 등록</strong>
+            <p class="text-muted-foreground">tgstat.com, telegramchannels.me 등에 채널 등록</p>
+          </li>
+          <li>
+            <strong>가치 있는 콘텐츠 제공</strong>
+            <p class="text-muted-foreground">독점 정보, 빠른 속보, 무료 리소스로 차별화</p>
+          </li>
+          <li>
+            <strong>일관된 포스팅 스케줄</strong>
+            <p class="text-muted-foreground">매일 정해진 시간에 포스팅하여 습관화 유도</p>
+          </li>
+        </ol>
+
+        <h2 id="monetization">텔레그램 수익화 방법</h2>
+
+        <ul class="space-y-2 my-4">
+          <li>• <strong>광고 게시:</strong> 다른 채널/서비스 광고 게재 (구독자 1만 기준 게시당 5-20만원)</li>
+          <li>• <strong>프리미엄 채널:</strong> 유료 구독 전용 채널 운영</li>
+          <li>• <strong>제휴 마케팅:</strong> 제품/서비스 추천 링크로 수수료 수익</li>
+          <li>• <strong>자체 상품:</strong> 강의, 컨설팅, 시그널 서비스 판매</li>
+        </ul>
+
+        <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-blue-600 dark:text-blue-400">빠른 시작</h4>
+          <p class="mt-2 mb-0">
+            텔레그램 채널 초기 구독자 확보가 어렵다면, INFLUX의 텔레그램 멤버 서비스로
+            신뢰도를 구축하고 오가닉 성장의 기반을 마련하세요.
+          </p>
+        </div>
+      </article>
+    `,
+  },
+  // ============================================
+  // 트위치 - 스트리머 성장 가이드
+  // ============================================
+  {
+    slug: 'twitch-streamer-growth-affiliate-2026',
+    title: '트위치 스트리머 성장 가이드 2026 - 제휴 & 파트너 달성 로드맵',
+    description: '트위치에서 제휴(Affiliate)와 파트너(Partner)가 되는 방법. 시청자 늘리기, 팔로워 확보, 수익화까지 트위치 스트리머의 성장 전략을 공개합니다.',
+    keywords: ['트위치 스트리머', '트위치 제휴', '트위치 파트너', 'Twitch 성장', '트위치 시청자'],
+    author: 'INFLUX 마케팅팀',
+    publishedAt: '2026-01-23',
+    readingTime: 12,
+    category: '트위치',
+    thumbnail: '/og-image.png',
+    content: `
+      <article class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="lead text-xl text-muted-foreground">
+          트위치는 <strong>라이브 스트리밍의 왕</strong>입니다.
+          게임, Just Chatting, 음악 등 다양한 카테고리에서 풀타임 스트리머로 성공하는 방법을 알려드립니다.
+        </p>
+
+        <h2 id="twitch-path">트위치 성장 경로</h2>
+
+        <div class="space-y-4 my-6">
+          <div class="flex items-center gap-4 p-4 bg-purple-500/10 rounded-xl border border-purple-500/30">
+            <div class="w-16 h-16 rounded-full bg-gray-500 flex items-center justify-center text-white font-bold">일반</div>
+            <div>
+              <p class="font-bold mb-1">일반 스트리머</p>
+              <p class="text-sm text-muted-foreground mb-0">누구나 시작 가능. 수익화 불가</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-purple-500/10 rounded-xl border border-purple-500/30">
+            <div class="w-16 h-16 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xs">Affiliate</div>
+            <div>
+              <p class="font-bold mb-1">제휴 스트리머 (Affiliate)</p>
+              <p class="text-sm text-muted-foreground mb-0">구독, 비트, 광고 수익 가능. 팔로워 50명 + 방송 7일 + 평균 시청자 3명</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-purple-500/10 rounded-xl border border-purple-500/30">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold text-xs">Partner</div>
+            <div>
+              <p class="font-bold mb-1">파트너 스트리머 (Partner)</p>
+              <p class="text-sm text-muted-foreground mb-0">최고 수익 분배율 + 전용 이모티콘 슬롯. 평균 시청자 75명+ 필요</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="affiliate-requirements">Affiliate 조건 달성하기</h2>
+
+        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+          <h3 class="text-lg font-bold mb-4">Affiliate 조건 (30일 내 달성)</h3>
+          <ul class="space-y-2 mb-0">
+            <li>✅ 팔로워 <strong>50명</strong> 이상</li>
+            <li>✅ <strong>7일</strong> 이상 방송</li>
+            <li>✅ 총 방송 시간 <strong>8시간</strong> 이상</li>
+            <li>✅ 평균 동시 시청자 <strong>3명</strong> 이상</li>
+          </ul>
+        </div>
+
+        <h2 id="viewer-growth">시청자 늘리는 전략</h2>
+
+        <ol class="space-y-4 my-6">
+          <li>
+            <strong>적은 시청자 게임/카테고리 선택</strong>
+            <p class="text-muted-foreground">롤, 발로란트보다 틈새 게임에서 디스커버리 확률이 100배 높음</p>
+          </li>
+          <li>
+            <strong>일정한 스케줄 유지</strong>
+            <p class="text-muted-foreground">매일 같은 시간에 방송하면 시청자가 습관적으로 찾아옴</p>
+          </li>
+          <li>
+            <strong>채팅과 적극적으로 소통</strong>
+            <p class="text-muted-foreground">모든 채팅에 반응. 시청자 이름 불러주기</p>
+          </li>
+          <li>
+            <strong>다른 플랫폼에서 홍보</strong>
+            <p class="text-muted-foreground">트위터, 틱톡, 유튜브에서 하이라이트 클립 공유</p>
+          </li>
+          <li>
+            <strong>네트워킹</strong>
+            <p class="text-muted-foreground">비슷한 규모의 스트리머와 협업, 레이드 주고받기</p>
+          </li>
+        </ol>
+
+        <h2 id="twitch-income">트위치 수익 구조</h2>
+
+        <div class="overflow-x-auto my-6">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b">
+                <th class="text-left py-3">수익원</th>
+                <th class="text-left py-3">Affiliate 분배율</th>
+                <th class="text-left py-3">Partner 분배율</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="py-3">구독 (Subs)</td>
+                <td class="py-3">50%</td>
+                <td class="py-3">50-70%</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">비트 (Bits)</td>
+                <td class="py-3">1비트 = $0.01</td>
+                <td class="py-3">1비트 = $0.01</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">광고</td>
+                <td class="py-3">CPM $2-5</td>
+                <td class="py-3">CPM $3-10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-purple-500/10 border border-purple-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-purple-600 dark:text-purple-400">Affiliate 빠른 달성</h4>
+          <p class="mt-2 mb-0">
+            팔로워 50명과 평균 시청자 3명이 어렵다면, INFLUX의 트위치 서비스로
+            초기 부스트를 받고 Affiliate 조건을 빠르게 달성하세요.
+          </p>
+        </div>
+      </article>
+    `,
+  },
+  // ============================================
+  // 디스코드 - 커뮤니티 구축 가이드
+  // ============================================
+  {
+    slug: 'discord-server-community-building-2026',
+    title: '디스코드 서버 커뮤니티 구축 완벽 가이드 2026 - 멤버 1만명 달성',
+    description: '디스코드는 단순한 채팅앱이 아닌 커뮤니티의 미래입니다. 성공적인 디스코드 서버를 구축하고 활성 멤버를 확보하는 전략을 공개합니다.',
+    keywords: ['디스코드 서버', '디스코드 커뮤니티', '디스코드 멤버', 'Discord 마케팅', '디스코드 봇'],
+    author: 'INFLUX 마케팅팀',
+    publishedAt: '2026-01-22',
+    readingTime: 11,
+    category: '디스코드',
+    thumbnail: '/og-image.png',
+    content: `
+      <article class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="lead text-xl text-muted-foreground">
+          디스코드는 <strong>월간 활성 사용자 1.5억 명</strong>의 거대 플랫폼입니다.
+          게임, NFT, 크리에이터, 스타트업 등 모든 분야에서 커뮤니티 허브로 자리잡았습니다.
+        </p>
+
+        <h2 id="why-discord">왜 디스코드인가?</h2>
+
+        <ul class="space-y-2 my-4">
+          <li>• <strong>완전한 통제권:</strong> 다른 SNS와 달리 알고리즘에 휘둘리지 않음</li>
+          <li>• <strong>직접 소통:</strong> 팬/고객과 실시간 양방향 커뮤니케이션</li>
+          <li>• <strong>다양한 기능:</strong> 텍스트, 음성, 영상, 스레드, 포럼 등</li>
+          <li>• <strong>무료:</strong> 기본 기능은 모두 무료 (Nitro는 선택)</li>
+        </ul>
+
+        <h2 id="server-setup">서버 기본 설정</h2>
+
+        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+          <h3 class="text-lg font-bold mb-4">필수 채널 구성</h3>
+          <ul class="space-y-2 mb-0">
+            <li>📢 <strong>#공지사항:</strong> 중요 소식 (읽기 전용)</li>
+            <li>👋 <strong>#자기소개:</strong> 새 멤버 환영</li>
+            <li>💬 <strong>#일반-채팅:</strong> 자유로운 대화</li>
+            <li>❓ <strong>#질문-답변:</strong> Q&A 채널</li>
+            <li>🔗 <strong>#링크-공유:</strong> 유용한 리소스 공유</li>
+            <li>🎉 <strong>#밈-잡담:</strong> 가벼운 콘텐츠</li>
+          </ul>
+        </div>
+
+        <h2 id="growth-tactics">디스코드 서버 성장 전략</h2>
+
+        <ol class="space-y-4 my-6">
+          <li>
+            <strong>다른 플랫폼에서 유입</strong>
+            <p class="text-muted-foreground">유튜브, 트위터, 인스타에서 디스코드 초대 링크 공유</p>
+          </li>
+          <li>
+            <strong>서버 디스커버리 활용</strong>
+            <p class="text-muted-foreground">디스코드 내장 검색에 서버 등록 (멤버 1,000명 이상 필요)</p>
+          </li>
+          <li>
+            <strong>서버 리스팅 사이트 등록</strong>
+            <p class="text-muted-foreground">disboard.org, top.gg, discord.me 등에 등록</p>
+          </li>
+          <li>
+            <strong>이벤트 & 기브어웨이</strong>
+            <p class="text-muted-foreground">정기적인 이벤트로 참여도와 신규 유입 증가</p>
+          </li>
+          <li>
+            <strong>파트너십</strong>
+            <p class="text-muted-foreground">비슷한 주제의 서버와 상호 홍보</p>
+          </li>
+        </ol>
+
+        <h2 id="essential-bots">필수 디스코드 봇</h2>
+
+        <div class="grid gap-4 my-6">
+          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+            <span class="text-2xl">🤖</span>
+            <div>
+              <h4 class="font-bold">MEE6</h4>
+              <p class="text-sm mb-0">환영 메시지, 레벨 시스템, 자동 모더레이션</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+            <span class="text-2xl">🎵</span>
+            <div>
+              <h4 class="font-bold">Hydra / Rythm</h4>
+              <p class="text-sm mb-0">음악 재생 봇 (음성 채널용)</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+            <span class="text-2xl">🎟️</span>
+            <div>
+              <h4 class="font-bold">Ticket Tool</h4>
+              <p class="text-sm mb-0">1:1 지원 티켓 시스템</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+            <span class="text-2xl">📊</span>
+            <div>
+              <h4 class="font-bold">Statbot</h4>
+              <p class="text-sm mb-0">서버 통계 및 분석</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="engagement">멤버 참여도 높이기</h2>
+
+        <ul class="space-y-2 my-4">
+          <li>• <strong>레벨/역할 시스템:</strong> 활동량에 따라 역할 부여로 동기 부여</li>
+          <li>• <strong>정기 이벤트:</strong> 주간 게임 나이트, AMA 세션, 토론</li>
+          <li>• <strong>독점 콘텐츠:</strong> 디스코드에서만 볼 수 있는 정보 제공</li>
+          <li>• <strong>빠른 응답:</strong> 질문에 24시간 내 답변</li>
+          <li>• <strong>모더레이터 육성:</strong> 열정적인 멤버를 모더레이터로 승격</li>
+        </ul>
+
+        <div class="bg-indigo-500/10 border border-indigo-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-indigo-600 dark:text-indigo-400">초기 성장 부스트</h4>
+          <p class="mt-2 mb-0">
+            디스코드 서버 초기에 멤버가 너무 적으면 활성화가 어렵습니다.
+            INFLUX의 디스코드 멤버 서비스로 기초 멤버를 확보하고,
+            이후 오가닉 성장을 가속화하세요.
+          </p>
+        </div>
+      </article>
+    `,
+  },
+  // ============================================
+  // 유튜브 - 쇼츠 공략법
+  // ============================================
+  {
+    slug: 'youtube-shorts-algorithm-viral-2026',
+    title: '유튜브 쇼츠 알고리즘 완전 정복 2026 - 100만 조회수 공식',
+    description: '유튜브 쇼츠로 채널을 폭발적으로 성장시키는 방법. 쇼츠 알고리즘 분석, 바이럴 공식, 수익화 전략까지 쇼츠의 모든 것을 공개합니다.',
+    keywords: ['유튜브 쇼츠', 'YouTube Shorts', '쇼츠 알고리즘', '쇼츠 조회수', '쇼츠 수익'],
+    author: 'INFLUX 마케팅팀',
+    publishedAt: '2026-01-25',
+    readingTime: 10,
+    category: '유튜브',
+    thumbnail: '/og-image.png',
+    content: `
+      <article class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="lead text-xl text-muted-foreground">
+          유튜브 쇼츠는 <strong>일일 500억 회 이상</strong> 조회되는 거대 플랫폼입니다.
+          틱톡과 달리 기존 유튜브 채널과 연동되어 구독자 전환이 쉽습니다.
+        </p>
+
+        <h2 id="shorts-algorithm">쇼츠 알고리즘의 핵심</h2>
+
+        <p>
+          쇼츠 알고리즘은 일반 유튜브 영상과 <strong>완전히 다르게</strong> 작동합니다.
+        </p>
+
+        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+          <h3 class="text-lg font-bold mb-4">쇼츠 알고리즘 가중치</h3>
+          <ol class="space-y-2 mb-0">
+            <li><strong>1위: 스와이프 비율</strong> - 얼마나 빨리 스와이프하는가</li>
+            <li><strong>2위: 반복 시청</strong> - 같은 쇼츠를 여러 번 보는가</li>
+            <li><strong>3위: 시청 완료율</strong> - 끝까지 보는 비율</li>
+            <li><strong>4위: 좋아요 비율</strong> - 조회수 대비 좋아요</li>
+            <li><strong>5위: 댓글</strong> - 댓글 수와 길이</li>
+          </ol>
+        </div>
+
+        <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-amber-600 dark:text-amber-400">핵심 인사이트</h4>
+          <p class="mt-2 mb-0">
+            쇼츠는 <strong>처음 2초</strong>가 전부입니다.
+            2초 안에 시청자를 사로잡지 못하면 스와이프되고,
+            알고리즘에서 영원히 묻힙니다.
+          </p>
+        </div>
+
+        <h2 id="viral-formula">바이럴 쇼츠 공식</h2>
+
+        <h3>1. 강력한 훅 (처음 1-2초)</h3>
+        <ul class="space-y-1 my-4">
+          <li>• "이거 모르면 손해입니다"</li>
+          <li>• 충격적인 비주얼로 시작</li>
+          <li>• 질문으로 시작 "왜 아무도 안 알려줄까요?"</li>
+          <li>• 결과를 먼저 보여주기 (Before/After)</li>
+        </ul>
+
+        <h3>2. 루프 구조 만들기</h3>
+        <p>
+          영상의 끝과 시작이 자연스럽게 연결되면 <strong>반복 시청률</strong>이 올라갑니다.
+          반복 시청은 알고리즘 점수를 크게 높입니다.
+        </p>
+
+        <h3>3. 최적의 길이</h3>
+        <div class="overflow-x-auto my-6">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b">
+                <th class="text-left py-3">길이</th>
+                <th class="text-left py-3">장점</th>
+                <th class="text-left py-3">단점</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="py-3 font-medium">15-30초</td>
+                <td class="py-3 text-green-500">높은 완료율, 반복 시청 유도</td>
+                <td class="py-3">내용 제한</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3 font-medium">30-45초</td>
+                <td class="py-3 text-green-500">균형 잡힌 길이 (추천)</td>
+                <td class="py-3">-</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3 font-medium">45-60초</td>
+                <td class="py-3">자세한 설명 가능</td>
+                <td class="py-3 text-red-500">완료율 하락</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="shorts-monetization">쇼츠 수익화</h2>
+
+        <p>
+          2023년부터 쇼츠도 <strong>수익화</strong>가 가능해졌습니다.
+        </p>
+
+        <ul class="space-y-2 my-4">
+          <li>• <strong>조건:</strong> 구독자 1,000명 + 최근 90일 쇼츠 조회수 1,000만 회</li>
+          <li>• <strong>수익:</strong> RPM $0.01-0.05 (일반 영상의 1/10 수준)</li>
+          <li>• <strong>전략:</strong> 쇼츠로 구독자 확보 → 롱폼 영상으로 수익화</li>
+        </ul>
+
+        <h2 id="shorts-tips">쇼츠 업로드 팁</h2>
+
+        <ol class="space-y-4 my-6">
+          <li>
+            <strong>세로 9:16 비율 필수</strong>
+            <p class="text-muted-foreground">가로 영상은 쇼츠 피드에서 불리함</p>
+          </li>
+          <li>
+            <strong>#Shorts 해시태그</strong>
+            <p class="text-muted-foreground">제목이나 설명에 #Shorts 포함 (선택사항이지만 권장)</p>
+          </li>
+          <li>
+            <strong>트렌드 사운드 활용</strong>
+            <p class="text-muted-foreground">인기 있는 오디오를 사용하면 노출 증가</p>
+          </li>
+          <li>
+            <strong>일관된 업로드</strong>
+            <p class="text-muted-foreground">매일 1-3개 업로드가 이상적</p>
+          </li>
+        </ol>
+
+        <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-red-600 dark:text-red-400">쇼츠 초기 부스트</h4>
+          <p class="mt-2 mb-0">
+            쇼츠 조회수가 100회에서 멈춰있다면, INFLUX의 유튜브 쇼츠 조회수 서비스로
+            초기 노출을 확보하고 알고리즘에 올라타세요.
+          </p>
+        </div>
+      </article>
+    `,
+  },
+  // ============================================
+  // 인스타그램 - 릴스 알고리즘
+  // ============================================
+  {
+    slug: 'instagram-reels-algorithm-hacks-2026',
+    title: '인스타 릴스 알고리즘 해킹 2026 - 탐색 탭 노출 비법',
+    description: '인스타그램 릴스로 폭발적인 도달률을 만드는 방법. 릴스 알고리즘 분석, 탐색 탭 노출 전략, 바이럴 콘텐츠 공식을 모두 공개합니다.',
+    keywords: ['인스타 릴스', 'Instagram Reels', '릴스 알고리즘', '릴스 조회수', '인스타 탐색탭'],
+    author: 'INFLUX 마케팅팀',
+    publishedAt: '2026-01-25',
+    readingTime: 11,
+    category: '인스타그램',
+    thumbnail: '/og-image.png',
+    content: `
+      <article class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="lead text-xl text-muted-foreground">
+          인스타그램 릴스는 <strong>가장 빠르게 성장하는 기능</strong>입니다.
+          Meta가 릴스에 올인하면서, 릴스를 잘 활용하면 팔로워 0명도 수십만 도달이 가능합니다.
+        </p>
+
+        <h2 id="reels-algorithm">2026 릴스 알고리즘 핵심</h2>
+
+        <p>
+          인스타그램은 공식적으로 릴스 알고리즘의 핵심 요소를 공개했습니다.
+        </p>
+
+        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+          <h3 class="text-lg font-bold mb-4">릴스 노출 결정 요소</h3>
+          <ol class="space-y-2 mb-0">
+            <li><strong>1. 사용자 활동</strong> - 최근에 좋아요/댓글/공유한 릴스 유형</li>
+            <li><strong>2. 상호작용 기록</strong> - 해당 크리에이터와의 과거 상호작용</li>
+            <li><strong>3. 릴스 정보</strong> - 사용된 오디오, 영상 품질, 인기도</li>
+            <li><strong>4. 크리에이터 정보</strong> - 계정의 전반적인 인기도와 신뢰도</li>
+          </ol>
+        </div>
+
+        <h2 id="explore-tab">탐색 탭 노출 전략</h2>
+
+        <p>
+          탐색 탭(돋보기 아이콘)에 노출되면 <strong>팔로워가 아닌 사람들</strong>에게 대규모 노출됩니다.
+        </p>
+
+        <div class="grid gap-4 my-6">
+          <div class="flex items-start gap-4 p-4 bg-pink-500/10 rounded-xl border border-pink-500/30">
+            <span class="text-2xl">🎵</span>
+            <div>
+              <h4 class="font-bold text-pink-600 dark:text-pink-400">트렌딩 오디오 사용</h4>
+              <p class="text-sm mb-0">릴스 탭에서 ↗ 표시 있는 오디오가 현재 인기. 이 오디오로 릴스 제작시 노출 2-5배</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 p-4 bg-purple-500/10 rounded-xl border border-purple-500/30">
+            <span class="text-2xl">⏱️</span>
+            <div>
+              <h4 class="font-bold text-purple-600 dark:text-purple-400">최적 길이: 7-15초</h4>
+              <p class="text-sm mb-0">짧을수록 완료율이 높고 반복 재생 유도. 30초 이상은 지양</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 p-4 bg-blue-500/10 rounded-xl border border-blue-500/30">
+            <span class="text-2xl">📝</span>
+            <div>
+              <h4 class="font-bold text-blue-600 dark:text-blue-400">캡션에 키워드 포함</h4>
+              <p class="text-sm mb-0">인스타그램 SEO가 생겼음. 검색 노출을 위해 관련 키워드 삽입</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 p-4 bg-green-500/10 rounded-xl border border-green-500/30">
+            <span class="text-2xl">#️⃣</span>
+            <div>
+              <h4 class="font-bold text-green-600 dark:text-green-400">해시태그 3-5개</h4>
+              <p class="text-sm mb-0">너무 많은 해시태그는 스팸으로 인식. 관련성 높은 것만 선별</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="viral-reels">바이럴 릴스 공식</h2>
+
+        <h3>훅 (처음 1초)</h3>
+        <p>
+          첫 프레임이 스크롤을 멈추게 해야 합니다.
+        </p>
+        <ul class="space-y-1 my-4">
+          <li>• 얼굴 클로즈업으로 시작</li>
+          <li>• 텍스트 오버레이로 궁금증 유발</li>
+          <li>• 결과물 먼저 보여주기</li>
+          <li>• 움직임 있는 첫 장면</li>
+        </ul>
+
+        <h3>콘텐츠 유형별 성과</h3>
+        <div class="overflow-x-auto my-6">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b">
+                <th class="text-left py-3">유형</th>
+                <th class="text-left py-3">평균 도달률</th>
+                <th class="text-left py-3">특징</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="py-3">교육/정보</td>
+                <td class="py-3 text-green-500">매우 높음</td>
+                <td class="py-3">저장 많음, 공유 많음</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">엔터테인먼트</td>
+                <td class="py-3 text-green-500">높음</td>
+                <td class="py-3">공유 많음, 반복 시청</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">비하인드/일상</td>
+                <td class="py-3 text-yellow-500">보통</td>
+                <td class="py-3">팔로워 친밀도 증가</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">제품 홍보</td>
+                <td class="py-3 text-red-500">낮음</td>
+                <td class="py-3">알고리즘 불리</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="posting-time">최적의 업로드 시간</h2>
+
+        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+          <h3 class="text-lg font-bold mb-4">한국 기준 최적 시간</h3>
+          <ul class="space-y-2 mb-0">
+            <li>🌅 <strong>오전 7-9시:</strong> 출근길 체크</li>
+            <li>🍽️ <strong>점심 12-1시:</strong> 점심시간 브라우징</li>
+            <li>🌙 <strong>저녁 7-10시:</strong> 황금 시간대 (최고)</li>
+            <li>🛏️ <strong>밤 10-11시:</strong> 잠자리 브라우징</li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-pink-600 dark:text-pink-400">릴스 성장 가속화</h4>
+          <p class="mt-2 mb-0">
+            릴스 조회수가 500회에서 정체되어 있다면, INFLUX의 인스타그램 릴스 조회수 서비스로
+            초기 부스트를 받고 탐색 탭 노출의 기회를 잡으세요.
+          </p>
+        </div>
+      </article>
+    `,
+  },
 ];
 
 // ============================================
