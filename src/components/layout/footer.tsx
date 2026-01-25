@@ -2,18 +2,14 @@
 
 import Link from "next/link";
 import { Logo } from "./logo";
-import { Mail, Globe } from "lucide-react";
-import { FaInstagram, FaYoutube, FaTwitter, FaTiktok, FaFacebook, FaTelegram } from "react-icons/fa";
+import { Mail, Globe, Phone, MapPin } from "lucide-react";
+import { FaInstagram, FaYoutube, FaTwitter, FaTiktok } from "react-icons/fa";
+import { RiKakaoTalkFill } from "react-icons/ri";
 import { cn } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
 
 const footerLinks = {
-  services: [
-    { name: "유튜브 서비스", href: "/services/youtube" },
-    { name: "인스타그램 서비스", href: "/services/instagram" },
-    { name: "틱톡 서비스", href: "/services/tiktok" },
-    { name: "페이스북 서비스", href: "/services/facebook" },
-    { name: "텔레그램 서비스", href: "/services/telegram" },
-  ],
+  services: siteConfig.services,
   support: [
     { name: "자주 묻는 질문", href: "/faq" },
     { name: "이용 가이드", href: "/guide" },
@@ -21,16 +17,16 @@ const footerLinks = {
     { name: "고객센터", href: "/support" },
   ],
   legal: [
-    { name: "이용약관", href: "/terms" },
-    { name: "개인정보처리방침", href: "/privacy" },
-    { name: "환불정책", href: "/refund" },
+    { name: "이용약관", href: siteConfig.legal.terms },
+    { name: "개인정보처리방침", href: siteConfig.legal.privacy },
+    { name: "환불정책", href: siteConfig.legal.refund },
   ],
 };
 
 const socialLinks = [
-  { name: "Instagram", href: "#", icon: FaInstagram, color: "hover:text-[#E1306C]" },
-  { name: "Youtube", href: "#", icon: FaYoutube, color: "hover:text-[#FF0000]" },
-  { name: "Twitter", href: "#", icon: FaTwitter, color: "hover:text-[#1DA1F2]" },
+  { name: "Instagram", href: siteConfig.social.instagram, icon: FaInstagram, color: "hover:text-[#E1306C]" },
+  { name: "Youtube", href: siteConfig.social.youtube, icon: FaYoutube, color: "hover:text-[#FF0000]" },
+  { name: "KakaoTalk", href: siteConfig.social.kakao, icon: RiKakaoTalkFill, color: "hover:text-[#FEE500]" },
   { name: "TikTok", href: "#", icon: FaTiktok, color: "hover:text-white" },
 ];
 
@@ -121,45 +117,71 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
+        {/* Divider - 법적 정보 (전자상거래법 필수 표기사항) */}
         <div className="border-t mt-12 pt-8">
           {/* Company Info */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-muted-foreground">
-            <div className="space-y-2">
-              <p className="font-medium text-foreground">루프셀앤미디어 (Loopcell & Media)</p>
-              <div className="flex flex-wrap gap-x-4 gap-y-1">
-                <span>책임자: -</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                <span>support@influx.kr</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Globe className="h-4 w-4" />
-                <span>www.influx.kr</span>
-              </div>
+          <div className="text-sm text-muted-foreground space-y-3">
+            {/* 사업자 기본 정보 */}
+            <div className="flex flex-wrap gap-x-3 gap-y-1">
+              <span className="font-medium text-foreground">{siteConfig.company.name}</span>
+              <span className="text-muted-foreground/50">|</span>
+              <span>대표: {siteConfig.company.ceo}</span>
+              <span className="text-muted-foreground/50 hidden sm:inline">|</span>
+              <span>사업자등록번호: {siteConfig.company.businessNumber}</span>
             </div>
 
-            <div className="flex flex-col md:items-end justify-end">
-              <p className="text-xs text-muted-foreground">
-                본 서비스는 마케팅 목적으로만 사용되어야 하며,
-                <br className="hidden sm:block" />
-                불법적인 용도로의 사용을 금지합니다.
-              </p>
+            {/* 통신판매업 및 주소 */}
+            <div className="flex flex-wrap gap-x-3 gap-y-1">
+              <span>통신판매업신고: {siteConfig.company.salesRegistration}</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <span>{siteConfig.company.address}</span>
+            </div>
+
+            {/* 연락처 정보 */}
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
+              <a
+                href={`tel:${siteConfig.company.phone.replace(/-/g, '')}`}
+                className="flex items-center gap-2 hover:text-foreground transition-colors"
+              >
+                <Phone className="h-4 w-4" />
+                <span>고객센터: {siteConfig.company.phone}</span>
+              </a>
+              <a
+                href={`mailto:${siteConfig.company.email}`}
+                className="flex items-center gap-2 hover:text-foreground transition-colors"
+              >
+                <Mail className="h-4 w-4" />
+                <span>{siteConfig.company.email}</span>
+              </a>
+            </div>
+
+            {/* 운영 시간 */}
+            <div className="text-xs text-muted-foreground/70">
+              운영시간: {siteConfig.serviceHours.support} (주말/공휴일 휴무) | 시스템: {siteConfig.serviceHours.system}
             </div>
           </div>
 
-          {/* Copyright */}
+          {/* Copyright & Legal Links */}
           <div className="mt-8 pt-6 border-t flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">
-              © 2026 INFLUX by Loopcell & Media. All rights reserved.
-            </p>
+            <div className="text-center sm:text-left">
+              <p className="text-sm text-muted-foreground">
+                © {new Date().getFullYear()} {siteConfig.company.name}. All rights reserved.
+              </p>
+              <p className="text-xs text-muted-foreground/60 mt-1">
+                본 사이트의 모든 콘텐츠는 저작권법의 보호를 받습니다.
+              </p>
+            </div>
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <Link href="/terms" className="hover:text-foreground transition-colors">
-                Terms
+              <Link href={siteConfig.legal.terms} className="hover:text-foreground transition-colors">
+                이용약관
               </Link>
-              <Link href="/privacy" className="hover:text-foreground transition-colors">
-                Privacy
+              <Link href={siteConfig.legal.privacy} className="hover:text-foreground transition-colors">
+                개인정보처리방침
+              </Link>
+              <Link href={siteConfig.legal.refund} className="hover:text-foreground transition-colors">
+                환불정책
               </Link>
             </div>
           </div>

@@ -1,0 +1,69 @@
+// ============================================
+// Site Configuration
+// 사이트 전역 설정 및 법적 정보
+// ============================================
+
+export const siteConfig = {
+  // 기본 정보
+  name: "INFLUX",
+  nameKorean: "인플럭스",
+  url: "https://www.influx-lab.com",
+
+  // 회사 정보 (전자상거래법 필수 표기)
+  company: {
+    name: "인플럭스(INFLUX)",
+    ceo: "홍길동", // TODO: 실제 대표자명으로 교체
+    businessNumber: "000-00-00000", // TODO: 실제 사업자등록번호로 교체
+    salesRegistration: "2026-경기성남-0000호", // TODO: 실제 통신판매업신고번호로 교체
+    address: "경기도 성남시 분당구 판교로 000, 0층", // TODO: 실제 주소로 교체
+    email: "support@influx-lab.com",
+    phone: "1588-0000", // TODO: 실제 고객센터 번호로 교체
+    kakaoChannel: "@influx", // TODO: 실제 카카오 채널로 교체
+  },
+
+  // 서비스 운영 시간
+  serviceHours: {
+    support: "평일 10:00 - 18:00",
+    system: "24시간 자동화 운영",
+  },
+
+  // 소셜 링크
+  social: {
+    kakao: "https://pf.kakao.com/_influx", // TODO: 실제 링크로 교체
+    instagram: "https://instagram.com/influx_kr",
+    youtube: "https://youtube.com/@influx_kr",
+  },
+
+  // 법적 페이지 링크
+  legal: {
+    terms: "/terms",
+    privacy: "/privacy",
+    refund: "/refund-policy",
+  },
+
+  // 서비스 카테고리
+  services: [
+    { name: "유튜브", href: "/services/youtube" },
+    { name: "인스타그램", href: "/services/instagram" },
+    { name: "틱톡", href: "/services/tiktok" },
+    { name: "페이스북", href: "/services/facebook" },
+    { name: "텔레그램", href: "/services/telegram" },
+  ],
+
+  // 메뉴 링크
+  navigation: {
+    main: [
+      { name: "서비스", href: "/order" },
+      { name: "가격표", href: "/order" },
+      { name: "인사이트", href: "/blog" },
+      { name: "고객센터", href: "/support" },
+    ],
+    footer: [
+      { name: "이용약관", href: "/terms" },
+      { name: "개인정보처리방침", href: "/privacy" },
+      { name: "환불정책", href: "/refund-policy" },
+    ],
+  },
+} as const;
+
+export type SiteConfig = typeof siteConfig;

@@ -512,13 +512,24 @@ function CTASection() {
 }
 
 // ============================================
-// Footer
+// Footer (전자상거래법 필수 표기사항 포함)
 // ============================================
+const companyInfo = {
+  name: "인플럭스(INFLUX)",
+  ceo: "홍길동", // TODO: 실제 대표자명으로 교체
+  businessNumber: "000-00-00000", // TODO: 실제 사업자등록번호로 교체
+  salesRegistration: "2026-경기성남-0000호", // TODO: 실제 통신판매업신고번호로 교체
+  address: "경기도 성남시 분당구 판교로 000, 0층", // TODO: 실제 주소로 교체
+  email: "support@influx-lab.com",
+  phone: "1588-0000", // TODO: 실제 고객센터 번호로 교체
+};
+
 function Footer() {
   return (
     <footer className="py-12 bg-slate-950 border-t border-white/5">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* 상단 링크 영역 */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
           <Logo size="md" />
 
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/40">
@@ -529,9 +540,23 @@ function Footer() {
             <Link href="/terms" className="hover:text-white/80 transition-colors">이용약관</Link>
             <Link href="/privacy" className="hover:text-white/80 transition-colors">개인정보처리방침</Link>
           </div>
+        </div>
 
-          <div className="text-sm text-white/30">
-            &copy; {new Date().getFullYear()} INFLUX. All rights reserved.
+        {/* 법적 정보 (전자상거래법 필수 표기사항) */}
+        <div className="border-t border-white/5 pt-6">
+          <div className="text-xs text-white/30 text-center md:text-left space-y-1">
+            <p>
+              상호: {companyInfo.name} | 대표: {companyInfo.ceo} | 사업자등록번호: {companyInfo.businessNumber}
+            </p>
+            <p>
+              통신판매업신고: {companyInfo.salesRegistration} | 주소: {companyInfo.address}
+            </p>
+            <p>
+              고객센터: {companyInfo.phone} | 이메일: {companyInfo.email} | 운영시간: 평일 10:00 - 18:00
+            </p>
+            <p className="pt-3 text-white/20">
+              &copy; {new Date().getFullYear()} {companyInfo.name}. All rights reserved.
+            </p>
           </div>
         </div>
       </div>
