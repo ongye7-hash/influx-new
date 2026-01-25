@@ -12,13 +12,13 @@ export const siteConfig = {
   // 회사 정보 (전자상거래법 필수 표기)
   company: {
     name: "인플럭스(INFLUX)",
-    ceo: "홍길동", // TODO: 실제 대표자명으로 교체
-    businessNumber: "000-00-00000", // TODO: 실제 사업자등록번호로 교체
-    salesRegistration: "2026-경기성남-0000호", // TODO: 실제 통신판매업신고번호로 교체
-    address: "경기도 성남시 분당구 판교로 000, 0층", // TODO: 실제 주소로 교체
+    ceo: "박주현",
+    businessNumber: "420-50-00984",
+    salesRegistration: "신고 준비중", // TODO: 발급 후 실제 번호로 교체
+    address: "서울특별시 도봉구 도봉로 133길 41, 5층",
     email: "support@influx-lab.com",
-    phone: "1588-0000", // TODO: 실제 고객센터 번호로 교체
-    kakaoChannel: "@influx", // TODO: 실제 카카오 채널로 교체
+    phone: "", // 고객센터 번호 없음
+    kakaoChannel: "@influx",
   },
 
   // 서비스 운영 시간

@@ -141,13 +141,15 @@ export function Footer() {
 
             {/* 연락처 정보 */}
             <div className="flex flex-wrap gap-x-4 gap-y-2">
-              <a
-                href={`tel:${siteConfig.company.phone.replace(/-/g, '')}`}
-                className="flex items-center gap-2 hover:text-foreground transition-colors"
-              >
-                <Phone className="h-4 w-4" />
-                <span>고객센터: {siteConfig.company.phone}</span>
-              </a>
+              {siteConfig.company.phone ? (
+                <a
+                  href={`tel:${String(siteConfig.company.phone).replace(/-/g, '')}`}
+                  className="flex items-center gap-2 hover:text-foreground transition-colors"
+                >
+                  <Phone className="h-4 w-4" />
+                  <span>고객센터: {siteConfig.company.phone}</span>
+                </a>
+              ) : null}
               <a
                 href={`mailto:${siteConfig.company.email}`}
                 className="flex items-center gap-2 hover:text-foreground transition-colors"

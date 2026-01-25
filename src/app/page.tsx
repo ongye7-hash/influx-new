@@ -516,12 +516,11 @@ function CTASection() {
 // ============================================
 const companyInfo = {
   name: "인플럭스(INFLUX)",
-  ceo: "홍길동", // TODO: 실제 대표자명으로 교체
-  businessNumber: "000-00-00000", // TODO: 실제 사업자등록번호로 교체
-  salesRegistration: "2026-경기성남-0000호", // TODO: 실제 통신판매업신고번호로 교체
-  address: "경기도 성남시 분당구 판교로 000, 0층", // TODO: 실제 주소로 교체
+  ceo: "박주현",
+  businessNumber: "420-50-00984",
+  salesRegistration: "신고 준비중",
+  address: "서울특별시 도봉구 도봉로 133길 41, 5층",
   email: "support@influx-lab.com",
-  phone: "1588-0000", // TODO: 실제 고객센터 번호로 교체
 };
 
 function Footer() {
@@ -552,7 +551,7 @@ function Footer() {
               통신판매업신고: {companyInfo.salesRegistration} | 주소: {companyInfo.address}
             </p>
             <p>
-              고객센터: {companyInfo.phone} | 이메일: {companyInfo.email} | 운영시간: 평일 10:00 - 18:00
+              이메일: {companyInfo.email} | 운영시간: 평일 10:00 - 18:00
             </p>
             <p className="pt-3 text-white/20">
               &copy; {new Date().getFullYear()} {companyInfo.name}. All rights reserved.
