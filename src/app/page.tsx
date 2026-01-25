@@ -21,6 +21,7 @@ import {
 import { FaYoutube, FaInstagram, FaTiktok, FaFacebook } from 'react-icons/fa';
 import { CustomerReviews } from '@/components/landing/customer-reviews';
 import { OrderTicker } from '@/components/landing/order-ticker';
+import { KakaoChatButton } from '@/components/kakao-chat-button';
 import { FreeTrialSection } from '@/components/landing/free-trial';
 import { PromoBanner } from '@/components/landing/promo-banner';
 import { InlineCountdown } from '@/components/landing/countdown-timer';
@@ -651,6 +652,9 @@ export default function LandingPage() {
 
       {/* Promotional Banner */}
       <PromoBanner />
+
+      {/* Kakao Chat Button */}
+      <KakaoChatButton />
     </div>
   );
 }

@@ -11,6 +11,7 @@ import { createClient } from '@/lib/supabase/server';
 import { ClientSidebar } from './client-sidebar';
 import { MobileNav } from './mobile-nav';
 import { GuestLayoutWrapper } from './guest-layout-wrapper';
+import { DashboardWidgets } from './dashboard-widgets';
 import { User, Bell, UserCircle } from 'lucide-react';
 
 export default async function DashboardLayout({
@@ -89,6 +90,9 @@ export default async function DashboardLayout({
         <div className="p-4 md:p-6 lg:p-8 animate-in fade-in-10 slide-in-from-bottom-2 duration-500">
           {children}
         </div>
+
+        {/* 전역 위젯 (카카오톡 버튼 등) */}
+        <DashboardWidgets />
       </main>
     </div>
   );
