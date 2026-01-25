@@ -13,7 +13,6 @@ import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/hooks/use-auth";
 import { useGuestStore } from "@/stores/guest-store";
-import { enableGuestMode } from "@/app/actions/guest-mode";
 import { toast } from "sonner";
 
 // 소셜 로그인 아이콘
@@ -151,22 +150,20 @@ function LoginContent() {
     }
   };
 
-  // 비회원으로 둘러보기
-  const handleGuestMode = async () => {
-    try {
-      // 서버 액션으로 쿠키 설정
-      await enableGuestMode();
-      // 클라이언트 상태도 업데이트
-      enterGuestMode();
-      toast.success('비회원 모드로 둘러보기를 시작합니다!', {
-        description: '모든 기능을 체험해보고 회원가입하세요.',
-      });
-      // 서버에서 쿠키가 설정되었으므로 바로 이동
-      window.location.href = '/dashboard';
-    } catch (error) {
-      console.error('Guest mode error:', error);
-      toast.error('오류가 발생했습니다. 다시 시도해주세요.');
-    }
+  // 비회원으로 둘러보기 - form submit으로 API 호출
+  const handleGuestMode = () => {
+    // 클라이언트 상태도 업데이트
+    enterGuestMode();
+    toast.success('비회원 모드로 둘러보기를 시작합니다!', {
+      description: '모든 기능을 체험해보고 회원가입하세요.',
+    });
+
+    // form을 통해 API 라우트 호출 (쿠키 설정 + 리다이렉트)
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/api/guest-mode';
+    document.body.appendChild(form);
+    form.submit();
   };
 
 
