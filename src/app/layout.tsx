@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | INFLUX",
   },
   description:
-    "유튜브 조회수, 인스타 팔로워, 틱톡 성장 등 크리에이터를 위한 올인원 마케팅 플랫폼. 24시간 자동화 시스템으로 가장 빠르고 안전하게 채널을 성장시키세요.",
+    "크리에이터를 위한 올인원 SNS 마케팅 플랫폼. 유튜브·인스타·틱톡 24시간 자동 성장 시스템.",
   keywords: [
     "인플럭스",
     "SMM 패널",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     url: "https://www.influx-lab.com",
     title: "INFLUX(인플럭스) - 글로벌 1위 SNS 성장/마케팅 자동화 솔루션",
     description:
-      "유튜브 조회수, 인스타 팔로워, 틱톡 성장 등 크리에이터를 위한 올인원 마케팅 플랫폼. 24시간 자동화 시스템으로 가장 빠르고 안전하게 채널을 성장시키세요.",
+      "크리에이터를 위한 올인원 SNS 마케팅 플랫폼. 유튜브·인스타·틱톡 24시간 자동 성장 시스템.",
     siteName: "INFLUX - 인플럭스",
     images: [
       {
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "INFLUX(인플럭스) - 글로벌 1위 SNS 성장/마케팅 자동화 솔루션",
     description:
-      "유튜브 조회수, 인스타 팔로워, 틱톡 성장 등 크리에이터를 위한 올인원 마케팅 플랫폼.",
+      "크리에이터를 위한 올인원 SNS 마케팅 플랫폼. 유튜브·인스타·틱톡 24시간 자동 성장 시스템.",
     images: ["/og-image.png"],
     creator: "@influx_kr",
   },
