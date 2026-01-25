@@ -2236,6 +2236,386 @@ export const blogPosts: BlogPost[] = [
       </article>
     `,
   },
+  // ============================================
+  // 새 SEO 콘텐츠 - 2026년 1월 추가
+  // ============================================
+  {
+    slug: 'instagram-followers-guide-complete-2026',
+    title: '2026년 인스타 팔로워 늘리기 완벽 가이드 - 0명에서 1만명까지',
+    description: '인스타그램 팔로워를 빠르게 늘리는 검증된 방법을 공개합니다. 릴스 알고리즘, 해시태그 전략, 최적의 업로드 시간까지 실전 노하우를 모두 담았습니다.',
+    keywords: ['인스타 팔로워 늘리기', '인스타그램 마케팅', '릴스 조회수', '인스타 알고리즘', '인플루언서 되는 법', '인스타 성장'],
+    author: 'INFLUX 마케팅팀',
+    publishedAt: '2026-01-26',
+    readingTime: 15,
+    category: '인스타그램',
+    thumbnail: '/og-image.png',
+    content: `
+      <article class="prose prose-lg dark:prose-invert max-w-none">
+        <div class="bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-xl p-6 mb-8 border border-pink-500/20">
+          <p class="text-lg font-medium mb-0">
+            <strong>3줄 요약</strong><br/>
+            1. 2026년 인스타 알고리즘은 <strong>릴스와 저장수</strong>를 가장 중요하게 봅니다<br/>
+            2. 팔로워 1만명까지는 <strong>니치 타겟팅</strong>이 핵심입니다<br/>
+            3. 매일 1개 릴스 + 3개 스토리가 <strong>최적의 업로드 빈도</strong>입니다
+          </p>
+        </div>
+
+        <nav class="bg-muted/30 rounded-xl p-6 mb-8">
+          <h3 class="text-lg font-bold mb-4">목차</h3>
+          <ol class="space-y-2 text-sm">
+            <li><a href="#instagram-algorithm-2026" class="text-primary hover:underline">1. 2026년 인스타그램 알고리즘 완벽 분석</a></li>
+            <li><a href="#reels-strategy" class="text-primary hover:underline">2. 릴스로 폭발적 성장하는 법</a></li>
+            <li><a href="#hashtag-strategy" class="text-primary hover:underline">3. 해시태그 전략 (2026 업데이트)</a></li>
+            <li><a href="#best-posting-time" class="text-primary hover:underline">4. 최적의 업로드 시간대</a></li>
+            <li><a href="#engagement-tips" class="text-primary hover:underline">5. 참여율을 높이는 비밀</a></li>
+            <li><a href="#shadowban-warning" class="text-primary hover:underline">6. 섀도우밴 피하는 법</a></li>
+            <li><a href="#growth-timeline" class="text-primary hover:underline">7. 현실적인 성장 타임라인</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="instagram-algorithm-2026">1. 2026년 인스타그램 알고리즘 완벽 분석</h2>
+
+        <p>
+          인스타그램 알고리즘은 2024년 대비 <strong>크게 변화</strong>했습니다.
+          메타(Meta)는 공식적으로 "더 작은 크리에이터에게 기회를 주겠다"고 발표했고,
+          실제로 팔로워가 적어도 좋은 콘텐츠는 탐색 탭에 노출되고 있습니다.
+        </p>
+
+        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+          <h3 class="text-lg font-bold mb-4">2026년 알고리즘 가중치 (추정치)</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span>저장(Save)</span>
+              <div class="flex items-center gap-2">
+                <div class="w-48 bg-muted rounded-full h-3">
+                  <div class="bg-pink-500 h-3 rounded-full" style="width: 95%"></div>
+                </div>
+                <span class="font-bold text-pink-500">35%</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>공유(Share)</span>
+              <div class="flex items-center gap-2">
+                <div class="w-48 bg-muted rounded-full h-3">
+                  <div class="bg-purple-500 h-3 rounded-full" style="width: 75%"></div>
+                </div>
+                <span class="font-bold text-purple-500">25%</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>댓글(Comment)</span>
+              <div class="flex items-center gap-2">
+                <div class="w-48 bg-muted rounded-full h-3">
+                  <div class="bg-blue-500 h-3 rounded-full" style="width: 60%"></div>
+                </div>
+                <span class="font-bold text-blue-500">20%</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>좋아요(Like)</span>
+              <div class="flex items-center gap-2">
+                <div class="w-48 bg-muted rounded-full h-3">
+                  <div class="bg-red-500 h-3 rounded-full" style="width: 40%"></div>
+                </div>
+                <span class="font-bold text-red-500">15%</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>체류시간</span>
+              <div class="flex items-center gap-2">
+                <div class="w-48 bg-muted rounded-full h-3">
+                  <div class="bg-green-500 h-3 rounded-full" style="width: 20%"></div>
+                </div>
+                <span class="font-bold text-green-500">5%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          <strong>저장(Save)</strong>이 가장 중요한 지표가 된 이유는 명확합니다.
+          저장은 "나중에 다시 보고 싶다"는 의미이므로, 콘텐츠 품질을 가장 잘 반영합니다.
+          좋아요는 습관적으로 누르지만, 저장은 정말 가치 있을 때만 합니다.
+        </p>
+
+        <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-amber-600 dark:text-amber-400 flex items-center gap-2">
+            💡 핵심 인사이트
+          </h4>
+          <p class="mt-2 mb-0">
+            저장을 유도하는 콘텐츠: 정보성 카드뉴스, 저장해두고 따라하는 튜토리얼,
+            "나중에 쓸 정보" 컨셉의 리스트형 콘텐츠가 효과적입니다.
+          </p>
+        </div>
+
+        <h2 id="reels-strategy">2. 릴스로 폭발적 성장하는 법</h2>
+
+        <p>
+          2026년 인스타그램 성장의 <strong>80%는 릴스</strong>에서 나옵니다.
+          피드 게시물만 올리면서 팔로워가 안 는다고 불평하는 건 시대착오적입니다.
+        </p>
+
+        <h3>릴스 황금 공식</h3>
+
+        <div class="grid md:grid-cols-2 gap-4 my-6">
+          <div class="bg-muted/30 rounded-xl p-5 border">
+            <div class="text-2xl font-bold text-pink-500 mb-2">처음 1초</div>
+            <p class="text-sm mb-0">강렬한 후킹. "이거 모르면 손해", "충격적인 사실" 등 궁금증 유발</p>
+          </div>
+          <div class="bg-muted/30 rounded-xl p-5 border">
+            <div class="text-2xl font-bold text-purple-500 mb-2">3-7초</div>
+            <p class="text-sm mb-0">문제 제기. 시청자의 공감을 이끌어내는 상황 설정</p>
+          </div>
+          <div class="bg-muted/30 rounded-xl p-5 border">
+            <div class="text-2xl font-bold text-blue-500 mb-2">8-25초</div>
+            <p class="text-sm mb-0">해결책 제시. 핵심 정보를 빠르게 전달</p>
+          </div>
+          <div class="bg-muted/30 rounded-xl p-5 border">
+            <div class="text-2xl font-bold text-green-500 mb-2">마지막 3초</div>
+            <p class="text-sm mb-0">CTA(Call to Action). "저장해두세요", "팔로우하면 더 많은 팁"</p>
+          </div>
+        </div>
+
+        <h3>릴스 최적 길이</h3>
+
+        <p>
+          인스타그램 공식 발표에 따르면 <strong>15-30초</strong>가 가장 효과적입니다.
+          하지만 콘텐츠 유형에 따라 다릅니다:
+        </p>
+
+        <ul>
+          <li><strong>밈/유머:</strong> 7-15초</li>
+          <li><strong>정보/팁:</strong> 20-45초</li>
+          <li><strong>튜토리얼:</strong> 30-60초</li>
+          <li><strong>브이로그:</strong> 60-90초</li>
+        </ul>
+
+        <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-red-600 dark:text-red-400">⚠️ 주의</h4>
+          <p class="mt-2 mb-0">
+            90초가 넘는 릴스는 알고리즘에서 불이익을 받습니다.
+            긴 콘텐츠는 유튜브 쇼츠나 틱톡에 올리고, 인스타는 핵심만 편집해서 올리세요.
+          </p>
+        </div>
+
+        <h2 id="hashtag-strategy">3. 해시태그 전략 (2026 업데이트)</h2>
+
+        <p>
+          2026년 해시태그 전략은 과거와 <strong>완전히 달라졌습니다</strong>.
+          예전처럼 30개 해시태그를 복붙하는 건 오히려 역효과입니다.
+        </p>
+
+        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+          <h3 class="text-lg font-bold mb-4">2026년 해시태그 공식</h3>
+          <ul class="space-y-2">
+            <li>✅ 해시태그 <strong>3-5개</strong>만 사용 (많으면 스팸 취급)</li>
+            <li>✅ <strong>니치 해시태그</strong> 위주 (게시물 1만-50만개 사이)</li>
+            <li>✅ 캡션에 자연스럽게 녹이기</li>
+            <li>❌ 첫 번째 댓글에 해시태그 몰아넣기 (효과 없음)</li>
+            <li>❌ 매번 같은 해시태그 사용 (스팸 판정)</li>
+          </ul>
+        </div>
+
+        <h3>카테고리별 추천 해시태그</h3>
+
+        <p><strong>패션/뷰티:</strong></p>
+        <p class="text-sm bg-muted/30 p-3 rounded-lg">
+          #오오티디 #데일리룩 #뷰티꿀팁 #메이크업튜토리얼 #스타일링
+        </p>
+
+        <p><strong>음식/맛집:</strong></p>
+        <p class="text-sm bg-muted/30 p-3 rounded-lg">
+          #맛스타그램 #홈카페 #레시피공유 #디저트스타그램 #먹방
+        </p>
+
+        <p><strong>여행:</strong></p>
+        <p class="text-sm bg-muted/30 p-3 rounded-lg">
+          #여행스타그램 #국내여행 #감성여행 #여행브이로그 #핫플
+        </p>
+
+        <h2 id="best-posting-time">4. 최적의 업로드 시간대</h2>
+
+        <p>
+          <strong>한국 기준</strong> 인스타그램 최적 업로드 시간입니다.
+          (2026년 1월 INFLUX 자체 데이터 기준)
+        </p>
+
+        <div class="overflow-x-auto my-6">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b">
+                <th class="text-left py-3">요일</th>
+                <th class="text-left py-3">최고 시간대</th>
+                <th class="text-left py-3">추천 콘텐츠</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="py-3">월요일</td>
+                <td class="py-3 font-medium text-pink-500">오전 7-8시, 저녁 7-9시</td>
+                <td class="py-3">한 주 시작 동기부여 콘텐츠</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">화-목요일</td>
+                <td class="py-3 font-medium text-pink-500">점심 12-1시, 저녁 8-10시</td>
+                <td class="py-3">정보성/꿀팁 콘텐츠</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">금요일</td>
+                <td class="py-3 font-medium text-pink-500">저녁 6-8시</td>
+                <td class="py-3">가벼운/유머 콘텐츠</td>
+              </tr>
+              <tr class="border-b">
+                <td class="py-3">토-일요일</td>
+                <td class="py-3 font-medium text-pink-500">오전 10-11시, 오후 3-5시</td>
+                <td class="py-3">라이프스타일/브이로그</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="engagement-tips">5. 참여율을 높이는 비밀</h2>
+
+        <p>
+          팔로워 수보다 <strong>참여율(Engagement Rate)</strong>이 중요합니다.
+          10만 팔로워에 참여율 0.5%보다, 1만 팔로워에 참여율 5%가
+          알고리즘과 브랜드 협찬 모두에서 유리합니다.
+        </p>
+
+        <h3>참여율 계산 공식</h3>
+        <div class="bg-muted/50 rounded-xl p-4 my-4 font-mono text-sm">
+          참여율 = (좋아요 + 댓글 + 저장 + 공유) / 팔로워 수 × 100
+        </div>
+
+        <h3>참여율 높이는 7가지 방법</h3>
+
+        <ol class="space-y-3">
+          <li><strong>1. 질문으로 끝내기:</strong> "여러분은 어떻게 생각하세요?"</li>
+          <li><strong>2. 투표 스티커 활용:</strong> 스토리에 A vs B 투표</li>
+          <li><strong>3. 댓글에 성심성의껏 답글:</strong> 첫 1시간 내 모든 댓글에 답글</li>
+          <li><strong>4. 저장 유도:</strong> "나중에 필요할 정보니까 저장해두세요"</li>
+          <li><strong>5. 공유 유도:</strong> "친구한테 태그해서 공유하기"</li>
+          <li><strong>6. 캐러셀 포스트:</strong> 스와이프하면 체류시간 증가</li>
+          <li><strong>7. 논쟁적 주제:</strong> (단, 과하지 않게) 의견이 갈리는 주제</li>
+        </ol>
+
+        <h2 id="shadowban-warning">6. 섀도우밴 피하는 법</h2>
+
+        <p>
+          <strong>섀도우밴</strong>은 계정이 정지되진 않지만 게시물이
+          탐색 탭이나 해시태그 검색에 노출되지 않는 상태입니다.
+        </p>
+
+        <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-red-600 dark:text-red-400">섀도우밴 징후</h4>
+          <ul class="mt-3 space-y-1 mb-0">
+            <li>• 갑자기 도달 범위가 70% 이상 감소</li>
+            <li>• 해시태그 검색에 내 게시물이 안 보임</li>
+            <li>• 새 팔로워가 거의 들어오지 않음</li>
+            <li>• 탐색 탭 노출이 0에 가까움</li>
+          </ul>
+        </div>
+
+        <h3>섀도우밴 원인과 해결책</h3>
+
+        <div class="space-y-4">
+          <div class="bg-muted/30 rounded-xl p-5">
+            <p class="font-bold">❌ 원인: 금지된 해시태그 사용</p>
+            <p class="text-sm mb-0">✅ 해결: 해시태그 검색해서 "게시물 없음" 뜨면 사용 금지</p>
+          </div>
+          <div class="bg-muted/30 rounded-xl p-5">
+            <p class="font-bold">❌ 원인: 자동화 툴(봇) 사용</p>
+            <p class="text-sm mb-0">✅ 해결: 모든 자동화 앱 연결 해제, 비밀번호 변경</p>
+          </div>
+          <div class="bg-muted/30 rounded-xl p-5">
+            <p class="font-bold">❌ 원인: 너무 빈번한 활동</p>
+            <p class="text-sm mb-0">✅ 해결: 시간당 좋아요 60개, 팔로우 30개 이하로 제한</p>
+          </div>
+          <div class="bg-muted/30 rounded-xl p-5">
+            <p class="font-bold">❌ 원인: 신고 누적</p>
+            <p class="text-sm mb-0">✅ 해결: 논란성 콘텐츠 삭제, 2-3일 활동 중단</p>
+          </div>
+        </div>
+
+        <h2 id="growth-timeline">7. 현실적인 성장 타임라인</h2>
+
+        <p>
+          "3일 만에 10만 팔로워" 같은 건 없습니다.
+          현실적인 성장 타임라인을 공유합니다.
+        </p>
+
+        <div class="space-y-4 my-6">
+          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center text-white font-bold">1개월</div>
+            <div>
+              <p class="font-bold mb-1">0 → 500 팔로워</p>
+              <p class="text-sm text-muted-foreground mb-0">니치 설정, 콘텐츠 방향 확립, 매일 1릴스</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">3개월</div>
+            <div>
+              <p class="font-bold mb-1">500 → 2,000 팔로워</p>
+              <p class="text-sm text-muted-foreground mb-0">콘텐츠 최적화, 바이럴 패턴 파악</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center text-white font-bold">6개월</div>
+            <div>
+              <p class="font-bold mb-1">2,000 → 10,000 팔로워</p>
+              <p class="text-sm text-muted-foreground mb-0">첫 바이럴 릴스 경험, 협찬 문의 시작</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-xl p-6 my-8 border border-pink-500/20">
+          <h3 class="text-lg font-bold mb-3">빠르게 성장하고 싶다면?</h3>
+          <p class="mb-4">
+            INFLUX의 인스타그램 성장 서비스를 활용하면
+            초기 부스팅으로 알고리즘의 관심을 받을 수 있습니다.
+            <strong>실제 계정 기반 + 90일 AS 보장</strong>으로 안전하게 시작하세요.
+          </p>
+          <a href="/order" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-medium hover:opacity-90 transition-opacity">
+            인스타 성장 서비스 보기 →
+          </a>
+        </div>
+
+        <h2>자주 묻는 질문 (FAQ)</h2>
+
+        <div class="space-y-4">
+          <details class="bg-muted/30 rounded-xl p-5">
+            <summary class="font-bold cursor-pointer">Q. 팔로워를 사면 계정에 문제가 생기나요?</summary>
+            <p class="mt-3 mb-0">
+              저품질 팔로워(봇)를 대량 구매하면 참여율이 급락하고 알고리즘에서 불이익을 받습니다.
+              하지만 INFLUX처럼 실제 계정 기반으로 점진적 증가를 제공하는 서비스는 안전합니다.
+            </p>
+          </details>
+          <details class="bg-muted/30 rounded-xl p-5">
+            <summary class="font-bold cursor-pointer">Q. 하루에 몇 개나 올려야 하나요?</summary>
+            <p class="mt-3 mb-0">
+              릴스 1개 + 스토리 3-5개가 최적입니다. 피드 게시물은 주 2-3회면 충분합니다.
+              양보다 질이 중요하므로, 무리해서 매일 올리느니 좋은 콘텐츠를 격일로 올리세요.
+            </p>
+          </details>
+          <details class="bg-muted/30 rounded-xl p-5">
+            <summary class="font-bold cursor-pointer">Q. 팔로워 1만명이면 얼마나 벌 수 있나요?</summary>
+            <p class="mt-3 mb-0">
+              니치와 참여율에 따라 다릅니다. 패션/뷰티 분야 1만 팔로워(참여율 5% 이상)는
+              협찬 1건당 10-30만원을 받을 수 있습니다. 월 4-5건이면 100만원 이상입니다.
+            </p>
+          </details>
+        </div>
+
+        <div class="border-t pt-8 mt-12">
+          <p class="text-sm text-muted-foreground">
+            이 가이드가 도움이 되셨다면 <strong>저장</strong>해두시고,
+            인스타그램 성장 여정을 함께하는 친구에게 <strong>공유</strong>해주세요.
+            더 많은 SNS 성장 팁은 INFLUX 블로그에서 확인하실 수 있습니다.
+          </p>
+        </div>
+      </article>
+    `,
+  },
 ];
 
 // ============================================
