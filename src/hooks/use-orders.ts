@@ -145,10 +145,11 @@ async function fetchOrderStats(): Promise<OrderStats> {
 // ============================================
 // Hooks
 // ============================================
-export function useOrders(filters: OrderFilters = {}) {
+export function useOrders(filters: OrderFilters = {}, enabled: boolean = true) {
   return useQuery({
     queryKey: orderKeys.list(filters),
     queryFn: () => fetchOrders(filters),
+    enabled,
   });
 }
 

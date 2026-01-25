@@ -53,6 +53,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useOrders, useSyncOrderStatus, type OrderWithDetails } from '@/hooks/use-orders';
+import { useAuth } from '@/hooks/use-auth';
 import { formatCurrency, formatRelativeTime, formatCompactNumber, copyToClipboard, cn } from '@/lib/utils';
 import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from '@/types/database';
 import { toast } from 'sonner';
@@ -480,11 +481,13 @@ function exportOrdersToCSV(orders: OrderWithDetails[]) {
 // ============================================
 export default function HistoryPage() {
   const router = useRouter();
+  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedOrder, setSelectedOrder] = useState<OrderWithDetails | null>(null);
 
-  const { data: orders, isLoading, refetch } = useOrders();
+  // 비회원 모드에서는 쿼리 비활성화
+  const { data: orders, isLoading, refetch } = useOrders({}, !!user);
   const syncStatus = useSyncOrderStatus();
 
   // 재주문 함수

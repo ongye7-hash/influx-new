@@ -65,7 +65,8 @@
       "Bash(powershell -Command \"Get-Content -Path ''supabase/migrations/FIX_AND_REMAINING.sql'' -Encoding UTF8 | Set-Clipboard\")",
       "Bash(powershell -Command:*)",
       "WebFetch(domain:localhost)",
-      "Bash(npx vercel --prod)"
+      "Bash(npx vercel --prod)",
+      "Bash(ls:*)"
     ]
   }
 }
