@@ -70,7 +70,7 @@ export const useGuestStore = create<GuestState>()(
       enterGuestMode: () => {
         // 서버 컴포넌트에서 확인할 수 있도록 쿠키 설정
         if (typeof document !== 'undefined') {
-          document.cookie = 'influx_guest_mode=true; path=/; max-age=86400'; // 24시간
+          document.cookie = 'influx_guest_mode=true; path=/; max-age=86400; SameSite=Lax';
         }
         set({
           isGuestMode: true,

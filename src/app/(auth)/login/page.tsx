@@ -156,8 +156,10 @@ function LoginContent() {
     toast.success('비회원 모드로 둘러보기를 시작합니다!', {
       description: '모든 기능을 체험해보고 회원가입하세요.',
     });
-    // 서버 컴포넌트가 쿠키를 읽을 수 있도록 전체 페이지 새로고침
-    window.location.href = '/dashboard';
+    // 쿠키 설정 후 약간의 딜레이를 주고 이동 (서버가 쿠키를 읽을 수 있도록)
+    setTimeout(() => {
+      window.location.href = '/dashboard';
+    }, 100);
   };
 
 
