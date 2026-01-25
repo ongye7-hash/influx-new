@@ -62,8 +62,19 @@ export async function updateSession(request: NextRequest) {
                           pathname.startsWith('/support') ||
                           pathname.startsWith('/settings');
 
-  // 비로그인 사용자가 대시보드/관리자 페이지 접근 시 로그인 페이지로
-  if (!user && (isDashboardPage || isAdminPage)) {
+  // 비회원 모드 쿠키 확인
+  const isGuestMode = request.cookies.get('influx_guest_mode')?.value === 'true';
+
+  // 비로그인 사용자가 대시보드 페이지 접근 시 (비회원 모드 허용)
+  if (!user && isDashboardPage && !isGuestMode) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/login';
+    url.searchParams.set('redirect', pathname);
+    return NextResponse.redirect(url);
+  }
+
+  // 비로그인 사용자가 관리자 페이지 접근 시 (비회원 모드도 불가)
+  if (!user && isAdminPage) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.searchParams.set('redirect', pathname);
