@@ -11,12 +11,27 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getAllPosts } from '@/lib/blog-posts';
 import { cn } from '@/lib/utils';
-import { PlatformFilter, PLATFORM_FILTERS } from '@/components/blog/platform-filter';
+import { PlatformFilter } from '@/components/blog/platform-filter';
 
 // ============================================
 // Constants
 // ============================================
 const POSTS_PER_PAGE = 9;
+
+// Simple color map for server-side rendering (no icons)
+const PLATFORM_COLORS: Record<string, string> = {
+  '유튜브': '#FF0000',
+  '인스타그램': '#E4405F',
+  '틱톡': '#00f2ea',
+  '페이스북': '#1877F2',
+  '트위터': '#1DA1F2',
+  '텔레그램': '#0088CC',
+  '트위치': '#9146FF',
+  '디스코드': '#5865F2',
+  '스레드': '#ffffff',
+  'SMM': '#00C896',
+  '기타': '#0064FF',
+};
 
 // ============================================
 // Metadata
@@ -175,8 +190,7 @@ function Pagination({
 // Blog Card Component
 // ============================================
 function BlogCard({ post, featured = false }: { post: ReturnType<typeof getAllPosts>[0]; featured?: boolean }) {
-  const platformFilter = PLATFORM_FILTERS.find(f => f.id === post.category);
-  const platformColor = platformFilter?.color || '#0064FF';
+  const platformColor = PLATFORM_COLORS[post.category] || '#0064FF';
 
   return (
     <Link href={`/blog/${post.slug}`} className="block group">

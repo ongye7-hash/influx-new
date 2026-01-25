@@ -26,7 +26,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 11,
-    category: '틱톡 성장',
+    category: '틱톡',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -286,7 +286,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 9,
-    category: '페이스북 마케팅',
+    category: '페이스북',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -479,7 +479,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 11,
-    category: '유튜브 성장',
+    category: '유튜브',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -719,7 +719,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 8,
-    category: 'X(트위터) 마케팅',
+    category: '트위터',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -892,7 +892,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 10,
-    category: 'SMM 가이드',
+    category: 'SMM',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -1104,7 +1104,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 10,
-    category: '인스타그램 성장',
+    category: '인스타그램',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -1431,7 +1431,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 12,
-    category: '유튜브 성장',
+    category: '유튜브',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -1702,7 +1702,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 12,
-    category: '텔레그램 성장',
+    category: '텔레그램',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -1798,7 +1798,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 13,
-    category: '트위치 성장',
+    category: '트위치',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -1902,7 +1902,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 11,
-    category: '디스코드 성장',
+    category: '디스코드',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -1992,7 +1992,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 10,
-    category: '암호화폐',
+    category: '기타',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -2075,7 +2075,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 10,
-    category: '스레드 성장',
+    category: '스레드',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">
@@ -2165,7 +2165,7 @@ export const blogPosts: BlogPost[] = [
     author: 'INFLUX 마케팅팀',
     publishedAt: '2026-01-22',
     readingTime: 11,
-    category: '스레드 성장',
+    category: '스레드',
     thumbnail: '/og-image.png',
     content: `
       <article class="prose prose-lg dark:prose-invert max-w-none">

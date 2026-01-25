@@ -66,7 +66,12 @@
       "Bash(powershell -Command:*)",
       "WebFetch(domain:localhost)",
       "Bash(npx vercel --prod)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(npx vercel --prod --force)",
+      "Bash(timeout 15 npm run dev)",
+      "WebFetch(domain:influx-87oudaijl-ongye7-3714s-projects.vercel.app)",
+      "WebFetch(domain:influx-drab.vercel.app)",
+      "Bash(npx vercel logs:*)"
     ]
   }
 }
