@@ -79,7 +79,8 @@ export async function POST(request: NextRequest) {
     }
 
     // 6. 가격 계산
-    const totalPrice = (product.price_per_1000 / 1000) * quantity;
+    const unitPrice = product.price_per_1000 / 1000;
+    const totalPrice = Math.ceil(unitPrice * quantity);
 
     if (profile.balance < totalPrice) {
       return NextResponse.json(
@@ -91,18 +92,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 7. 주문 생성
+    // 7. 주문번호 생성
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+    const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const orderNumber = `INF-${dateStr}-${randomStr}`;
+
+    // 8. 주문 생성
     const { data: order, error: orderError } = await (supabase as any)
       .from('orders')
       .insert({
+        order_number: orderNumber,
         user_id: user.id,
         service_id: product_id,
-        target_url: link,
+        link: link,
         quantity,
-        total_price: totalPrice,
+        charge: totalPrice,
+        unit_price: unitPrice,
         status: 'pending',
-        comments: comments || null,
-        usernames: usernames || null,
       })
       .select()
       .single();
@@ -115,7 +122,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 8. 잔액 차감
+    // 9. 잔액 차감
     const { error: balanceError } = await (supabase as any)
       .from('profiles')
       .update({ balance: profile.balance - totalPrice })
