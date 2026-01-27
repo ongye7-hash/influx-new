@@ -38,8 +38,8 @@ import { toast } from 'sonner';
 const navigation = [
   { name: '홈', href: '/', icon: Home },
   { name: '대시보드', href: '/dashboard', icon: LayoutDashboard },
-  { name: '새 주문', href: '/order', icon: ShoppingCart },
-  { name: '대량 주문', href: '/mass-order', icon: Layers },
+  { name: '새 주문', href: '/order', icon: ShoppingCart, badge: '점검중', disabled: true },
+  { name: '대량 주문', href: '/mass-order', icon: Layers, badge: '점검중', disabled: true },
   { name: '주문내역', href: '/orders', icon: History },
   { name: '포인트 충전', href: '/deposit', icon: CreditCard },
   { name: '무료 체험', href: '/free-trial', icon: Sparkles, badge: 'FREE' },
@@ -205,7 +205,25 @@ export function MobileNav({ isGuestMode = false }: MobileNavProps) {
 
             {navigation.map((item) => {
               const isActive = pathname === item.href;
-              const navItem = item as typeof item & { badge?: string };
+              const navItem = item as typeof item & { badge?: string; disabled?: boolean };
+
+              if (navItem.disabled) {
+                return (
+                  <div
+                    key={item.name}
+                    className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-muted-foreground/50 cursor-not-allowed mb-1"
+                  >
+                    <item.icon className="h-5 w-5" />
+                    {item.name}
+                    {navItem.badge && (
+                      <span className="ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded bg-orange-500/20 text-orange-500">
+                        {navItem.badge}
+                      </span>
+                    )}
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={item.name}

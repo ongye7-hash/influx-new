@@ -41,6 +41,8 @@ const navigation = [
     name: "새 주문",
     href: "/order",
     icon: ShoppingCart,
+    badge: "점검중",
+    disabled: true,
   },
   {
     name: "주문 내역",
@@ -125,7 +127,25 @@ export function Sidebar({ user }: SidebarProps) {
 
         {navigation.map((item) => {
           const isActive = pathname === item.href;
-          const navItem = item as typeof item & { badge?: string };
+          const navItem = item as typeof item & { badge?: string; disabled?: boolean };
+
+          if (navItem.disabled) {
+            return (
+              <div
+                key={item.name}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-muted-foreground/50 cursor-not-allowed"
+              >
+                <item.icon className="h-5 w-5" />
+                {item.name}
+                {navItem.badge && (
+                  <span className="ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded bg-orange-500/20 text-orange-500">
+                    {navItem.badge}
+                  </span>
+                )}
+              </div>
+            );
+          }
+
           return (
             <Link
               key={item.name}

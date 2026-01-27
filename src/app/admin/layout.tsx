@@ -21,6 +21,10 @@ import {
   FileText,
   Bell,
   LogOut,
+  Server,
+  FolderTree,
+  ShoppingBag,
+  Menu,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -63,6 +67,30 @@ const navItems = [
     title: '설정',
     href: '/admin/settings',
     icon: Settings,
+  },
+];
+
+// 슈퍼어드민 메뉴 (상품/API 관리)
+const superAdminItems = [
+  {
+    title: 'API 공급자',
+    href: '/admin/providers',
+    icon: Server,
+  },
+  {
+    title: '카테고리 관리',
+    href: '/admin/categories',
+    icon: FolderTree,
+  },
+  {
+    title: '상품 관리',
+    href: '/admin/products',
+    icon: ShoppingBag,
+  },
+  {
+    title: '메뉴 관리',
+    href: '/admin/menus',
+    icon: Menu,
   },
 ];
 
@@ -116,6 +144,39 @@ export default function AdminLayout({
                   isActive
                     ? 'bg-primary text-primary-foreground'
                     : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                  collapsed && 'justify-center px-2'
+                )}
+                title={collapsed ? item.title : undefined}
+              >
+                <item.icon className="h-5 w-5 flex-shrink-0" />
+                {!collapsed && <span>{item.title}</span>}
+              </Link>
+            );
+          })}
+
+          {/* 슈퍼어드민 섹션 */}
+          {!collapsed && (
+            <div className="pt-4 pb-2">
+              <div className="px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                슈퍼어드민
+              </div>
+            </div>
+          )}
+          {collapsed && <div className="border-t my-2" />}
+
+          {superAdminItems.map((item) => {
+            const isActive = pathname === item.href ||
+              (item.href !== '/admin' && pathname.startsWith(item.href));
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                  isActive
+                    ? 'bg-amber-500 text-white'
+                    : 'text-muted-foreground hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-amber-950 dark:hover:text-amber-400',
                   collapsed && 'justify-center px-2'
                 )}
                 title={collapsed ? item.title : undefined}
