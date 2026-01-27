@@ -61,7 +61,7 @@ async function fetchOrders(filters: OrderFilters): Promise<OrderWithDetails[]> {
     .from('orders')
     .select(`
       *,
-      service:services(*)
+      service:admin_products(*)
     `)
     .order('created_at', { ascending: false });
 
