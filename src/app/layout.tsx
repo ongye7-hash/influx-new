@@ -3,6 +3,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { CopyProtection, ImageProtection } from "@/components/security/copy-protection";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -123,11 +124,15 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
       </head>
       <body className="min-h-screen bg-background antialiased" suppressHydrationWarning>
+        {/* 보안: 복사/우클릭/개발자도구 방지 */}
+        <CopyProtection />
+        <ImageProtection />
+
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          forcedTheme="dark"
           enableSystem={false}
+          storageKey="influx-theme"
           disableTransitionOnChange
         >
           <QueryProvider>

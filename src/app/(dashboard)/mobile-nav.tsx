@@ -38,7 +38,7 @@ import { toast } from 'sonner';
 const navigation = [
   { name: '홈', href: '/', icon: Home },
   { name: '대시보드', href: '/dashboard', icon: LayoutDashboard },
-  { name: '새 주문', href: '/order', icon: ShoppingCart, badge: '점검중', disabled: true },
+  { name: '새 주문', href: '/order', icon: ShoppingCart },
   { name: '대량 주문', href: '/mass-order', icon: Layers, badge: '점검중', disabled: true },
   { name: '주문내역', href: '/orders', icon: History },
   { name: '포인트 충전', href: '/deposit', icon: CreditCard },

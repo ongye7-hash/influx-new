@@ -35,16 +35,16 @@ export default async function DashboardLayout({
   const content = (
     <div className="flex h-full min-h-screen bg-background">
       {/* PC 사이드바 */}
-      <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-[80]">
+      <div className={`hidden h-full md:flex md:w-72 md:flex-col md:fixed z-[80] ${isGuestMode ? 'md:top-12 md:bottom-0' : 'md:inset-y-0'}`}>
         <Suspense fallback={<SidebarSkeleton />}>
           <ClientSidebar isGuestMode={isGuestMode} />
         </Suspense>
       </div>
 
       {/* 메인 컨텐츠 */}
-      <main className="md:pl-72 flex-1 h-full relative">
+      <main className="md:pl-72 flex-1 h-full relative min-w-0 overflow-x-hidden">
         {/* 상단 헤더 */}
-        <header className={`h-16 border-b border-border flex items-center px-4 md:px-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky z-50 ${isGuestMode ? 'top-12' : 'top-0'}`}>
+        <header className={`h-16 border-b border-border flex items-center px-4 md:px-6 bg-background sticky z-40 ${isGuestMode ? 'top-12' : 'top-0'}`}>
           {/* 모바일 네비게이션 */}
           <div className="md:hidden">
             <Suspense fallback={null}>
@@ -87,7 +87,7 @@ export default async function DashboardLayout({
         </header>
 
         {/* 페이지 내용 */}
-        <div className="p-4 md:p-6 lg:p-8 animate-in fade-in-10 slide-in-from-bottom-2 duration-500">
+        <div className="p-4 pt-6 md:p-6 md:pt-8 lg:p-8 lg:pt-8 min-w-0">
           {children}
         </div>
 

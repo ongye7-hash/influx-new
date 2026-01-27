@@ -14,10 +14,6 @@ const KAKAO_CHANNEL_URL = 'https://pf.kakao.com/_xgpUAX';
 export function KakaoChatButton() {
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleClick = () => {
-    window.open(KAKAO_CHANNEL_URL, '_blank', 'width=400,height=600');
-  };
-
   return (
     <div className="fixed bottom-24 right-6 z-50">
       {/* Tooltip */}
@@ -36,9 +32,11 @@ export function KakaoChatButton() {
         </div>
       </div>
 
-      {/* Button */}
-      <button
-        onClick={handleClick}
+      {/* Button - a 태그로 변경 */}
+      <a
+        href={KAKAO_CHANNEL_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={cn(
@@ -58,10 +56,10 @@ export function KakaoChatButton() {
         >
           <path d="M12 3C6.48 3 2 6.58 2 11c0 2.83 1.88 5.31 4.71 6.72l-.97 3.59c-.08.29.24.54.5.38l4.13-2.7c.53.05 1.07.08 1.63.08 5.52 0 10-3.58 10-8s-4.48-8-10-8z" />
         </svg>
-      </button>
+      </a>
 
       {/* Pulse Animation */}
-      <span className="absolute inset-0 rounded-full bg-[#FEE500] animate-ping opacity-30" />
+      <span className="absolute inset-0 rounded-full bg-[#FEE500] animate-ping opacity-30 pointer-events-none" />
     </div>
   );
 }

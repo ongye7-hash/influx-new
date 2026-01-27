@@ -27,10 +27,8 @@ export function GuestLayoutWrapper({ children }: GuestLayoutWrapperProps) {
       {/* 실시간 주문 티커 - Social Proof */}
       <LiveOrderTicker position="bottom-left" />
 
-      {/* 페이지 내용 (top padding 추가 for 배너) */}
-      <div className="pt-12">
-        {children}
-      </div>
+      {/* 페이지 내용 */}
+      {children}
     </>
   );
 }

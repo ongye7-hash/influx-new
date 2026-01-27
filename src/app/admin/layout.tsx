@@ -106,7 +106,11 @@ export default function AdminLayout({
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <>
+      {/* Prevent search engine indexing of admin pages */}
+      <meta name="robots" content="noindex, nofollow" />
+
+      <div className="min-h-screen bg-muted/30">
       {/* Sidebar */}
       <aside
         className={cn(
@@ -246,5 +250,6 @@ export default function AdminLayout({
         </div>
       </main>
     </div>
+    </>
   );
 }

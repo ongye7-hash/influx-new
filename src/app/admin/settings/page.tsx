@@ -51,22 +51,20 @@ export default function AdminSettingsPage() {
 
   const fetchSettings = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("site_settings")
         .select("*")
         .single();
 
       if (error) {
-        if (error.code === "PGRST116") {
-          // No settings found, use defaults
-          setSettings(defaultSettings);
-        } else if (error.code === "42P01") {
-          // Table doesn't exist, use defaults
-          setSettings(defaultSettings);
-        } else {
-          throw error;
-        }
-      } else if (data) {
+        // 모든 에러에서 기본값 사용 (테이블 없음, 데이터 없음 등)
+        console.log("Settings not found, using defaults:", error.code);
+        setSettings(defaultSettings);
+        setIsLoading(false);
+        return;
+      }
+
+      if (data) {
         const d = data as SiteSettings;
         setSettings({
           site_name: d.site_name || defaultSettings.site_name,

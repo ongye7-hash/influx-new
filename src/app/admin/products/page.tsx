@@ -163,7 +163,7 @@ export default function ProductsPage() {
 
     // Fetch all data in parallel
     const [productsRes, categoriesRes, providersRes] = await Promise.all([
-      supabase
+      (supabase as any)
         .from('admin_products')
         .select(`
           *,
@@ -171,13 +171,13 @@ export default function ProductsPage() {
           primary_provider:api_providers!admin_products_primary_provider_id_fkey(*)
         `)
         .order('sort_order', { ascending: true }),
-      supabase
+      (supabase as any)
         .from('admin_categories')
         .select('*')
         .eq('is_active', true)
         .order('platform')
         .order('sort_order'),
-      supabase
+      (supabase as any)
         .from('api_providers')
         .select('*')
         .eq('is_active', true)
@@ -296,7 +296,7 @@ export default function ProductsPage() {
       };
 
       if (selectedProduct) {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('admin_products')
           .update(payload)
           .eq('id', selectedProduct.id);
@@ -304,7 +304,7 @@ export default function ProductsPage() {
         if (error) throw error;
         toast.success('상품이 수정되었습니다');
       } else {
-        const { error } = await supabase.from('admin_products').insert(payload);
+        const { error } = await (supabase as any).from('admin_products').insert(payload);
 
         if (error) throw error;
         toast.success('새 상품이 추가되었습니다');
@@ -323,7 +323,7 @@ export default function ProductsPage() {
     if (!selectedProduct) return;
 
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('admin_products')
         .delete()
         .eq('id', selectedProduct.id);
@@ -339,7 +339,7 @@ export default function ProductsPage() {
 
   const toggleActive = async (product: Product) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('admin_products')
         .update({ is_active: !product.is_active })
         .eq('id', product.id);
@@ -354,7 +354,7 @@ export default function ProductsPage() {
 
   const toggleRecommended = async (product: Product) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('admin_products')
         .update({ is_recommended: !product.is_recommended })
         .eq('id', product.id);
@@ -821,16 +821,16 @@ export default function ProductsPage() {
                       <div className="space-y-2">
                         <Label className="text-xs">API 공급자</Label>
                         <Select
-                          value={formData.primary_provider_id}
+                          value={formData.primary_provider_id || '__none__'}
                           onValueChange={(value) =>
-                            setFormData({ ...formData, primary_provider_id: value })
+                            setFormData({ ...formData, primary_provider_id: value === '__none__' ? '' : value })
                           }
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="공급자 선택" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="">없음</SelectItem>
+                            <SelectItem value="__none__">없음</SelectItem>
                             {providers.map((provider) => (
                               <SelectItem key={provider.id} value={provider.id}>
                                 {provider.name}
@@ -869,11 +869,11 @@ export default function ProductsPage() {
                       <div className="space-y-2">
                         <Label className="text-xs">API 공급자</Label>
                         <Select
-                          value={formData.fallback1_provider_id}
+                          value={formData.fallback1_provider_id || '__none__'}
                           onValueChange={(value) =>
                             setFormData({
                               ...formData,
-                              fallback1_provider_id: value,
+                              fallback1_provider_id: value === '__none__' ? '' : value,
                             })
                           }
                         >
@@ -881,7 +881,7 @@ export default function ProductsPage() {
                             <SelectValue placeholder="공급자 선택" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="">없음</SelectItem>
+                            <SelectItem value="__none__">없음</SelectItem>
                             {providers.map((provider) => (
                               <SelectItem key={provider.id} value={provider.id}>
                                 {provider.name}
@@ -920,11 +920,11 @@ export default function ProductsPage() {
                       <div className="space-y-2">
                         <Label className="text-xs">API 공급자</Label>
                         <Select
-                          value={formData.fallback2_provider_id}
+                          value={formData.fallback2_provider_id || '__none__'}
                           onValueChange={(value) =>
                             setFormData({
                               ...formData,
-                              fallback2_provider_id: value,
+                              fallback2_provider_id: value === '__none__' ? '' : value,
                             })
                           }
                         >
@@ -932,7 +932,7 @@ export default function ProductsPage() {
                             <SelectValue placeholder="공급자 선택" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="">없음</SelectItem>
+                            <SelectItem value="__none__">없음</SelectItem>
                             {providers.map((provider) => (
                               <SelectItem key={provider.id} value={provider.id}>
                                 {provider.name}

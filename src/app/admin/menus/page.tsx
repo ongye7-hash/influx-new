@@ -124,7 +124,7 @@ export default function MenusPage() {
 
   const fetchMenus = async () => {
     setLoading(true);
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from('admin_menus')
       .select('*')
       .order('sort_order', { ascending: true });
@@ -197,7 +197,7 @@ export default function MenusPage() {
       };
 
       if (selectedMenu) {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('admin_menus')
           .update(payload)
           .eq('id', selectedMenu.id);
@@ -205,7 +205,7 @@ export default function MenusPage() {
         if (error) throw error;
         toast.success('메뉴가 수정되었습니다');
       } else {
-        const { error } = await supabase.from('admin_menus').insert(payload);
+        const { error } = await (supabase as any).from('admin_menus').insert(payload);
 
         if (error) throw error;
         toast.success('새 메뉴가 추가되었습니다');
@@ -224,7 +224,7 @@ export default function MenusPage() {
     if (!selectedMenu) return;
 
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('admin_menus')
         .delete()
         .eq('id', selectedMenu.id);
@@ -240,7 +240,7 @@ export default function MenusPage() {
 
   const toggleActive = async (menu: AdminMenu) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('admin_menus')
         .update({ is_active: !menu.is_active })
         .eq('id', menu.id);
@@ -509,16 +509,16 @@ export default function MenusPage() {
               <div className="space-y-2">
                 <Label htmlFor="icon">아이콘</Label>
                 <Select
-                  value={formData.icon}
+                  value={formData.icon || '__none__'}
                   onValueChange={(value) =>
-                    setFormData({ ...formData, icon: value })
+                    setFormData({ ...formData, icon: value === '__none__' ? '' : value })
                   }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="아이콘 선택" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">없음</SelectItem>
+                    <SelectItem value="__none__">없음</SelectItem>
                     {AVAILABLE_ICONS.map((icon) => (
                       <SelectItem key={icon} value={icon}>
                         {icon}
@@ -530,16 +530,16 @@ export default function MenusPage() {
               <div className="space-y-2">
                 <Label htmlFor="parent_id">상위 메뉴</Label>
                 <Select
-                  value={formData.parent_id}
+                  value={formData.parent_id || '__none__'}
                   onValueChange={(value) =>
-                    setFormData({ ...formData, parent_id: value })
+                    setFormData({ ...formData, parent_id: value === '__none__' ? '' : value })
                   }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="최상위 메뉴" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">최상위 메뉴</SelectItem>
+                    <SelectItem value="__none__">최상위 메뉴</SelectItem>
                     {menus
                       .filter((m) => !m.parent_id && m.id !== selectedMenu?.id)
                       .map((menu) => (

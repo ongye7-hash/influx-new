@@ -4,13 +4,12 @@
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { getSupabaseRouteClient } from '@/lib/supabase/server';
 import { processOrderWithFallback } from '@/lib/api-fallback';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await getSupabaseRouteClient();
 
     // 1. 사용자 인증 확인
     const {
@@ -37,7 +36,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 3. 상품 정보 조회
-    const { data: product, error: productError } = await supabase
+    const { data: product, error: productError } = await (supabase as any)
       .from('admin_products')
       .select(`
         *,
@@ -66,7 +65,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 5. 사용자 잔액 확인
-    const { data: profile, error: profileError } = await supabase
+    const { data: profile, error: profileError } = await (supabase as any)
       .from('profiles')
       .select('balance')
       .eq('id', user.id)
@@ -93,7 +92,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 7. 주문 생성
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error: orderError } = await (supabase as any)
       .from('orders')
       .insert({
         user_id: user.id,
@@ -117,14 +116,14 @@ export async function POST(request: NextRequest) {
     }
 
     // 8. 잔액 차감
-    const { error: balanceError } = await supabase
+    const { error: balanceError } = await (supabase as any)
       .from('profiles')
       .update({ balance: profile.balance - totalPrice })
       .eq('id', user.id);
 
     if (balanceError) {
       // 잔액 차감 실패 시 주문 취소
-      await supabase.from('orders').update({ status: 'failed' }).eq('id', order.id);
+      await (supabase as any).from('orders').update({ status: 'failed' }).eq('id', order.id);
       return NextResponse.json(
         { success: false, error: '잔액 차감 실패' },
         { status: 500 }
@@ -144,7 +143,7 @@ export async function POST(request: NextRequest) {
 
     // 10. 주문 상태 업데이트
     if (apiResult.success) {
-      await supabase
+      await (supabase as any)
         .from('orders')
         .update({
           status: 'processing',
@@ -161,7 +160,7 @@ export async function POST(request: NextRequest) {
       });
     } else {
       // API 실패 시 - 주문은 생성되었지만 API 전송 실패
-      await supabase
+      await (supabase as any)
         .from('orders')
         .update({
           status: 'failed',
@@ -170,7 +169,7 @@ export async function POST(request: NextRequest) {
         .eq('id', order.id);
 
       // 잔액 환불
-      await supabase
+      await (supabase as any)
         .from('profiles')
         .update({ balance: profile.balance })
         .eq('id', user.id);

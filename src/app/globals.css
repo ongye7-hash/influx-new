@@ -972,3 +972,62 @@
     display: none;
   }
 }
+
+/* ============================================
+   SECURITY - Copy/Selection Prevention
+   ============================================ */
+
+/* 텍스트 선택 방지 (input/textarea 제외) */
+body:not(input):not(textarea) {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* input, textarea는 선택 허용 */
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* 이미지 드래그 방지 */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* 링크, 버튼의 이미지는 클릭 허용 */
+a img, button img {
+  pointer-events: auto;
+}
+
+/* 인쇄 시 숨기기 */
+@media print {
+  body {
+    display: none !important;
+  }
+  html::after {
+    content: "이 페이지는 인쇄할 수 없습니다.";
+    display: block;
+    font-size: 24px;
+    text-align: center;
+    padding: 100px;
+  }
+}
+
+/* 텍스트 하이라이트 색상 숨기기 */
+::selection {
+  background: transparent;
+  color: inherit;
+}
+::-moz-selection {
+  background: transparent;
+  color: inherit;
+}

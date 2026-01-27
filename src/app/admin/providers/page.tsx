@@ -6,6 +6,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Server,
   Plus,
@@ -20,6 +21,7 @@ import {
   Loader2,
   AlertCircle,
   DollarSign,
+  Package,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -55,7 +57,6 @@ import {
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
-import { formatCurrency } from '@/lib/utils';
 
 interface ApiProvider {
   id: string;
@@ -72,6 +73,7 @@ interface ApiProvider {
 }
 
 export default function ProvidersPage() {
+  const router = useRouter();
   const [providers, setProviders] = useState<ApiProvider[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -80,6 +82,7 @@ export default function ProvidersPage() {
   const [showApiKeys, setShowApiKeys] = useState<Record<string, boolean>>({});
   const [checkingBalance, setCheckingBalance] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [exchangeRate, setExchangeRate] = useState<number>(1450); // 기본값
 
   // Form state
   const [formData, setFormData] = useState({
@@ -91,13 +94,29 @@ export default function ProvidersPage() {
     is_active: true,
   });
 
+  // 실시간 환율 조회
+  useEffect(() => {
+    async function fetchExchangeRate() {
+      try {
+        const response = await fetch('/api/exchange-rate');
+        const data = await response.json();
+        if (data.success && data.rate) {
+          setExchangeRate(data.rate);
+        }
+      } catch (error) {
+        console.error('Failed to fetch exchange rate:', error);
+      }
+    }
+    fetchExchangeRate();
+  }, []);
+
   useEffect(() => {
     fetchProviders();
   }, []);
 
   const fetchProviders = async () => {
     setLoading(true);
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from('api_providers')
       .select('*')
       .order('priority', { ascending: false });
@@ -153,7 +172,7 @@ export default function ProvidersPage() {
     try {
       if (selectedProvider) {
         // Update
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('api_providers')
           .update({
             name: formData.name,
@@ -169,7 +188,7 @@ export default function ProvidersPage() {
         toast.success('공급자 정보가 수정되었습니다');
       } else {
         // Create
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('api_providers')
           .insert({
             name: formData.name,
@@ -197,7 +216,7 @@ export default function ProvidersPage() {
     if (!selectedProvider) return;
 
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('api_providers')
         .delete()
         .eq('id', selectedProvider.id);
@@ -213,7 +232,7 @@ export default function ProvidersPage() {
 
   const toggleActive = async (provider: ApiProvider) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('api_providers')
         .update({ is_active: !provider.is_active })
         .eq('id', provider.id);
@@ -245,7 +264,7 @@ export default function ProvidersPage() {
 
       if (data.success) {
         // DB 업데이트
-        await supabase
+        await (supabase as any)
           .from('api_providers')
           .update({
             balance: data.balance,
@@ -253,7 +272,9 @@ export default function ProvidersPage() {
           })
           .eq('id', provider.id);
 
-        toast.success(`잔액: ${formatCurrency(data.balance)}`);
+        const balanceUsd = parseFloat(data.balance);
+        const balanceKrw = Math.round(balanceUsd * exchangeRate);
+        toast.success(`잔액: $${balanceUsd.toFixed(2)} (≈${balanceKrw.toLocaleString()}원)`);
         fetchProviders();
       } else {
         toast.error(data.error || '잔액 확인 실패');
@@ -320,9 +341,10 @@ export default function ProvidersPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-600">
-              {formatCurrency(
-                providers.reduce((sum, p) => sum + (p.balance || 0), 0)
-              )}
+              ${providers.reduce((sum, p) => sum + (p.balance || 0), 0).toFixed(2)}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              ≈ {Math.round(providers.reduce((sum, p) => sum + (p.balance || 0), 0) * exchangeRate).toLocaleString()}원
             </div>
           </CardContent>
         </Card>
@@ -413,11 +435,18 @@ export default function ProvidersPage() {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <span className="font-medium">
-                          {provider.balance
-                            ? formatCurrency(provider.balance)
-                            : '-'}
-                        </span>
+                        <div>
+                          <span className="font-medium">
+                            {provider.balance != null
+                              ? `$${provider.balance.toFixed(2)}`
+                              : '-'}
+                          </span>
+                          {provider.balance != null && (
+                            <div className="text-xs text-muted-foreground">
+                              ≈ {Math.round(provider.balance * exchangeRate).toLocaleString()}원
+                            </div>
+                          )}
+                        </div>
                         <Button
                           variant="ghost"
                           size="icon"
@@ -445,7 +474,16 @@ export default function ProvidersPage() {
                         <Button
                           variant="ghost"
                           size="icon"
+                          onClick={() => router.push(`/admin/providers/${provider.id}/services`)}
+                          title="서비스 보기"
+                        >
+                          <Package className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
                           onClick={() => openEditDialog(provider)}
+                          title="수정"
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -454,6 +492,7 @@ export default function ProvidersPage() {
                           size="icon"
                           className="text-destructive hover:text-destructive"
                           onClick={() => openDeleteDialog(provider)}
+                          title="삭제"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

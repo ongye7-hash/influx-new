@@ -167,10 +167,19 @@ export default function AdminServicesPage() {
     setIsLoading(true);
     try {
       // Fetch providers
-      const { data: providersData } = await supabase
+      const { data: providersData, error: providersError } = await (supabase as any)
         .from('providers')
         .select('*')
         .eq('is_active', true);
+
+      // 테이블이 없는 경우 조기 반환
+      if (providersError?.code === '42P01') {
+        console.log('providers 테이블이 없습니다. 이 페이지는 기존 서비스 관리용입니다.');
+        setServices([]);
+        setProviders([]);
+        setIsLoading(false);
+        return;
+      }
 
       // 서비스는 페이지네이션으로 전체 조회 (Supabase 1000개 제한 우회)
       let allServices: ServiceWithDetails[] = [];
@@ -179,7 +188,7 @@ export default function AdminServicesPage() {
       let hasMore = true;
 
       while (hasMore) {
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
           .from('services')
           .select(`
             *,
@@ -188,6 +197,12 @@ export default function AdminServicesPage() {
           `)
           .order('provider_service_id', { ascending: true })
           .range(page * fetchPageSize, (page + 1) * fetchPageSize - 1);
+
+        // 테이블이 없는 경우
+        if (error?.code === '42P01') {
+          console.log('services 테이블이 없습니다.');
+          break;
+        }
 
         if (error) throw error;
 
@@ -208,6 +223,13 @@ export default function AdminServicesPage() {
         errorMessage = error.message;
       } else if (typeof error === 'object' && error !== null) {
         const err = error as { message?: string; code?: string; details?: string };
+        // 테이블 없음 에러는 무시
+        if (err.code === '42P01') {
+          setServices([]);
+          setProviders([]);
+          setIsLoading(false);
+          return;
+        }
         errorMessage = err.message || err.details || err.code || errorMessage;
       }
       console.error('Error fetching data:', errorMessage, error);

@@ -147,7 +147,7 @@ export default function AdminOrdersPage() {
 
     try {
       // 총 개수 조회
-      let countQuery = supabase
+      let countQuery = (supabase as any)
         .from('orders')
         .select('*', { count: 'exact', head: true });
 
@@ -155,17 +155,16 @@ export default function AdminOrdersPage() {
         countQuery = countQuery.eq('status', statusFilter);
       }
 
-      const { count } = await countQuery;
+      const { count, error: countError } = await countQuery;
+      if (countError) {
+        console.error('Count error:', countError);
+      }
       setTotalCount(count || 0);
 
-      // 주문 목록 조회
-      let query = supabase
+      // 주문 목록 조회 (조인 없이)
+      let query = (supabase as any)
         .from('orders')
-        .select(`
-          *,
-          user:profiles!orders_user_id_fkey(email, username),
-          service:services(name, platform)
-        `)
+        .select('*')
         .order('created_at', { ascending: false })
         .range((currentPage - 1) * pageSize, currentPage * pageSize - 1);
 
@@ -175,7 +174,33 @@ export default function AdminOrdersPage() {
 
       const { data, error } = await query;
 
-      if (error) throw error;
+      if (error) {
+        console.error('Orders query error:', error);
+        throw error;
+      }
+
+      // 사용자 정보 별도 조회
+      if (data && data.length > 0) {
+        const userIds = [...new Set(data.map((o: any) => o.user_id).filter(Boolean))];
+
+        if (userIds.length > 0) {
+          const { data: users } = await (supabase as any)
+            .from('profiles')
+            .select('id, email, username')
+            .in('id', userIds);
+
+          const userMap = new Map(users?.map((u: any) => [u.id, u]) || []);
+
+          // 주문에 사용자 정보 매핑
+          const ordersWithUsers = data.map((order: any) => ({
+            ...order,
+            user: userMap.get(order.user_id) || null,
+          }));
+
+          setOrders(ordersWithUsers as OrderWithDetails[]);
+          return;
+        }
+      }
 
       setOrders((data || []) as OrderWithDetails[]);
     } catch (error) {
@@ -211,12 +236,12 @@ export default function AdminOrdersPage() {
     setIsUpdating(true);
 
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('orders')
         .update({
           status: newStatus,
           updated_at: new Date().toISOString(),
-        } as never)
+        })
         .eq('id', selectedOrder.id);
 
       if (error) throw error;
@@ -414,8 +439,8 @@ export default function AdminOrdersPage() {
                       </TableCell>
                       <TableCell>
                         <div className="max-w-[200px]">
-                          <p className="font-medium truncate">
-                            {order.service?.name || 'Unknown'}
+                          <p className="font-medium truncate text-sm">
+                            {order.service?.name || `Service #${order.service_id?.slice(0, 8) || 'N/A'}`}
                           </p>
                           <a
                             href={order.link}

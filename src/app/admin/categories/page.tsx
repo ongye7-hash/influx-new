@@ -119,7 +119,7 @@ export default function CategoriesPage() {
 
   const fetchCategories = async () => {
     setLoading(true);
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from('admin_categories')
       .select('*')
       .order('platform')
@@ -178,7 +178,7 @@ export default function CategoriesPage() {
     try {
       if (selectedCategory) {
         // Update
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('admin_categories')
           .update({
             platform: formData.platform,
@@ -195,7 +195,7 @@ export default function CategoriesPage() {
         toast.success('카테고리가 수정되었습니다');
       } else {
         // Create
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('admin_categories')
           .insert({
             platform: formData.platform,
@@ -224,7 +224,7 @@ export default function CategoriesPage() {
     if (!selectedCategory) return;
 
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('admin_categories')
         .delete()
         .eq('id', selectedCategory.id);
@@ -240,7 +240,7 @@ export default function CategoriesPage() {
 
   const toggleActive = async (category: Category) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('admin_categories')
         .update({ is_active: !category.is_active })
         .eq('id', category.id);

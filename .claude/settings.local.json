@@ -71,7 +71,28 @@
       "Bash(timeout 15 npm run dev)",
       "WebFetch(domain:influx-87oudaijl-ongye7-3714s-projects.vercel.app)",
       "WebFetch(domain:influx-drab.vercel.app)",
-      "Bash(npx vercel logs:*)"
+      "Bash(npx vercel logs:*)",
+      "WebFetch(domain:www.opengraph.xyz)",
+      "Bash(wc:*)",
+      "Bash(du:*)",
+      "WebFetch(domain:influx-n1p091xv1-ongye7-3714s-projects.vercel.app)",
+      "Bash(npx vercel:*)",
+      "WebFetch(domain:www.koreatraffic.com)",
+      "WebFetch(domain:prm4u.com)",
+      "WebFetch(domain:smmstone.com)",
+      "WebFetch(domain:crescitaly.com)",
+      "WebFetch(domain:n1panel.com)",
+      "WebFetch(domain:smmrise.com)",
+      "WebFetch(domain:smmpanelserver.com)",
+      "WebFetch(domain:www.grininsta.com)",
+      "WebFetch(domain:searchadvisor.naver.com)",
+      "WebFetch(domain:pf.kakao.com)",
+      "WebFetch(domain:snswinner.com)",
+      "Bash(npm run dev:*)",
+      "Bash(npx shadcn@latest add checkbox:*)",
+      "Bash(xargs -I {} bash -c 'grep -l \"\"SUPABASE_SERVICE_ROLE_KEY\\\\|password\\\\|secret\"\" {} 2>/dev/null')",
+      "Bash(dir:*)",
+      "Bash(sort:*)"
     ]
   }
 }

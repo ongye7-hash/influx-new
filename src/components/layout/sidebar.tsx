@@ -42,7 +42,7 @@ const routes = [
   { label: '홈', icon: Home, href: '/' },
   { label: '대시보드', icon: LayoutDashboard, href: '/dashboard' },
   { label: '새 주문', icon: ShoppingCart, href: '/order' },
-  { label: '대량 주문', icon: Layers, href: '/mass-order' },
+  { label: '대량 주문', icon: Layers, href: '/mass-order', badge: '점검중', disabled: true },
   { label: '주문내역', icon: History, href: '/orders' },
   { label: '포인트 충전', icon: CreditCard, href: '/deposit' },
   { label: '잔액 내역', icon: Receipt, href: '/transactions' },
@@ -125,6 +125,26 @@ export function Sidebar({ isGuestMode = false }: SidebarProps) {
 
         {routes.map((route) => {
           const isActive = pathname === route.href;
+          const routeWithBadge = route as typeof route & { badge?: string; disabled?: boolean };
+
+          // 비활성화된 메뉴
+          if (routeWithBadge.disabled) {
+            return (
+              <div
+                key={route.href}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-muted-foreground/50 cursor-not-allowed"
+              >
+                <route.icon className="h-5 w-5" />
+                {route.label}
+                {routeWithBadge.badge && (
+                  <span className="ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded bg-orange-500/20 text-orange-500">
+                    {routeWithBadge.badge}
+                  </span>
+                )}
+              </div>
+            );
+          }
+
           return (
             <Link
               key={route.href}
@@ -138,7 +158,15 @@ export function Sidebar({ isGuestMode = false }: SidebarProps) {
             >
               <route.icon className={cn("h-5 w-5", isActive && "text-primary-foreground")} />
               {route.label}
-              {isActive && <ChevronRight className="ml-auto h-4 w-4" />}
+              {routeWithBadge.badge && (
+                <span className={cn(
+                  "ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded",
+                  isActive ? "bg-white/20 text-white" : "bg-accent text-white"
+                )}>
+                  {routeWithBadge.badge}
+                </span>
+              )}
+              {isActive && !routeWithBadge.badge && <ChevronRight className="ml-auto h-4 w-4" />}
             </Link>
           );
         })}

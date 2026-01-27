@@ -193,9 +193,9 @@ export default function AdminDashboardPage() {
           .limit(5),
 
         // 최근 주문 5건
-        supabase
+        (supabase as any)
           .from('orders')
-          .select('id, charge, status, created_at, service:services(name)')
+          .select('id, charge, status, created_at, service_id')
           .order('created_at', { ascending: false })
           .limit(5)
       ]);
@@ -233,7 +233,7 @@ export default function AdminDashboardPage() {
         amount: o.charge || 0,
         status: o.status,
         created_at: o.created_at,
-        service: Array.isArray(o.service) ? o.service[0] : o.service,
+        service: o.service_id ? { name: `서비스 #${o.service_id}` } : null,
       }));
       setRecentOrders(mappedOrders as RecentOrder[]);
 

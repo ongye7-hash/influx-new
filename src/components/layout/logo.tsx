@@ -12,9 +12,9 @@ interface LogoProps {
 }
 
 const sizeMap = {
-  sm: { icon: 24, text: "text-lg" },
-  md: { icon: 32, text: "text-xl" },
-  lg: { icon: 40, text: "text-2xl" },
+  sm: { icon: 28, text: "text-lg" },
+  md: { icon: 36, text: "text-xl" },
+  lg: { icon: 44, text: "text-2xl" },
 };
 
 export function Logo({
@@ -27,12 +27,13 @@ export function Logo({
 
   const content = (
     <div className={cn("flex items-center gap-2", className)}>
-      {/* Logo Icon Image */}
+      {/* 실제 로고 이미지 */}
       <Image
         src="/logo-sidebar.png"
         alt="INFLUX"
         width={icon}
         height={icon}
+        className="flex-shrink-0"
         priority
       />
 
@@ -58,15 +59,16 @@ export function Logo({
   return content;
 }
 
-export function LogoIcon({ className }: { className?: string }) {
+export function LogoIcon({ className, size = 32 }: { className?: string; size?: number }) {
   return (
-    <Image
-      src="/logo-sidebar.png"
-      alt="INFLUX"
-      width={32}
-      height={32}
-      className={className}
-      priority
-    />
+    <div className={className}>
+      <Image
+        src="/logo-sidebar.png"
+        alt="INFLUX"
+        width={size}
+        height={size}
+        className="flex-shrink-0"
+      />
+    </div>
   );
 }

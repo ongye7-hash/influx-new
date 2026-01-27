@@ -15,7 +15,7 @@ export function cn(...inputs: ClassValue[]) {
  * @example formatCurrency(10000, { symbol: '$', locale: 'en-US' }) => "$10,000"
  */
 export function formatCurrency(
-  amount: number,
+  amount: number | null | undefined,
   options?: {
     symbol?: string;
     locale?: string;
@@ -24,10 +24,13 @@ export function formatCurrency(
 ): string {
   const { symbol = "원", locale = "ko-KR", decimals = 0 } = options ?? {};
 
+  // null, undefined, NaN 처리
+  const safeAmount = amount == null || isNaN(amount) ? 0 : amount;
+
   const formatted = new Intl.NumberFormat(locale, {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
-  }).format(amount);
+  }).format(safeAmount);
 
   // 원화는 뒤에, 다른 통화는 앞에 표시
   if (symbol === "원") {
@@ -40,8 +43,9 @@ export function formatCurrency(
  * 숫자 포맷팅 (천 단위 콤마)
  * @example formatNumber(1234567) => "1,234,567"
  */
-export function formatNumber(num: number, locale: string = "ko-KR"): string {
-  return new Intl.NumberFormat(locale).format(num);
+export function formatNumber(num: number | null | undefined, locale: string = "ko-KR"): string {
+  const safeNum = num == null || isNaN(num) ? 0 : num;
+  return new Intl.NumberFormat(locale).format(safeNum);
 }
 
 /**
@@ -49,17 +53,18 @@ export function formatNumber(num: number, locale: string = "ko-KR"): string {
  * @example formatCompactNumber(1500) => "1.5K"
  * @example formatCompactNumber(1500000) => "1.5M"
  */
-export function formatCompactNumber(num: number): string {
-  if (num >= 1_000_000_000) {
-    return `${(num / 1_000_000_000).toFixed(1).replace(/\.0$/, "")}B`;
+export function formatCompactNumber(num: number | null | undefined): string {
+  const safeNum = num == null || isNaN(num) ? 0 : num;
+  if (safeNum >= 1_000_000_000) {
+    return `${(safeNum / 1_000_000_000).toFixed(1).replace(/\.0$/, "")}B`;
   }
-  if (num >= 1_000_000) {
-    return `${(num / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
+  if (safeNum >= 1_000_000) {
+    return `${(safeNum / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
   }
-  if (num >= 1_000) {
-    return `${(num / 1_000).toFixed(1).replace(/\.0$/, "")}K`;
+  if (safeNum >= 1_000) {
+    return `${(safeNum / 1_000).toFixed(1).replace(/\.0$/, "")}K`;
   }
-  return num.toString();
+  return safeNum.toString();
 }
 
 /**
