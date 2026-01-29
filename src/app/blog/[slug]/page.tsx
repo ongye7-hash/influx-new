@@ -328,10 +328,10 @@ export default async function BlogDetailPage({ params }: PageProps) {
                     prose-headings:text-white prose-headings:font-bold prose-headings:scroll-mt-24
                     prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-white/10
                     prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
-                    prose-p:text-white/70 prose-p:leading-relaxed
+                    prose-p:text-white/90 prose-p:leading-relaxed
                     prose-a:text-primary prose-a:no-underline hover:prose-a:underline
                     prose-strong:text-white prose-strong:font-semibold
-                    prose-ul:text-white/70 prose-ol:text-white/70
+                    prose-ul:text-white/90 prose-ol:text-white/90
                     prose-li:marker:text-primary
                     prose-blockquote:border-l-primary prose-blockquote:bg-white/5 prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-xl
                     prose-code:text-primary prose-code:bg-white/10 prose-code:px-2 prose-code:py-0.5 prose-code:rounded
