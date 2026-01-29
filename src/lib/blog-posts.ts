@@ -29,8 +29,8 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           틱톡은 <strong>팔로워 0명도 바이럴이 가능한 유일한 플랫폼</strong>입니다.
           알고리즘만 제대로 이해하면 첫 영상부터 수십만 조회수를 찍을 수 있습니다.
           이 글에서는 2026년 최신 틱톡 알고리즘과 성장 전략을 완벽하게 분석합니다.
@@ -43,7 +43,7 @@ export const blogPosts: BlogPost[] = [
           콘텐츠의 품질만으로 노출이 결정됩니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">틱톡 알고리즘 핵심 지표</h3>
           <ul class="space-y-2">
             <li><strong>완주율:</strong> 영상을 끝까지 보는 비율 (가장 중요!)</li>
@@ -63,25 +63,25 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>1단계: 소규모 테스트</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               새 영상은 먼저 <strong>300~500명</strong>에게 노출됩니다.
             </p>
           </li>
           <li>
             <strong>2단계: 성과 분석</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               완주율, 공유, 댓글 등을 분석해 영상 품질을 평가합니다.
             </p>
           </li>
           <li>
             <strong>3단계: 확대 노출</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               성과가 좋으면 <strong>5,000 → 50,000 → 500,000명</strong>으로 점점 확대됩니다.
             </p>
           </li>
           <li>
             <strong>4단계: 글로벌 바이럴</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               최고 성과 영상은 전 세계 FYP에 노출되어 <strong>수백만~수천만</strong> 조회수를 기록합니다.
             </p>
           </li>
@@ -101,7 +101,7 @@ export const blogPosts: BlogPost[] = [
           수천 개의 바이럴 영상을 분석한 결과, 공통된 패턴이 있습니다:
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">바이럴 영상의 7가지 법칙</h4>
           <ul class="space-y-2">
             <li>✅ <strong>훅(Hook):</strong> 첫 1초에 "잠깐!" 하고 멈추게 만드는 요소</li>
@@ -119,15 +119,15 @@ export const blogPosts: BlogPost[] = [
         <div class="bg-primary/5 rounded-xl p-6 my-8 border border-primary/20">
           <div class="grid grid-cols-2 gap-4 text-center">
             <div>
-              <p class="text-sm text-muted-foreground">한국 타겟</p>
+              <p class="text-sm text-white/70">한국 타겟</p>
               <p class="text-xl font-bold text-primary">오후 6-10시</p>
             </div>
             <div>
-              <p class="text-sm text-muted-foreground">글로벌 타겟</p>
+              <p class="text-sm text-white/70">글로벌 타겟</p>
               <p class="text-xl font-bold text-primary">오전 7-9시 / 오후 12-3시</p>
             </div>
           </div>
-          <p class="text-center text-sm text-muted-foreground mt-4">
+          <p class="text-center text-sm text-white/70 mt-4">
             * 타겟 국가의 저녁~밤 시간대가 가장 효과적
           </p>
         </div>
@@ -149,7 +149,7 @@ export const blogPosts: BlogPost[] = [
 
         <h3>2단계: 꾸준한 업로드</h3>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">권장 업로드 빈도</h4>
           <ul class="space-y-2">
             <li>🚀 <strong>성장기:</strong> 하루 2-3개 (처음 3개월)</li>
@@ -165,7 +165,7 @@ export const blogPosts: BlogPost[] = [
           초반 반응을 만드는 것이 핵심입니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">초반 1시간 체크리스트</h4>
           <ul class="space-y-2">
             <li>✅ 영상 업로드 직후 스토리 공유</li>
@@ -220,7 +220,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">조회수 부스팅</h4>
-              <p class="text-sm text-muted-foreground">초반 노출 극대화로 FYP 진입</p>
+              <p class="text-sm text-white/70">초반 노출 극대화로 FYP 진입</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-slate-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -229,7 +229,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">좋아요 & 공유</h4>
-              <p class="text-sm text-muted-foreground">참여율 상승으로 알고리즘 최적화</p>
+              <p class="text-sm text-white/70">참여율 상승으로 알고리즘 최적화</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-slate-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -238,7 +238,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">팔로워 증가</h4>
-              <p class="text-sm text-muted-foreground">실제 활동 계정 기반 성장</p>
+              <p class="text-sm text-white/70">실제 활동 계정 기반 성장</p>
             </div>
           </div>
         </div>
@@ -269,13 +269,13 @@ export const blogPosts: BlogPost[] = [
         </div>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             틱톡의 정책은 수시로 변경될 수 있으며, 모든 마케팅 활동은 해당 플랫폼의
             이용약관을 준수해야 합니다.
           </p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -289,8 +289,8 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           "페이스북은 이제 옛날 플랫폼 아니야?" 많은 분들이 이렇게 생각하지만,
           <strong>2026년 현재 페이스북은 여전히 전 세계 30억 사용자</strong>를 보유한 최대 SNS입니다.
           특히 30대 이상 타겟, B2B 마케팅, 지역 비즈니스에서는 필수 채널입니다.
@@ -298,7 +298,7 @@ export const blogPosts: BlogPost[] = [
 
         <h2 id="facebook-importance-2026">2026년에도 페이스북이 중요한 이유</h2>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">페이스북 핵심 통계 (2026)</h3>
           <ul class="space-y-2">
             <li><strong>월간 활성 사용자:</strong> 30억 명 (전 세계 1위)</li>
@@ -323,27 +323,27 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>1. 친구/가족 콘텐츠 우선</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               개인 피드에서 페이지 콘텐츠는 친구 게시물보다 우선순위가 낮습니다.
               그래서 <strong>공유를 유도</strong>하는 것이 중요합니다.
             </p>
           </li>
           <li>
             <strong>2. 비디오 콘텐츠 선호</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               특히 <strong>Facebook Reels</strong>는 2026년 최고의 성장 동력입니다.
               이미지보다 5배 이상 높은 도달률을 보입니다.
             </p>
           </li>
           <li>
             <strong>3. 참여 유도 게시물 패널티</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               "좋아요 누르면 복권!", "댓글 달면 당첨" 같은 게시물은 알고리즘 페널티를 받습니다.
             </p>
           </li>
           <li>
             <strong>4. 그룹 콘텐츠 중요성</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               페이스북 그룹 내 게시물은 페이지 게시물보다 훨씬 높은 도달률을 보입니다.
             </p>
           </li>
@@ -363,7 +363,7 @@ export const blogPosts: BlogPost[] = [
 
         <h3>콘텐츠 전략</h3>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">콘텐츠 황금 비율</h4>
           <ul class="space-y-2">
             <li>🎬 <strong>Reels/영상 50%:</strong> 최고의 도달률</li>
@@ -416,7 +416,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">페이지 좋아요</h4>
-              <p class="text-sm text-muted-foreground">사회적 증거로 신뢰도 상승</p>
+              <p class="text-sm text-white/70">사회적 증거로 신뢰도 상승</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -425,7 +425,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">팔로워 증가</h4>
-              <p class="text-sm text-muted-foreground">게시물 도달률 기반 확보</p>
+              <p class="text-sm text-white/70">게시물 도달률 기반 확보</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -435,7 +435,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">게시물 반응</h4>
-              <p class="text-sm text-muted-foreground">좋아요, 댓글, 공유 부스팅</p>
+              <p class="text-sm text-white/70">좋아요, 댓글, 공유 부스팅</p>
             </div>
           </div>
         </div>
@@ -462,13 +462,13 @@ export const blogPosts: BlogPost[] = [
         </div>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             페이스북의 정책은 수시로 변경될 수 있으며, 모든 마케팅 활동은 해당 플랫폼의
             이용약관을 준수해야 합니다.
           </p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -482,8 +482,8 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           "구독자 1000명이 왜 이렇게 어려워요?" 유튜브를 시작한 대부분의 크리에이터가
           첫 번째 벽으로 꼽는 것이 바로 <strong>수익화 조건</strong>입니다.
           이 글에서는 2026년 기준으로 가장 효과적인 구독자 늘리기 전략을 공개합니다.
@@ -491,16 +491,16 @@ export const blogPosts: BlogPost[] = [
 
         <h2 id="monetization-requirements">2026년 유튜브 수익화 조건</h2>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">YouTube 파트너 프로그램 (YPP) 조건</h3>
           <ul class="space-y-3">
             <li>
               <strong>구독자:</strong> 1,000명 이상
-              <span class="text-sm text-muted-foreground ml-2">← 많은 분들이 막히는 부분</span>
+              <span class="text-sm text-white/70 ml-2">← 많은 분들이 막히는 부분</span>
             </li>
             <li>
               <strong>시청 시간:</strong> 최근 12개월간 4,000시간 이상
-              <span class="text-sm text-muted-foreground ml-2">또는 Shorts 조회수 1,000만 회</span>
+              <span class="text-sm text-white/70 ml-2">또는 Shorts 조회수 1,000만 회</span>
             </li>
             <li>
               <strong>커뮤니티 가이드:</strong> 위반 경고 없음
@@ -537,7 +537,7 @@ export const blogPosts: BlogPost[] = [
           일반 영상보다 노출 기회가 10배 이상 많고, 팔로워 0명도 바이럴 가능합니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">쇼츠 성공 공식</h4>
           <ul class="space-y-2">
             <li>✅ <strong>길이:</strong> 30초~59초 (너무 짧으면 참여도 낮음)</li>
@@ -569,7 +569,7 @@ export const blogPosts: BlogPost[] = [
           명확히 인식해야 관련 시청자에게 추천합니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">니치 선정 팁</h4>
           <ul class="space-y-2">
             <li>🎯 <strong>좁게 시작:</strong> "요리" → "자취생 10분 요리"</li>
@@ -615,11 +615,11 @@ export const blogPosts: BlogPost[] = [
           <h4 class="font-bold mb-3">권장 업로드 빈도</h4>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <p class="text-sm text-muted-foreground">일반 영상</p>
+              <p class="text-sm text-white/70">일반 영상</p>
               <p class="text-xl font-bold text-primary">주 1-2개</p>
             </div>
             <div>
-              <p class="text-sm text-muted-foreground">쇼츠</p>
+              <p class="text-sm text-white/70">쇼츠</p>
               <p class="text-xl font-bold text-primary">매일 1-3개</p>
             </div>
           </div>
@@ -652,7 +652,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">실제 구독자</h4>
-              <p class="text-sm text-muted-foreground">활동하는 계정 기반 구독</p>
+              <p class="text-sm text-white/70">활동하는 계정 기반 구독</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -661,7 +661,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">시청 시간</h4>
-              <p class="text-sm text-muted-foreground">4000시간 조건 달성 지원</p>
+              <p class="text-sm text-white/70">4000시간 조건 달성 지원</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -670,7 +670,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">30일 보장</h4>
-              <p class="text-sm text-muted-foreground">이탈 시 무료 리필</p>
+              <p class="text-sm text-white/70">이탈 시 무료 리필</p>
             </div>
           </div>
         </div>
@@ -702,13 +702,13 @@ export const blogPosts: BlogPost[] = [
         </div>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             유튜브의 정책은 수시로 변경될 수 있으며, 모든 마케팅 활동은 해당 플랫폼의
             이용약관을 준수해야 합니다.
           </p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -722,8 +722,8 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X(구 트위터)는 일론 머스크 인수 후 많은 변화를 겪었습니다.
           하지만 여전히 <strong>실시간 이슈, IT/테크, 비즈니스 분야</strong>에서는
           최고의 영향력을 가진 플랫폼입니다. 2026년 X에서 성공하는 방법을 알아봅니다.
@@ -736,7 +736,7 @@ export const blogPosts: BlogPost[] = [
           팔로우 관계 없이 관심사 기반으로 콘텐츠가 노출됩니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">X 알고리즘 핵심 요소</h3>
           <ul class="space-y-2">
             <li><strong>참여율:</strong> 리포스트, 인용, 답글, 좋아요 비율</li>
@@ -756,7 +756,7 @@ export const blogPosts: BlogPost[] = [
 
         <h2 id="viral-tweet-formula">바이럴 트윗 작성법</h2>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">바이럴 트윗의 5가지 유형</h4>
           <ul class="space-y-3">
             <li>🔥 <strong>핫테이크:</strong> 논쟁을 유발하는 의견 (주의: 적절한 선에서)</li>
@@ -790,7 +790,7 @@ export const blogPosts: BlogPost[] = [
 
         <h3>2. 꾸준한 활동</h3>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">일일 활동 루틴</h4>
           <ul class="space-y-2">
             <li>✅ <strong>트윗:</strong> 하루 3-5개</li>
@@ -826,7 +826,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">팔로워 증가</h4>
-              <p class="text-sm text-muted-foreground">실제 활동 계정 기반</p>
+              <p class="text-sm text-white/70">실제 활동 계정 기반</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-slate-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -835,7 +835,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">좋아요 & 리트윗</h4>
-              <p class="text-sm text-muted-foreground">트윗 노출 극대화</p>
+              <p class="text-sm text-white/70">트윗 노출 극대화</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-slate-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -845,7 +845,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">조회수</h4>
-              <p class="text-sm text-muted-foreground">For You 피드 진입 지원</p>
+              <p class="text-sm text-white/70">For You 피드 진입 지원</p>
             </div>
           </div>
         </div>
@@ -875,13 +875,13 @@ export const blogPosts: BlogPost[] = [
         </div>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             X의 정책은 수시로 변경될 수 있으며, 모든 마케팅 활동은 해당 플랫폼의
             이용약관을 준수해야 합니다.
           </p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -895,8 +895,8 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           "SMM 패널이 뭔가요?" "어디서 팔로워를 사야 안전한가요?"
           이 글에서는 SMM 패널의 개념부터 <strong>사기 업체를 피하는 방법</strong>,
           그리고 안전한 업체 선택 기준까지 모두 설명합니다.
@@ -910,7 +910,7 @@ export const blogPosts: BlogPost[] = [
           온라인으로 주문할 수 있습니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">SMM 패널에서 제공하는 서비스</h3>
           <ul class="space-y-2">
             <li>📱 <strong>인스타그램:</strong> 팔로워, 좋아요, 댓글, 릴스 조회수</li>
@@ -930,21 +930,21 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>1. 봇(Bot) 서비스</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               자동화된 가짜 계정으로 팔로워/좋아요를 제공합니다.
               <span class="text-red-500">⚠️ 위험: 계정 정지 위험 높음</span>
             </p>
           </li>
           <li>
             <strong>2. 실제 사용자 네트워크</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               실제 사용자들이 서로 팔로우/좋아요하는 시스템입니다.
               <span class="text-yellow-500">⚠️ 주의: 품질 천차만별</span>
             </p>
           </li>
           <li>
             <strong>3. 프리미엄 오가닉 서비스</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               실제 타겟 사용자에게 광고/프로모션으로 유기적 성장을 유도합니다.
               <span class="text-green-500">✅ 안전: 가장 자연스럽고 안전</span>
             </p>
@@ -1087,13 +1087,13 @@ export const blogPosts: BlogPost[] = [
         </div>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             각 플랫폼의 정책은 수시로 변경될 수 있으며, 모든 마케팅 활동은 해당 플랫폼의
             이용약관을 준수해야 합니다.
           </p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -1107,8 +1107,8 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           "팔로워 1만 명만 넘으면 뭐가 달라질까?" 인스타그램을 운영하는 분이라면 누구나 한 번쯤
           생각해봤을 겁니다. 이 글에서는 <strong>2026년 최신 인스타그램 알고리즘</strong>을 분석하고,
           실제로 팔로워를 늘릴 수 있는 검증된 전략을 공개합니다.
@@ -1121,7 +1121,7 @@ export const blogPosts: BlogPost[] = [
           <strong>사회적 증거(Social Proof)</strong>로서 브랜드 신뢰도와 직결됩니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">팔로워 수에 따른 변화</h3>
           <ul class="space-y-2">
             <li><strong>1,000명:</strong> 스토리 링크 기능 활성화 (스와이프 업)</li>
@@ -1167,28 +1167,28 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>1. 릴스(Reels) 최우선</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               인스타그램은 틱톡과 경쟁하기 위해 릴스를 강력하게 푸시합니다.
               같은 콘텐츠도 릴스로 올리면 <strong>10배 이상의 노출</strong>을 받을 수 있습니다.
             </p>
           </li>
           <li>
             <strong>2. 참여율(Engagement Rate)</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               좋아요, 댓글, 저장, 공유 - 특히 <strong>"저장"과 "공유"</strong>가
               2026년 알고리즘에서 가장 높은 가중치를 받습니다.
             </p>
           </li>
           <li>
             <strong>3. 초반 30분의 법칙</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               게시물 업로드 후 <strong>첫 30분~1시간</strong>의 성과가
               전체 도달률을 결정합니다. 이 시간에 반응이 없으면 묻힙니다.
             </p>
           </li>
           <li>
             <strong>4. 일관된 업로드 주기</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               하루에 10개 올리다가 일주일 쉬는 것보다,
               <strong>매일 1-2개씩 꾸준히</strong> 올리는 게 알고리즘에 유리합니다.
             </p>
@@ -1217,7 +1217,7 @@ export const blogPosts: BlogPost[] = [
 
         <h3>릴스 알고리즘이 좋아하는 영상</h3>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-3">
             <li>✅ <strong>첫 1초에 시선 사로잡기</strong> - 스크롤을 멈추게 만드는 훅(Hook)</li>
             <li>✅ <strong>15-30초 길이</strong> - 완주율(시청 완료율)이 가장 높은 구간</li>
@@ -1236,11 +1236,11 @@ export const blogPosts: BlogPost[] = [
         <div class="bg-primary/5 rounded-xl p-6 my-8 border border-primary/20">
           <div class="grid grid-cols-2 gap-4 text-center">
             <div>
-              <p class="text-sm text-muted-foreground">평일</p>
+              <p class="text-sm text-white/70">평일</p>
               <p class="text-2xl font-bold text-primary">오전 7-9시 / 저녁 6-9시</p>
             </div>
             <div>
-              <p class="text-sm text-muted-foreground">주말</p>
+              <p class="text-sm text-white/70">주말</p>
               <p class="text-2xl font-bold text-primary">오전 10-12시 / 오후 2-5시</p>
             </div>
           </div>
@@ -1317,7 +1317,7 @@ export const blogPosts: BlogPost[] = [
 
         <h3>2단계: 콘텐츠 전략</h3>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">콘텐츠 황금 비율</h4>
           <ul class="space-y-2">
             <li>🎬 <strong>릴스 60%:</strong> 바이럴 가능성, 신규 유입</li>
@@ -1333,7 +1333,7 @@ export const blogPosts: BlogPost[] = [
           게시물 업로드 직후 빠른 반응을 만드는 것이 핵심입니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">초반 30분 체크리스트</h4>
           <ul class="space-y-2">
             <li>✅ 스토리에 새 게시물 알림</li>
@@ -1361,7 +1361,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">한국인 팔로워</h4>
-              <p class="text-sm text-muted-foreground">실제 활동하는 한국인 계정 기반</p>
+              <p class="text-sm text-white/70">실제 활동하는 한국인 계정 기반</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -1370,7 +1370,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">좋아요 & 댓글</h4>
-              <p class="text-sm text-muted-foreground">참여율 유지로 알고리즘 최적화</p>
+              <p class="text-sm text-white/70">참여율 유지로 알고리즘 최적화</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -1379,7 +1379,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">릴스 조회수</h4>
-              <p class="text-sm text-muted-foreground">초반 부스팅으로 바이럴 가능성 UP</p>
+              <p class="text-sm text-white/70">초반 부스팅으로 바이럴 가능성 UP</p>
             </div>
           </div>
         </div>
@@ -1414,13 +1414,13 @@ export const blogPosts: BlogPost[] = [
         </div>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             인스타그램의 정책은 수시로 변경될 수 있으며, 모든 마케팅 활동은 해당 플랫폼의
             이용약관을 준수해야 합니다.
           </p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -1434,8 +1434,8 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           "조회수 10만이면 얼마 벌어요?" 유튜브를 시작한 크리에이터라면 누구나 한 번쯤 던지는 질문입니다.
           하지만 현실은 생각보다 복잡합니다. 이 글에서는 <strong>2026년 최신 데이터</strong>를 기반으로
           유튜브 수익의 진실과 조회수를 효과적으로 올리는 방법을 낱낱이 파헤칩니다.
@@ -1448,7 +1448,7 @@ export const blogPosts: BlogPost[] = [
           계산되는데, 이 수치는 채널마다, 국가마다, 시즌마다 천차만별입니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">2026년 한국 유튜브 평균 CPM</h3>
           <ul class="space-y-2">
             <li><strong>일반 엔터테인먼트:</strong> $0.5 ~ $2.0 (약 700원 ~ 2,800원)</li>
@@ -1468,7 +1468,7 @@ export const blogPosts: BlogPost[] = [
           <p class="text-center text-2xl font-bold">
             100,000회 × $1.5 ÷ 1,000 = <span class="text-primary">$150 (약 21만원)</span>
           </p>
-          <p class="text-center text-sm text-muted-foreground mt-2">
+          <p class="text-center text-sm text-white/70 mt-2">
             * CPM $1.5 기준, 실제 수익은 광고 시청률에 따라 달라집니다
           </p>
         </div>
@@ -1487,25 +1487,25 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>1. 시청 지속 시간 (Watch Time)</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               10분 영상에서 평균 7분 이상 시청하면 알고리즘이 "양질의 콘텐츠"로 판단합니다.
             </p>
           </li>
           <li>
             <strong>2. 클릭률 (CTR)</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               노출 대비 클릭률 4% 이상이면 상위 10%에 해당합니다. 썸네일과 제목이 핵심입니다.
             </p>
           </li>
           <li>
             <strong>3. 참여율 (Engagement)</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               좋아요, 댓글, 공유, 저장 - 이 모든 상호작용이 알고리즘 점수에 반영됩니다.
             </p>
           </li>
           <li>
             <strong>4. 초반 트래픽 속도</strong>
-            <p class="text-muted-foreground">
+            <p class="text-white/70">
               업로드 후 <strong>첫 24~48시간의 성과</strong>가 영상의 운명을 결정합니다.
             </p>
           </li>
@@ -1589,7 +1589,7 @@ export const blogPosts: BlogPost[] = [
           업로드 후 <strong>48시간 이내에 최대한 많은 트래픽</strong>을 확보하는 것이 핵심입니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h4 class="font-bold mb-3">초반 부스팅 체크리스트</h4>
           <ul class="space-y-2">
             <li>✅ 커뮤니티 게시물로 구독자에게 알림</li>
@@ -1629,7 +1629,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">100% 안전 보장</h4>
-              <p class="text-sm text-muted-foreground">실제 사용자 기반 유기적 트래픽으로 계정 제재 걱정 없음</p>
+              <p class="text-sm text-white/70">실제 사용자 기반 유기적 트래픽으로 계정 제재 걱정 없음</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -1638,7 +1638,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">업계 최저가</h4>
-              <p class="text-sm text-muted-foreground">중간 마진 없는 도매가로 비용 효율 극대화</p>
+              <p class="text-sm text-white/70">중간 마진 없는 도매가로 비용 효율 극대화</p>
             </div>
             <div class="text-center">
               <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -1647,7 +1647,7 @@ export const blogPosts: BlogPost[] = [
                 </svg>
               </div>
               <h4 class="font-bold mb-2">30일 무료 리필</h4>
-              <p class="text-sm text-muted-foreground">문제 발생 시 전액 환불 또는 100% 재처리</p>
+              <p class="text-sm text-white/70">문제 발생 시 전액 환불 또는 100% 재처리</p>
             </div>
           </div>
         </div>
@@ -1681,13 +1681,13 @@ export const blogPosts: BlogPost[] = [
         </div>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             유튜브의 정책은 수시로 변경될 수 있으며, 모든 마케팅 활동은 해당 플랫폼의
             이용약관을 준수해야 합니다.
           </p>
         </div>
-      </article>
+
     `,
   },
 
@@ -1705,8 +1705,8 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           텔레그램은 <strong>전 세계 9억 명 이상이 사용하는</strong> 메신저이자 커뮤니티 플랫폼입니다.
           특히 암호화폐, 주식, 해외직구, 정보 공유 커뮤니티에서 필수 채널로 자리잡았습니다.
           이 글에서는 텔레그램 채널과 그룹을 성장시키는 모든 전략을 공개합니다.
@@ -1714,7 +1714,7 @@ export const blogPosts: BlogPost[] = [
 
         <h2 id="why-telegram">왜 텔레그램인가?</h2>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">텔레그램의 핵심 장점</h3>
           <ul class="space-y-2">
             <li><strong>무제한 구독자:</strong> 채널 구독자 수 제한 없음 (수백만 명 가능)</li>
@@ -1778,12 +1778,12 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             텔레그램의 정책은 수시로 변경될 수 있습니다.
           </p>
         </div>
-      </article>
+
     `,
   },
 
@@ -1801,8 +1801,8 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           트위치는 <strong>라이브 스트리밍의 절대 강자</strong>입니다.
           게임, Just Chatting, 음악, 아트까지 다양한 카테고리에서 매일 수백만 명이 시청합니다.
         </p>
@@ -1810,25 +1810,25 @@ export const blogPosts: BlogPost[] = [
         <h2 id="twitch-basics">트위치 성장의 기본 구조</h2>
 
         <div class="grid md:grid-cols-3 gap-4 my-8">
-          <div class="bg-muted/50 rounded-xl p-5 border text-center">
+          <div class="bg-white/10 rounded-xl p-5 border text-center">
             <div class="text-3xl mb-2">👤</div>
             <h4 class="font-bold">일반 스트리머</h4>
-            <p class="text-sm text-muted-foreground mt-2">누구나 시작 가능</p>
+            <p class="text-sm text-white/70 mt-2">누구나 시작 가능</p>
           </div>
           <div class="bg-purple-500/10 border border-purple-500/30 rounded-xl p-5 text-center">
             <div class="text-3xl mb-2">⭐</div>
             <h4 class="font-bold text-purple-600">제휴 (Affiliate)</h4>
-            <p class="text-sm text-muted-foreground mt-2">기본 수익화 가능</p>
+            <p class="text-sm text-white/70 mt-2">기본 수익화 가능</p>
           </div>
           <div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl p-5 text-center">
             <div class="text-3xl mb-2">👑</div>
             <h4 class="font-bold">파트너 (Partner)</h4>
-            <p class="text-sm text-muted-foreground mt-2">최고 등급, 풀 수익화</p>
+            <p class="text-sm text-white/70 mt-2">최고 등급, 풀 수익화</p>
           </div>
         </div>
 
         <h2 id="affiliate-requirements">제휴(Affiliate) 조건 달성하기</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">트위치 제휴 요건 (30일 기준)</h3>
           <ul class="space-y-3">
             <li><strong>50명 이상</strong> 팔로워</li>
@@ -1882,12 +1882,12 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             트위치의 정책은 수시로 변경될 수 있습니다.
           </p>
         </div>
-      </article>
+
     `,
   },
 
@@ -1905,14 +1905,14 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           디스코드는 단순한 게임 채팅을 넘어 <strong>커뮤니티의 허브</strong>로 진화했습니다.
           NFT 프로젝트, 크리에이터 팬덤, 스타트업, 교육 커뮤니티까지 모든 분야에서 필수 플랫폼입니다.
         </p>
 
         <h2 id="why-discord">왜 디스코드인가?</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">디스코드의 핵심 장점</h3>
           <ul class="space-y-2">
             <li><strong>무료 & 강력:</strong> 모든 기능 무료, 서버당 최대 50만 명</li>
@@ -1972,12 +1972,12 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             디스코드의 정책은 수시로 변경될 수 있습니다.
           </p>
         </div>
-      </article>
+
     `,
   },
 
@@ -1995,14 +1995,14 @@ export const blogPosts: BlogPost[] = [
     category: '기타',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           코인마켓캡(CoinMarketCap)은 <strong>암호화폐 세계의 게이트웨이</strong>입니다.
           투자자들이 새 코인을 발견하고 분석하는 첫 번째 사이트입니다.
         </p>
 
         <h2 id="why-cmc-matters">왜 코인마켓캡이 중요한가?</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">CMC의 영향력</h3>
           <ul class="space-y-2">
             <li><strong>월간 방문자:</strong> 3억 명 이상</li>
@@ -2055,12 +2055,12 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             암호화폐 투자는 높은 위험을 수반합니다.
           </p>
         </div>
-      </article>
+
     `,
   },
 
@@ -2078,14 +2078,14 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           스레드(Threads)는 <strong>메타가 트위터를 대체하기 위해 만든</strong> 텍스트 기반 SNS입니다.
           인스타그램과의 완벽한 연동으로 빠르게 성장 중이며, 지금이 선점할 최고의 타이밍입니다.
         </p>
 
         <h2 id="what-is-threads">스레드란 무엇인가?</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">스레드 핵심 특징</h3>
           <ul class="space-y-2">
             <li><strong>인스타 연동:</strong> 인스타그램 계정으로 바로 시작</li>
@@ -2145,12 +2145,12 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             스레드의 기능과 정책은 수시로 업데이트될 수 있습니다.
           </p>
         </div>
-      </article>
+
     `,
   },
 
@@ -2168,15 +2168,15 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           스레드는 단순한 개인 SNS가 아닙니다.
           <strong>비즈니스와 브랜드에게 새로운 기회의 장</strong>입니다.
           아직 광고가 본격화되지 않은 지금, 오가닉 성장의 황금기를 놓치지 마세요.
         </p>
 
         <h2 id="threads-for-business">왜 비즈니스가 스레드에 주목해야 하는가?</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">스레드 비즈니스 기회</h3>
           <ul class="space-y-2">
             <li><strong>오가닉 도달:</strong> 광고 없이도 높은 노출 가능</li>
@@ -2228,12 +2228,12 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             <strong>면책 조항:</strong> 이 글은 정보 제공 목적으로 작성되었습니다.
             스레드의 비즈니스 기능과 정책은 지속적으로 업데이트됩니다.
           </p>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -2250,7 +2250,7 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <div class="bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-xl p-6 mb-8 border border-pink-500/20">
           <p class="text-lg font-medium mb-0">
             <strong>3줄 요약</strong><br/>
@@ -2260,7 +2260,7 @@ export const blogPosts: BlogPost[] = [
           </p>
         </div>
 
-        <nav class="bg-muted/30 rounded-xl p-6 mb-8">
+        <nav class="bg-white/10/30 rounded-xl p-6 mb-8">
           <h3 class="text-lg font-bold mb-4">목차</h3>
           <ol class="space-y-2 text-sm">
             <li><a href="#instagram-algorithm-2026" class="text-primary hover:underline">1. 2026년 인스타그램 알고리즘 완벽 분석</a></li>
@@ -2281,13 +2281,13 @@ export const blogPosts: BlogPost[] = [
           실제로 팔로워가 적어도 좋은 콘텐츠는 탐색 탭에 노출되고 있습니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">2026년 알고리즘 가중치 (추정치)</h3>
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <span>저장(Save)</span>
               <div class="flex items-center gap-2">
-                <div class="w-48 bg-muted rounded-full h-3">
+                <div class="w-48 bg-white/10 rounded-full h-3">
                   <div class="bg-pink-500 h-3 rounded-full" style="width: 95%"></div>
                 </div>
                 <span class="font-bold text-pink-500">35%</span>
@@ -2296,7 +2296,7 @@ export const blogPosts: BlogPost[] = [
             <div class="flex items-center justify-between">
               <span>공유(Share)</span>
               <div class="flex items-center gap-2">
-                <div class="w-48 bg-muted rounded-full h-3">
+                <div class="w-48 bg-white/10 rounded-full h-3">
                   <div class="bg-purple-500 h-3 rounded-full" style="width: 75%"></div>
                 </div>
                 <span class="font-bold text-purple-500">25%</span>
@@ -2305,7 +2305,7 @@ export const blogPosts: BlogPost[] = [
             <div class="flex items-center justify-between">
               <span>댓글(Comment)</span>
               <div class="flex items-center gap-2">
-                <div class="w-48 bg-muted rounded-full h-3">
+                <div class="w-48 bg-white/10 rounded-full h-3">
                   <div class="bg-blue-500 h-3 rounded-full" style="width: 60%"></div>
                 </div>
                 <span class="font-bold text-blue-500">20%</span>
@@ -2314,7 +2314,7 @@ export const blogPosts: BlogPost[] = [
             <div class="flex items-center justify-between">
               <span>좋아요(Like)</span>
               <div class="flex items-center gap-2">
-                <div class="w-48 bg-muted rounded-full h-3">
+                <div class="w-48 bg-white/10 rounded-full h-3">
                   <div class="bg-red-500 h-3 rounded-full" style="width: 40%"></div>
                 </div>
                 <span class="font-bold text-red-500">15%</span>
@@ -2323,7 +2323,7 @@ export const blogPosts: BlogPost[] = [
             <div class="flex items-center justify-between">
               <span>체류시간</span>
               <div class="flex items-center gap-2">
-                <div class="w-48 bg-muted rounded-full h-3">
+                <div class="w-48 bg-white/10 rounded-full h-3">
                   <div class="bg-green-500 h-3 rounded-full" style="width: 20%"></div>
                 </div>
                 <span class="font-bold text-green-500">5%</span>
@@ -2358,19 +2358,19 @@ export const blogPosts: BlogPost[] = [
         <h3>릴스 황금 공식</h3>
 
         <div class="grid md:grid-cols-2 gap-4 my-6">
-          <div class="bg-muted/30 rounded-xl p-5 border">
+          <div class="bg-white/10/30 rounded-xl p-5 border">
             <div class="text-2xl font-bold text-pink-500 mb-2">처음 1초</div>
             <p class="text-sm mb-0">강렬한 후킹. "이거 모르면 손해", "충격적인 사실" 등 궁금증 유발</p>
           </div>
-          <div class="bg-muted/30 rounded-xl p-5 border">
+          <div class="bg-white/10/30 rounded-xl p-5 border">
             <div class="text-2xl font-bold text-purple-500 mb-2">3-7초</div>
             <p class="text-sm mb-0">문제 제기. 시청자의 공감을 이끌어내는 상황 설정</p>
           </div>
-          <div class="bg-muted/30 rounded-xl p-5 border">
+          <div class="bg-white/10/30 rounded-xl p-5 border">
             <div class="text-2xl font-bold text-blue-500 mb-2">8-25초</div>
             <p class="text-sm mb-0">해결책 제시. 핵심 정보를 빠르게 전달</p>
           </div>
-          <div class="bg-muted/30 rounded-xl p-5 border">
+          <div class="bg-white/10/30 rounded-xl p-5 border">
             <div class="text-2xl font-bold text-green-500 mb-2">마지막 3초</div>
             <p class="text-sm mb-0">CTA(Call to Action). "저장해두세요", "팔로우하면 더 많은 팁"</p>
           </div>
@@ -2405,7 +2405,7 @@ export const blogPosts: BlogPost[] = [
           예전처럼 30개 해시태그를 복붙하는 건 오히려 역효과입니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">2026년 해시태그 공식</h3>
           <ul class="space-y-2">
             <li>✅ 해시태그 <strong>3-5개</strong>만 사용 (많으면 스팸 취급)</li>
@@ -2419,17 +2419,17 @@ export const blogPosts: BlogPost[] = [
         <h3>카테고리별 추천 해시태그</h3>
 
         <p><strong>패션/뷰티:</strong></p>
-        <p class="text-sm bg-muted/30 p-3 rounded-lg">
+        <p class="text-sm bg-white/10/30 p-3 rounded-lg">
           #오오티디 #데일리룩 #뷰티꿀팁 #메이크업튜토리얼 #스타일링
         </p>
 
         <p><strong>음식/맛집:</strong></p>
-        <p class="text-sm bg-muted/30 p-3 rounded-lg">
+        <p class="text-sm bg-white/10/30 p-3 rounded-lg">
           #맛스타그램 #홈카페 #레시피공유 #디저트스타그램 #먹방
         </p>
 
         <p><strong>여행:</strong></p>
-        <p class="text-sm bg-muted/30 p-3 rounded-lg">
+        <p class="text-sm bg-white/10/30 p-3 rounded-lg">
           #여행스타그램 #국내여행 #감성여행 #여행브이로그 #핫플
         </p>
 
@@ -2483,7 +2483,7 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <h3>참여율 계산 공식</h3>
-        <div class="bg-muted/50 rounded-xl p-4 my-4 font-mono text-sm">
+        <div class="bg-white/10 rounded-xl p-4 my-4 font-mono text-sm">
           참여율 = (좋아요 + 댓글 + 저장 + 공유) / 팔로워 수 × 100
         </div>
 
@@ -2519,19 +2519,19 @@ export const blogPosts: BlogPost[] = [
         <h3>섀도우밴 원인과 해결책</h3>
 
         <div class="space-y-4">
-          <div class="bg-muted/30 rounded-xl p-5">
+          <div class="bg-white/10/30 rounded-xl p-5">
             <p class="font-bold">❌ 원인: 금지된 해시태그 사용</p>
             <p class="text-sm mb-0">✅ 해결: 해시태그 검색해서 "게시물 없음" 뜨면 사용 금지</p>
           </div>
-          <div class="bg-muted/30 rounded-xl p-5">
+          <div class="bg-white/10/30 rounded-xl p-5">
             <p class="font-bold">❌ 원인: 자동화 툴(봇) 사용</p>
             <p class="text-sm mb-0">✅ 해결: 모든 자동화 앱 연결 해제, 비밀번호 변경</p>
           </div>
-          <div class="bg-muted/30 rounded-xl p-5">
+          <div class="bg-white/10/30 rounded-xl p-5">
             <p class="font-bold">❌ 원인: 너무 빈번한 활동</p>
             <p class="text-sm mb-0">✅ 해결: 시간당 좋아요 60개, 팔로우 30개 이하로 제한</p>
           </div>
-          <div class="bg-muted/30 rounded-xl p-5">
+          <div class="bg-white/10/30 rounded-xl p-5">
             <p class="font-bold">❌ 원인: 신고 누적</p>
             <p class="text-sm mb-0">✅ 해결: 논란성 콘텐츠 삭제, 2-3일 활동 중단</p>
           </div>
@@ -2545,25 +2545,25 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <div class="space-y-4 my-6">
-          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-center gap-4 p-4 bg-white/10/30 rounded-xl">
             <div class="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center text-white font-bold">1개월</div>
             <div>
               <p class="font-bold mb-1">0 → 500 팔로워</p>
-              <p class="text-sm text-muted-foreground mb-0">니치 설정, 콘텐츠 방향 확립, 매일 1릴스</p>
+              <p class="text-sm text-white/70 mb-0">니치 설정, 콘텐츠 방향 확립, 매일 1릴스</p>
             </div>
           </div>
-          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-center gap-4 p-4 bg-white/10/30 rounded-xl">
             <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">3개월</div>
             <div>
               <p class="font-bold mb-1">500 → 2,000 팔로워</p>
-              <p class="text-sm text-muted-foreground mb-0">콘텐츠 최적화, 바이럴 패턴 파악</p>
+              <p class="text-sm text-white/70 mb-0">콘텐츠 최적화, 바이럴 패턴 파악</p>
             </div>
           </div>
-          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-center gap-4 p-4 bg-white/10/30 rounded-xl">
             <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center text-white font-bold">6개월</div>
             <div>
               <p class="font-bold mb-1">2,000 → 10,000 팔로워</p>
-              <p class="text-sm text-muted-foreground mb-0">첫 바이럴 릴스 경험, 협찬 문의 시작</p>
+              <p class="text-sm text-white/70 mb-0">첫 바이럴 릴스 경험, 협찬 문의 시작</p>
             </div>
           </div>
         </div>
@@ -2583,21 +2583,21 @@ export const blogPosts: BlogPost[] = [
         <h2>자주 묻는 질문 (FAQ)</h2>
 
         <div class="space-y-4">
-          <details class="bg-muted/30 rounded-xl p-5">
+          <details class="bg-white/10/30 rounded-xl p-5">
             <summary class="font-bold cursor-pointer">Q. 팔로워를 사면 계정에 문제가 생기나요?</summary>
             <p class="mt-3 mb-0">
               저품질 팔로워(봇)를 대량 구매하면 참여율이 급락하고 알고리즘에서 불이익을 받습니다.
               하지만 INFLUX처럼 실제 계정 기반으로 점진적 증가를 제공하는 서비스는 안전합니다.
             </p>
           </details>
-          <details class="bg-muted/30 rounded-xl p-5">
+          <details class="bg-white/10/30 rounded-xl p-5">
             <summary class="font-bold cursor-pointer">Q. 하루에 몇 개나 올려야 하나요?</summary>
             <p class="mt-3 mb-0">
               릴스 1개 + 스토리 3-5개가 최적입니다. 피드 게시물은 주 2-3회면 충분합니다.
               양보다 질이 중요하므로, 무리해서 매일 올리느니 좋은 콘텐츠를 격일로 올리세요.
             </p>
           </details>
-          <details class="bg-muted/30 rounded-xl p-5">
+          <details class="bg-white/10/30 rounded-xl p-5">
             <summary class="font-bold cursor-pointer">Q. 팔로워 1만명이면 얼마나 벌 수 있나요?</summary>
             <p class="mt-3 mb-0">
               니치와 참여율에 따라 다릅니다. 패션/뷰티 분야 1만 팔로워(참여율 5% 이상)는
@@ -2607,13 +2607,13 @@ export const blogPosts: BlogPost[] = [
         </div>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             이 가이드가 도움이 되셨다면 <strong>저장</strong>해두시고,
             인스타그램 성장 여정을 함께하는 친구에게 <strong>공유</strong>해주세요.
             더 많은 SNS 성장 팁은 INFLUX 블로그에서 확인하실 수 있습니다.
           </p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -2627,7 +2627,7 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <div class="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-xl p-6 mb-8 border border-red-500/20">
           <p class="text-lg font-medium mb-0">
             <strong>3줄 요약</strong><br/>
@@ -2637,7 +2637,7 @@ export const blogPosts: BlogPost[] = [
           </p>
         </div>
 
-        <nav class="bg-muted/30 rounded-xl p-6 mb-8">
+        <nav class="bg-white/10/30 rounded-xl p-6 mb-8">
           <h3 class="text-lg font-bold mb-4">목차</h3>
           <ol class="space-y-2 text-sm">
             <li><a href="#youtube-algorithm-2026" class="text-primary hover:underline">1. 2026년 유튜브 알고리즘 완벽 분석</a></li>
@@ -2657,7 +2657,7 @@ export const blogPosts: BlogPost[] = [
           이 원리를 이해하면 알고리즘을 "해킹"할 수 있습니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">유튜브가 측정하는 핵심 지표</h3>
           <div class="space-y-4">
             <div class="flex items-start gap-4">
@@ -2666,7 +2666,7 @@ export const blogPosts: BlogPost[] = [
               </div>
               <div>
                 <p class="font-bold mb-1">CTR (클릭률)</p>
-                <p class="text-sm text-muted-foreground mb-0">
+                <p class="text-sm text-white/70 mb-0">
                   노출 대비 클릭 비율. <strong>10% 이상</strong>이면 우수, 5% 미만이면 개선 필요
                 </p>
               </div>
@@ -2677,7 +2677,7 @@ export const blogPosts: BlogPost[] = [
               </div>
               <div>
                 <p class="font-bold mb-1">평균 시청 지속률 (AVD)</p>
-                <p class="text-sm text-muted-foreground mb-0">
+                <p class="text-sm text-white/70 mb-0">
                   영상 길이 대비 시청 비율. <strong>50% 이상</strong>이면 알고리즘 추천 대상
                 </p>
               </div>
@@ -2688,7 +2688,7 @@ export const blogPosts: BlogPost[] = [
               </div>
               <div>
                 <p class="font-bold mb-1">세션 시청시간</p>
-                <p class="text-sm text-muted-foreground mb-0">
+                <p class="text-sm text-white/70 mb-0">
                   내 영상을 본 후 유튜브에 머문 총 시간. 길수록 알고리즘이 좋아함
                 </p>
               </div>
@@ -2784,15 +2784,15 @@ export const blogPosts: BlogPost[] = [
         <h3>쇼츠 성공 공식</h3>
 
         <div class="grid md:grid-cols-3 gap-4 my-6">
-          <div class="bg-muted/30 rounded-xl p-5 border text-center">
+          <div class="bg-white/10/30 rounded-xl p-5 border text-center">
             <div class="text-3xl font-bold text-red-500 mb-2">1초</div>
             <p class="text-sm mb-0">첫 1초에 훅(Hook)으로 시선 잡기</p>
           </div>
-          <div class="bg-muted/30 rounded-xl p-5 border text-center">
+          <div class="bg-white/10/30 rounded-xl p-5 border text-center">
             <div class="text-3xl font-bold text-orange-500 mb-2">30-45초</div>
             <p class="text-sm mb-0">최적의 쇼츠 길이 (완주율 극대화)</p>
           </div>
-          <div class="bg-muted/30 rounded-xl p-5 border text-center">
+          <div class="bg-white/10/30 rounded-xl p-5 border text-center">
             <div class="text-3xl font-bold text-yellow-500 mb-2">루프</div>
             <p class="text-sm mb-0">끝과 시작이 자연스럽게 연결</p>
           </div>
@@ -2800,14 +2800,14 @@ export const blogPosts: BlogPost[] = [
 
         <h3>쇼츠 vs 롱폼 병행 전략</h3>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <p class="font-bold mb-4">추천 업로드 빈도:</p>
           <ul class="space-y-2">
             <li><strong>쇼츠:</strong> 주 5-7개 (매일 또는 격일)</li>
             <li><strong>롱폼:</strong> 주 1-2개 (품질 중심)</li>
             <li><strong>비율:</strong> 쇼츠 70% + 롱폼 30%</li>
           </ul>
-          <p class="text-sm text-muted-foreground mt-4 mb-0">
+          <p class="text-sm text-white/70 mt-4 mb-0">
             쇼츠로 구독자를 모으고, 롱폼으로 시청시간을 확보하는 투트랙 전략입니다.
           </p>
         </div>
@@ -2831,45 +2831,45 @@ export const blogPosts: BlogPost[] = [
         <h3>썸네일 필수 요소</h3>
 
         <div class="space-y-4 my-6">
-          <div class="flex items-start gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-start gap-4 p-4 bg-white/10/30 rounded-xl">
             <span class="text-2xl">😮</span>
             <div>
               <p class="font-bold mb-1">감정을 담은 얼굴</p>
-              <p class="text-sm text-muted-foreground mb-0">놀람, 기쁨, 충격 등 강한 감정 표현이 클릭률을 높임</p>
+              <p class="text-sm text-white/70 mb-0">놀람, 기쁨, 충격 등 강한 감정 표현이 클릭률을 높임</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-start gap-4 p-4 bg-white/10/30 rounded-xl">
             <span class="text-2xl">🎯</span>
             <div>
               <p class="font-bold mb-1">3단어 이하 텍스트</p>
-              <p class="text-sm text-muted-foreground mb-0">모바일에서 읽기 어려운 긴 텍스트는 피하기</p>
+              <p class="text-sm text-white/70 mb-0">모바일에서 읽기 어려운 긴 텍스트는 피하기</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-start gap-4 p-4 bg-white/10/30 rounded-xl">
             <span class="text-2xl">🌈</span>
             <div>
               <p class="font-bold mb-1">대비되는 색상</p>
-              <p class="text-sm text-muted-foreground mb-0">노란색/빨간색 배경 + 흰색/검은색 텍스트</p>
+              <p class="text-sm text-white/70 mb-0">노란색/빨간색 배경 + 흰색/검은색 텍스트</p>
             </div>
           </div>
         </div>
 
         <h3>제목 공식</h3>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <p class="font-bold mb-4">클릭을 부르는 제목 패턴:</p>
           <ul class="space-y-3 text-sm">
             <li>
-              <code class="bg-muted px-2 py-1 rounded">[숫자] + [결과/혜택]</code>
-              <p class="text-muted-foreground mt-1">"3일 만에 구독자 1000명 달성한 방법"</p>
+              <code class="bg-white/10 px-2 py-1 rounded">[숫자] + [결과/혜택]</code>
+              <p class="text-white/70 mt-1">"3일 만에 구독자 1000명 달성한 방법"</p>
             </li>
             <li>
-              <code class="bg-muted px-2 py-1 rounded">[의문문] + [충격적 사실]</code>
-              <p class="text-muted-foreground mt-1">"유튜브가 절대 알려주지 않는 알고리즘 비밀"</p>
+              <code class="bg-white/10 px-2 py-1 rounded">[의문문] + [충격적 사실]</code>
+              <p class="text-white/70 mt-1">"유튜브가 절대 알려주지 않는 알고리즘 비밀"</p>
             </li>
             <li>
-              <code class="bg-muted px-2 py-1 rounded">[비교] + [승자]</code>
-              <p class="text-muted-foreground mt-1">"쇼츠 vs 롱폼, 뭐가 더 돈 될까? (결론 나옴)"</p>
+              <code class="bg-white/10 px-2 py-1 rounded">[비교] + [승자]</code>
+              <p class="text-white/70 mt-1">"쇼츠 vs 롱폼, 뭐가 더 돈 될까? (결론 나옴)"</p>
             </li>
           </ul>
         </div>
@@ -2885,19 +2885,19 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>1. 패턴 인터럽트 (Pattern Interrupt)</strong>
-            <p class="text-muted-foreground">7-10초마다 화면 전환, 효과음, 줌인/줌아웃으로 지루함 방지</p>
+            <p class="text-white/70">7-10초마다 화면 전환, 효과음, 줌인/줌아웃으로 지루함 방지</p>
           </li>
           <li>
             <strong>2. 오픈 루프 (Open Loop)</strong>
-            <p class="text-muted-foreground">"이건 마지막에 알려드릴게요"로 끝까지 시청 유도</p>
+            <p class="text-white/70">"이건 마지막에 알려드릴게요"로 끝까지 시청 유도</p>
           </li>
           <li>
             <strong>3. B-Roll 활용</strong>
-            <p class="text-muted-foreground">말하는 화면만 보여주지 말고 관련 이미지/영상 삽입</p>
+            <p class="text-white/70">말하는 화면만 보여주지 말고 관련 이미지/영상 삽입</p>
           </li>
           <li>
             <strong>4. 챕터 분할</strong>
-            <p class="text-muted-foreground">긴 영상은 챕터로 나눠서 원하는 부분만 볼 수 있게</p>
+            <p class="text-white/70">긴 영상은 챕터로 나눠서 원하는 부분만 볼 수 있게</p>
           </li>
         </ol>
 
@@ -2970,32 +2970,32 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <div class="space-y-4 my-6">
-          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-center gap-4 p-4 bg-white/10/30 rounded-xl">
             <div class="w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center text-white font-bold text-sm">1-2개월</div>
             <div>
               <p class="font-bold mb-1">0 → 100 구독자</p>
-              <p class="text-sm text-muted-foreground mb-0">채널 셋업, 첫 10개 영상 업로드, 니치 테스트</p>
+              <p class="text-sm text-white/70 mb-0">채널 셋업, 첫 10개 영상 업로드, 니치 테스트</p>
             </div>
           </div>
-          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-center gap-4 p-4 bg-white/10/30 rounded-xl">
             <div class="w-16 h-16 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 flex items-center justify-center text-white font-bold text-sm">3-4개월</div>
             <div>
               <p class="font-bold mb-1">100 → 500 구독자</p>
-              <p class="text-sm text-muted-foreground mb-0">콘텐츠 최적화, 첫 바이럴 경험</p>
+              <p class="text-sm text-white/70 mb-0">콘텐츠 최적화, 첫 바이럴 경험</p>
             </div>
           </div>
-          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-center gap-4 p-4 bg-white/10/30 rounded-xl">
             <div class="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-500 to-green-500 flex items-center justify-center text-white font-bold text-sm">5-8개월</div>
             <div>
               <p class="font-bold mb-1">500 → 1,000 구독자 + 4,000시간</p>
-              <p class="text-sm text-muted-foreground mb-0">수익창출 달성, YPP 신청</p>
+              <p class="text-sm text-white/70 mb-0">수익창출 달성, YPP 신청</p>
             </div>
           </div>
-          <div class="flex items-center gap-4 p-4 bg-muted/30 rounded-xl">
+          <div class="flex items-center gap-4 p-4 bg-white/10/30 rounded-xl">
             <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm">9-12개월</div>
             <div>
               <p class="font-bold mb-1">1,000 → 10,000 구독자</p>
-              <p class="text-sm text-muted-foreground mb-0">월 수익 10-50만원, 브랜드 협찬 시작</p>
+              <p class="text-sm text-white/70 mb-0">월 수익 10-50만원, 브랜드 협찬 시작</p>
             </div>
           </div>
         </div>
@@ -3015,7 +3015,7 @@ export const blogPosts: BlogPost[] = [
         <h2>자주 묻는 질문 (FAQ)</h2>
 
         <div class="space-y-4">
-          <details class="bg-muted/30 rounded-xl p-5">
+          <details class="bg-white/10/30 rounded-xl p-5">
             <summary class="font-bold cursor-pointer">Q. 구독자를 구매하면 수익창출 승인이 안 되나요?</summary>
             <p class="mt-3 mb-0">
               저품질 봇 구독자는 유튜브가 감지해서 삭제하고, 채널에 불이익을 줄 수 있습니다.
@@ -3023,7 +3023,7 @@ export const blogPosts: BlogPost[] = [
               수익창출 심사는 콘텐츠 품질 + 커뮤니티 가이드 준수가 핵심입니다.
             </p>
           </details>
-          <details class="bg-muted/30 rounded-xl p-5">
+          <details class="bg-white/10/30 rounded-xl p-5">
             <summary class="font-bold cursor-pointer">Q. 시청시간 4000시간, 어떻게 빨리 채우나요?</summary>
             <p class="mt-3 mb-0">
               1) 8분 이상 롱폼 영상 위주로 업로드
@@ -3032,7 +3032,7 @@ export const blogPosts: BlogPost[] = [
               4) 라이브 스트리밍 (라이브 시청시간도 인정)
             </p>
           </details>
-          <details class="bg-muted/30 rounded-xl p-5">
+          <details class="bg-white/10/30 rounded-xl p-5">
             <summary class="font-bold cursor-pointer">Q. 유튜브 수익, 실제로 얼마나 되나요?</summary>
             <p class="mt-3 mb-0">
               니치와 시청자 국가에 따라 천차만별입니다. 한국 기준:
@@ -3045,13 +3045,13 @@ export const blogPosts: BlogPost[] = [
         </div>
 
         <div class="border-t pt-8 mt-12">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-sm text-white/70">
             유튜브 성장은 마라톤입니다. 이 가이드가 도움이 되셨다면 <strong>저장</strong>해두시고,
             함께 유튜브를 시작하는 친구에게 <strong>공유</strong>해주세요.
             INFLUX와 함께 수익창출 달성을 응원합니다!
           </p>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -3068,8 +3068,8 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           틱톡은 단순한 짧은 영상 플랫폼을 넘어 <strong>수십억 달러 규모의 크리에이터 이코노미</strong>를 만들어냈습니다.
           이 글에서는 틱톡으로 수익을 창출하는 모든 방법을 상세히 알려드립니다.
         </p>
@@ -3077,7 +3077,7 @@ export const blogPosts: BlogPost[] = [
         <h2 id="tiktok-money-methods">틱톡 수익화 5가지 방법</h2>
 
         <div class="grid gap-4 my-6">
-          <div class="bg-muted/50 rounded-xl p-6 border">
+          <div class="bg-white/10 rounded-xl p-6 border">
             <h3 class="text-lg font-bold mb-2">1. 크리에이터 펀드 (Creator Fund)</h3>
             <p class="mb-2">조회수당 수익을 지급받는 기본 수익화 프로그램</p>
             <ul class="space-y-1 mb-0">
@@ -3087,7 +3087,7 @@ export const blogPosts: BlogPost[] = [
             </ul>
           </div>
 
-          <div class="bg-muted/50 rounded-xl p-6 border">
+          <div class="bg-white/10 rounded-xl p-6 border">
             <h3 class="text-lg font-bold mb-2">2. 틱톡 라이브 선물</h3>
             <p class="mb-2">라이브 방송 중 시청자가 보내는 가상 선물로 수익 창출</p>
             <ul class="space-y-1 mb-0">
@@ -3097,7 +3097,7 @@ export const blogPosts: BlogPost[] = [
             </ul>
           </div>
 
-          <div class="bg-muted/50 rounded-xl p-6 border">
+          <div class="bg-white/10 rounded-xl p-6 border">
             <h3 class="text-lg font-bold mb-2">3. 브랜드 협찬 (스폰서십)</h3>
             <p class="mb-2">브랜드와 협업하여 제품/서비스 홍보 콘텐츠 제작</p>
             <ul class="space-y-1 mb-0">
@@ -3107,7 +3107,7 @@ export const blogPosts: BlogPost[] = [
             </ul>
           </div>
 
-          <div class="bg-muted/50 rounded-xl p-6 border">
+          <div class="bg-white/10 rounded-xl p-6 border">
             <h3 class="text-lg font-bold mb-2">4. 제휴 마케팅 (어필리에이트)</h3>
             <p class="mb-2">제품 링크를 공유하고 판매 수수료를 받는 방식</p>
             <ul class="space-y-1 mb-0">
@@ -3117,7 +3117,7 @@ export const blogPosts: BlogPost[] = [
             </ul>
           </div>
 
-          <div class="bg-muted/50 rounded-xl p-6 border">
+          <div class="bg-white/10 rounded-xl p-6 border">
             <h3 class="text-lg font-bold mb-2">5. 자체 상품/서비스 판매</h3>
             <p class="mb-2">틱톡을 통해 본인의 제품이나 서비스 홍보</p>
             <ul class="space-y-1 mb-0">
@@ -3176,7 +3176,7 @@ export const blogPosts: BlogPost[] = [
             실제 계정 기반의 안전한 성장으로 수익화 조건을 빠르게 달성할 수 있습니다.
           </p>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -3193,8 +3193,8 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           "페이스북은 죽었다"는 말, 반은 맞고 반은 틀립니다.
           <strong>올바른 전략</strong>을 사용하면 여전히 페이스북에서 엄청난 오가닉 도달을 만들 수 있습니다.
         </p>
@@ -3206,7 +3206,7 @@ export const blogPosts: BlogPost[] = [
           단순 좋아요보다 댓글, 공유, 저장이 훨씬 중요해졌습니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">알고리즘 가중치 순위</h3>
           <ol class="space-y-2 mb-0">
             <li><strong>1위:</strong> 공유 (특히 메신저로 공유) - 가중치 10x</li>
@@ -3257,31 +3257,31 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>질문으로 끝내기</strong>
-            <p class="text-muted-foreground">모든 포스트 마지막에 질문을 던져 댓글 유도</p>
+            <p class="text-white/70">모든 포스트 마지막에 질문을 던져 댓글 유도</p>
           </li>
           <li>
             <strong>첫 1시간 집중 공략</strong>
-            <p class="text-muted-foreground">게시 후 1시간 내 참여도가 전체 도달을 결정</p>
+            <p class="text-white/70">게시 후 1시간 내 참여도가 전체 도달을 결정</p>
           </li>
           <li>
             <strong>모든 댓글에 답글 달기</strong>
-            <p class="text-muted-foreground">댓글 수가 2배로 늘어나고 알고리즘 점수 상승</p>
+            <p class="text-white/70">댓글 수가 2배로 늘어나고 알고리즘 점수 상승</p>
           </li>
           <li>
             <strong>최적 시간대 포스팅</strong>
-            <p class="text-muted-foreground">한국 기준: 오전 7-9시, 점심 12-1시, 저녁 7-10시</p>
+            <p class="text-white/70">한국 기준: 오전 7-9시, 점심 12-1시, 저녁 7-10시</p>
           </li>
           <li>
             <strong>Facebook Groups 활용</strong>
-            <p class="text-muted-foreground">관련 그룹에서 활동하고 페이지로 유입 유도</p>
+            <p class="text-white/70">관련 그룹에서 활동하고 페이지로 유입 유도</p>
           </li>
           <li>
             <strong>라이브 방송 정기화</strong>
-            <p class="text-muted-foreground">라이브는 팔로워에게 알림이 가고 도달률 최고</p>
+            <p class="text-white/70">라이브는 팔로워에게 알림이 가고 도달률 최고</p>
           </li>
           <li>
             <strong>공유하고 싶은 콘텐츠 만들기</strong>
-            <p class="text-muted-foreground">밈, 인포그래픽, 감동 스토리 등 공유 욕구 자극</p>
+            <p class="text-white/70">밈, 인포그래픽, 감동 스토리 등 공유 욕구 자극</p>
           </li>
         </ol>
 
@@ -3295,7 +3295,7 @@ export const blogPosts: BlogPost[] = [
             <li>• 같은 콘텐츠 반복 게시</li>
           </ul>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -3312,8 +3312,8 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X(구 트위터)의 알고리즘은 <strong>오픈소스로 공개</strong>되어 있습니다.
           코드를 분석해서 정확히 어떻게 노출이 결정되는지 알려드립니다.
         </p>
@@ -3325,7 +3325,7 @@ export const blogPosts: BlogPost[] = [
           아래는 실제 알고리즘 코드에서 추출한 가중치입니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">트윗 점수 계산식</h3>
           <ul class="space-y-2 mb-0">
             <li><strong>답글:</strong> +1점</li>
@@ -3356,8 +3356,8 @@ export const blogPosts: BlogPost[] = [
           첫 줄에서 스크롤을 멈추게 해야 합니다.
         </p>
 
-        <div class="bg-muted/30 rounded-xl p-4 my-4 border-l-4 border-blue-500">
-          <p class="mb-2 text-sm text-muted-foreground">좋은 훅 예시:</p>
+        <div class="bg-white/10/30 rounded-xl p-4 my-4 border-l-4 border-blue-500">
+          <p class="mb-2 text-sm text-white/70">좋은 훅 예시:</p>
           <ul class="space-y-1 mb-0">
             <li>"99%의 사람들이 모르는 사실:"</li>
             <li>"나는 [X]를 해서 [놀라운 결과]를 얻었다"</li>
@@ -3429,7 +3429,7 @@ export const blogPosts: BlogPost[] = [
             이후 양질의 콘텐츠로 오가닉 성장을 가속화하세요.
           </p>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -3446,8 +3446,8 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           텔레그램은 <strong>9억 명 이상</strong>의 월간 활성 사용자를 보유한 거대 플랫폼입니다.
           특히 암호화폐, 테크, 금융 분야에서 커뮤니티 구축에 필수적인 채널이 되었습니다.
         </p>
@@ -3455,21 +3455,21 @@ export const blogPosts: BlogPost[] = [
         <h2 id="telegram-vs-others">텔레그램이 특별한 이유</h2>
 
         <div class="grid gap-4 my-6">
-          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+          <div class="flex items-start gap-4 p-4 bg-white/10 rounded-xl border">
             <span class="text-2xl">📢</span>
             <div>
               <h4 class="font-bold">100% 도달률</h4>
               <p class="text-sm mb-0">알고리즘 필터링 없음. 채널 메시지는 모든 구독자에게 전달</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+          <div class="flex items-start gap-4 p-4 bg-white/10 rounded-xl border">
             <span class="text-2xl">👥</span>
             <div>
               <h4 class="font-bold">무제한 구독자</h4>
               <p class="text-sm mb-0">채널 구독자 수 제한 없음. 그룹도 200,000명까지 가능</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+          <div class="flex items-start gap-4 p-4 bg-white/10 rounded-xl border">
             <span class="text-2xl">🤖</span>
             <div>
               <h4 class="font-bold">봇 자동화</h4>
@@ -3524,23 +3524,23 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>크로스 프로모션</strong>
-            <p class="text-muted-foreground">비슷한 규모의 채널과 서로 홍보. 가장 효과적인 무료 성장법</p>
+            <p class="text-white/70">비슷한 규모의 채널과 서로 홍보. 가장 효과적인 무료 성장법</p>
           </li>
           <li>
             <strong>다른 플랫폼에서 유입</strong>
-            <p class="text-muted-foreground">트위터, 유튜브, 디스코드에서 텔레그램 링크 공유</p>
+            <p class="text-white/70">트위터, 유튜브, 디스코드에서 텔레그램 링크 공유</p>
           </li>
           <li>
             <strong>텔레그램 디렉토리 등록</strong>
-            <p class="text-muted-foreground">tgstat.com, telegramchannels.me 등에 채널 등록</p>
+            <p class="text-white/70">tgstat.com, telegramchannels.me 등에 채널 등록</p>
           </li>
           <li>
             <strong>가치 있는 콘텐츠 제공</strong>
-            <p class="text-muted-foreground">독점 정보, 빠른 속보, 무료 리소스로 차별화</p>
+            <p class="text-white/70">독점 정보, 빠른 속보, 무료 리소스로 차별화</p>
           </li>
           <li>
             <strong>일관된 포스팅 스케줄</strong>
-            <p class="text-muted-foreground">매일 정해진 시간에 포스팅하여 습관화 유도</p>
+            <p class="text-white/70">매일 정해진 시간에 포스팅하여 습관화 유도</p>
           </li>
         </ol>
 
@@ -3560,7 +3560,7 @@ export const blogPosts: BlogPost[] = [
             신뢰도를 구축하고 오가닉 성장의 기반을 마련하세요.
           </p>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -3577,8 +3577,8 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           트위치는 <strong>라이브 스트리밍의 왕</strong>입니다.
           게임, Just Chatting, 음악 등 다양한 카테고리에서 풀타임 스트리머로 성공하는 방법을 알려드립니다.
         </p>
@@ -3590,28 +3590,28 @@ export const blogPosts: BlogPost[] = [
             <div class="w-16 h-16 rounded-full bg-gray-500 flex items-center justify-center text-white font-bold">일반</div>
             <div>
               <p class="font-bold mb-1">일반 스트리머</p>
-              <p class="text-sm text-muted-foreground mb-0">누구나 시작 가능. 수익화 불가</p>
+              <p class="text-sm text-white/70 mb-0">누구나 시작 가능. 수익화 불가</p>
             </div>
           </div>
           <div class="flex items-center gap-4 p-4 bg-purple-500/10 rounded-xl border border-purple-500/30">
             <div class="w-16 h-16 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xs">Affiliate</div>
             <div>
               <p class="font-bold mb-1">제휴 스트리머 (Affiliate)</p>
-              <p class="text-sm text-muted-foreground mb-0">구독, 비트, 광고 수익 가능. 팔로워 50명 + 방송 7일 + 평균 시청자 3명</p>
+              <p class="text-sm text-white/70 mb-0">구독, 비트, 광고 수익 가능. 팔로워 50명 + 방송 7일 + 평균 시청자 3명</p>
             </div>
           </div>
           <div class="flex items-center gap-4 p-4 bg-purple-500/10 rounded-xl border border-purple-500/30">
             <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold text-xs">Partner</div>
             <div>
               <p class="font-bold mb-1">파트너 스트리머 (Partner)</p>
-              <p class="text-sm text-muted-foreground mb-0">최고 수익 분배율 + 전용 이모티콘 슬롯. 평균 시청자 75명+ 필요</p>
+              <p class="text-sm text-white/70 mb-0">최고 수익 분배율 + 전용 이모티콘 슬롯. 평균 시청자 75명+ 필요</p>
             </div>
           </div>
         </div>
 
         <h2 id="affiliate-requirements">Affiliate 조건 달성하기</h2>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">Affiliate 조건 (30일 내 달성)</h3>
           <ul class="space-y-2 mb-0">
             <li>✅ 팔로워 <strong>50명</strong> 이상</li>
@@ -3626,23 +3626,23 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>적은 시청자 게임/카테고리 선택</strong>
-            <p class="text-muted-foreground">롤, 발로란트보다 틈새 게임에서 디스커버리 확률이 100배 높음</p>
+            <p class="text-white/70">롤, 발로란트보다 틈새 게임에서 디스커버리 확률이 100배 높음</p>
           </li>
           <li>
             <strong>일정한 스케줄 유지</strong>
-            <p class="text-muted-foreground">매일 같은 시간에 방송하면 시청자가 습관적으로 찾아옴</p>
+            <p class="text-white/70">매일 같은 시간에 방송하면 시청자가 습관적으로 찾아옴</p>
           </li>
           <li>
             <strong>채팅과 적극적으로 소통</strong>
-            <p class="text-muted-foreground">모든 채팅에 반응. 시청자 이름 불러주기</p>
+            <p class="text-white/70">모든 채팅에 반응. 시청자 이름 불러주기</p>
           </li>
           <li>
             <strong>다른 플랫폼에서 홍보</strong>
-            <p class="text-muted-foreground">트위터, 틱톡, 유튜브에서 하이라이트 클립 공유</p>
+            <p class="text-white/70">트위터, 틱톡, 유튜브에서 하이라이트 클립 공유</p>
           </li>
           <li>
             <strong>네트워킹</strong>
-            <p class="text-muted-foreground">비슷한 규모의 스트리머와 협업, 레이드 주고받기</p>
+            <p class="text-white/70">비슷한 규모의 스트리머와 협업, 레이드 주고받기</p>
           </li>
         </ol>
 
@@ -3684,7 +3684,7 @@ export const blogPosts: BlogPost[] = [
             초기 부스트를 받고 Affiliate 조건을 빠르게 달성하세요.
           </p>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -3701,8 +3701,8 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           디스코드는 <strong>월간 활성 사용자 1.5억 명</strong>의 거대 플랫폼입니다.
           게임, NFT, 크리에이터, 스타트업 등 모든 분야에서 커뮤니티 허브로 자리잡았습니다.
         </p>
@@ -3718,7 +3718,7 @@ export const blogPosts: BlogPost[] = [
 
         <h2 id="server-setup">서버 기본 설정</h2>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">필수 채널 구성</h3>
           <ul class="space-y-2 mb-0">
             <li>📢 <strong>#공지사항:</strong> 중요 소식 (읽기 전용)</li>
@@ -3735,51 +3735,51 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>다른 플랫폼에서 유입</strong>
-            <p class="text-muted-foreground">유튜브, 트위터, 인스타에서 디스코드 초대 링크 공유</p>
+            <p class="text-white/70">유튜브, 트위터, 인스타에서 디스코드 초대 링크 공유</p>
           </li>
           <li>
             <strong>서버 디스커버리 활용</strong>
-            <p class="text-muted-foreground">디스코드 내장 검색에 서버 등록 (멤버 1,000명 이상 필요)</p>
+            <p class="text-white/70">디스코드 내장 검색에 서버 등록 (멤버 1,000명 이상 필요)</p>
           </li>
           <li>
             <strong>서버 리스팅 사이트 등록</strong>
-            <p class="text-muted-foreground">disboard.org, top.gg, discord.me 등에 등록</p>
+            <p class="text-white/70">disboard.org, top.gg, discord.me 등에 등록</p>
           </li>
           <li>
             <strong>이벤트 & 기브어웨이</strong>
-            <p class="text-muted-foreground">정기적인 이벤트로 참여도와 신규 유입 증가</p>
+            <p class="text-white/70">정기적인 이벤트로 참여도와 신규 유입 증가</p>
           </li>
           <li>
             <strong>파트너십</strong>
-            <p class="text-muted-foreground">비슷한 주제의 서버와 상호 홍보</p>
+            <p class="text-white/70">비슷한 주제의 서버와 상호 홍보</p>
           </li>
         </ol>
 
         <h2 id="essential-bots">필수 디스코드 봇</h2>
 
         <div class="grid gap-4 my-6">
-          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+          <div class="flex items-start gap-4 p-4 bg-white/10 rounded-xl border">
             <span class="text-2xl">🤖</span>
             <div>
               <h4 class="font-bold">MEE6</h4>
               <p class="text-sm mb-0">환영 메시지, 레벨 시스템, 자동 모더레이션</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+          <div class="flex items-start gap-4 p-4 bg-white/10 rounded-xl border">
             <span class="text-2xl">🎵</span>
             <div>
               <h4 class="font-bold">Hydra / Rythm</h4>
               <p class="text-sm mb-0">음악 재생 봇 (음성 채널용)</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+          <div class="flex items-start gap-4 p-4 bg-white/10 rounded-xl border">
             <span class="text-2xl">🎟️</span>
             <div>
               <h4 class="font-bold">Ticket Tool</h4>
               <p class="text-sm mb-0">1:1 지원 티켓 시스템</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 p-4 bg-muted/50 rounded-xl border">
+          <div class="flex items-start gap-4 p-4 bg-white/10 rounded-xl border">
             <span class="text-2xl">📊</span>
             <div>
               <h4 class="font-bold">Statbot</h4>
@@ -3806,7 +3806,7 @@ export const blogPosts: BlogPost[] = [
             이후 오가닉 성장을 가속화하세요.
           </p>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -3823,8 +3823,8 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           유튜브 쇼츠는 <strong>일일 500억 회 이상</strong> 조회되는 거대 플랫폼입니다.
           틱톡과 달리 기존 유튜브 채널과 연동되어 구독자 전환이 쉽습니다.
         </p>
@@ -3835,7 +3835,7 @@ export const blogPosts: BlogPost[] = [
           쇼츠 알고리즘은 일반 유튜브 영상과 <strong>완전히 다르게</strong> 작동합니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">쇼츠 알고리즘 가중치</h3>
           <ol class="space-y-2 mb-0">
             <li><strong>1위: 스와이프 비율</strong> - 얼마나 빨리 스와이프하는가</li>
@@ -3918,19 +3918,19 @@ export const blogPosts: BlogPost[] = [
         <ol class="space-y-4 my-6">
           <li>
             <strong>세로 9:16 비율 필수</strong>
-            <p class="text-muted-foreground">가로 영상은 쇼츠 피드에서 불리함</p>
+            <p class="text-white/70">가로 영상은 쇼츠 피드에서 불리함</p>
           </li>
           <li>
             <strong>#Shorts 해시태그</strong>
-            <p class="text-muted-foreground">제목이나 설명에 #Shorts 포함 (선택사항이지만 권장)</p>
+            <p class="text-white/70">제목이나 설명에 #Shorts 포함 (선택사항이지만 권장)</p>
           </li>
           <li>
             <strong>트렌드 사운드 활용</strong>
-            <p class="text-muted-foreground">인기 있는 오디오를 사용하면 노출 증가</p>
+            <p class="text-white/70">인기 있는 오디오를 사용하면 노출 증가</p>
           </li>
           <li>
             <strong>일관된 업로드</strong>
-            <p class="text-muted-foreground">매일 1-3개 업로드가 이상적</p>
+            <p class="text-white/70">매일 1-3개 업로드가 이상적</p>
           </li>
         </ol>
 
@@ -3941,7 +3941,7 @@ export const blogPosts: BlogPost[] = [
             초기 노출을 확보하고 알고리즘에 올라타세요.
           </p>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -3958,8 +3958,8 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           인스타그램 릴스는 <strong>가장 빠르게 성장하는 기능</strong>입니다.
           Meta가 릴스에 올인하면서, 릴스를 잘 활용하면 팔로워 0명도 수십만 도달이 가능합니다.
         </p>
@@ -3970,7 +3970,7 @@ export const blogPosts: BlogPost[] = [
           인스타그램은 공식적으로 릴스 알고리즘의 핵심 요소를 공개했습니다.
         </p>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">릴스 노출 결정 요소</h3>
           <ol class="space-y-2 mb-0">
             <li><strong>1. 사용자 활동</strong> - 최근에 좋아요/댓글/공유한 릴스 유형</li>
@@ -4070,7 +4070,7 @@ export const blogPosts: BlogPost[] = [
 
         <h2 id="posting-time">최적의 업로드 시간</h2>
 
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <h3 class="text-lg font-bold mb-4">한국 기준 최적 시간</h3>
           <ul class="space-y-2 mb-0">
             <li>🌅 <strong>오전 7-9시:</strong> 출근길 체크</li>
@@ -4087,7 +4087,7 @@ export const blogPosts: BlogPost[] = [
             초기 부스트를 받고 탐색 탭 노출의 기회를 잡으세요.
           </p>
         </div>
-      </article>
+
     `,
   },
   // ============================================
@@ -4104,12 +4104,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           유튜브는 구글 다음으로 큰 검색 엔진입니다. SEO를 제대로 하면 영상이 몇 년이 지나도 꾸준히 조회수를 올립니다.
         </p>
         <h2>유튜브 SEO의 핵심 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>제목:</strong> 핵심 키워드를 앞에 배치, 60자 이내</li>
             <li><strong>설명:</strong> 첫 2줄에 키워드 포함, 최소 250자</li>
@@ -4147,7 +4147,7 @@ export const blogPosts: BlogPost[] = [
           <h4 class="font-bold text-amber-600 dark:text-amber-400">Pro Tip</h4>
           <p class="mt-2">초반 24-48시간의 성과가 SEO 랭킹에 결정적입니다. INFLUX의 유튜브 조회수 서비스로 초기 부스트를 받으면 검색 순위가 빠르게 상승합니다.</p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -4161,12 +4161,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           썸네일은 영상의 첫인상입니다. 아무리 좋은 콘텐츠도 클릭되지 않으면 의미가 없습니다.
         </p>
         <h2>썸네일이 중요한 이유</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>CTR(클릭률):</strong> 알고리즘이 영상 품질을 판단하는 핵심 지표</li>
             <li><strong>첫인상:</strong> 0.5초 만에 클릭 여부 결정</li>
@@ -4175,11 +4175,11 @@ export const blogPosts: BlogPost[] = [
         </div>
         <h2>고성과 썸네일의 5가지 법칙</h2>
         <ol class="space-y-4">
-          <li><strong>1. 얼굴 클로즈업</strong><p class="text-muted-foreground">감정이 담긴 표정은 클릭률을 30% 이상 높입니다</p></li>
-          <li><strong>2. 대비되는 색상</strong><p class="text-muted-foreground">노랑+검정, 빨강+흰색 등 눈에 띄는 조합</p></li>
-          <li><strong>3. 텍스트 3단어 이내</strong><p class="text-muted-foreground">모바일에서도 읽히는 큰 글씨</p></li>
-          <li><strong>4. 호기심 유발</strong><p class="text-muted-foreground">"결과는?" "어떻게 됐을까?" 같은 궁금증</p></li>
-          <li><strong>5. 일관된 브랜딩</strong><p class="text-muted-foreground">같은 폰트, 색상, 레이아웃 유지</p></li>
+          <li><strong>1. 얼굴 클로즈업</strong><p class="text-white/70">감정이 담긴 표정은 클릭률을 30% 이상 높입니다</p></li>
+          <li><strong>2. 대비되는 색상</strong><p class="text-white/70">노랑+검정, 빨강+흰색 등 눈에 띄는 조합</p></li>
+          <li><strong>3. 텍스트 3단어 이내</strong><p class="text-white/70">모바일에서도 읽히는 큰 글씨</p></li>
+          <li><strong>4. 호기심 유발</strong><p class="text-white/70">"결과는?" "어떻게 됐을까?" 같은 궁금증</p></li>
+          <li><strong>5. 일관된 브랜딩</strong><p class="text-white/70">같은 폰트, 색상, 레이아웃 유지</p></li>
         </ol>
         <h2>피해야 할 실수</h2>
         <ul class="space-y-2">
@@ -4196,7 +4196,7 @@ export const blogPosts: BlogPost[] = [
             <li>• Snappa - 유튜브 특화</li>
           </ul>
         </div>
-      </article>
+
     `,
   },
   {
@@ -4210,12 +4210,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           커뮤니티 탭은 영상 없이도 구독자와 소통할 수 있는 강력한 도구입니다.
         </p>
         <h2>커뮤니티 탭의 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>알림 발송:</strong> 구독자에게 직접 알림 전달</li>
             <li><strong>참여 유도:</strong> 투표, 퀴즈로 인터랙션</li>
@@ -4243,7 +4243,7 @@ export const blogPosts: BlogPost[] = [
           <h4 class="font-bold text-amber-600 dark:text-amber-400">핵심 팁</h4>
           <p class="mt-2">커뮤니티 게시물의 좋아요 수도 채널 성장에 기여합니다. INFLUX에서 커뮤니티 게시물 좋아요 서비스도 제공합니다.</p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -4257,12 +4257,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           광고 수익은 불안정합니다. 멤버십은 매달 고정 수익을 보장하는 최고의 수익화 방법입니다.
         </p>
         <h2>멤버십 자격 조건</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li>✅ 구독자 1,000명 이상</li>
             <li>✅ 파트너 프로그램 가입</li>
@@ -4304,7 +4304,7 @@ export const blogPosts: BlogPost[] = [
           <li><strong>3. 독점 혜택</strong> - 다른 곳에서 못 보는 콘텐츠</li>
           <li><strong>4. 감사 표현</strong> - 영상에서 멤버 언급</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -4318,12 +4318,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           라이브는 구독자와 직접 소통하는 가장 강력한 방법입니다. 충성 팬과 슈퍼챗 수익을 동시에 얻으세요.
         </p>
         <h2>라이브의 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>알고리즘 부스트:</strong> 라이브 중 구독자에게 알림 발송</li>
             <li><strong>슈퍼챗 수익:</strong> 시청자가 직접 후원</li>
@@ -4349,14 +4349,14 @@ export const blogPosts: BlogPost[] = [
           </ul>
         </div>
         <h2>최적의 라이브 시간</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li>📅 평일: 저녁 8-10시</li>
             <li>📅 주말: 오후 2-4시 또는 저녁 7-9시</li>
             <li>📅 길이: 1-2시간이 최적</li>
           </ul>
         </div>
-      </article>
+
     `,
   },
   // 유튜브 추가 글 (6-10)
@@ -4371,12 +4371,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           브랜딩은 시청자가 당신의 채널을 기억하게 만드는 핵심입니다. 일관된 브랜딩으로 전문성을 보여주세요.
         </p>
         <h2>채널 브랜딩 핵심 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>채널 이름:</strong> 기억하기 쉽고 검색 가능한 이름</li>
             <li><strong>프로필 사진:</strong> 800x800px, 얼굴 또는 로고</li>
@@ -4399,7 +4399,7 @@ export const blogPosts: BlogPost[] = [
           <li>연락처 (비즈니스 문의용)</li>
           <li>SNS 링크</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -4413,12 +4413,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           재생목록은 시청자를 채널에 오래 머물게 하는 강력한 도구입니다. 제대로 활용하면 시청 시간이 2배 이상 늘어납니다.
         </p>
         <h2>재생목록의 알고리즘 효과</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>세션 시간 증가:</strong> 다음 영상 자동 재생</li>
             <li><strong>검색 노출:</strong> 재생목록도 검색 결과에 표시</li>
@@ -4438,7 +4438,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 상세한 재생목록 설명</li>
           <li>✅ 매력적인 첫 번째 영상 (썸네일이 대표 이미지)</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4452,12 +4452,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           시청 지속시간(Watch Time)은 유튜브 알고리즘의 핵심 지표입니다. 끝까지 보게 만드는 기술을 익히세요.
         </p>
         <h2>시청 지속시간이 중요한 이유</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <p>유튜브는 <strong>총 시청 시간</strong>을 기준으로 영상을 추천합니다. 10분 영상의 평균 시청 시간이 7분이면 → 알고리즘 추천 확률 UP!</p>
         </div>
         <h2>10가지 시청 지속시간 높이는 기법</h2>
@@ -4477,7 +4477,7 @@ export const blogPosts: BlogPost[] = [
           <h4 class="font-bold text-amber-600 dark:text-amber-400">분석 팁</h4>
           <p class="mt-2">YouTube Studio의 "시청자 유지" 그래프에서 이탈 지점을 확인하고 해당 부분을 개선하세요.</p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -4491,12 +4491,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           구독자 1만 명만 되어도 협찬 제안이 들어옵니다. 제대로 준비하면 광고 수익보다 훨씬 큰 수익을 올릴 수 있습니다.
         </p>
         <h2>협찬 받을 수 있는 조건</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>구독자:</strong> 1만 명 이상 (마이크로 인플루언서)</li>
             <li><strong>니치:</strong> 명확한 타겟층 (뷰티, 테크 등)</li>
@@ -4520,9 +4520,9 @@ export const blogPosts: BlogPost[] = [
             <li>• 구독자 10만: 100-300만원</li>
             <li>• 구독자 100만: 500만원 이상</li>
           </ul>
-          <p class="text-sm text-muted-foreground mt-2">* 니치, 참여율에 따라 변동</p>
+          <p class="text-sm text-white/70 mt-2">* 니치, 참여율에 따라 변동</p>
         </div>
-      </article>
+
     `,
   },
   {
@@ -4536,12 +4536,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           감이 아닌 데이터로 성장하세요. YouTube Studio의 분석 기능을 제대로 활용하면 채널 성장 속도가 달라집니다.
         </p>
         <h2>핵심 지표 이해하기</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>노출수:</strong> 썸네일이 표시된 횟수</li>
             <li><strong>CTR:</strong> 노출 대비 클릭률 (4-10%가 평균)</li>
@@ -4563,7 +4563,7 @@ export const blogPosts: BlogPost[] = [
           <li>📉 시청 시간 짧음 → 콘텐츠 품질, 편집 개선</li>
           <li>📉 구독 전환 낮음 → CTA 추가, 채널 브랜딩</li>
         </ul>
-      </article>
+
     `,
   },
   // 유튜브 추가 글 (11-16)
@@ -4578,12 +4578,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           댓글은 단순한 피드백이 아닙니다. 알고리즘 점수를 높이고 충성 팬을 만드는 핵심 도구입니다.
         </p>
         <h2>댓글이 알고리즘에 미치는 영향</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>참여 신호:</strong> 댓글이 많을수록 알고리즘이 "인기 콘텐츠"로 인식</li>
             <li><strong>세션 시간:</strong> 댓글 읽는 시간도 영상 페이지 체류시간에 포함</li>
@@ -4603,7 +4603,7 @@ export const blogPosts: BlogPost[] = [
           <li>🛡️ 링크 포함 댓글 검토 대기</li>
           <li>🛡️ 무시하거나 숨기기 (반응하면 더 커짐)</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4617,8 +4617,8 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           플레이버튼은 크리에이터의 영예입니다. 각 마일스톤별 전략으로 목표를 달성하세요.
         </p>
         <h2>플레이버튼 종류</h2>
@@ -4626,17 +4626,17 @@ export const blogPosts: BlogPost[] = [
           <div class="bg-slate-500/10 border border-slate-500/30 rounded-xl p-5 text-center">
             <p class="text-3xl mb-2">🥈</p>
             <h4 class="font-bold">실버 버튼</h4>
-            <p class="text-muted-foreground">10만 구독자</p>
+            <p class="text-white/70">10만 구독자</p>
           </div>
           <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-5 text-center">
             <p class="text-3xl mb-2">🥇</p>
             <h4 class="font-bold">골드 버튼</h4>
-            <p class="text-muted-foreground">100만 구독자</p>
+            <p class="text-white/70">100만 구독자</p>
           </div>
           <div class="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-5 text-center">
             <p class="text-3xl mb-2">💎</p>
             <h4 class="font-bold">다이아몬드</h4>
-            <p class="text-muted-foreground">1000만 구독자</p>
+            <p class="text-white/70">1000만 구독자</p>
           </div>
         </div>
         <h2>마일스톤별 전략</h2>
@@ -4651,7 +4651,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 조건 충족 시 자동으로 신청 버튼 활성화</li>
           <li>✅ 배송까지 약 1-3개월 소요</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4665,12 +4665,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           최종화면과 카드는 시청자를 채널에 붙잡아두는 강력한 도구입니다.
         </p>
         <h2>최종화면 설정</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>시간:</strong> 마지막 5-20초에 표시</li>
             <li><strong>요소:</strong> 영상 추천, 재생목록, 구독 버튼, 채널 링크</li>
@@ -4689,7 +4689,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ "이 영상도 보세요" 구두 CTA 추가</li>
           <li>✅ 인기 영상을 최종화면에 고정</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4703,8 +4703,8 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           저작권 위반은 수익 박탈, 영상 삭제, 심하면 채널 해지까지 이어집니다. 안전하게 콘텐츠를 만드세요.
         </p>
         <h2>저작권 위반 유형</h2>
@@ -4728,7 +4728,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 해당 구간 음소거 또는 교체</li>
           <li>✅ 수익 공유 수락 (광고 수익 분배)</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4742,12 +4742,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           니치 선정은 유튜브 성공의 80%를 결정합니다. 잘못된 니치에서 아무리 노력해도 성장은 더딥니다.
         </p>
         <h2>좋은 니치의 조건</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>관심:</strong> 최소 1-2년 꾸준히 할 수 있는 주제</li>
             <li><strong>수요:</strong> 검색량이 있는 주제</li>
@@ -4769,7 +4769,7 @@ export const blogPosts: BlogPost[] = [
           <li>🔥 미니멀 라이프</li>
           <li>🔥 시니어 타겟 콘텐츠</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4783,12 +4783,12 @@ export const blogPosts: BlogPost[] = [
     category: '유튜브',
     thumbnail: '/thumbnails/youtube-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           프리미어는 녹화 영상을 라이브처럼 공개하는 기능입니다. 영상 공개를 이벤트로 만드세요.
         </p>
         <h2>프리미어의 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>실시간 채팅:</strong> 구독자들과 함께 시청</li>
             <li><strong>슈퍼챗:</strong> 프리미어 중 후원 가능</li>
@@ -4809,7 +4809,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 프리미어 중 채팅에 적극 참여</li>
           <li>✅ 공개 후 첫 1시간 댓글에 답글</li>
         </ul>
-      </article>
+
     `,
   },
   // ============================================
@@ -4826,12 +4826,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           해시태그는 인스타그램에서 새로운 사람들에게 발견되는 가장 효과적인 방법입니다.
         </p>
         <h2>2026년 해시태그 알고리즘</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>관련성:</strong> 콘텐츠와 관련 없는 해시태그는 페널티</li>
             <li><strong>참여도:</strong> 해시태그 검색 결과에서 상위 노출</li>
@@ -4850,7 +4850,7 @@ export const blogPosts: BlogPost[] = [
           <li>❌ 스팸성 태그 (#follow4follow)</li>
           <li>❌ 차단된 해시태그 (정기적으로 확인 필요)</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4864,12 +4864,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           스토리는 팔로워와 가장 직접적으로 소통할 수 있는 공간입니다. 매일 스토리를 올려야 하는 이유가 있습니다.
         </p>
         <h2>스토리의 알고리즘 효과</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>피드 순위:</strong> 스토리 시청자가 피드 게시물도 더 많이 봄</li>
             <li><strong>DM 유도:</strong> 스토리 답장 → 친밀도 상승 → 더 많은 노출</li>
@@ -4890,7 +4890,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 카테고리별 정리 (소개, 리뷰, FAQ 등)</li>
           <li>✅ 일관된 커버 디자인으로 브랜딩</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4904,12 +4904,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           협업 게시물은 하나의 게시물이 두 계정에 동시에 표시되는 강력한 기능입니다.
         </p>
         <h2>협업 게시물의 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>이중 노출:</strong> 양쪽 팔로워에게 모두 표시</li>
             <li><strong>참여 합산:</strong> 좋아요, 댓글이 하나로 합쳐짐</li>
@@ -4928,7 +4928,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 상대방에게도 이익이 되는 점 강조</li>
           <li>✅ 구체적인 콘텐츠 아이디어 제시</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4942,12 +4942,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           프로필은 당신의 계정을 처음 방문한 사람이 팔로우할지 결정하는 3초의 순간입니다.
         </p>
         <h2>프로필 최적화 체크리스트</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>프로필 사진:</strong> 얼굴 or 로고, 밝고 선명하게</li>
             <li><strong>사용자명:</strong> 검색 가능하고 기억하기 쉽게</li>
@@ -4966,7 +4966,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 가장 중요한 링크를 상단에</li>
           <li>✅ 정기적으로 업데이트 (시즌, 프로모션)</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -4980,12 +4980,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           캐러셀은 인스타그램에서 가장 높은 참여율을 보이는 게시물 형식입니다.
         </p>
         <h2>캐러셀이 효과적인 이유</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>체류 시간:</strong> 여러 장을 넘기면서 오래 머무름</li>
             <li><strong>재노출:</strong> 끝까지 안 보면 다시 피드에 표시</li>
@@ -5005,7 +5005,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 텍스트는 크고 읽기 쉽게</li>
           <li>✅ 화살표로 "넘겨보세요" 유도</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5019,12 +5019,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           인스타그램은 이제 쇼핑 플랫폼입니다. 제품 태그를 활용해 피드에서 바로 구매를 유도하세요.
         </p>
         <h2>인스타 쇼핑 설정 조건</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li>✅ 비즈니스 또는 크리에이터 계정</li>
             <li>✅ 물리적 상품 판매 (서비스 불가)</li>
@@ -5045,7 +5045,7 @@ export const blogPosts: BlogPost[] = [
           <li>🎥 제품 리뷰/언박싱 릴스</li>
           <li>📖 사용법 캐러셀</li>
         </ul>
-      </article>
+
     `,
   },
   // 인스타그램 추가 글 (7-12)
@@ -5060,12 +5060,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           DM은 인스타그램에서 가장 높은 전환율을 보이는 채널입니다. 자동화로 24시간 대응하세요.
         </p>
         <h2>DM 자동화의 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>즉시 응답:</strong> 문의에 바로 답변</li>
             <li><strong>리드 수집:</strong> 이메일, 전화번호 자동 수집</li>
@@ -5084,7 +5084,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ MobileMonkey - 다중 플랫폼 지원</li>
           <li>✅ 인스타그램 빠른 답장 - 기본 기능</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5098,12 +5098,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           감이 아닌 데이터로 성장하세요. 인사이트를 제대로 읽으면 무엇을 개선해야 할지 명확해집니다.
         </p>
         <h2>핵심 지표 이해</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>도달:</strong> 콘텐츠를 본 고유 계정 수</li>
             <li><strong>노출:</strong> 콘텐츠가 표시된 총 횟수</li>
@@ -5124,7 +5124,7 @@ export const blogPosts: BlogPost[] = [
           <li>📈 도달 낮음 → 해시태그, 업로드 시간 변경</li>
           <li>📈 팔로우 전환 낮음 → 프로필 최적화</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5138,12 +5138,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           UGC는 팔로워가 만든 콘텐츠입니다. 직접 만든 광고보다 신뢰도가 훨씬 높습니다.
         </p>
         <h2>UGC의 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>신뢰도:</strong> 실제 고객의 진짜 후기</li>
             <li><strong>콘텐츠 부담 감소:</strong> 직접 제작 안 해도 됨</li>
@@ -5163,7 +5163,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 허락 받은 후 리포스트</li>
           <li>✅ 스토리 하이라이트에 모아두기</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5177,12 +5177,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           라이브는 가장 진정성 있는 소통 방식입니다. 팔로워와 실시간으로 연결하세요.
         </p>
         <h2>라이브의 알고리즘 효과</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>스토리 최상단:</strong> 라이브 중 스토리 맨 앞에 표시</li>
             <li><strong>알림 발송:</strong> 팔로워에게 라이브 시작 알림</li>
@@ -5203,7 +5203,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 댓글 적극적으로 읽고 반응</li>
           <li>✅ 라이브 후 IGTV/릴스로 편집 업로드</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5217,12 +5217,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           피드는 당신의 브랜드를 시각적으로 표현하는 포트폴리오입니다.
         </p>
         <h2>피드 통일감의 중요성</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>첫인상:</strong> 프로필 방문 시 전체 피드를 봄</li>
             <li><strong>전문성:</strong> 통일된 피드 = 전문가 이미지</li>
@@ -5242,7 +5242,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ Lightroom - 프리셋 적용</li>
           <li>✅ Canva - 템플릿 디자인</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5256,12 +5256,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           경품 이벤트는 단기간에 팔로워를 폭발적으로 늘릴 수 있는 가장 효과적인 방법입니다.
         </p>
         <h2>이벤트 참여 조건 설계</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>필수:</strong> 팔로우 + 좋아요</li>
             <li><strong>추가:</strong> 친구 태그 (바이럴 효과)</li>
@@ -5282,7 +5282,7 @@ export const blogPosts: BlogPost[] = [
           <li>⚠️ "인스타그램은 이 이벤트와 무관합니다" 문구</li>
           <li>⚠️ 이벤트 후 언팔로우 방지 (지속적인 가치 제공)</li>
         </ul>
-      </article>
+
     `,
   },
   // 인스타그램 추가 글 (13-17)
@@ -5297,12 +5297,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           올바른 인플루언서와의 협업은 브랜드 인지도를 급격히 높일 수 있습니다.
         </p>
         <h2>인플루언서 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>나노 (1K-10K):</strong> 높은 참여율, 낮은 비용</li>
             <li><strong>마이크로 (10K-100K):</strong> 최적의 가성비</li>
@@ -5324,7 +5324,7 @@ export const blogPosts: BlogPost[] = [
           <li>📊 성과 기반 (CPA, CPS)</li>
           <li>🤝 장기 앰배서더 계약</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5338,12 +5338,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           인스타그램 광고는 정확한 타겟팅으로 적은 비용에도 높은 효과를 낼 수 있습니다.
         </p>
         <h2>광고 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>피드 광고:</strong> 일반 게시물처럼 표시</li>
             <li><strong>스토리 광고:</strong> 전체 화면, 높은 몰입도</li>
@@ -5364,7 +5364,7 @@ export const blogPosts: BlogPost[] = [
           <li>💡 A/B 테스트로 최적 조합 찾기</li>
           <li>💡 ROAS 목표 설정</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5378,12 +5378,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           노트는 DM 상단에 표시되는 짧은 메시지입니다. 60자로 팔로워와 가볍게 소통하세요.
         </p>
         <h2>노트 기능 특징</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>위치:</strong> DM 화면 상단</li>
             <li><strong>길이:</strong> 최대 60자</li>
@@ -5405,7 +5405,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 답장 유도하는 내용</li>
           <li>✅ 스토리와 연계</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5419,12 +5419,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           친한 친구 기능으로 특별한 팔로워에게 독점 콘텐츠를 제공하세요.
         </p>
         <h2>친한 친구 기능</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>스토리:</strong> 선택된 사람만 볼 수 있음</li>
             <li><strong>표시:</strong> 녹색 테두리로 구분</li>
@@ -5443,7 +5443,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ "친친 추가되셨습니다" 알림 발송</li>
           <li>✅ 특별한 느낌 유지</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5457,12 +5457,12 @@ export const blogPosts: BlogPost[] = [
     category: '인스타그램',
     thumbnail: '/thumbnails/instagram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           사진이 시선을 잡는다면, 캡션은 행동을 유도합니다.
         </p>
         <h2>캡션 구조</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ol class="space-y-2">
             <li><strong>1줄:</strong> 훅 (스크롤 멈추게)</li>
             <li><strong>본문:</strong> 가치 제공 또는 스토리</li>
@@ -5483,7 +5483,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 이모지는 포인트로만</li>
           <li>✅ 해시태그는 캡션 끝 또는 첫 댓글</li>
         </ul>
-      </article>
+
     `,
   },
   // ============================================
@@ -5500,12 +5500,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           틱톡에서 사운드는 콘텐츠의 절반입니다. 트렌딩 사운드를 빠르게 캐치하면 알고리즘 부스트를 받습니다.
         </p>
         <h2>트렌딩 사운드 찾는 법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>FYP 탐색:</strong> 자주 들리는 음악 체크</li>
             <li><strong>사운드 페이지:</strong> 사용 영상 수 확인</li>
@@ -5524,7 +5524,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 저작권 문제 없는 사운드 선택</li>
           <li>✅ 음악 + 보이스오버 조합</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5538,12 +5538,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           틱톡 해시태그는 인스타와 다릅니다. 알고리즘이 콘텐츠를 분류하는 도구로 활용됩니다.
         </p>
         <h2>틱톡 해시태그 원리</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>분류:</strong> 알고리즘이 콘텐츠 주제 파악</li>
             <li><strong>검색:</strong> 해시태그 검색 결과에 노출</li>
@@ -5562,7 +5562,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 너무 많으면 스팸으로 인식</li>
           <li>✅ 관련 없는 태그 사용 금지</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5576,12 +5576,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           듀엣과 스티치는 이미 바이럴된 콘텐츠의 힘을 빌리는 강력한 기능입니다.
         </p>
         <h2>듀엣 vs 스티치</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>듀엣:</strong> 원본과 나란히 표시 (리액션, 댄스)</li>
             <li><strong>스티치:</strong> 원본 일부 + 내 영상 연결 (의견, 답변)</li>
@@ -5598,7 +5598,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 독창적인 관점 추가</li>
           <li>✅ 원작자 태그 및 크레딧</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5612,12 +5612,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           틱톡 라이브는 가장 직접적인 수익화 방법입니다. 시청자의 선물이 바로 수익이 됩니다.
         </p>
         <h2>라이브 자격 조건</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li>✅ 팔로워 1,000명 이상</li>
             <li>✅ 만 18세 이상</li>
@@ -5638,7 +5638,7 @@ export const blogPosts: BlogPost[] = [
           <li>💎 선물 시 리액션/특별 감사</li>
           <li>💎 정기 라이브로 팬 습관화</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5652,12 +5652,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           틱톡의 빠른 편집과 트랜지션은 시청자의 시선을 사로잡는 핵심입니다.
         </p>
         <h2>틱톡 내장 편집 기능</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>자르기:</strong> 불필요한 부분 제거</li>
             <li><strong>속도:</strong> 슬로우모션, 빠르게</li>
@@ -5677,7 +5677,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 비트에 맞춰 컷 편집</li>
           <li>✅ 텍스트 오버레이 필수 (무음 시청 대비)</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5691,12 +5691,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           FYP에서 프로필을 방문한 사람을 팔로워로 만드는 것이 성장의 핵심입니다.
         </p>
         <h2>프로필 최적화 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>프로필 사진:</strong> 밝고 선명한 얼굴/로고</li>
             <li><strong>사용자명:</strong> 기억하기 쉽고 검색 가능</li>
@@ -5715,7 +5715,7 @@ export const blogPosts: BlogPost[] = [
           <li>📌 자기소개 영상 고정</li>
           <li>📌 최신 트렌드 영상 고정</li>
         </ul>
-      </article>
+
     `,
   },
   // 틱톡 추가 글 (7-12)
@@ -5730,12 +5730,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           틱톡 분석을 통해 어떤 콘텐츠가 성과가 좋은지 파악하고 전략을 조정하세요.
         </p>
         <h2>핵심 지표</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>조회수:</strong> 영상이 재생된 횟수</li>
             <li><strong>완주율:</strong> 끝까지 시청한 비율 (가장 중요)</li>
@@ -5755,7 +5755,7 @@ export const blogPosts: BlogPost[] = [
           <li>📉 공유 적음 → 공유 욕구 자극 콘텐츠</li>
           <li>📉 팔로우 적음 → 프로필 최적화</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5769,12 +5769,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           챌린지는 틱톡 바이럴의 핵심입니다. 성공적인 챌린지를 만드는 비법을 알아보세요.
         </p>
         <h2>좋은 챌린지의 조건</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>따라하기 쉬움:</strong> 누구나 5분 안에 촬영 가능</li>
             <li><strong>재미/감정:</strong> 웃기거나, 감동적이거나</li>
@@ -5795,7 +5795,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 참여자에게 인센티브 제공</li>
           <li>✅ 베스트 참여자 소개</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5809,12 +5809,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           틱톡샵은 영상에서 바로 구매까지 연결되는 강력한 판매 채널입니다.
         </p>
         <h2>틱톡샵 시작 조건</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li>✅ 비즈니스 계정</li>
             <li>✅ 셀러 센터 등록</li>
@@ -5834,7 +5834,7 @@ export const blogPosts: BlogPost[] = [
           <li>💰 라이브 전용 특가</li>
           <li>💰 실시간 Q&A로 구매 결정 도움</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5848,12 +5848,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           콘텐츠 기둥은 채널의 정체성입니다. 명확한 기둥이 있어야 알고리즘과 팔로워 모두에게 인식됩니다.
         </p>
         <h2>콘텐츠 기둥이란?</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <p>반복적으로 다루는 3-5개의 핵심 주제입니다. 예를 들어 뷰티 크리에이터라면:</p>
           <ul class="space-y-2 mt-4">
             <li>1. 메이크업 튜토리얼</li>
@@ -5875,7 +5875,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 기둥을 순환하며 업로드</li>
           <li>✅ 성과 좋은 기둥 비중 높이기</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5889,12 +5889,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           첫 1초가 모든 것을 결정합니다. 강력한 훅 없이는 아무리 좋은 콘텐츠도 보이지 않습니다.
         </p>
         <h2>훅의 중요성</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <p>틱톡 사용자는 0.3초 만에 스와이프 여부를 결정합니다. 훅은:</p>
           <ul class="space-y-2 mt-4">
             <li>• 완주율 결정</li>
@@ -5916,7 +5916,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 시각적 변화 (빠른 움직임, 밝은 색상)</li>
           <li>✅ 소리로 주의 끌기</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -5930,12 +5930,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           언제, 얼마나 자주 올리느냐가 성장 속도를 결정합니다.
         </p>
         <h2>최적 업로드 시간 (한국)</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>평일:</strong> 오후 6-9시 (퇴근 후)</li>
             <li><strong>주말:</strong> 오전 10-12시, 오후 7-10시</li>
@@ -5954,7 +5954,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 일관된 업로드 시간 유지</li>
           <li>✅ 미리 촬영해두고 예약 업로드</li>
         </ul>
-      </article>
+
     `,
   },
   // 틱톡 추가 글 (13-18)
@@ -5969,12 +5969,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           틱톡 광고는 다른 플랫폼보다 저렴하면서도 바이럴 가능성이 높습니다.
         </p>
         <h2>틱톡 광고 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>인피드 광고:</strong> FYP에 자연스럽게 노출</li>
             <li><strong>스파크 애즈:</strong> 기존 영상을 광고로 부스트</li>
@@ -5988,7 +5988,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 스파크 애즈로 인기 영상 부스트</li>
           <li>✅ A/B 테스트로 최적화</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6002,12 +6002,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           콜라보는 새로운 팔로워를 유입시키는 가장 효과적인 방법입니다.
         </p>
         <h2>콜라보 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>듀엣/스티치:</strong> 비대면 콜라보</li>
             <li><strong>공동 촬영:</strong> 함께 영상 제작</li>
@@ -6021,7 +6021,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 겹치지 않는 팔로워층</li>
           <li>✅ 콘텐츠 스타일 호환</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6035,12 +6035,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           시리즈 콘텐츠는 "다음 편 보려면 팔로우"라는 강력한 CTA를 만듭니다.
         </p>
         <h2>시리즈 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>스토리 시리즈:</strong> 이어지는 이야기</li>
             <li><strong>튜토리얼 시리즈:</strong> 단계별 강의</li>
@@ -6054,7 +6054,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 시리즈 영상들 재생목록화</li>
           <li>✅ 첫 영상에 시리즈 예고</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6068,12 +6068,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           댓글은 알고리즘 점수를 높이고, 때로는 그 자체로 바이럴이 됩니다.
         </p>
         <h2>댓글의 힘</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>알고리즘:</strong> 댓글 많을수록 인기 콘텐츠로 인식</li>
             <li><strong>댓글 영상:</strong> 댓글에 영상으로 답하기</li>
@@ -6086,7 +6086,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 내 영상 댓글에 빠르게 답글</li>
           <li>✅ 댓글 영상으로 후속 콘텐츠 제작</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6100,12 +6100,12 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           그린스크린 효과는 어디서든 어떤 배경이든 가능하게 합니다.
         </p>
         <h2>그린스크린 활용 아이디어</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>뉴스 리포터:</strong> 기사/트윗을 배경으로</li>
             <li><strong>리액션:</strong> 다른 영상에 반응</li>
@@ -6119,7 +6119,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 카메라롤에서 배경 이미지/영상 선택</li>
           <li>✅ 조명 잘 맞추기 (엣지 깔끔하게)</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6133,8 +6133,8 @@ export const blogPosts: BlogPost[] = [
     category: '틱톡',
     thumbnail: '/thumbnails/tiktok-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           조회수가 갑자기 급감했다면 섀도우밴을 의심해보세요.
         </p>
         <h2>섀도우밴 증상</h2>
@@ -6159,7 +6159,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 해시태그 전략 변경</li>
           <li>✅ 앱 재설치 및 계정 재로그인</li>
         </ul>
-      </article>
+
     `,
   },
   // ============================================
@@ -6176,12 +6176,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           페이스북 페이지는 비즈니스의 온라인 명함입니다. 최적화된 페이지가 신뢰와 전환을 만듭니다.
         </p>
         <h2>페이지 필수 설정</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>프로필 사진:</strong> 180x180px, 로고 권장</li>
             <li><strong>커버 이미지:</strong> 820x312px, 브랜드 메시지</li>
@@ -6196,7 +6196,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 운영 시간, 위치 정보</li>
           <li>✅ CTA 버튼 설정 (예약, 문의 등)</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6210,12 +6210,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           페이스북 그룹은 페이지보다 높은 도달률을 보입니다. 커뮤니티의 힘을 활용하세요.
         </p>
         <h2>그룹 vs 페이지</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>그룹:</strong> 양방향 소통, 높은 참여율, 커뮤니티</li>
             <li><strong>페이지:</strong> 일방향 브로드캐스트, 광고 가능, 공식 채널</li>
@@ -6234,7 +6234,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 다른 그룹에서 가치 제공 후 유도</li>
           <li>✅ 이벤트, 챌린지로 활성화</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6248,12 +6248,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           페이스북 광고는 가장 강력한 타겟팅을 제공합니다. 제대로 설정하면 적은 비용으로 높은 ROI를 달성할 수 있습니다.
         </p>
         <h2>캠페인 목표 선택</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>인지도:</strong> 브랜드 인지, 도달</li>
             <li><strong>고려:</strong> 트래픽, 참여, 앱 설치</li>
@@ -6273,7 +6273,7 @@ export const blogPosts: BlogPost[] = [
           <li>💰 테스트 후 성과 좋은 광고에 집중</li>
           <li>💰 CBO (캠페인 예산 최적화) 활용</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6287,12 +6287,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           페이스북도 릴스를 밀고 있습니다. 숏폼 콘텐츠로 새로운 오디언스에게 도달하세요.
         </p>
         <h2>페이스북 릴스의 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>높은 노출:</strong> 알고리즘이 릴스 우대</li>
             <li><strong>새로운 오디언스:</strong> 팔로워 외 노출</li>
@@ -6306,7 +6306,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 텍스트 오버레이 필수</li>
           <li>✅ 트렌딩 사운드 활용</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6320,12 +6320,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           메신저는 이메일보다 80% 높은 오픈율을 보입니다. 직접 대화로 고객을 전환하세요.
         </p>
         <h2>메신저 마케팅 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>메신저 광고:</strong> 클릭 시 메신저로 연결</li>
             <li><strong>챗봇:</strong> 자동 응답 및 리드 수집</li>
@@ -6339,7 +6339,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 예약, 주문 접수</li>
           <li>✅ 리드 정보 수집</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6353,12 +6353,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           페이스북 라이브는 일반 영상보다 6배 높은 참여율을 보입니다.
         </p>
         <h2>라이브의 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>알림:</strong> 팔로워에게 라이브 시작 알림</li>
             <li><strong>상단 노출:</strong> 뉴스피드 상단에 표시</li>
@@ -6372,7 +6372,7 @@ export const blogPosts: BlogPost[] = [
           <li>📺 이벤트 생중계</li>
           <li>📺 비하인드 씬</li>
         </ul>
-      </article>
+
     `,
   },
   // 페이스북 추가 글 (7-12)
@@ -6387,12 +6387,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           페이스북은 영상 콘텐츠를 우대합니다. 영상으로 더 많은 도달과 참여를 얻으세요.
         </p>
         <h2>영상 최적화 팁</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>길이:</strong> 1-3분이 최적 (너무 길면 이탈)</li>
             <li><strong>자막:</strong> 85%가 무음으로 시청</li>
@@ -6407,7 +6407,7 @@ export const blogPosts: BlogPost[] = [
           <li>📹 고객 후기</li>
           <li>📹 제품 데모</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6421,12 +6421,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           페이스북 이벤트는 참가자에게 알림을 보내고 바이럴을 유도하는 강력한 도구입니다.
         </p>
         <h2>이벤트 만들기</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>커버 이미지:</strong> 1920x1080px 권장</li>
             <li><strong>제목:</strong> 명확하고 매력적으로</li>
@@ -6440,7 +6440,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ 관련 그룹에 공유</li>
           <li>✅ 참가 확정자에게 친구 초대 요청</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6454,12 +6454,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           픽셀 없이 페이스북 광고를 하면 절반만 하는 것입니다. 데이터가 광고 최적화의 핵심입니다.
         </p>
         <h2>픽셀이란?</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <p>웹사이트에 설치하는 코드 조각으로:</p>
           <ul class="space-y-2 mt-4">
             <li>• 방문자 행동 추적</li>
@@ -6475,7 +6475,7 @@ export const blogPosts: BlogPost[] = [
           <li>📊 Purchase - 구매 완료</li>
           <li>📊 Lead - 리드 수집</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6489,12 +6489,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           계획 없는 포스팅은 시간 낭비입니다. 콘텐츠 캘린더로 체계적으로 운영하세요.
         </p>
         <h2>캘린더 구성 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>날짜/시간:</strong> 언제 발행할지</li>
             <li><strong>콘텐츠 유형:</strong> 이미지, 영상, 링크</li>
@@ -6509,7 +6509,7 @@ export const blogPosts: BlogPost[] = [
           <li>✅ Hootsuite, Buffer</li>
           <li>✅ Notion, Google Sheets</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6523,12 +6523,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           데이터 없이 운영하면 암흑 속을 걷는 것과 같습니다. 인사이트로 방향을 잡으세요.
         </p>
         <h2>핵심 지표</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>도달:</strong> 콘텐츠를 본 사람 수</li>
             <li><strong>참여:</strong> 좋아요, 댓글, 공유</li>
@@ -6542,7 +6542,7 @@ export const blogPosts: BlogPost[] = [
           <li>📈 팔로워가 활발한 시간대</li>
           <li>📈 팔로워 인구통계</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6556,12 +6556,12 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           스토리는 피드 상단에 표시됩니다. 매일 올려서 상단 노출을 유지하세요.
         </p>
         <h2>스토리 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>상단 노출:</strong> 뉴스피드 최상단</li>
             <li><strong>부담 없음:</strong> 24시간 후 자동 삭제</li>
@@ -6575,7 +6575,7 @@ export const blogPosts: BlogPost[] = [
           <li>📱 투표/질문으로 참여 유도</li>
           <li>📱 새 게시물 알림</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6589,14 +6589,14 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           페이스북 샵은 별도 쇼핑몰 없이도 SNS에서 직접 판매할 수 있는 강력한 도구입니다.
           설정부터 최적화까지 완벽하게 알려드립니다.
         </p>
 
         <h2>페이스북 샵 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>무료:</strong> 플랫폼 이용료 없음</li>
             <li><strong>즉시 구매:</strong> 앱 내에서 결제 가능</li>
@@ -6620,7 +6620,7 @@ export const blogPosts: BlogPost[] = [
           <li>🛒 고객 리뷰 적극 활용</li>
           <li>🛒 인스타그램 샵과 연동</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6634,8 +6634,8 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           느낌이 아닌 데이터로 광고를 최적화하세요. A/B 테스트는 광고 성과를
           과학적으로 개선하는 가장 확실한 방법입니다.
         </p>
@@ -6647,7 +6647,7 @@ export const blogPosts: BlogPost[] = [
         </p>
 
         <h2>테스트 가능한 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>크리에이티브:</strong> 이미지, 영상, 카피</li>
             <li><strong>타겟:</strong> 연령, 관심사, 지역</li>
@@ -6671,7 +6671,7 @@ export const blogPosts: BlogPost[] = [
           <li>📊 결과 기록하고 학습</li>
           <li>📊 승리한 버전으로 스케일업</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6685,14 +6685,14 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           비즈니스 스위트로 페이스북과 인스타그램을 한 곳에서 효율적으로 관리하세요.
           시간을 절약하고 생산성을 높일 수 있습니다.
         </p>
 
         <h2>비즈니스 스위트 핵심 기능</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>통합 받은편지함:</strong> FB/IG 메시지 한 곳에서</li>
             <li><strong>콘텐츠 예약:</strong> 게시물 미리 스케줄링</li>
@@ -6716,7 +6716,7 @@ export const blogPosts: BlogPost[] = [
           <li>콘텐츠 라이브러리 정리</li>
           <li>알림 설정 최적화</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -6730,14 +6730,14 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           팔로워 숫자보다 중요한 것은 참여하는 커뮤니티입니다.
           진정한 팬층을 만들면 자연스럽게 성장합니다.
         </p>
 
         <h2>커뮤니티 관리 원칙</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>일관성:</strong> 규칙적인 소통</li>
             <li><strong>진정성:</strong> 인간적인 대화</li>
@@ -6761,7 +6761,7 @@ export const blogPosts: BlogPost[] = [
           <li>해결 과정 투명하게 공유</li>
           <li>트롤은 무시하거나 차단</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -6775,14 +6775,14 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           크리에이터 스튜디오는 콘텐츠 제작자를 위한 전문 도구입니다.
           콘텐츠 관리부터 수익화까지 한 곳에서 해결하세요.
         </p>
 
         <h2>크리에이터 스튜디오 기능</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>콘텐츠 라이브러리:</strong> 모든 게시물 관리</li>
             <li><strong>상세 인사이트:</strong> 깊이 있는 분석</li>
@@ -6806,7 +6806,7 @@ export const blogPosts: BlogPost[] = [
           <li>💰 독점 콘텐츠로 구독 유도</li>
           <li>💰 음악은 저작권 프리로</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -6820,14 +6820,14 @@ export const blogPosts: BlogPost[] = [
     category: '페이스북',
     thumbnail: '/thumbnails/facebook-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           협업 게시물은 상대방의 팔로워에게도 노출됩니다.
           서로 윈윈하는 콜라보로 함께 성장하세요.
         </p>
 
         <h2>협업 게시물 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>양쪽 노출:</strong> 두 페이지 모두에 표시</li>
             <li><strong>신뢰 전이:</strong> 상대방 팬의 신뢰 획득</li>
@@ -6851,7 +6851,7 @@ export const blogPosts: BlogPost[] = [
           <li>공동 이벤트/경품</li>
           <li>전문가 대담</li>
         </ol>
-      </article>
+
     `,
   },
   // ============================================
@@ -6868,13 +6868,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X(구 트위터)의 알고리즘은 공개되어 있습니다. 이를 활용하면 노출을 극대화할 수 있습니다.
         </p>
 
         <h2>X 알고리즘 핵심 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>답글:</strong> 가중치 27배</li>
             <li><strong>리트윗:</strong> 가중치 1배</li>
@@ -6899,7 +6899,7 @@ export const blogPosts: BlogPost[] = [
           <li>스팸성 멘션</li>
           <li>해시태그 과다 사용</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -6913,13 +6913,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           스레드는 X에서 가장 강력한 콘텐츠 형식입니다. 잘 쓰면 수만 명에게 도달합니다.
         </p>
 
         <h2>바이럴 스레드 공식</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>첫 트윗:</strong> 강렬한 훅으로 시선 끌기</li>
             <li><strong>2-10번째:</strong> 핵심 내용 전달</li>
@@ -6942,7 +6942,7 @@ export const blogPosts: BlogPost[] = [
           <li>단계별 튜토리얼</li>
           <li>큐레이션 (최고의 리소스 모음)</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -6956,13 +6956,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           Spaces는 팔로워와 직접 대화할 수 있는 강력한 도구입니다. 친밀감 형성에 최고입니다.
         </p>
 
         <h2>Spaces 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>실시간 소통:</strong> 즉각적인 Q&A</li>
             <li><strong>친밀감:</strong> 목소리로 신뢰 형성</li>
@@ -6986,7 +6986,7 @@ export const blogPosts: BlogPost[] = [
           <li>다른 SNS에서 홍보</li>
           <li>녹음본 하이라이트 공유</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7000,13 +7000,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           해시태그는 X에서 검색 가능성을 높이는 도구입니다. 하지만 과하면 역효과입니다.
         </p>
 
         <h2>해시태그 황금 규칙</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>개수:</strong> 1-2개가 최적</li>
             <li><strong>위치:</strong> 트윗 끝 또는 자연스럽게 본문에</li>
@@ -7030,7 +7030,7 @@ export const blogPosts: BlogPost[] = [
           <li>트렌드 탭 모니터링</li>
           <li>틈새 커뮤니티 태그 발굴</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7044,13 +7044,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           프로필은 당신의 명함입니다. 3초 안에 "팔로우할 가치가 있다"고 증명해야 합니다.
         </p>
 
         <h2>프로필 필수 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>프로필 사진:</strong> 선명한 얼굴 or 로고</li>
             <li><strong>헤더:</strong> 브랜드/가치 표현</li>
@@ -7074,7 +7074,7 @@ export const blogPosts: BlogPost[] = [
           <li>웹사이트 링크 추가</li>
           <li>X Premium 인증 배지</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7088,13 +7088,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X에서 답글은 가장 높은 가중치를 가집니다. 대화를 유도하는 것이 성장의 핵심입니다.
         </p>
 
         <h2>참여 유도 트윗 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>질문형:</strong> "당신의 의견은?"</li>
             <li><strong>투표:</strong> A vs B 선택</li>
@@ -7118,7 +7118,7 @@ export const blogPosts: BlogPost[] = [
           <li>정기적인 커뮤니티 활동</li>
           <li>멘션으로 감사 표시</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7132,13 +7132,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           일관성이 X 성장의 핵심입니다. 콘텐츠 캘린더로 체계적으로 관리하세요.
         </p>
 
         <h2>주간 콘텐츠 믹스</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>월:</strong> 업계 뉴스/트렌드</li>
             <li><strong>화:</strong> 팁/노하우</li>
@@ -7163,7 +7163,7 @@ export const blogPosts: BlogPost[] = [
           <li>Notion 템플릿 활용</li>
           <li>Google Sheets 자체 관리</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7177,13 +7177,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           느낌이 아닌 데이터로 판단하세요. X 분석 도구로 무엇이 효과적인지 파악하세요.
         </p>
 
         <h2>핵심 지표</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>노출:</strong> 얼마나 많이 보였나</li>
             <li><strong>참여율:</strong> 노출 대비 상호작용</li>
@@ -7208,7 +7208,7 @@ export const blogPosts: BlogPost[] = [
           <li>A/B 테스트</li>
           <li>결과 반영</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7222,13 +7222,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           바이럴은 운이 아닙니다. 패턴이 있습니다. 바이럴 확률을 높이는 공식을 알아봅시다.
         </p>
 
         <h2>바이럴 트윗 특징</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>감정:</strong> 공감, 분노, 놀라움 유발</li>
             <li><strong>가치:</strong> 유용한 정보 제공</li>
@@ -7252,7 +7252,7 @@ export const blogPosts: BlogPost[] = [
           <li>이미지 없는 텍스트만</li>
           <li>CTA 과다 사용</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7266,13 +7266,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X는 크리에이터에게 수익 기회를 제공합니다. 팔로워를 수익으로 전환하는 방법을 알아봅시다.
         </p>
 
         <h2>X 공식 수익화 프로그램</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>광고 수익 공유:</strong> X Premium 구독자 대상</li>
             <li><strong>슈퍼 팔로우:</strong> 유료 구독 (국가 제한)</li>
@@ -7296,7 +7296,7 @@ export const blogPosts: BlogPost[] = [
           <li>최근 3개월 활성 활동</li>
           <li>커뮤니티 가이드라인 준수</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7310,13 +7310,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X에서는 모든 것이 빠르게 퍼집니다. 위기 상황에 대비하고 현명하게 대처하세요.
         </p>
 
         <h2>위기 상황 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>오해/잘못된 정보:</strong> 팩트 체크 후 대응</li>
             <li><strong>실제 실수:</strong> 신속한 사과</li>
@@ -7340,7 +7340,7 @@ export const blogPosts: BlogPost[] = [
           <li>위기 대응 매뉴얼 준비</li>
           <li>브랜드 멘션 모니터링</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7354,13 +7354,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X 광고는 정확한 타겟팅이 강점입니다. 효과적인 캠페인을 만드는 방법을 알아봅시다.
         </p>
 
         <h2>X 광고 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>프로모션 트윗:</strong> 일반 트윗처럼 피드에 표시</li>
             <li><strong>팔로워 광고:</strong> 계정 팔로워 확보</li>
@@ -7384,7 +7384,7 @@ export const blogPosts: BlogPost[] = [
           <li>A/B 테스트 진행</li>
           <li>리포트 분석 및 개선</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7398,13 +7398,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           자동화로 시간을 절약하고 핵심 활동에 집중하세요. 현명한 자동화 방법을 알아봅시다.
         </p>
 
         <h2>자동화 가능한 작업</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>예약 발행:</strong> 트윗 스케줄링</li>
             <li><strong>리포트:</strong> 자동 분석 보고</li>
@@ -7428,7 +7428,7 @@ export const blogPosts: BlogPost[] = [
           <li>자동 DM은 피하기</li>
           <li>자동 팔로우/언팔 금지</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7442,13 +7442,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           리스트는 X의 숨겨진 보석입니다. 효율적인 콘텐츠 소비와 네트워킹에 필수입니다.
         </p>
 
         <h2>리스트 활용 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>업계 리더:</strong> 인사이트 수집</li>
             <li><strong>경쟁사:</strong> 동향 모니터링</li>
@@ -7472,7 +7472,7 @@ export const blogPosts: BlogPost[] = [
           <li>영감을 주는 크리에이터</li>
           <li>지역 커뮤니티</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7486,13 +7486,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           미디어 콘텐츠는 텍스트만 있는 트윗보다 150% 더 많은 참여를 얻습니다.
         </p>
 
         <h2>미디어 유형별 특징</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>이미지:</strong> 정보 전달에 효과적</li>
             <li><strong>GIF:</strong> 반응/감정 표현</li>
@@ -7516,7 +7516,7 @@ export const blogPosts: BlogPost[] = [
           <li>세로 영상도 가능</li>
           <li>2분 20초 이내 권장</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7530,13 +7530,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X 커뮤니티는 특정 주제에 관심 있는 사람들의 공간입니다. 팬층 구축에 강력합니다.
         </p>
 
         <h2>커뮤니티 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>집중된 토론:</strong> 주제에 맞는 대화</li>
             <li><strong>관심 기반:</strong> 같은 관심사 모음</li>
@@ -7560,7 +7560,7 @@ export const blogPosts: BlogPost[] = [
           <li>가치 있는 독점 콘텐츠</li>
           <li>다른 커뮤니티와 협력</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7574,13 +7574,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X는 전문성을 증명하기 좋은 플랫폼입니다. 당신만의 브랜드를 구축하세요.
         </p>
 
         <h2>퍼스널 브랜드 구성 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>전문 분야:</strong> 1-2개에 집중</li>
             <li><strong>고유 관점:</strong> 남과 다른 시각</li>
@@ -7604,7 +7604,7 @@ export const blogPosts: BlogPost[] = [
           <li>오프 토픽은 최소화</li>
           <li>장기적 관점 유지</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7618,13 +7618,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위터',
     thumbnail: '/thumbnails/twitter-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           X의 진정한 가치는 네트워킹입니다. 온라인에서 시작해 오프라인으로 이어지는 관계를 만드세요.
         </p>
 
         <h2>효과적인 네트워킹 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>답글 먼저:</strong> 먼저 가치 제공</li>
             <li><strong>DM:</strong> 진정성 있는 메시지</li>
@@ -7648,7 +7648,7 @@ export const blogPosts: BlogPost[] = [
           <li>관계 구축에 시간 투자</li>
           <li>기브 앤 테이크 균형</li>
         </ol>
-      </article>
+
     `,
   },
   // ============================================
@@ -7665,13 +7665,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           텔레그램은 프라이버시와 기능성으로 급성장 중입니다. 채널 구독자를 효과적으로 늘리는 방법을 알아봅시다.
         </p>
 
         <h2>텔레그램 채널 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>높은 도달률:</strong> 알림 직접 전달</li>
             <li><strong>무제한 구독자:</strong> 제한 없음</li>
@@ -7695,7 +7695,7 @@ export const blogPosts: BlogPost[] = [
           <li>고정 메시지로 핵심 정보</li>
           <li>초대 링크 간결하게</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7709,13 +7709,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           텔레그램 그룹은 최대 20만 명까지 수용 가능합니다. 효과적인 관리로 활발한 커뮤니티를 만드세요.
         </p>
 
         <h2>그룹 vs 채널</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>그룹:</strong> 양방향 대화, 멤버간 소통</li>
             <li><strong>채널:</strong> 일방향 브로드캐스트</li>
@@ -7739,7 +7739,7 @@ export const blogPosts: BlogPost[] = [
           <li>멤버 환영 메시지</li>
           <li>유용한 리소스 공유</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7753,13 +7753,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           텔레그램 봇은 무료로 강력한 자동화를 제공합니다. 봇으로 마케팅을 혁신하세요.
         </p>
 
         <h2>봇으로 할 수 있는 것</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>자동 응답:</strong> FAQ 처리</li>
             <li><strong>콘텐츠 전송:</strong> 예약 발행</li>
@@ -7783,7 +7783,7 @@ export const blogPosts: BlogPost[] = [
           <li>기능 구현 (코딩 또는 노코드)</li>
           <li>그룹/채널에 추가</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7797,13 +7797,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           텔레그램의 강점은 풍부한 미디어와 포맷입니다. 다양한 콘텐츠로 구독자를 사로잡으세요.
         </p>
 
         <h2>텔레그램 콘텐츠 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>텍스트:</strong> 긴 글도 가능</li>
             <li><strong>이미지/영상:</strong> 2GB까지</li>
@@ -7827,7 +7827,7 @@ export const blogPosts: BlogPost[] = [
           <li>CTA 포함 (반응 버튼)</li>
           <li>미리보기 이미지 활용</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7841,13 +7841,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           구독자가 많은 텔레그램 채널은 훌륭한 수익원이 됩니다. 수익화 방법을 알아봅시다.
         </p>
 
         <h2>수익화 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>광고 게재:</strong> 스폰서 포스트</li>
             <li><strong>프리미엄 채널:</strong> 유료 구독</li>
@@ -7871,7 +7871,7 @@ export const blogPosts: BlogPost[] = [
           <li>광고 표시 명확히</li>
           <li>퀄리티 콘텐츠 유지</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7885,13 +7885,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           데이터 기반 의사결정이 성장의 핵심입니다. 텔레그램 분석 도구를 활용하세요.
         </p>
 
         <h2>텔레그램 기본 통계</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>조회수:</strong> 메시지별 조회</li>
             <li><strong>구독자 추이:</strong> 증가/감소</li>
@@ -7915,7 +7915,7 @@ export const blogPosts: BlogPost[] = [
           <li>최적 포스팅 시간</li>
           <li>인기 콘텐츠 유형</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7929,13 +7929,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           좋은 콘텐츠만으로는 부족합니다. 적극적인 홍보로 채널을 알려야 합니다.
         </p>
 
         <h2>무료 홍보 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>크로스 포스팅:</strong> 다른 SNS 활용</li>
             <li><strong>채널 교환:</strong> 비슷한 채널과 교류</li>
@@ -7959,7 +7959,7 @@ export const blogPosts: BlogPost[] = [
           <li>구독자 유지율 확인</li>
           <li>ROI 계산</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -7973,13 +7973,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           텔레그램 프리미엄은 파워 유저를 위한 기능입니다. 비즈니스 활용에 어떤 도움이 되는지 알아봅시다.
         </p>
 
         <h2>프리미엄 주요 기능</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>4GB 업로드:</strong> 대용량 파일</li>
             <li><strong>빠른 다운로드:</strong> 속도 제한 없음</li>
@@ -8002,7 +8002,7 @@ export const blogPosts: BlogPost[] = [
           <li>다수 채널/그룹 관리시 유용</li>
           <li>취미 사용자는 선택 사항</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8016,13 +8016,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           스티커는 텔레그램의 문화입니다. 브랜드 스티커로 바이럴 마케팅을 하세요.
         </p>
 
         <h2>스티커 마케팅 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>바이럴:</strong> 자연스러운 공유</li>
             <li><strong>브랜드 인지:</strong> 대화에서 노출</li>
@@ -8046,7 +8046,7 @@ export const blogPosts: BlogPost[] = [
           <li>인플루언서에게 제공</li>
           <li>그룹에서 적극 사용</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8060,13 +8060,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           텔레그램은 보안과 프라이버시가 강점입니다. 기능을 제대로 활용하세요.
         </p>
 
         <h2>텔레그램 보안 기능</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>비밀 채팅:</strong> E2E 암호화</li>
             <li><strong>2단계 인증:</strong> 추가 보안</li>
@@ -8090,7 +8090,7 @@ export const blogPosts: BlogPost[] = [
           <li>봇 권한 검토</li>
           <li>정기적인 세션 점검</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8104,13 +8104,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           음성 채팅은 클럽하우스 같은 라이브 오디오 경험을 제공합니다. 커뮤니티 소통에 활용하세요.
         </p>
 
         <h2>음성 채팅 기능</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>무제한 참여자:</strong> 대규모 가능</li>
             <li><strong>녹음:</strong> 나중에 공유</li>
@@ -8134,7 +8134,7 @@ export const blogPosts: BlogPost[] = [
           <li>모더레이터 지정</li>
           <li>녹음본 공유로 재활용</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8148,13 +8148,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           미니앱은 텔레그램 안에서 동작하는 웹앱입니다. 강력한 비즈니스 도구가 됩니다.
         </p>
 
         <h2>미니앱으로 할 수 있는 것</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>이커머스:</strong> 쇼핑몰 구축</li>
             <li><strong>게임:</strong> 간단한 게임</li>
@@ -8178,7 +8178,7 @@ export const blogPosts: BlogPost[] = [
           <li>Telegram Web App API 활용</li>
           <li>봇 명령어로 앱 실행</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8192,13 +8192,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           투표와 퀴즈는 참여율을 높이는 최고의 도구입니다. 적극 활용하세요.
         </p>
 
         <h2>투표 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>일반 투표:</strong> 단순 선택</li>
             <li><strong>퀴즈 모드:</strong> 정답 있는 질문</li>
@@ -8222,7 +8222,7 @@ export const blogPosts: BlogPost[] = [
           <li>결과 공유하며 토론 유도</li>
           <li>정기적으로 진행</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8236,13 +8236,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           예약 메시지로 최적의 시간에 콘텐츠를 발행하세요. 시간에 쫓기지 않아도 됩니다.
         </p>
 
         <h2>예약 메시지 기능</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>날짜/시간 지정:</strong> 원하는 시점</li>
             <li><strong>수정 가능:</strong> 발송 전 변경</li>
@@ -8266,7 +8266,7 @@ export const blogPosts: BlogPost[] = [
           <li>날짜와 시간 설정</li>
           <li>예약 메시지 탭에서 관리</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8280,13 +8280,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           토픽 기능으로 그룹을 포럼처럼 사용할 수 있습니다. 주제별로 대화를 정리하세요.
         </p>
 
         <h2>토픽 기능 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>주제별 분리:</strong> 대화 혼란 방지</li>
             <li><strong>검색 용이:</strong> 원하는 대화 찾기</li>
@@ -8311,7 +8311,7 @@ export const blogPosts: BlogPost[] = [
           <li>불필요한 토픽은 닫기</li>
           <li>관련 없는 대화 이동</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8325,13 +8325,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           리액션과 댓글은 채널을 양방향 소통 공간으로 만듭니다. 구독자와의 연결을 강화하세요.
         </p>
 
         <h2>리액션 기능</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>빠른 반응:</strong> 클릭 한 번으로</li>
             <li><strong>다양한 이모지:</strong> 감정 표현</li>
@@ -8355,7 +8355,7 @@ export const blogPosts: BlogPost[] = [
           <li>좋은 댓글 핀</li>
           <li>댓글 이벤트 진행</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8369,13 +8369,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           크로스 프로모션은 무료로 구독자를 늘리는 가장 효과적인 방법입니다.
         </p>
 
         <h2>크로스 프로모션 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>상호 홍보:</strong> 서로의 채널 소개</li>
             <li><strong>콘텐츠 교환:</strong> 게스트 포스트</li>
@@ -8399,7 +8399,7 @@ export const blogPosts: BlogPost[] = [
           <li>홍보 문구 함께 작성</li>
           <li>효과 측정 및 공유</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8413,13 +8413,13 @@ export const blogPosts: BlogPost[] = [
     category: '텔레그램',
     thumbnail: '/thumbnails/telegram-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           저장된 메시지는 당신만의 클라우드입니다. 메모, 파일, 링크를 저장하세요.
         </p>
 
         <h2>저장된 메시지 활용</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>파일 저장:</strong> 2GB까지 무제한</li>
             <li><strong>링크 북마크:</strong> 나중에 볼 것</li>
@@ -8443,7 +8443,7 @@ export const blogPosts: BlogPost[] = [
           <li>중요한 것은 핀</li>
           <li>검색으로 빠르게 찾기</li>
         </ol>
-      </article>
+
     `,
   },
   // ============================================
@@ -8460,13 +8460,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           트위치는 게임, 음악, 토크 등 다양한 콘텐츠를 실시간으로 공유하는 플랫폼입니다. 시작하는 방법을 알아봅시다.
         </p>
 
         <h2>필요한 장비</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>PC:</strong> 최소 i5 프로세서, 8GB RAM</li>
             <li><strong>인터넷:</strong> 업로드 10Mbps 이상</li>
@@ -8491,7 +8491,7 @@ export const blogPosts: BlogPost[] = [
           <li>오디오/비디오 테스트</li>
           <li>방송 시작!</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8505,13 +8505,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           제휴와 파트너는 트위치 수익화의 시작입니다. 조건과 달성 전략을 알아봅시다.
         </p>
 
         <h2>제휴(Affiliate) 조건</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>팔로워:</strong> 50명 이상</li>
             <li><strong>방송 시간:</strong> 최근 30일 500분 이상</li>
@@ -8535,7 +8535,7 @@ export const blogPosts: BlogPost[] = [
           <li>다른 SNS 활용한 홍보</li>
           <li>시청자와 적극 소통</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8549,13 +8549,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           오버레이는 방송의 첫인상입니다. 전문적인 오버레이로 시청자를 사로잡으세요.
         </p>
 
         <h2>오버레이 구성 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>프레임:</strong> 게임 화면 주변 테두리</li>
             <li><strong>웹캠 프레임:</strong> 페이스캠 테두리</li>
@@ -8579,7 +8579,7 @@ export const blogPosts: BlogPost[] = [
           <li>과하지 않게 깔끔하게</li>
           <li>모바일 시청도 고려</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8593,13 +8593,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           채팅 소통이 트위치의 핵심입니다. 시청자와의 연결이 채널 성장을 만듭니다.
         </p>
 
         <h2>효과적인 소통 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>채팅 읽기:</strong> 주기적으로 확인</li>
             <li><strong>이름 부르기:</strong> 개인화된 대응</li>
@@ -8623,7 +8623,7 @@ export const blogPosts: BlogPost[] = [
           <li>타임아웃/밴 기준 정립</li>
           <li>신입 환영 메시지</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8637,13 +8637,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           비트와 구독은 트위치 스트리머의 주요 수익원입니다. 시스템을 이해하고 최적화하세요.
         </p>
 
         <h2>구독 티어</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>Tier 1:</strong> $4.99 (스트리머 50%)</li>
             <li><strong>Tier 2:</strong> $9.99 (스트리머 50%)</li>
@@ -8667,7 +8667,7 @@ export const blogPosts: BlogPost[] = [
           <li>구독자 게임 참여</li>
           <li>구독 감사 인사 필수</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8681,13 +8681,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           레이드는 방송 종료 시 시청자를 다른 채널로 보내는 기능입니다. 네트워킹의 핵심 도구입니다.
         </p>
 
         <h2>레이드란?</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>방송 종료 시:</strong> 시청자 이동</li>
             <li><strong>상대 채널:</strong> 새 시청자 유입</li>
@@ -8711,7 +8711,7 @@ export const blogPosts: BlogPost[] = [
           <li>레이드 목록 관리</li>
           <li>관계 발전시키기</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8725,13 +8725,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           일관된 스케줄은 채널 성장의 핵심입니다. 시청자가 언제 방송하는지 알아야 합니다.
         </p>
 
         <h2>스케줄의 중요성</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>발견성:</strong> 트위치 알고리즘 선호</li>
             <li><strong>습관 형성:</strong> 시청자 루틴</li>
@@ -8755,7 +8755,7 @@ export const blogPosts: BlogPost[] = [
           <li>갑작스러운 변경 공지</li>
           <li>최소 주 3회 권장</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8769,13 +8769,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           이모티콘은 채널의 아이덴티티입니다. 구독의 큰 동기가 되기도 합니다.
         </p>
 
         <h2>이모티콘 슬롯</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>제휴:</strong> 최대 5개</li>
             <li><strong>파트너:</strong> 최대 60개</li>
@@ -8799,7 +8799,7 @@ export const blogPosts: BlogPost[] = [
           <li>게임 관련</li>
           <li>응원/축하</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8813,13 +8813,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           클립은 방송의 명장면을 저장하고 공유하는 최고의 방법입니다.
         </p>
 
         <h2>클립 활용</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>SNS 공유:</strong> 바이럴 콘텐츠</li>
             <li><strong>유튜브:</strong> 쇼츠/하이라이트</li>
@@ -8843,7 +8843,7 @@ export const blogPosts: BlogPost[] = [
           <li>채널 소개 영상으로</li>
           <li>정기적으로 업데이트</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8857,13 +8857,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           채널 포인트는 시청자 참여를 유도하는 무료 시스템입니다. 재미있는 보상을 설정하세요.
         </p>
 
         <h2>포인트 획득 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>시청:</strong> 5분마다 10포인트</li>
             <li><strong>팔로우:</strong> 300포인트</li>
@@ -8887,7 +8887,7 @@ export const blogPosts: BlogPost[] = [
           <li>실현 가능한 보상만</li>
           <li>정기적으로 리뷰</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8901,13 +8901,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           패널은 채널 아래 표시되는 정보 박스입니다. 시청자에게 필요한 정보를 전달하세요.
         </p>
 
         <h2>필수 패널 구성</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>소개:</strong> 스트리머 자기소개</li>
             <li><strong>스케줄:</strong> 방송 시간표</li>
@@ -8931,7 +8931,7 @@ export const blogPosts: BlogPost[] = [
           <li>FAQ</li>
           <li>이벤트/공지</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8945,13 +8945,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           VOD는 실시간으로 보지 못한 시청자에게 기회를 제공합니다. 잘 관리해서 활용하세요.
         </p>
 
         <h2>VOD 보관 기간</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>일반:</strong> 14일</li>
             <li><strong>제휴:</strong> 14일</li>
@@ -8975,7 +8975,7 @@ export const blogPosts: BlogPost[] = [
           <li>챕터 마커 활용</li>
           <li>제목/설명 최적화</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -8989,13 +8989,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           카테고리 선택이 발견 가능성을 결정합니다. 전략적으로 선택하세요.
         </p>
 
         <h2>카테고리 전략</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>대형 게임:</strong> 경쟁 치열, 노출 어려움</li>
             <li><strong>틈새 게임:</strong> 경쟁 적음, 상위 노출 쉬움</li>
@@ -9019,7 +9019,7 @@ export const blogPosts: BlogPost[] = [
           <li>태그 활용하여 세분화</li>
           <li>관련 카테고리 탐색</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9033,13 +9033,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           알림은 시청자 행동에 즉각 반응합니다. 매력적인 알림으로 참여를 유도하세요.
         </p>
 
         <h2>알림 종류</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>팔로우:</strong> 새 팔로워 환영</li>
             <li><strong>구독:</strong> 구독자 감사</li>
@@ -9063,7 +9063,7 @@ export const blogPosts: BlogPost[] = [
           <li>Sound Alerts - 커스텀 사운드</li>
           <li>OWN3D - 프리미엄 팩</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9077,13 +9077,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           PC 없이도 방송 가능합니다. 모바일 방송으로 어디서나 스트리밍하세요.
         </p>
 
         <h2>모바일 방송 장점</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>편리함:</strong> 어디서나 방송</li>
             <li><strong>IRL:</strong> 야외 콘텐츠</li>
@@ -9107,7 +9107,7 @@ export const blogPosts: BlogPost[] = [
           <li>보조배터리 준비</li>
           <li>조용한 장소 선택</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9121,13 +9121,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           음악 저작권은 트위치 방송의 큰 위험요소입니다. 안전하게 음악을 사용하는 방법을 알아봅시다.
         </p>
 
         <h2>DMCA란?</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>저작권 침해 신고:</strong> 자동 삭제</li>
             <li><strong>스트라이크:</strong> 3번이면 영구 밴</li>
@@ -9151,7 +9151,7 @@ export const blogPosts: BlogPost[] = [
           <li>VOD 음소거 설정</li>
           <li>클립 공유 전 확인</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9165,13 +9165,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           데이터는 거짓말하지 않습니다. 분석 도구로 채널을 객관적으로 파악하세요.
         </p>
 
         <h2>주요 지표</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>평균 시청자:</strong> 동시 시청자 평균</li>
             <li><strong>최고 시청자:</strong> 피크 시청자 수</li>
@@ -9195,7 +9195,7 @@ export const blogPosts: BlogPost[] = [
           <li>성장 추세 확인</li>
           <li>목표 설정 및 추적</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9209,13 +9209,13 @@ export const blogPosts: BlogPost[] = [
     category: '트위치',
     thumbnail: '/thumbnails/twitch-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           강력한 커뮤니티가 채널의 진정한 자산입니다. 팬들과 함께 성장하세요.
         </p>
 
         <h2>커뮤니티 형성 요소</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>디스코드:</strong> 오프스트림 소통</li>
             <li><strong>SNS:</strong> 일상 공유</li>
@@ -9239,7 +9239,7 @@ export const blogPosts: BlogPost[] = [
           <li>게임 파티 모집</li>
           <li>구독자 전용 채널</li>
         </ol>
-      </article>
+
     `,
   },
   // ============================================
@@ -9256,13 +9256,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           디스코드는 커뮤니티 운영에 최적화된 플랫폼입니다. 서버 설정부터 시작해봅시다.
         </p>
 
         <h2>서버 생성 단계</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>1단계:</strong> 서버 생성 클릭</li>
             <li><strong>2단계:</strong> 서버 유형 선택</li>
@@ -9286,7 +9286,7 @@ export const blogPosts: BlogPost[] = [
           <li>환영 화면 설정</li>
           <li>초대 링크 커스텀</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9300,13 +9300,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           역할 시스템으로 멤버를 분류하고 권한을 관리하세요. 서버 운영의 핵심입니다.
         </p>
 
         <h2>역할 계층 구조</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>운영자:</strong> 모든 권한</li>
             <li><strong>모더레이터:</strong> 관리 권한</li>
@@ -9330,7 +9330,7 @@ export const blogPosts: BlogPost[] = [
           <li>관리자 권한은 신중히</li>
           <li>정기적인 권한 검토</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9344,13 +9344,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           봇은 서버 관리를 자동화하고 다양한 기능을 추가합니다. 필수 봇들을 알아봅시다.
         </p>
 
         <h2>필수 봇 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>관리 봇:</strong> MEE6, Carl-bot</li>
             <li><strong>음악 봇:</strong> Hydra, Chip</li>
@@ -9374,7 +9374,7 @@ export const blogPosts: BlogPost[] = [
           <li>명령어 접두사 통일</li>
           <li>봇 권한 최소화</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9388,13 +9388,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           좋은 모더레이션이 건강한 커뮤니티를 만듭니다. 효과적인 관리 방법을 알아봅시다.
         </p>
 
         <h2>모더레이션 도구</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>AutoMod:</strong> 자동 필터링</li>
             <li><strong>타임아웃:</strong> 일시 제한</li>
@@ -9418,7 +9418,7 @@ export const blogPosts: BlogPost[] = [
           <li>모더레이터 전용 채널</li>
           <li>정기적인 미팅</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9432,13 +9432,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           멤버 수보다 참여도가 중요합니다. 활발한 커뮤니티를 만드는 방법을 알아봅시다.
         </p>
 
         <h2>참여 유도 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>일일 토픽:</strong> 매일 대화 주제</li>
             <li><strong>이벤트:</strong> 정기 행사</li>
@@ -9462,7 +9462,7 @@ export const blogPosts: BlogPost[] = [
           <li>칭찬/감사 채널</li>
           <li>밈/유머 채널</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9476,13 +9476,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           좋은 서버를 만들었다면 이제 홍보할 차례입니다. 멤버를 늘리는 전략을 알아봅시다.
         </p>
 
         <h2>무료 홍보 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>서버 리스트:</strong> Disboard, top.gg</li>
             <li><strong>파트너 서버:</strong> 크로스 홍보</li>
@@ -9506,7 +9506,7 @@ export const blogPosts: BlogPost[] = [
           <li>정기적인 활동</li>
           <li>가치 있는 콘텐츠</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9520,13 +9520,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           음성 채널은 실시간 소통의 핵심입니다. 다양한 음성 기능을 활용해보세요.
         </p>
 
         <h2>음성 채널 유형</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>일반 음성:</strong> 자유 대화</li>
             <li><strong>스테이지:</strong> 발표/공연용</li>
@@ -9550,7 +9550,7 @@ export const blogPosts: BlogPost[] = [
           <li>공부/작업 카페</li>
           <li>AFK(자리비움) 채널</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9564,13 +9564,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           니트로는 디스코드의 프리미엄 구독입니다. 어떤 혜택이 있는지 알아봅시다.
         </p>
 
         <h2>니트로 혜택</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>이모지:</strong> 모든 서버에서 사용</li>
             <li><strong>업로드:</strong> 100MB 파일</li>
@@ -9593,7 +9593,7 @@ export const blogPosts: BlogPost[] = [
           <li>스트리밍 자주 하면 가치 있음</li>
           <li>부스트로 서버 지원</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9607,13 +9607,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           스레드와 포럼으로 대화를 주제별로 정리하세요. 채널 정돈에 필수입니다.
         </p>
 
         <h2>스레드 vs 포럼</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>스레드:</strong> 특정 메시지에서 분기</li>
             <li><strong>포럼:</strong> 게시판 형식 채널</li>
@@ -9637,7 +9637,7 @@ export const blogPosts: BlogPost[] = [
           <li>중요 스레드 핀</li>
           <li>정기적인 정리</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9651,13 +9651,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           강력한 커뮤니티는 수익원이 될 수 있습니다. 디스코드 수익화 방법을 알아봅시다.
         </p>
 
         <h2>수익화 방법</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>서버 구독:</strong> 프리미엄 역할 판매</li>
             <li><strong>Patreon 연동:</strong> 후원자 혜택</li>
@@ -9681,7 +9681,7 @@ export const blogPosts: BlogPost[] = [
           <li>투명한 가격 정책</li>
           <li>약속은 반드시 이행</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9695,13 +9695,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           웹훅으로 외부 서비스와 디스코드를 연결하세요. 자동 알림 시스템을 구축할 수 있습니다.
         </p>
 
         <h2>웹훅 활용 사례</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>유튜브:</strong> 새 영상 알림</li>
             <li><strong>트위치:</strong> 방송 시작 알림</li>
@@ -9725,7 +9725,7 @@ export const blogPosts: BlogPost[] = [
           <li>Make (Integromat) - 고급 자동화</li>
           <li>n8n - 셀프호스팅 가능</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -9739,13 +9739,13 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="lead text-xl text-muted-foreground">
+
+        <p class="lead text-xl text-white/70">
           스테이지는 큰 규모의 발표나 이벤트에 적합합니다. 활용 방법을 알아봅시다.
         </p>
 
         <h2>스테이지 vs 음성 채널</h2>
-        <div class="bg-muted/50 rounded-xl p-6 my-8 border">
+        <div class="bg-white/10 rounded-xl p-6 my-8 border">
           <ul class="space-y-2">
             <li><strong>스피커:</strong> 발언권 있는 사람</li>
             <li><strong>청중:</strong> 듣기만 가능</li>
@@ -9769,7 +9769,7 @@ export const blogPosts: BlogPost[] = [
           <li>모더레이터 역할 분담</li>
           <li>Q&A 시간 확보</li>
         </ol>
-      </article>
+
     `,
   },
 
@@ -9785,7 +9785,7 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>디스코드 서버와 계정의 보안은 커뮤니티 운영에서 가장 중요한 요소입니다. 해킹, 스팸, 악성 사용자로부터 보호하는 방법을 알아보세요.</p>
 
         <h2>계정 보안 설정</h2>
@@ -9859,7 +9859,7 @@ export const blogPosts: BlogPost[] = [
           <li>의심 계정 일괄 추방</li>
           <li>디스코드 Trust & Safety 신고</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -9873,7 +9873,7 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>커스텀 이모지와 스티커는 디스코드 서버의 정체성을 표현하는 핵심 요소입니다. 멤버들의 참여도를 높이는 이모지 전략을 알아보세요.</p>
 
         <h2>이모지 슬롯 현황</h2>
@@ -9941,7 +9941,7 @@ export const blogPosts: BlogPost[] = [
           <li>멤버 이모지 제안 받기</li>
           <li>시즌별 이모지 업데이트</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -9955,7 +9955,7 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>디스코드 이벤트 기능을 활용하면 커뮤니티 행사를 체계적으로 관리하고 멤버 참여율을 높일 수 있습니다.</p>
 
         <h2>이벤트 유형</h2>
@@ -10019,7 +10019,7 @@ export const blogPosts: BlogPost[] = [
           <li>피드백 수집</li>
           <li>다음 이벤트 예고</li>
         </ol>
-      </article>
+
     `,
   },
   {
@@ -10033,7 +10033,7 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>디스코드 활동(Activities)은 음성 채널에서 멤버들과 게임, 영상 시청 등을 함께 즐길 수 있는 기능입니다.</p>
 
         <h2>인기 활동 목록</h2>
@@ -10098,7 +10098,7 @@ export const blogPosts: BlogPost[] = [
 
         <h2>Nitro 전용 활동</h2>
         <p>일부 프리미엄 활동은 Nitro 구독자만 시작 가능하지만, 초대받으면 누구나 참여할 수 있습니다.</p>
-      </article>
+
     `,
   },
   {
@@ -10112,7 +10112,7 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>효과적인 온보딩 시스템은 신규 멤버의 첫인상을 좌우하고 장기적인 활동을 유도합니다.</p>
 
         <h2>디스코드 공식 온보딩</h2>
@@ -10193,7 +10193,7 @@ export const blogPosts: BlogPost[] = [
           <li>FAQ 채널 연결</li>
           <li>멘토/버디 시스템 운영</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -10207,7 +10207,7 @@ export const blogPosts: BlogPost[] = [
     category: '디스코드',
     thumbnail: '/thumbnails/discord-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>서버 템플릿을 사용하면 검증된 구조로 빠르게 디스코드 서버를 구축할 수 있습니다.</p>
 
         <h2>템플릿이란?</h2>
@@ -10277,7 +10277,7 @@ export const blogPosts: BlogPost[] = [
           <li>변경사항 반영 후 재생성</li>
           <li>버전 관리 (날짜 포함)</li>
         </ol>
-      </article>
+
     `,
   },
 
@@ -10293,7 +10293,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드(Threads)는 인스타그램과 연동되는 텍스트 기반 SNS로, 2023년 출시 이후 빠르게 성장하고 있습니다. 스레드에서 팔로워를 늘리는 핵심 전략을 알아보세요.</p>
 
         <h2>스레드의 특징</h2>
@@ -10361,7 +10361,7 @@ export const blogPosts: BlogPost[] = [
           <li>3개월: 500-2,000 팔로워</li>
           <li>6개월: 2,000-10,000 팔로워</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -10375,7 +10375,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드의 알고리즘을 이해하면 더 많은 사용자에게 콘텐츠를 노출시킬 수 있습니다. 핵심 작동 원리를 알아보세요.</p>
 
         <h2>알고리즘 핵심 요소</h2>
@@ -10446,7 +10446,7 @@ export const blogPosts: BlogPost[] = [
           <li>팔로워 전환율</li>
           <li>프로필 방문 수</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -10460,7 +10460,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드는 텍스트 중심 플랫폼입니다. 참여를 이끌어내는 글쓰기 기법을 마스터하세요.</p>
 
         <h2>효과적인 콘텐츠 공식</h2>
@@ -10530,7 +10530,7 @@ export const blogPosts: BlogPost[] = [
           <li>목: 개인 스토리</li>
           <li>금: 업계 뉴스/트렌드</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -10544,7 +10544,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드는 대화 중심 플랫폼입니다. 일방적인 게시가 아닌 양방향 소통이 성장의 핵심입니다.</p>
 
         <h2>참여율 계산법</h2>
@@ -10607,7 +10607,7 @@ export const blogPosts: BlogPost[] = [
           <li>점심 시간: 12:00-13:00</li>
           <li>퇴근 후: 19:00-22:00</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -10621,7 +10621,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드와 트위터(X)는 비슷해 보이지만 각각의 특성과 장점이 다릅니다. 목적에 맞는 플랫폼을 선택하세요.</p>
 
         <h2>기능 비교</h2>
@@ -10716,7 +10716,7 @@ export const blogPosts: BlogPost[] = [
           <li>광고 없이 깔끔하게 → 스레드</li>
           <li>수익화 목표 → X</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -10730,7 +10730,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>프로필은 스레드에서 첫인상을 결정합니다. 방문자를 팔로워로 전환하는 최적화 전략을 알아보세요.</p>
 
         <h2>프로필 구성 요소</h2>
@@ -10800,7 +10800,7 @@ export const blogPosts: BlogPost[] = [
           <li>뉴스레터 구독 페이지</li>
           <li>시즌별 변경으로 최신 유지</li>
         </ul>
-      </article>
+
     `,
   },
 
@@ -10816,7 +10816,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드의 해시태그 시스템은 트위터와 다릅니다. 플랫폼 특성에 맞는 해시태그 전략을 알아보세요.</p>
 
         <h2>스레드 해시태그 특징</h2>
@@ -10878,7 +10878,7 @@ export const blogPosts: BlogPost[] = [
           <li>관련 토픽 검색</li>
           <li>인스타그램 태그 참고</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -10892,7 +10892,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>올바른 시간에 포스팅하면 같은 콘텐츠도 더 많은 참여를 얻을 수 있습니다. 스레드의 최적 포스팅 시간을 알아보세요.</p>
 
         <h2>한국 기준 최적 시간대</h2>
@@ -10963,7 +10963,7 @@ export const blogPosts: BlogPost[] = [
           <li>콘텐츠 미리 준비</li>
           <li>일관된 포스팅 유지</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -10977,7 +10977,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>트렌드를 빠르게 캐치하고 활용하면 폭발적인 성장을 이룰 수 있습니다. 스레드에서 트렌드를 활용하는 방법을 알아보세요.</p>
 
         <h2>트렌드 발견 방법</h2>
@@ -11046,7 +11046,7 @@ export const blogPosts: BlogPost[] = [
           <li>시즌 이벤트 (연말, 여름)</li>
           <li>정기적 이벤트 (블랙프라이데이)</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11060,7 +11060,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>단순한 팔로워 수보다 활발한 커뮤니티가 더 가치 있습니다. 스레드에서 진정한 커뮤니티를 구축하는 방법을 알아보세요.</p>
 
         <h2>커뮤니티 vs 청중</h2>
@@ -11125,7 +11125,7 @@ export const blogPosts: BlogPost[] = [
           <li>스팸과 홍보 제한</li>
           <li>안전한 공간 유지</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11139,7 +11139,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드 자체에는 아직 수익화 기능이 없지만, 팔로워를 활용해 다양한 방식으로 수익을 창출할 수 있습니다.</p>
 
         <h2>수익화 방법</h2>
@@ -11214,7 +11214,7 @@ export const blogPosts: BlogPost[] = [
           <li>Patreon/멤버십 가입</li>
           <li>웹사이트/쇼핑몰 트래픽</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11228,7 +11228,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>데이터를 분석하면 무엇이 효과적인지 파악하고 전략을 개선할 수 있습니다. 스레드의 분석 도구를 활용하세요.</p>
 
         <h2>주요 측정 지표</h2>
@@ -11301,7 +11301,7 @@ export const blogPosts: BlogPost[] = [
           <li>포스팅 시간 조정</li>
           <li>새로운 형식 실험</li>
         </ul>
-      </article>
+
     `,
   },
 
@@ -11317,7 +11317,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>하나의 콘텐츠를 여러 플랫폼에 효과적으로 배포하면 노력 대비 최대 효과를 얻을 수 있습니다.</p>
 
         <h2>크로스포스팅 전략</h2>
@@ -11383,7 +11383,7 @@ export const blogPosts: BlogPost[] = [
           <li>각 플랫폼 알고리즘 이해</li>
           <li>시간차 게시로 중복 피하기</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11397,7 +11397,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드는 텍스트 중심이지만, 적절한 비주얼 콘텐츠는 참여율을 크게 높일 수 있습니다.</p>
 
         <h2>미디어 사양</h2>
@@ -11460,7 +11460,7 @@ export const blogPosts: BlogPost[] = [
           <li>Figma - 디자인</li>
           <li>Remove.bg - 배경 제거</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11474,7 +11474,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>강력한 개인 브랜드는 팔로워 성장과 수익화의 핵심입니다. 스레드에서 나만의 브랜드를 구축하세요.</p>
 
         <h2>개인 브랜드 요소</h2>
@@ -11539,7 +11539,7 @@ export const blogPosts: BlogPost[] = [
           <li>실패에서 배운 교훈</li>
           <li>일상과 비하인드</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11553,7 +11553,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드는 브랜드가 고객과 진정성 있게 소통할 수 있는 새로운 채널입니다. 비즈니스 마케팅 전략을 알아보세요.</p>
 
         <h2>브랜드 계정 유형</h2>
@@ -11622,7 +11622,7 @@ export const blogPosts: BlogPost[] = [
           <li>리드 및 전환</li>
           <li>고객 감정 분석</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11636,7 +11636,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드는 페디버스(Fediverse)와 연동되어 분산형 소셜 미디어의 가능성을 열고 있습니다. 이 새로운 개념을 이해하세요.</p>
 
         <h2>페디버스란?</h2>
@@ -11704,7 +11704,7 @@ export const blogPosts: BlogPost[] = [
           <li>프라이버시 설정 주의</li>
           <li>스팸/악용 가능성</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11718,7 +11718,7 @@ export const blogPosts: BlogPost[] = [
     category: '스레드',
     thumbnail: '/thumbnails/threads-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>스레드에서 성공하는 크리에이터가 되기 위한 실전 팁을 모았습니다. 다른 플랫폼과 다른 스레드만의 특성을 활용하세요.</p>
 
         <h2>크리에이터 필수 습관</h2>
@@ -11800,7 +11800,7 @@ export const blogPosts: BlogPost[] = [
           <li>협업 콘텐츠 제작</li>
           <li>오프라인 밋업 참여</li>
         </ul>
-      </article>
+
     `,
   },
 
@@ -11816,7 +11816,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>소셜 미디어 마케팅(SMM)은 현대 비즈니스의 필수 역량입니다. 기초부터 탄탄하게 시작하세요.</p>
 
         <h2>SMM이란?</h2>
@@ -11886,7 +11886,7 @@ export const blogPosts: BlogPost[] = [
           <li>일관성 없는 포스팅</li>
           <li>데이터 분석 무시</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11900,7 +11900,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>SMM 패널은 소셜 미디어 마케팅을 효율화하는 강력한 도구입니다. 올바르게 활용하는 방법을 알아보세요.</p>
 
         <h2>SMM 패널이란?</h2>
@@ -11965,7 +11965,7 @@ export const blogPosts: BlogPost[] = [
           <li>보안과 개인정보</li>
           <li>리필/보증 정책</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -11979,7 +11979,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>명확한 전략 없이 SNS를 운영하면 시간과 자원만 낭비됩니다. 체계적인 SMM 전략을 세워보세요.</p>
 
         <h2>전략 수립 프레임워크</h2>
@@ -12053,7 +12053,7 @@ export const blogPosts: BlogPost[] = [
           <li>포스팅 빈도 설정</li>
           <li>브랜드 보이스 정의</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12067,7 +12067,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>SMM의 가치를 증명하려면 ROI를 측정해야 합니다. 데이터 기반으로 성과를 분석하세요.</p>
 
         <h2>ROI 계산 공식</h2>
@@ -12135,7 +12135,7 @@ export const blogPosts: BlogPost[] = [
           <li>월간: 상세 성과 분석</li>
           <li>분기: 전략 검토 및 조정</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12149,7 +12149,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>자동화를 통해 반복 작업을 줄이고 전략적 활동에 집중하세요. 스마트한 SMM 운영 시스템을 구축해보세요.</p>
 
         <h2>자동화 가능 영역</h2>
@@ -12222,7 +12222,7 @@ export const blogPosts: BlogPost[] = [
           <li>개별 리포트 → 자동 대시보드</li>
           <li>실시간 모니터링 → 알림 시스템</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12236,7 +12236,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>콘텐츠 캘린더는 일관된 포스팅과 전략적 콘텐츠 배분의 핵심입니다. 체계적인 관리 시스템을 만들어보세요.</p>
 
         <h2>콘텐츠 캘린더의 필요성</h2>
@@ -12311,7 +12311,7 @@ export const blogPosts: BlogPost[] = [
           <li>제작 및 승인</li>
           <li>예약 게시</li>
         </ol>
-      </article>
+
     `,
   },
 
@@ -12327,7 +12327,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>데이터 없이는 개선도 없습니다. 소셜 미디어 분석을 통해 성과를 측정하고 전략을 최적화하세요.</p>
 
         <h2>분석해야 할 지표</h2>
@@ -12396,7 +12396,7 @@ export const blogPosts: BlogPost[] = [
           <li>월간: 종합 성과 분석</li>
           <li>분기: 전략 재검토</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12410,7 +12410,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>팔로워 수보다 참여율이 더 중요합니다. 활발한 소통으로 진정한 커뮤니티를 만드세요.</p>
 
         <h2>참여율 계산법</h2>
@@ -12472,7 +12472,7 @@ export const blogPosts: BlogPost[] = [
           <li>다양한 콘텐츠 포맷 혼합</li>
           <li>해시태그 전략 최적화</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12486,7 +12486,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>인플루언서 마케팅은 신뢰를 빌려오는 전략입니다. 올바른 파트너를 찾고 효과적으로 협업하세요.</p>
 
         <h2>인플루언서 유형</h2>
@@ -12556,7 +12556,7 @@ export const blogPosts: BlogPost[] = [
           <li>크리에이티브 자유도 부여</li>
           <li>장기 관계 구축</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12570,7 +12570,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>유기적 도달만으로는 한계가 있습니다. 유료 광고로 타겟 고객에게 정확하게 다가가세요.</p>
 
         <h2>플랫폼별 광고 특성</h2>
@@ -12637,7 +12637,7 @@ export const blogPosts: BlogPost[] = [
           <li>일/주/월 예산 한도 설정</li>
           <li>ROAS 기준 최적화</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12651,7 +12651,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>유기적 성장은 시간이 걸리지만 가장 지속 가능한 방법입니다. 꾸준한 노력으로 진정한 팬을 만드세요.</p>
 
         <h2>유기적 성장의 장점</h2>
@@ -12722,7 +12722,7 @@ export const blogPosts: BlogPost[] = [
           <li>저장/공유 유도 콘텐츠</li>
           <li>최적 시간대 게시</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12736,7 +12736,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>SMM 에이전시는 낮은 진입 장벽과 높은 수요를 가진 사업입니다. 체계적으로 시작하고 성장시켜보세요.</p>
 
         <h2>에이전시 서비스 유형</h2>
@@ -12801,7 +12801,7 @@ export const blogPosts: BlogPost[] = [
           <li>승인 프로세스 간소화</li>
           <li>팀 빌딩 및 위임</li>
         </ul>
-      </article>
+
     `,
   },
 
@@ -12817,7 +12817,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>올바른 도구는 생산성을 크게 높입니다. 용도별 필수 SMM 도구를 알아보세요.</p>
 
         <h2>콘텐츠 제작 도구</h2>
@@ -12883,7 +12883,7 @@ export const blogPosts: BlogPost[] = [
           <li>Bitly: URL 단축</li>
           <li>ChatGPT: AI 콘텐츠 보조</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12897,7 +12897,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>적절한 예산 책정은 마케팅 성공의 기반입니다. 규모에 맞는 SMM 예산 전략을 세워보세요.</p>
 
         <h2>예산 구성 요소</h2>
@@ -12962,7 +12962,7 @@ export const blogPosts: BlogPost[] = [
           <li>자동화로 인건비 절감</li>
           <li>내부 역량 개발</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -12976,7 +12976,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>빠르게 변화하는 소셜 미디어 환경에서 트렌드를 파악하는 것은 필수입니다. 2026년 주목해야 할 변화를 알아보세요.</p>
 
         <h2>주요 트렌드</h2>
@@ -13048,7 +13048,7 @@ export const blogPosts: BlogPost[] = [
           <li>데이터 기반 최적화</li>
           <li>멀티플랫폼 전략</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -13062,7 +13062,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>실수를 줄이면 성공에 가까워집니다. SMM에서 피해야 할 흔한 실수를 알아보세요.</p>
 
         <h2>전략 관련 실수</h2>
@@ -13104,7 +13104,7 @@ export const blogPosts: BlogPost[] = [
           <li>주간 성과 분석</li>
           <li>분기별 전략 수정</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -13118,7 +13118,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>브랜드 보이스는 SNS에서 브랜드를 구별짓는 핵심 요소입니다. 일관된 목소리로 팬을 만드세요.</p>
 
         <h2>브랜드 보이스란?</h2>
@@ -13182,7 +13182,7 @@ export const blogPosts: BlogPost[] = [
           <li>정기 교육</li>
           <li>품질 검수 프로세스</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -13196,7 +13196,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>소셜 미디어에서 위기는 언제든 발생할 수 있습니다. 사전 준비와 신속한 대응으로 브랜드를 보호하세요.</p>
 
         <h2>위기 유형</h2>
@@ -13271,7 +13271,7 @@ export const blogPosts: BlogPost[] = [
           <li>Brandwatch</li>
           <li>소셜 리스닝 툴</li>
         </ul>
-      </article>
+
     `,
   },
   {
@@ -13285,7 +13285,7 @@ export const blogPosts: BlogPost[] = [
     category: 'SMM',
     thumbnail: '/thumbnails/smm-thumb.png',
     content: `
-      <article class="prose prose-lg dark:prose-invert max-w-none">
+
         <p>경쟁사 분석은 시장을 이해하고 차별화 전략을 세우는 데 필수입니다. 체계적인 분석 방법을 알아보세요.</p>
 
         <h2>분석 대상 선정</h2>
@@ -13351,7 +13351,7 @@ export const blogPosts: BlogPost[] = [
           <li>차별화 포인트 강화</li>
           <li>트렌드 빠른 포착</li>
         </ul>
-      </article>
+
     `,
   },
 ];
