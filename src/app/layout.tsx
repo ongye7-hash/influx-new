@@ -124,6 +124,39 @@ export default function RootLayout({
         {/* Preconnect for faster font loading */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+        {/* Organization JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "INFLUX",
+              alternateName: "인플럭스",
+              url: "https://www.influx-lab.com",
+              logo: "https://www.influx-lab.com/og-image.png",
+              description: "유튜브, 인스타그램, 틱톡 등 소셜 미디어 마케팅 전문 서비스",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "도봉로 133길 41, 5층",
+                addressLocality: "도봉구",
+                addressRegion: "서울특별시",
+                addressCountry: "KR",
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                email: "support@influx-lab.com",
+                contactType: "customer service",
+                availableLanguage: "Korean",
+              },
+              sameAs: [
+                "https://instagram.com/influx_kr",
+                "https://youtube.com/@influx_kr",
+                "https://pf.kakao.com/_xgpUAX",
+              ],
+            }),
+          }}
+        />
       </head>
       <body className="min-h-screen bg-background antialiased" suppressHydrationWarning>
         {/* 보안: 복사/우클릭/개발자도구 방지 */}

@@ -71,6 +71,30 @@ function formatNumberWithCommas(num: number): string {
 }
 
 // ============================================
+// 날짜 기반 결정적 통계 생성
+// 같은 날 = 같은 숫자, 다음 날 = 자연스럽게 증가
+// ============================================
+function getDailyStats() {
+  const BASE_DATE = new Date('2025-06-01').getTime();
+  const now = new Date();
+  const daysSince = Math.floor((now.getTime() - BASE_DATE) / (1000 * 60 * 60 * 24));
+  const hourBlock = Math.floor(now.getHours() / 6); // 6시간 단위 소폭 변동
+
+  // 시드 기반 의사 난수 (같은 날 + 같은 시간대 = 같은 값)
+  const seed = daysSince * 4 + hourBlock;
+  const pseudo = ((seed * 9301 + 49297) % 233280) / 233280;
+
+  return {
+    // 누적 주문: 기본 847,000 + 하루 ~1,200~1,800건
+    totalOrders: Math.floor(847000 + daysSince * 1500 + pseudo * 300),
+    // 활성 사용자: 기본 12,400 + 하루 ~30~50명
+    activeUsers: Math.floor(12400 + daysSince * 40 + pseudo * 15),
+    // 현재 이용중: 1,800~2,600 범위에서 시간대별 변동
+    currentOnline: Math.floor(1800 + pseudo * 800),
+  };
+}
+
+// ============================================
 // Animated Counter Hook
 // ============================================
 function useCountUp(end: number, duration: number = 2000, startOnView: boolean = true) {
@@ -163,7 +187,7 @@ function HeroSection() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
               </span>
-              <span className="text-white/80">지금 <span className="text-green-400 font-bold">2,431명</span>이 채널을 성장시키고 있습니다</span>
+              <span className="text-white/80">지금 <span className="text-green-400 font-bold">{formatNumberWithCommas(getDailyStats().currentOnline)}명</span>이 채널을 성장시키고 있습니다</span>
             </div>
             <InlineCountdown />
           </div>
@@ -276,8 +300,8 @@ function StatCard({ end, suffix, label, prefix, decimals }: StatItemProps) {
 
 function StatsSection() {
   const stats: StatItemProps[] = [
-    { end: 1000000, suffix: '+', label: '누적 처리 주문', prefix: '' },
-    { end: 50000, suffix: '+', label: '활성 사용자', prefix: '' },
+    { end: getDailyStats().totalOrders, suffix: '+', label: '누적 처리 주문', prefix: '' },
+    { end: getDailyStats().activeUsers, suffix: '+', label: '활성 사용자', prefix: '' },
     { end: 999, suffix: '%', label: '성공률', prefix: '', decimals: 1 },
     { end: 24, suffix: '/7', label: '무중단 자동화', prefix: '' },
   ];
@@ -480,7 +504,7 @@ function CTASection() {
       <div className="container mx-auto px-4 relative z-10 text-center break-keep">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium mb-8">
           <Users className="w-4 h-4 text-blue-400" />
-          <span className="text-white/80">이미 <span className="text-blue-400 font-bold">50,000+</span> 크리에이터가 선택했습니다</span>
+          <span className="text-white/80">이미 <span className="text-blue-400 font-bold">{formatNumberWithCommas(getDailyStats().activeUsers)}+</span> 크리에이터가 선택했습니다</span>
         </div>
 
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">

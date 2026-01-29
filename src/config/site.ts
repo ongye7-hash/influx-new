@@ -38,7 +38,6 @@ export const siteConfig = {
   legal: {
     terms: "/terms",
     privacy: "/privacy",
-    refund: "/refund-policy",
   },
 
   // 서비스 카테고리
@@ -61,7 +60,6 @@ export const siteConfig = {
     footer: [
       { name: "이용약관", href: "/terms" },
       { name: "개인정보처리방침", href: "/privacy" },
-      { name: "환불정책", href: "/refund-policy" },
     ],
   },
 } as const;

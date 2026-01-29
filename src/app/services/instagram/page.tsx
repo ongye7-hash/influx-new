@@ -235,7 +235,7 @@ export default function InstagramServicesPage() {
                 size="lg"
                 className="border-white/20 text-white hover:bg-white/10 rounded-full px-8 h-14"
               >
-                <Link href="/blog/instagram-followers-growth-guide-2026">
+                <Link href="/blog/instagram-followers-guide-complete-2026">
                   성장 가이드 보기
                 </Link>
               </Button>

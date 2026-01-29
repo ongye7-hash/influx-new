@@ -9,7 +9,11 @@
       "WebFetch(domain:doc.cryptomus.com)",
       "Bash(git commit:*)",
       "Bash(git push)",
-      "Bash(npx vercel:*)"
+      "Bash(npx vercel:*)",
+      "WebSearch",
+      "WebFetch(domain:snsmeme.com)",
+      "WebFetch(domain:xn--sns-h84mk60k.com)",
+      "WebFetch(domain:snscloud.kr)"
     ]
   }
 }

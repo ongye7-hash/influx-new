@@ -19,7 +19,6 @@ const footerLinks = {
   legal: [
     { name: "이용약관", href: siteConfig.legal.terms },
     { name: "개인정보처리방침", href: siteConfig.legal.privacy },
-    { name: "환불정책", href: siteConfig.legal.refund },
   ],
 };
 
@@ -181,9 +180,6 @@ export function Footer() {
               </Link>
               <Link href={siteConfig.legal.privacy} className="hover:text-foreground transition-colors">
                 개인정보처리방침
-              </Link>
-              <Link href={siteConfig.legal.refund} className="hover:text-foreground transition-colors">
-                환불정책
               </Link>
             </div>
           </div>
