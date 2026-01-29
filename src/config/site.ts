@@ -14,7 +14,7 @@ export const siteConfig = {
     name: "루프셀앤미디어",
     ceo: "박주현",
     businessNumber: "420-50-00984",
-    salesRegistration: "신고 준비중", // TODO: 발급 후 실제 번호로 교체
+    salesRegistration: "제2026-서울도봉-0097호",
     address: "서울특별시 도봉구 도봉로 133길 41, 5층",
     email: "support@influx-lab.com",
     phone: "", // 고객센터 번호 없음

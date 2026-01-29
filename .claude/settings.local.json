@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(ls:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nchore: 레거시 스크립트 및 미사용 코드 정리\n\n- scripts/ 폴더 전체 삭제 \\(레거시 마이그레이션/테스트 스크립트 80+개\\)\n- 미사용 페이지 삭제 \\(mass-order, order-legacy, admin/services\\)\n- 레거시 cron/process-orders API 삭제\n- use-services 훅 삭제 \\(admin_products 체계로 전환 완료\\)\n- CLAUDE_SESSION.md, INFLUX_SOURCE_MANIFESTO.md 삭제\n- admin/apply-margin API 추가\n- dashboard, admin/products 페이지 업데이트\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "WebFetch(domain:cryptomus.com)",
+      "WebFetch(domain:heleket.com)",
+      "WebFetch(domain:doc.cryptomus.com)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(npx vercel:*)"
     ]
   }
 }

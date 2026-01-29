@@ -139,7 +139,7 @@ export interface Transaction {
   created_at: string;
 }
 
-export type PaymentMethod = 'bank_transfer' | 'crypto' | 'kakaopay';
+export type PaymentMethod = 'bank_transfer' | 'crypto';
 
 export interface Deposit {
   id: string;
@@ -423,32 +423,6 @@ export interface ABTest {
   target_audience: Record<string, unknown>;
   winner_variant: string | null;
   created_by: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
-// 카카오페이 결제
-export interface KakaopayPayment {
-  id: string;
-  user_id: string;
-  deposit_id: string | null;
-  tid: string | null;
-  partner_order_id: string;
-  partner_user_id: string;
-  total_amount: number;
-  tax_free_amount: number;
-  vat_amount: number;
-  status: 'ready' | 'approved' | 'canceled' | 'failed';
-  approved_at: string | null;
-  canceled_at: string | null;
-  payment_method_type: string | null;
-  card_info: Record<string, unknown> | null;
-  next_redirect_pc_url: string | null;
-  next_redirect_mobile_url: string | null;
-  next_redirect_app_url: string | null;
-  error_code: string | null;
-  error_message: string | null;
-  metadata: Record<string, unknown>;
   created_at: string;
   updated_at: string;
 }

@@ -141,7 +141,7 @@ export default function DepositPage() {
   const [deposits, setDeposits] = useState<Deposit[]>([]);
   const [isLoadingDeposits, setIsLoadingDeposits] = useState(true);
   const [totalDeposited, setTotalDeposited] = useState(0);
-  const [activeTab, setActiveTab] = useState<'bank' | 'crypto' | 'kakaopay'>('bank');
+  const [activeTab, setActiveTab] = useState<'bank' | 'crypto'>('bank');
 
   // 무통장 입금 상태
   const [bankDepositorName, setBankDepositorName] = useState('');
@@ -155,9 +155,6 @@ export default function DepositPage() {
   const [cryptoKrwAmount, setCryptoKrwAmount] = useState<number>(0);
   const [cryptoTxId, setCryptoTxId] = useState('');
   const [isCryptoSubmitting, setIsCryptoSubmitting] = useState(false);
-
-  // 카카오페이 상태
-  const [isKakaopayLoading, setIsKakaopayLoading] = useState(false);
 
   // 계산된 USDT 수량
   const calculatedUsdtAmount = exchangeRate && cryptoKrwAmount > 0
@@ -304,50 +301,6 @@ export default function DepositPage() {
   };
 
   // ============================================
-  // 카카오페이 결제 핸들러
-  // ============================================
-  const handleKakaopayPayment = async () => {
-    if (bankAmount < 1000) {
-      toast.error('최소 1,000원 이상 결제 가능합니다.');
-      return;
-    }
-
-    setIsKakaopayLoading(true);
-
-    try {
-      const response = await fetch('/api/kakaopay/ready', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: bankAmount }),
-      });
-
-      const data = await response.json();
-
-      if (!data.success) {
-        toast.error(data.error || '결제 준비에 실패했습니다.');
-        return;
-      }
-
-      // 모바일/PC 구분하여 리다이렉트
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      const redirectUrl = isMobile
-        ? data.data.next_redirect_mobile_url
-        : data.data.next_redirect_pc_url;
-
-      if (redirectUrl) {
-        window.location.href = redirectUrl;
-      } else {
-        toast.error('결제 페이지 URL을 받지 못했습니다.');
-      }
-    } catch (error) {
-      console.error('Kakaopay error:', error);
-      toast.error('결제 처리 중 오류가 발생했습니다.');
-    } finally {
-      setIsKakaopayLoading(false);
-    }
-  };
-
-  // ============================================
   // USDT 충전 핸들러
   // ============================================
   const handleCopyWalletAddress = async () => {
@@ -490,17 +443,12 @@ export default function DepositPage() {
       </Card>
 
       {/* 충전 방식 탭 */}
-      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'bank' | 'crypto' | 'kakaopay')} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 h-14">
+      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'bank' | 'crypto')} className="space-y-6">
+        <TabsList className="grid w-full grid-cols-2 h-14">
           <TabsTrigger value="bank" className="text-base gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <Building2 className="h-5 w-5" />
             <span className="hidden sm:inline">무통장 입금</span>
             <span className="sm:hidden">무통장</span>
-          </TabsTrigger>
-          <TabsTrigger value="kakaopay" className="text-base gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black">
-            <Wallet className="h-5 w-5" />
-            <span className="hidden sm:inline">카카오페이</span>
-            <span className="sm:hidden">카카오</span>
           </TabsTrigger>
           <TabsTrigger value="crypto" className="text-base gap-2 data-[state=active]:bg-orange-500 data-[state=active]:text-white">
             <Bitcoin className="h-5 w-5" />
@@ -669,129 +617,7 @@ export default function DepositPage() {
         </TabsContent>
 
         {/* ============================================ */}
-        {/* Tab 2: 카카오페이 */}
-        {/* ============================================ */}
-        <TabsContent value="kakaopay" className="space-y-6">
-          <Card className="border-2 border-yellow-400/50">
-            <CardHeader className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950/30 dark:to-orange-950/30">
-              <CardTitle className="flex items-center gap-2">
-                <Wallet className="h-5 w-5 text-yellow-600" />
-                카카오페이 결제
-              </CardTitle>
-              <CardDescription>
-                카카오페이로 빠르고 간편하게 충전하세요
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6 space-y-6">
-              {/* 카카오페이 혜택 */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="p-4 rounded-xl bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200">
-                  <div className="text-2xl mb-2">⚡</div>
-                  <div className="font-medium">즉시 충전</div>
-                  <div className="text-sm text-muted-foreground">결제 즉시 잔액 반영</div>
-                </div>
-                <div className="p-4 rounded-xl bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200">
-                  <div className="text-2xl mb-2">🔒</div>
-                  <div className="font-medium">안전 결제</div>
-                  <div className="text-sm text-muted-foreground">카카오 보안 시스템</div>
-                </div>
-              </div>
-
-              {/* 금액 선택 */}
-              <div className="space-y-3">
-                <Label className="flex items-center gap-2">
-                  <CreditCard className="h-4 w-4" />
-                  충전 금액 선택
-                </Label>
-                <div className="grid grid-cols-3 gap-2">
-                  {QUICK_AMOUNTS.map((item) => (
-                    <Button
-                      key={item.value}
-                      type="button"
-                      variant={selectedQuickAmount === item.value ? 'default' : 'outline'}
-                      className={cn(
-                        'relative',
-                        selectedQuickAmount === item.value && 'bg-yellow-500 hover:bg-yellow-600 text-black',
-                        item.popular && 'ring-2 ring-yellow-400 ring-offset-2'
-                      )}
-                      onClick={() => handleQuickAmountSelect(item.value)}
-                    >
-                      {item.label}
-                      {item.popular && (
-                        <Badge className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs px-1 py-0">
-                          인기
-                        </Badge>
-                      )}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-
-              {/* 직접 입력 */}
-              <div className="space-y-2">
-                <Label htmlFor="kakaopayAmount">직접 입력 (최소 1,000원)</Label>
-                <div className="relative">
-                  <Input
-                    id="kakaopayAmount"
-                    type="number"
-                    min={1000}
-                    max={1000000}
-                    placeholder="금액을 입력하세요"
-                    value={bankAmount || ''}
-                    onChange={(e) => handleBankAmountChange(e.target.value)}
-                    className="h-12 text-lg pr-12"
-                  />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">원</span>
-                </div>
-              </div>
-
-              {/* 결제 금액 표시 */}
-              {bankAmount >= 1000 && (
-                <div className="p-4 rounded-xl bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 border border-yellow-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-muted-foreground">결제 금액</span>
-                    <span className="text-2xl font-bold text-yellow-700">{formatCurrency(bankAmount)}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">충전 후 잔액</span>
-                    <span className="font-medium">{formatCurrency(balance + bankAmount)}</span>
-                  </div>
-                </div>
-              )}
-
-              {/* 결제 버튼 */}
-              <Button
-                type="button"
-                className="w-full h-14 text-lg bg-yellow-500 hover:bg-yellow-600 text-black"
-                disabled={bankAmount < 1000 || isKakaopayLoading}
-                onClick={handleKakaopayPayment}
-              >
-                {isKakaopayLoading ? (
-                  <>
-                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
-                    결제 준비 중...
-                  </>
-                ) : (
-                  <>
-                    <Wallet className="h-5 w-5 mr-2" />
-                    카카오페이로 결제하기
-                  </>
-                )}
-              </Button>
-
-              {/* 안내 */}
-              <div className="p-3 rounded-lg bg-muted/50 flex items-start gap-2">
-                <AlertCircle className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                <p className="text-sm text-muted-foreground">
-                  카카오페이로 결제하면 즉시 잔액에 반영됩니다. 첫 충전 시 20% 보너스!
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* ============================================ */}
-        {/* Tab 3: USDT 충전 */}
+        {/* Tab 2: USDT 충전 */}
         {/* ============================================ */}
         <TabsContent value="crypto" className="space-y-6">
           {/* 실시간 환율 알림 */}
@@ -1149,7 +975,7 @@ export default function DepositPage() {
                 충전 안내
               </h4>
               <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-                <li>• <strong>무통장 입금:</strong> 입금 후 1-5분 이내 자동 충전됩니다.</li>
+                <li>• <strong>무통장 입금:</strong> 입금 확인 후 1-5분 이내 충전됩니다.</li>
                 <li>• <strong>USDT 충전:</strong> 블록체인 확인 후 1-10분 이내 충전됩니다.</li>
                 <li>• 영업시간 외(22시~09시)에는 처리가 지연될 수 있습니다.</li>
                 <li>• 충전 후 환불은 불가능합니다.</li>
