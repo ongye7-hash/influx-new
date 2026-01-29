@@ -119,6 +119,8 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
+        {/* Cryptomus domain verification */}
+        <meta name="cryptomus" content="c579463e" />
         {/* Preconnect for faster font loading */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
