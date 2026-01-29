@@ -21,6 +21,9 @@ import {
   Zap,
   RefreshCw,
   Server,
+  DollarSign,
+  TrendingUp,
+  Calculator,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -136,6 +139,24 @@ export default function ProductsPage() {
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [showApiSection, setShowApiSection] = useState(true);
 
+  // Margin settings state
+  const [marginSettings, setMarginSettings] = useState({
+    exchangeRate: 0,
+    margin: 50,
+    loading: false,
+    applying: false,
+    lastResult: null as null | {
+      updated: number;
+      skipped: number;
+      results: Array<{
+        name: string;
+        oldPrice: number;
+        newPrice: number;
+        wholesaleUsd: number;
+      }>;
+    },
+  });
+
   // Form state
   const [formData, setFormData] = useState({
     category_id: '',
@@ -209,6 +230,70 @@ export default function ProductsPage() {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  // Fetch current exchange rate
+  const fetchExchangeRate = useCallback(async () => {
+    setMarginSettings((prev) => ({ ...prev, loading: true }));
+    try {
+      const response = await fetch('/api/exchange-rate');
+      const data = await response.json();
+      if (data.success) {
+        setMarginSettings((prev) => ({
+          ...prev,
+          exchangeRate: data.rate,
+          loading: false,
+        }));
+      }
+    } catch (error) {
+      console.error('Exchange rate fetch error:', error);
+      setMarginSettings((prev) => ({ ...prev, exchangeRate: 1450, loading: false }));
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchExchangeRate();
+  }, [fetchExchangeRate]);
+
+  // Apply margin to all products
+  const applyMargin = async () => {
+    if (marginSettings.margin < 0 || marginSettings.margin > 1000) {
+      toast.error('마진은 0~1000% 사이여야 합니다');
+      return;
+    }
+
+    setMarginSettings((prev) => ({ ...prev, applying: true, lastResult: null }));
+
+    try {
+      const response = await fetch('/api/admin/apply-margin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ margin: marginSettings.margin }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setMarginSettings((prev) => ({
+          ...prev,
+          applying: false,
+          exchangeRate: data.exchangeRate,
+          lastResult: {
+            updated: data.updated,
+            skipped: data.skipped,
+            results: data.results,
+          },
+        }));
+        toast.success(`${data.updated}개 상품 가격 업데이트 완료`);
+        fetchData(); // Refresh product list
+      } else {
+        toast.error(data.error || '마진 적용 실패');
+        setMarginSettings((prev) => ({ ...prev, applying: false }));
+      }
+    } catch (error: any) {
+      toast.error(error.message || '마진 적용 실패');
+      setMarginSettings((prev) => ({ ...prev, applying: false }));
+    }
+  };
 
   const openCreateDialog = () => {
     setSelectedProduct(null);
@@ -456,6 +541,163 @@ export default function ProductsPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Margin Settings Card */}
+      <Card className="border-2 border-primary/20 bg-primary/5">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Calculator className="h-5 w-5" />
+            마진 일괄 설정
+          </CardTitle>
+          <CardDescription>
+            원청 도매가 × 환율 × (1 + 마진%) = 판매가
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-6 md:grid-cols-4">
+            {/* Current Exchange Rate */}
+            <div className="space-y-2">
+              <Label className="text-sm flex items-center gap-1">
+                <DollarSign className="h-4 w-4" />
+                현재 환율 (USD → KRW)
+              </Label>
+              <div className="flex items-center gap-2">
+                <div className="text-2xl font-bold">
+                  {marginSettings.loading ? (
+                    <Loader2 className="h-6 w-6 animate-spin" />
+                  ) : (
+                    `₩${marginSettings.exchangeRate.toLocaleString()}`
+                  )}
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={fetchExchangeRate}
+                  disabled={marginSettings.loading}
+                >
+                  <RefreshCw className={`h-4 w-4 ${marginSettings.loading ? 'animate-spin' : ''}`} />
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground">실시간 환율 API</p>
+            </div>
+
+            {/* Margin Input */}
+            <div className="space-y-2">
+              <Label className="text-sm flex items-center gap-1">
+                <TrendingUp className="h-4 w-4" />
+                마진율 (%)
+              </Label>
+              <div className="flex items-center gap-2">
+                <Input
+                  type="number"
+                  min="0"
+                  max="1000"
+                  value={marginSettings.margin}
+                  onChange={(e) =>
+                    setMarginSettings((prev) => ({
+                      ...prev,
+                      margin: parseFloat(e.target.value) || 0,
+                    }))
+                  }
+                  className="w-24 text-lg font-bold"
+                />
+                <span className="text-lg font-bold">%</span>
+              </div>
+              <p className="text-xs text-muted-foreground">0 ~ 1000%</p>
+            </div>
+
+            {/* Preview Formula */}
+            <div className="space-y-2">
+              <Label className="text-sm">계산 공식</Label>
+              <div className="text-sm bg-background rounded-md p-2 border">
+                <code>
+                  도매가 × {marginSettings.exchangeRate.toLocaleString()} × {(1 + marginSettings.margin / 100).toFixed(2)}
+                </code>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                예: $1 → ₩{Math.round(marginSettings.exchangeRate * (1 + marginSettings.margin / 100)).toLocaleString()}
+              </p>
+            </div>
+
+            {/* Apply Button */}
+            <div className="space-y-2 flex flex-col justify-end">
+              <Button
+                onClick={applyMargin}
+                disabled={marginSettings.applying || marginSettings.loading}
+                className="w-full"
+                size="lg"
+              >
+                {marginSettings.applying ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    적용 중...
+                  </>
+                ) : (
+                  <>
+                    <Calculator className="mr-2 h-4 w-4" />
+                    마진 일괄 적용
+                  </>
+                )}
+              </Button>
+              <p className="text-xs text-muted-foreground text-center">
+                모든 상품 가격 업데이트
+              </p>
+            </div>
+          </div>
+
+          {/* Results Display */}
+          {marginSettings.lastResult && (
+            <div className="mt-6 pt-6 border-t">
+              <h4 className="font-semibold mb-3 flex items-center gap-2">
+                <Zap className="h-4 w-4" />
+                적용 결과
+              </h4>
+              <div className="grid gap-4 md:grid-cols-2 mb-4">
+                <div className="bg-green-100 dark:bg-green-900/20 rounded-md p-3">
+                  <div className="text-2xl font-bold text-green-600">
+                    {marginSettings.lastResult.updated}개
+                  </div>
+                  <div className="text-sm text-muted-foreground">가격 업데이트됨</div>
+                </div>
+                <div className="bg-amber-100 dark:bg-amber-900/20 rounded-md p-3">
+                  <div className="text-2xl font-bold text-amber-600">
+                    {marginSettings.lastResult.skipped}개
+                  </div>
+                  <div className="text-sm text-muted-foreground">스킵됨 (API 미연결)</div>
+                </div>
+              </div>
+
+              {marginSettings.lastResult.results.length > 0 && (
+                <div className="space-y-2">
+                  <h5 className="text-sm font-medium">변경 내역 (최대 20개)</h5>
+                  <div className="max-h-40 overflow-y-auto space-y-1">
+                    {marginSettings.lastResult.results.map((r, idx) => (
+                      <div
+                        key={idx}
+                        className="text-xs flex items-center justify-between bg-background rounded px-2 py-1"
+                      >
+                        <span className="truncate max-w-[200px]">{r.name}</span>
+                        <span className="flex items-center gap-2">
+                          <span className="text-muted-foreground line-through">
+                            ₩{r.oldPrice.toLocaleString()}
+                          </span>
+                          <ArrowRight className="h-3 w-3" />
+                          <span className="font-medium text-green-600">
+                            ₩{r.newPrice.toLocaleString()}
+                          </span>
+                          <span className="text-muted-foreground">
+                            (${r.wholesaleUsd})
+                          </span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Search & Filter */}
       <Card>

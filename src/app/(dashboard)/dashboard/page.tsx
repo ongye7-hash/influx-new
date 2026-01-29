@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
   TrendingUp,
   ShoppingCart,
@@ -17,9 +17,9 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatCurrency, formatNumber, formatRelativeTime } from "@/lib/utils";
 import Link from "next/link";
-import { useServices } from "@/hooks/use-services";
 import { useOrders } from "@/hooks/use-orders";
 import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/lib/supabase";
 
 // 아이콘 매핑
 const PLATFORM_ICONS: Record<string, React.ElementType> = {
@@ -57,38 +57,64 @@ const statusLabels: Record<string, string> = {
   canceled: "취소",
 };
 
+interface PopularService {
+  id: string;
+  name: string;
+  price: number;
+  platform: string;
+  icon: React.ElementType;
+  color: string;
+}
+
 export default function DashboardPage() {
   const { profile, isLoading: authLoading } = useAuth();
-  const { services, categories, isLoading: servicesLoading } = useServices();
   const { data: orders = [], isLoading: ordersLoading } = useOrders({ limit: 5 });
+  const [popularServices, setPopularServices] = useState<PopularService[]>([]);
+  const [productsLoading, setProductsLoading] = useState(true);
 
-  // 인기 서비스 계산 (각 주요 플랫폼별 가장 저렴한 서비스)
-  const popularServices = useMemo(() => {
-    const mainPlatforms = ['instagram', 'youtube', 'tiktok', 'facebook'];
+  // 인기 서비스 조회 (admin_products 사용)
+  useEffect(() => {
+    const fetchPopularProducts = async () => {
+      setProductsLoading(true);
+      try {
+        const mainPlatforms = ['instagram', 'youtube', 'tiktok', 'facebook'];
+        const results: PopularService[] = [];
 
-    return mainPlatforms.map(platformSlug => {
-      // 해당 플랫폼 카테고리 찾기
-      const category = categories.find(c => c.slug?.toLowerCase() === platformSlug);
-      if (!category) return null;
+        for (const platform of mainPlatforms) {
+          const { data } = await (supabase as any)
+            .from('admin_products')
+            .select('id, name, price_per_1000, category:admin_categories(platform)')
+            .eq('is_active', true)
+            .order('price_per_1000', { ascending: true })
+            .limit(100);
 
-      // 해당 카테고리의 서비스 중 가장 저렴한 것
-      const platformServices = services.filter(s => s.category_id === category.id);
-      if (platformServices.length === 0) return null;
+          if (data) {
+            const platformProduct = data.find((p: any) =>
+              p.category?.platform?.toLowerCase() === platform
+            );
+            if (platformProduct) {
+              results.push({
+                id: platformProduct.id,
+                name: platformProduct.name,
+                price: platformProduct.price_per_1000,
+                platform,
+                icon: PLATFORM_ICONS[platform] || FaInstagram,
+                color: PLATFORM_GRADIENT[platform] || "from-gray-500 to-gray-600",
+              });
+            }
+          }
+        }
 
-      const cheapest = platformServices.reduce((min, s) =>
-        s.price < min.price ? s : min, platformServices[0]
-      );
+        setPopularServices(results);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setProductsLoading(false);
+      }
+    };
 
-      return {
-        id: cheapest.id,
-        name: cheapest.name,
-        price: cheapest.price,
-        platform: platformSlug,
-        icon: PLATFORM_ICONS[platformSlug] || FaInstagram,
-        color: PLATFORM_GRADIENT[platformSlug] || "from-gray-500 to-gray-600",
-      };
-    }).filter(Boolean);
-  }, [services, categories]);
+    fetchPopularProducts();
+  }, []);
 
   // 통계 계산
   const stats = useMemo(() => {
@@ -148,7 +174,7 @@ export default function DashboardPage() {
     ];
   }, [orders]);
 
-  const isLoading = authLoading || servicesLoading || ordersLoading;
+  const isLoading = authLoading || productsLoading || ordersLoading;
 
   if (isLoading) {
     return (
@@ -248,7 +274,6 @@ export default function DashboardPage() {
             ) : (
               <div className="space-y-4">
                 {orders.slice(0, 5).map((order) => {
-                  const service = services.find(s => s.id === order.service_id);
                   return (
                     <div
                       key={order.id}
@@ -257,7 +282,7 @@ export default function DashboardPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
                           <p className="font-medium truncate">
-                            {service?.name || '서비스'}
+                            주문 #{order.order_number?.slice(-6) || order.id.slice(0, 6)}
                           </p>
                           <Badge
                             variant="outline"
