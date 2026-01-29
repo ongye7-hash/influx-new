@@ -72,7 +72,7 @@ export function GuestBanner() {
               <div className="flex items-center gap-1.5">
                 <Gift className="h-4 w-4 text-yellow-300" />
                 <span className="text-sm font-bold">
-                  지금 가입하면 <span className="text-yellow-300">1,000P + 첫충전 20%</span> 보너스!
+                  지금 가입하면 <span className="text-yellow-300">2,000P + 첫충전 20%</span> 보너스!
                 </span>
               </div>
 

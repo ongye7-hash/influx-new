@@ -371,6 +371,13 @@ export default function AdminDepositsPage() {
         throw balanceError;
       }
 
+      // 4. 리퍼럴 보상 자동 체크 (비동기, 실패해도 무시)
+      fetch('/api/referral/check-reward', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: selectedDeposit.user_id }),
+      }).catch(() => {});
+
       toast.success(`${formatCurrency(selectedDeposit.amount)} 입금이 승인되었습니다`);
       setShowApproveDialog(false);
       setSelectedDeposit(null);

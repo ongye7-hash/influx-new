@@ -110,7 +110,7 @@ export function LoginPromptModal({
                     <Gift className="h-4 w-4 text-yellow-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium">가입 즉시 1,000P 지급</p>
+                    <p className="text-sm font-medium">가입 즉시 2,000P 지급</p>
                     <p className="text-xs text-muted-foreground">바로 사용 가능한 포인트</p>
                   </div>
                 </div>

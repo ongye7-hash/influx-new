@@ -115,7 +115,7 @@ export default function ReferralPage() {
         const { data, error } = await supabase
           .from('profiles')
           .select('id, email, created_at, total_spent')
-          .eq('referred_by', profile.referral_code)
+          .eq('referred_by', profile.id)
           .order('created_at', { ascending: false });
 
         if (error) throw error;

@@ -19,7 +19,6 @@ import {
   Receipt,
   Headphones,
   Shield,
-  Layers,
   Gift,
   BookOpen,
   Sparkles,
@@ -42,7 +41,6 @@ const routes = [
   { label: '홈', icon: Home, href: '/' },
   { label: '대시보드', icon: LayoutDashboard, href: '/dashboard' },
   { label: '새 주문', icon: ShoppingCart, href: '/order' },
-  { label: '대량 주문', icon: Layers, href: '/mass-order', badge: '점검중', disabled: true },
   { label: '주문내역', icon: History, href: '/orders' },
   { label: '포인트 충전', icon: CreditCard, href: '/deposit' },
   { label: '잔액 내역', icon: Receipt, href: '/transactions' },
@@ -268,7 +266,7 @@ export function Sidebar({ isGuestMode = false }: SidebarProps) {
               <div className="space-y-2 mb-4">
                 <div className="flex items-center gap-2 text-sm">
                   <Gift className="h-4 w-4 text-yellow-200" />
-                  <span>가입 즉시 <span className="font-bold">1,000P</span></span>
+                  <span>가입 즉시 <span className="font-bold">2,000P</span></span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Zap className="h-4 w-4 text-yellow-200" />

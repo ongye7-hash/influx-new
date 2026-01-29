@@ -481,9 +481,9 @@ export default function AdminDashboardPage() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild className="hover:bg-background shadow-sm">
-              <Link href="/admin/services">
+              <Link href="/admin/products">
                 <RefreshCw className="mr-2 h-4 w-4" />
-                API 서비스 동기화
+                상품 관리
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>

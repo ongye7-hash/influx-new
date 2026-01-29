@@ -44,6 +44,7 @@ function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirect') || '/dashboard';
+  const refCode = searchParams.get('ref') || '';
 
   const { signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth();
   const enterGuestMode = useGuestStore((state) => state.enterGuestMode);
@@ -117,7 +118,8 @@ function LoginContent() {
       const { error: signUpError } = await signUpWithEmail(
         registerEmail,
         registerPassword,
-        registerUsername || registerEmail.split('@')[0]
+        registerUsername || registerEmail.split('@')[0],
+        refCode || undefined
       );
 
       if (signUpError) {
@@ -154,6 +156,10 @@ function LoginContent() {
     setError(null);
     // Google 로그인 시도 전 비회원 모드 쿠키 삭제
     clearGuestModeCookie();
+    // OAuth 로그인 전 추천 코드 저장 (콜백 후 처리)
+    if (refCode) {
+      localStorage.setItem('influx_ref_code', refCode);
+    }
     const { error: googleError } = await signInWithGoogle();
     if (googleError) {
       setError('Google 로그인에 실패했습니다.');
@@ -550,7 +556,7 @@ function LoginContent() {
                 <div className="w-8 h-8 rounded-full bg-yellow-500/20 flex items-center justify-center">
                   <Gift className="h-4 w-4 text-yellow-600" />
                 </div>
-                <span className="text-xs font-bold text-yellow-600">1,000P</span>
+                <span className="text-xs font-bold text-yellow-600">2,000P</span>
                 <span className="text-[10px] text-muted-foreground">가입 즉시</span>
               </div>
               <div className="flex flex-col items-center gap-1">

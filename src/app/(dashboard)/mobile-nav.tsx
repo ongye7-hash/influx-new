@@ -18,7 +18,6 @@ import {
   BookOpen,
   Sparkles,
   Home,
-  Layers,
   Receipt,
   Gift,
   Headphones,
@@ -39,7 +38,6 @@ const navigation = [
   { name: '홈', href: '/', icon: Home },
   { name: '대시보드', href: '/dashboard', icon: LayoutDashboard },
   { name: '새 주문', href: '/order', icon: ShoppingCart },
-  { name: '대량 주문', href: '/mass-order', icon: Layers, badge: '점검중', disabled: true },
   { name: '주문내역', href: '/orders', icon: History },
   { name: '포인트 충전', href: '/deposit', icon: CreditCard },
   { name: '무료 체험', href: '/free-trial', icon: Sparkles, badge: 'FREE' },
@@ -144,7 +142,7 @@ export function MobileNav({ isGuestMode = false }: MobileNavProps) {
                 <div className="space-y-1.5 mb-3 text-sm">
                   <div className="flex items-center gap-2">
                     <Gift className="h-3.5 w-3.5 text-yellow-200" />
-                    <span>가입 즉시 <span className="font-bold">1,000P</span></span>
+                    <span>가입 즉시 <span className="font-bold">2,000P</span></span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Zap className="h-3.5 w-3.5 text-yellow-200" />

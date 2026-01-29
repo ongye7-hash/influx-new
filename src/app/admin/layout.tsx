@@ -44,8 +44,8 @@ const navItems = [
     icon: Wallet,
   },
   {
-    title: '서비스 관리',
-    href: '/admin/services',
+    title: '상품 관리',
+    href: '/admin/products',
     icon: Package,
   },
   {
@@ -236,9 +236,9 @@ export default function AdminLayout({
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" asChild>
-              <Link href="/admin/services">
+              <Link href="/admin/products">
                 <RefreshCw className="mr-2 h-4 w-4" />
-                서비스 동기화
+                상품 관리
               </Link>
             </Button>
           </div>

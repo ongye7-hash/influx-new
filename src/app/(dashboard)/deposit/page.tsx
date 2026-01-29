@@ -24,6 +24,7 @@ import {
   AlertTriangle,
   ExternalLink,
   Calculator,
+  Ticket,
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -148,6 +149,13 @@ export default function DepositPage() {
   const [bankAmount, setBankAmount] = useState<number>(0);
   const [selectedQuickAmount, setSelectedQuickAmount] = useState<number | null>(null);
   const [isBankSubmitting, setIsBankSubmitting] = useState(false);
+
+  // 쿠폰 상태
+  const [couponCode, setCouponCode] = useState('');
+  const [couponValidating, setCouponValidating] = useState(false);
+  const [appliedCoupon, setAppliedCoupon] = useState<{
+    id: string; code: string; type: 'fixed' | 'percent'; value: number; min_amount: number;
+  } | null>(null);
 
   // USDT 충전 상태
   const [exchangeRate, setExchangeRate] = useState<ExchangeRate | null>(null);
@@ -288,6 +296,11 @@ export default function DepositPage() {
         description: '입금 확인 후 자동으로 충전됩니다.',
       });
 
+      // 쿠폰이 적용되어 있으면 보너스 지급
+      if (appliedCoupon && bankAmount >= appliedCoupon.min_amount) {
+        await handleCouponApply(bankAmount);
+      }
+
       setBankDepositorName('');
       setBankAmount(0);
       setSelectedQuickAmount(null);
@@ -368,6 +381,11 @@ export default function DepositPage() {
         description: '블록체인 확인 후 충전됩니다. (보통 1-10분 소요)',
       });
 
+      // 쿠폰이 적용되어 있으면 보너스 지급
+      if (appliedCoupon && cryptoKrwAmount >= appliedCoupon.min_amount) {
+        await handleCouponApply(cryptoKrwAmount);
+      }
+
       setCryptoTxId('');
       setCryptoKrwAmount(0);
       fetchDeposits();
@@ -377,6 +395,59 @@ export default function DepositPage() {
     } finally {
       setIsCryptoSubmitting(false);
     }
+  };
+
+  // ============================================
+  // 쿠폰 검증 핸들러
+  // ============================================
+  const handleCouponValidate = async () => {
+    if (!couponCode.trim()) {
+      toast.error('쿠폰 코드를 입력해주세요');
+      return;
+    }
+    setCouponValidating(true);
+    try {
+      const res = await fetch(`/api/coupons/validate?code=${encodeURIComponent(couponCode.trim())}`);
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error(data.error || '쿠폰 검증 실패');
+        setAppliedCoupon(null);
+        return;
+      }
+      setAppliedCoupon(data.coupon);
+      toast.success(`쿠폰 적용 완료! ${data.coupon.type === 'percent' ? `${data.coupon.value}% 보너스` : `${data.coupon.value.toLocaleString()}원 보너스`}`);
+    } catch {
+      toast.error('쿠폰 검증 중 오류가 발생했습니다');
+    } finally {
+      setCouponValidating(false);
+    }
+  };
+
+  const handleCouponApply = async (depositAmount: number) => {
+    if (!appliedCoupon) return;
+    try {
+      const res = await fetch('/api/coupons/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: appliedCoupon.code, deposit_amount: depositAmount }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(data.message);
+        setAppliedCoupon(null);
+        setCouponCode('');
+        refreshProfile();
+      }
+    } catch {
+      // 쿠폰 적용 실패 시 무시 (충전 자체는 성공)
+    }
+  };
+
+  const couponBonusPreview = (amount: number) => {
+    if (!appliedCoupon || amount < appliedCoupon.min_amount) return 0;
+    return appliedCoupon.type === 'percent'
+      ? Math.floor(amount * (appliedCoupon.value / 100))
+      : appliedCoupon.value;
   };
 
   // ============================================
@@ -440,6 +511,70 @@ export default function DepositPage() {
             </div>
           </div>
         </div>
+      </Card>
+
+      {/* 쿠폰 입력 */}
+      <Card className="border-2 border-dashed border-primary/30 bg-primary/5">
+        <CardContent className="py-4">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+              <Ticket className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium">쿠폰 / 프로모션 코드</p>
+                {!appliedCoupon && (
+                  <button
+                    type="button"
+                    onClick={() => { setCouponCode('INFLUX2026'); }}
+                    className="text-xs text-primary hover:underline cursor-pointer"
+                  >
+                    첫충전 20% 쿠폰 사용하기
+                  </button>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <Input
+                  placeholder="쿠폰 코드 입력"
+                  value={couponCode}
+                  onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                  className="h-10 font-mono uppercase"
+                  disabled={!!appliedCoupon}
+                />
+                {appliedCoupon ? (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-10 shrink-0 text-red-500 border-red-200 hover:bg-red-50"
+                    onClick={() => { setAppliedCoupon(null); setCouponCode(''); }}
+                  >
+                    취소
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    className="h-10 shrink-0 btn-gradient"
+                    onClick={handleCouponValidate}
+                    disabled={couponValidating || !couponCode.trim()}
+                  >
+                    {couponValidating ? <Loader2 className="h-4 w-4 animate-spin" /> : '적용'}
+                  </Button>
+                )}
+              </div>
+              {appliedCoupon && (
+                <div className="mt-2 flex items-center gap-2 text-sm text-green-600">
+                  <CheckCircle className="h-4 w-4" />
+                  <span className="font-medium">
+                    {appliedCoupon.type === 'percent'
+                      ? `충전금의 ${appliedCoupon.value}% 보너스 적용`
+                      : `${appliedCoupon.value.toLocaleString()}원 보너스 적용`}
+                    {appliedCoupon.min_amount > 0 && ` (${appliedCoupon.min_amount.toLocaleString()}원 이상 충전 시)`}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </CardContent>
       </Card>
 
       {/* 충전 방식 탭 */}
@@ -580,16 +715,25 @@ export default function DepositPage() {
                   </div>
 
                   {bankAmount >= 10000 && (
-                    <div className="p-4 rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
+                    <div className="p-4 rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium flex items-center gap-2">
                           <Sparkles className="h-4 w-4 text-primary" />
                           충전 후 잔액
                         </span>
                         <span className="text-xl font-bold text-primary">
-                          {formatCurrency(balance + bankAmount)}
+                          {formatCurrency(balance + bankAmount + couponBonusPreview(bankAmount))}
                         </span>
                       </div>
+                      {appliedCoupon && couponBonusPreview(bankAmount) > 0 && (
+                        <div className="flex items-center justify-between text-sm text-green-600">
+                          <span className="flex items-center gap-1">
+                            <Ticket className="h-3.5 w-3.5" />
+                            쿠폰 보너스
+                          </span>
+                          <span className="font-semibold">+{formatCurrency(couponBonusPreview(bankAmount))}</span>
+                        </div>
+                      )}
                     </div>
                   )}
 

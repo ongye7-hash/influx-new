@@ -16,7 +16,6 @@ import {
   TrendingUp,
   BookOpen,
   Sparkles,
-  Layers,
 } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
@@ -42,13 +41,6 @@ const navigation = [
     name: "새 주문",
     href: "/order",
     icon: ShoppingCart,
-  },
-  {
-    name: "대량 주문",
-    href: "/mass-order",
-    icon: Layers,
-    badge: "점검중",
-    disabled: true,
   },
   {
     name: "주문 내역",

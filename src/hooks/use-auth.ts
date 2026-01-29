@@ -21,7 +21,7 @@ interface AuthState {
 
 interface AuthActions {
   signInWithEmail: (email: string, password: string) => Promise<{ error: Error | null }>;
-  signUpWithEmail: (email: string, password: string, username: string) => Promise<{ error: Error | null }>;
+  signUpWithEmail: (email: string, password: string, username: string, referredBy?: string) => Promise<{ error: Error | null }>;
   signInWithGoogle: () => Promise<{ error: Error | null }>;
   signInWithKakao: () => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
@@ -115,6 +115,32 @@ export function useAuth(): AuthState & AuthActions {
 
         if (event === 'SIGNED_IN' && newSession?.user) {
           await loadProfile(newSession.user.id);
+          // 추천인 코드가 메타데이터 또는 localStorage에 있으면 referred_by 설정
+          const refCode = newSession.user.user_metadata?.referred_by
+            || (typeof window !== 'undefined' && localStorage.getItem('influx_ref_code'));
+          if (refCode) {
+            localStorage.removeItem('influx_ref_code');
+            fetch('/api/referral/set-referrer', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ referral_code: refCode }),
+            }).catch(() => {});
+          }
+          // 웰컴 크레딧 자동 확인/지급 (실패해도 무시)
+          fetch('/api/auth/welcome-bonus', { method: 'POST' })
+            .then(r => r.json())
+            .then(data => {
+              if (data.success && !data.already_granted) {
+                // 신규 가입자에게 웰컴 크레딧 + 쿠폰 안내
+                setTimeout(() => {
+                  const event = new CustomEvent('influx:welcome-bonus', {
+                    detail: { amount: data.amount }
+                  });
+                  window.dispatchEvent(event);
+                }, 1500);
+              }
+            })
+            .catch(() => {});
           router.refresh();
         } else if (event === 'SIGNED_OUT') {
           setProfile(null);
@@ -146,7 +172,7 @@ export function useAuth(): AuthState & AuthActions {
   };
 
   // 이메일 회원가입
-  const signUpWithEmail = async (email: string, password: string, username: string) => {
+  const signUpWithEmail = async (email: string, password: string, username: string, referredBy?: string) => {
     try {
       const { error } = await supabase.auth.signUp({
         email,
@@ -154,6 +180,7 @@ export function useAuth(): AuthState & AuthActions {
         options: {
           data: {
             username,
+            ...(referredBy ? { referred_by: referredBy } : {}),
           },
         },
       });
