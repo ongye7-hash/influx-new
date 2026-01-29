@@ -209,7 +209,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-slate-950 force-dark dark">
       {/* JSON-LD */}
       <script
         type="application/ld+json"

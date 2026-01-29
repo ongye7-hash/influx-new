@@ -276,6 +276,31 @@
 }
 
 /* ============================================
+   Force dark mode CSS variables (for standalone dark pages like blog)
+   ============================================ */
+.force-dark {
+  --background: #121212;
+  --foreground: #F5F5F5;
+  --card: #1E1E1E;
+  --card-foreground: #F5F5F5;
+  --popover: #1E1E1E;
+  --popover-foreground: #F5F5F5;
+  --primary: #4D9FFF;
+  --primary-foreground: #121212;
+  --secondary: #2A2A2A;
+  --secondary-foreground: #E0E0E0;
+  --muted: #2A2A2A;
+  --muted-foreground: #9E9E9E;
+  --accent: #FF8A5C;
+  --accent-foreground: #121212;
+  --destructive: #FF6B6B;
+  --destructive-foreground: #121212;
+  --border: #333333;
+  --input: #333333;
+  --ring: #4D9FFF;
+}
+
+/* ============================================
    5. BASE STYLES
    ============================================ */
 @layer base {

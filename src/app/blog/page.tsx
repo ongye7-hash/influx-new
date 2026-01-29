@@ -295,7 +295,7 @@ export default async function BlogPage({
   const displayPosts = showFeatured ? paginatedPosts.slice(1) : paginatedPosts;
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-slate-950 force-dark dark">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-white/5">
         <div className="container mx-auto px-4">
