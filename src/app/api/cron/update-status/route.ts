@@ -45,14 +45,9 @@ function verifyCronSecret(request: NextRequest): boolean {
   const authHeader = request.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
 
-  // 개발 환경에서는 secret 없이도 허용
-  if (process.env.NODE_ENV === 'development') {
-    return true;
-  }
-
-  // 프로덕션 환경에서는 CRON_SECRET이 필수
+  // CRON_SECRET이 설정되지 않으면 항상 거부
   if (!cronSecret) {
-    console.error('[CRON] CRON_SECRET is not configured in production!');
+    console.error('[CRON] CRON_SECRET is not configured!');
     return false;
   }
 
@@ -247,8 +242,9 @@ export async function GET(request: NextRequest) {
       .limit(100); // 한 번에 최대 100개 처리
 
     if (fetchError) {
+      console.error('[CRON] Fetch orders error:', fetchError.message);
       return NextResponse.json(
-        { error: 'Failed to fetch orders', details: fetchError.message },
+        { error: 'Failed to fetch orders' },
         { status: 500 }
       );
     }
@@ -302,10 +298,7 @@ export async function GET(request: NextRequest) {
     console.error('Cron job error:', error);
 
     return NextResponse.json(
-      {
-        error: 'Internal server error',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

@@ -9,7 +9,8 @@ export async function enableGuestMode() {
     path: '/',
     maxAge: 86400, // 24시간
     sameSite: 'lax',
-    httpOnly: false,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
   });
 
   return { success: true };

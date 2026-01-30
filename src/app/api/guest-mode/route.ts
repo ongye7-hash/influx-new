@@ -1,24 +1,28 @@
 import { NextResponse } from 'next/server';
 
 export async function POST() {
-  const response = NextResponse.redirect(new URL('/dashboard', process.env.NEXT_PUBLIC_SITE_URL || 'https://www.influx-lab.com'));
+  const response = NextResponse.json({ success: true });
 
-  // 쿠키 설정
   response.cookies.set('influx_guest_mode', 'true', {
     path: '/',
-    maxAge: 86400, // 24시간
+    maxAge: 86400,
     sameSite: 'lax',
-    httpOnly: false,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
   });
 
   return response;
 }
 
 export async function DELETE() {
-  const response = NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_SITE_URL || 'https://www.influx-lab.com'));
+  const response = NextResponse.json({ success: true });
 
-  // 쿠키 삭제
-  response.cookies.delete('influx_guest_mode');
+  response.cookies.set('influx_guest_mode', '', {
+    path: '/',
+    maxAge: 0,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+  });
 
   return response;
 }

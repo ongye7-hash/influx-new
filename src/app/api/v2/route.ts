@@ -215,18 +215,21 @@ async function handleAddOrder(
   }
 
   // 트랜잭션: 잔액 차감 + 주문 생성
-  // 1. 잔액 차감
-  const { error: balanceError } = await supabase
+  // 1. 잔액 차감 (atomic: balance >= totalAmount 조건으로 race condition 방지)
+  const { data: updatedProfile, error: balanceError } = await supabase
     .from('profiles')
     .update({
       balance: balance - totalAmount,
       total_spent: supabase.rpc('increment', { x: totalAmount }),
       total_orders: supabase.rpc('increment', { x: 1 }),
     })
-    .eq('id', userId);
+    .eq('id', userId)
+    .gte('balance', totalAmount)
+    .select('balance')
+    .single();
 
-  if (balanceError) {
-    throw new Error('Failed to process payment');
+  if (balanceError || !updatedProfile) {
+    throw new Error('Insufficient balance');
   }
 
   // 2. 주문 생성
@@ -430,27 +433,30 @@ async function handleCancel(
       continue;
     }
 
-    // 환불 처리
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('balance')
-      .eq('id', userId)
-      .single();
+    // 환불 처리 (atomic: select 후 update에서 race condition 방지)
+    const { data: refundedProfile } = await supabase.rpc('add_balance' as any, {
+      p_user_id: userId,
+      p_amount: orderData.amount,
+      p_type: 'refund',
+      p_description: 'API 주문 취소 환불',
+      p_reference_id: orderId,
+      p_reference_type: 'order',
+    } as any);
 
-    if (profile) {
-      await supabase
+    if (!refundedProfile) {
+      // fallback: 직접 업데이트
+      const { data: profile } = await supabase
         .from('profiles')
-        .update({ balance: profile.balance + orderData.amount })
-        .eq('id', userId);
+        .select('balance')
+        .eq('id', userId)
+        .single();
 
-      await supabase.from('transactions').insert({
-        user_id: userId,
-        type: 'refund',
-        amount: orderData.amount,
-        balance_after: profile.balance + orderData.amount,
-        description: `API 주문 취소 환불`,
-        reference_id: orderId,
-      });
+      if (profile) {
+        await supabase
+          .from('profiles')
+          .update({ balance: profile.balance + orderData.amount })
+          .eq('id', userId);
+      }
     }
 
     result[orderId] = { cancel: 1 };
@@ -554,7 +560,11 @@ export async function POST(request: NextRequest) {
       api_key_id: apiKeyId,
       user_id: userId,
       action: action,
-      request_data: Object.fromEntries(formData.entries()),
+      request_data: (() => {
+        const entries = Object.fromEntries(formData.entries());
+        if (entries.key) entries.key = '***REDACTED***';
+        return entries;
+      })(),
       response_data: response,
       status_code: 200,
       ip_address: request.headers.get('x-forwarded-for') || 'unknown',

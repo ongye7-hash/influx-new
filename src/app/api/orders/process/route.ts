@@ -35,6 +35,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // URL 프로토콜 검증 (http/https만 허용)
+    try {
+      const parsed = new URL(link);
+      if (!['http:', 'https:'].includes(parsed.protocol)) {
+        throw new Error('Invalid protocol');
+      }
+    } catch {
+      return NextResponse.json(
+        { success: false, error: '유효한 URL을 입력해주세요' },
+        { status: 400 }
+      );
+    }
+
+    // quantity 타입 검증
+    if (typeof quantity !== 'number' || quantity < 1 || !Number.isInteger(quantity)) {
+      return NextResponse.json(
+        { success: false, error: '수량은 1 이상의 정수여야 합니다' },
+        { status: 400 }
+      );
+    }
+
     // 3. 상품 정보 조회
     const { data: product, error: productError } = await (supabase as any)
       .from('admin_products')
@@ -64,7 +85,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 5. 사용자 잔액 확인
+    // 5. 가격 계산
+    const unitPrice = product.price_per_1000 / 1000;
+    const totalPrice = Math.ceil(unitPrice * quantity);
+
+    // 6. 사용자 잔액 확인
     const { data: profile, error: profileError } = await (supabase as any)
       .from('profiles')
       .select('balance')
@@ -77,10 +102,6 @@ export async function POST(request: NextRequest) {
         { status: 404 }
       );
     }
-
-    // 6. 가격 계산
-    const unitPrice = product.price_per_1000 / 1000;
-    const totalPrice = Math.ceil(unitPrice * quantity);
 
     if (profile.balance < totalPrice) {
       return NextResponse.json(
@@ -122,18 +143,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 9. 잔액 차감
-    const { error: balanceError } = await (supabase as any)
+    // 9. 잔액 차감 (atomic: balance >= totalPrice 조건 포함하여 race condition 방지)
+    const { data: updatedProfile, error: balanceError } = await (supabase as any)
       .from('profiles')
       .update({ balance: profile.balance - totalPrice })
-      .eq('id', user.id);
+      .eq('id', user.id)
+      .gte('balance', totalPrice)
+      .select('balance')
+      .single();
 
-    if (balanceError) {
+    if (balanceError || !updatedProfile) {
       // 잔액 차감 실패 시 주문 취소
       await (supabase as any).from('orders').update({ status: 'failed' }).eq('id', order.id);
       return NextResponse.json(
-        { success: false, error: '잔액 차감 실패' },
-        { status: 500 }
+        { success: false, error: '잔액 차감 실패 (동시 요청으로 잔액 부족 가능)' },
+        { status: 400 }
       );
     }
 
@@ -193,7 +217,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Order processing error:', error);
     return NextResponse.json(
-      { success: false, error: error.message || 'Server error' },
+      { success: false, error: '주문 처리 중 오류가 발생했습니다' },
       { status: 500 }
     );
   }

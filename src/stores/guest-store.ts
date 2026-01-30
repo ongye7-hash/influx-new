@@ -68,10 +68,8 @@ export const useGuestStore = create<GuestState>()(
       conversionAttempts: 0,
 
       enterGuestMode: () => {
-        // 서버 컴포넌트에서 확인할 수 있도록 쿠키 설정
-        if (typeof document !== 'undefined') {
-          document.cookie = 'influx_guest_mode=true; path=/; max-age=86400; SameSite=Lax';
-        }
+        // 서버 action으로 httpOnly 쿠키 설정
+        fetch('/api/guest-mode', { method: 'POST' }).catch(() => {});
         set({
           isGuestMode: true,
           guestSessionStart: new Date(),
@@ -80,10 +78,8 @@ export const useGuestStore = create<GuestState>()(
       },
 
       exitGuestMode: () => {
-        // 쿠키 삭제
-        if (typeof document !== 'undefined') {
-          document.cookie = 'influx_guest_mode=; path=/; max-age=0';
-        }
+        // 서버 action으로 httpOnly 쿠키 삭제
+        fetch('/api/guest-mode', { method: 'DELETE' }).catch(() => {});
         set({
           isGuestMode: false,
           guestSessionStart: null,

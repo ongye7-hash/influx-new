@@ -60,12 +60,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // URL 유효성 검사
+    // URL 유효성 검사 (http/https만 허용)
     try {
-      new URL(link);
+      const parsed = new URL(link);
+      if (!['http:', 'https:'].includes(parsed.protocol)) {
+        throw new Error('Invalid protocol');
+      }
     } catch {
       return NextResponse.json(
-        { success: false, error: '유효한 URL을 입력해주세요.' },
+        { success: false, error: '유효한 URL을 입력해주세요. (http/https만 허용)' },
         { status: 400 }
       );
     }

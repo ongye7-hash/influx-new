@@ -36,8 +36,8 @@ export async function GET(
     const region = searchParams.get('region');
     const search = searchParams.get('search');
     const imported = searchParams.get('imported');
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '50');
+    const page = Math.max(parseInt(searchParams.get('page') || '1') || 1, 1);
+    const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '50') || 50, 1), 200);
 
     // 쿼리 빌드
     let query = supabase

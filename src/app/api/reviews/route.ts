@@ -12,8 +12,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     const serviceId = searchParams.get('service_id');
-    const limit = parseInt(searchParams.get('limit') || '10');
-    const offset = parseInt(searchParams.get('offset') || '0');
+    const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '10') || 10, 1), 50);
+    const offset = Math.max(parseInt(searchParams.get('offset') || '0') || 0, 0);
 
     let query = supabase
       .from('reviews')
@@ -102,11 +102,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!rating || rating < 1 || rating > 5) {
+    if (!rating || rating < 1 || rating > 5 || !Number.isInteger(rating)) {
       return NextResponse.json(
-        { success: false, error: '별점은 1-5 사이여야 합니다.' },
+        { success: false, error: '별점은 1-5 사이 정수여야 합니다.' },
         { status: 400 }
       );
+    }
+
+    // 리뷰 내용 길이 제한 및 HTML 태그 제거 (XSS 방지)
+    let sanitizedContent = content || null;
+    if (sanitizedContent) {
+      sanitizedContent = sanitizedContent
+        .replace(/<[^>]*>/g, '')  // HTML 태그 제거
+        .replace(/[<>"'&]/g, (c: string) => ({ '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '&': '&amp;' }[c] || c))
+        .trim()
+        .slice(0, 1000);  // 최대 1000자
+      if (!sanitizedContent) sanitizedContent = null;
     }
 
     // 리뷰 생성
@@ -116,14 +127,14 @@ export async function POST(request: NextRequest) {
       {
         p_order_id: order_id,
         p_rating: rating,
-        p_content: content || null,
+        p_content: sanitizedContent,
       }
     );
 
     if (reviewError) {
       console.error('Create review error:', reviewError);
       return NextResponse.json(
-        { success: false, error: reviewError.message || '리뷰 작성 중 오류가 발생했습니다.' },
+        { success: false, error: '리뷰 작성 중 오류가 발생했습니다.' },
         { status: 500 }
       );
     }
