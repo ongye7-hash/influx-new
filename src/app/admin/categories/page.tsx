@@ -309,7 +309,7 @@ export default function CategoriesPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-green-400">
               {categories.filter((c) => c.is_active).length}
             </div>
           </CardContent>
@@ -321,7 +321,7 @@ export default function CategoriesPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-blue-400">
               {new Set(categories.map((c) => c.platform)).size}
             </div>
           </CardContent>
@@ -333,7 +333,7 @@ export default function CategoriesPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-2xl font-bold text-orange-400">
               {categories.filter((c) => !c.is_active).length}
             </div>
           </CardContent>

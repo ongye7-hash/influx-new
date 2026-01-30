@@ -188,11 +188,11 @@ export default function SupportPage() {
   const getAnnouncementTypeConfig = (type: string) => {
     switch (type) {
       case 'important':
-        return { label: '중요', className: 'bg-red-100 text-red-700 border-red-200' };
+        return { label: '중요', className: 'bg-red-500/10 text-red-400 border-red-500/20' };
       case 'warning':
-        return { label: '주의', className: 'bg-amber-100 text-amber-700 border-amber-200' };
+        return { label: '주의', className: 'bg-amber-500/10 text-amber-400 border-amber-500/20' };
       default:
-        return { label: '안내', className: 'bg-blue-100 text-blue-700 border-blue-200' };
+        return { label: '안내', className: 'bg-blue-500/10 text-blue-400 border-blue-500/20' };
     }
   };
 
@@ -225,8 +225,8 @@ export default function SupportPage() {
         <Card className="border-primary/20 hover:border-primary/40 transition-colors cursor-pointer"
               onClick={() => window.open('https://pf.kakao.com/_xgpUAX', '_blank')}>
           <CardContent className="p-4 flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-yellow-100 flex items-center justify-center">
-              <MessageSquare className="h-6 w-6 text-yellow-600" />
+            <div className="h-12 w-12 rounded-full bg-yellow-500/10 flex items-center justify-center">
+              <MessageSquare className="h-6 w-6 text-yellow-400" />
             </div>
             <div>
               <p className="font-semibold">카카오톡 상담</p>
@@ -238,8 +238,8 @@ export default function SupportPage() {
 
         <Card className="border-primary/20">
           <CardContent className="p-4 flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-              <Mail className="h-6 w-6 text-blue-600" />
+            <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center">
+              <Mail className="h-6 w-6 text-blue-400" />
             </div>
             <div>
               <p className="font-semibold">이메일 문의</p>
@@ -250,8 +250,8 @@ export default function SupportPage() {
 
         <Card className="border-primary/20">
           <CardContent className="p-4 flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-              <Clock className="h-6 w-6 text-green-600" />
+            <div className="h-12 w-12 rounded-full bg-emerald-500/10 flex items-center justify-center">
+              <Clock className="h-6 w-6 text-emerald-400" />
             </div>
             <div>
               <p className="font-semibold">응답 시간</p>

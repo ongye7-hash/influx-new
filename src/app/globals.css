@@ -210,94 +210,94 @@
    INFLUX 2.0 - 딥 다크 (고급스러운 느낌)
    ============================================ */
 .dark {
-  /* Background - 트루 다크 */
-  --background: #121212;
-  --foreground: #F5F5F5;
+  /* Background - v4.3 딥 다크 */
+  --background: #09090b;
+  --foreground: #f0f0f0;
 
-  /* Card - 약간 밝은 다크 */
-  --card: #1E1E1E;
-  --card-foreground: #F5F5F5;
+  /* Card - v4.3 카드 톤 */
+  --card: #111113;
+  --card-foreground: #f0f0f0;
 
   /* Popover */
-  --popover: #1E1E1E;
-  --popover-foreground: #F5F5F5;
+  --popover: #111113;
+  --popover-foreground: #f0f0f0;
 
-  /* Primary - 밝은 블루 */
-  --primary: #4D9FFF;
-  --primary-foreground: #121212;
+  /* Primary - INFLUX 블루 */
+  --primary: #0064FF;
+  --primary-foreground: #ffffff;
 
   /* Secondary */
-  --secondary: #2A2A2A;
-  --secondary-foreground: #E0E0E0;
+  --secondary: #0f0f11;
+  --secondary-foreground: #d0d0d0;
 
   /* Muted */
-  --muted: #2A2A2A;
-  --muted-foreground: #9E9E9E;
+  --muted: #0f0f11;
+  --muted-foreground: #808080;
 
-  /* Accent - 밝은 오렌지 */
-  --accent: #FF8A5C;
-  --accent-foreground: #121212;
+  /* Accent */
+  --accent: #0064FF;
+  --accent-foreground: #ffffff;
 
   /* Destructive */
-  --destructive: #FF6B6B;
-  --destructive-foreground: #121212;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
 
-  /* Border & Input */
-  --border: #333333;
-  --input: #333333;
-  --ring: #4D9FFF;
+  /* Border & Input - v4.3 미세 보더 */
+  --border: rgba(255, 255, 255, 0.06);
+  --input: rgba(255, 255, 255, 0.06);
+  --ring: #0064FF;
 
   /* Chart Colors */
-  --chart-1: #4D9FFF;
-  --chart-2: #FF8A5C;
-  --chart-3: #4ECCA3;
-  --chart-4: #FFD93D;
-  --chart-5: #FF6B6B;
+  --chart-1: #0064FF;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #8b5cf6;
+  --chart-5: #ef4444;
 
-  /* Sidebar */
-  --sidebar: #1A1A1A;
-  --sidebar-foreground: #F5F5F5;
-  --sidebar-primary: #4D9FFF;
-  --sidebar-primary-foreground: #121212;
-  --sidebar-accent: #2A2A2A;
-  --sidebar-accent-foreground: #E0E0E0;
-  --sidebar-border: #333333;
-  --sidebar-ring: #4D9FFF;
+  /* Sidebar - v4.3 */
+  --sidebar: #0a0a0c;
+  --sidebar-foreground: #f0f0f0;
+  --sidebar-primary: #0064FF;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #111113;
+  --sidebar-accent-foreground: #d0d0d0;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-ring: #0064FF;
 
   /* Semantic Colors */
-  --success: #4ECCA3;
-  --success-light: #1A3D34;
-  --warning: #FFD93D;
-  --warning-light: #3D3A1A;
-  --error: #FF6B6B;
-  --error-light: #3D1A1A;
-  --info: #4D9FFF;
-  --info-light: #1A2A3D;
+  --success: #10b981;
+  --success-light: #0f2a1f;
+  --warning: #f59e0b;
+  --warning-light: #2a1f0f;
+  --error: #ef4444;
+  --error-light: #2a0f0f;
+  --info: #0064FF;
+  --info-light: #0f1a2a;
 }
 
 /* ============================================
    Force dark mode CSS variables (for standalone dark pages like blog)
    ============================================ */
 .force-dark {
-  --background: #121212;
-  --foreground: #F5F5F5;
-  --card: #1E1E1E;
-  --card-foreground: #F5F5F5;
-  --popover: #1E1E1E;
-  --popover-foreground: #F5F5F5;
-  --primary: #4D9FFF;
-  --primary-foreground: #121212;
-  --secondary: #2A2A2A;
-  --secondary-foreground: #E0E0E0;
-  --muted: #2A2A2A;
-  --muted-foreground: #9E9E9E;
-  --accent: #FF8A5C;
-  --accent-foreground: #121212;
-  --destructive: #FF6B6B;
-  --destructive-foreground: #121212;
-  --border: #333333;
-  --input: #333333;
-  --ring: #4D9FFF;
+  --background: #09090b;
+  --foreground: #f0f0f0;
+  --card: #111113;
+  --card-foreground: #f0f0f0;
+  --popover: #111113;
+  --popover-foreground: #f0f0f0;
+  --primary: #0064FF;
+  --primary-foreground: #ffffff;
+  --secondary: #0f0f11;
+  --secondary-foreground: #d0d0d0;
+  --muted: #0f0f11;
+  --muted-foreground: #808080;
+  --accent: #0064FF;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.06);
+  --input: rgba(255, 255, 255, 0.06);
+  --ring: #0064FF;
 }
 
 /* ============================================
@@ -1055,4 +1055,32 @@ a img, button img {
 ::-moz-selection {
   background: transparent;
   color: inherit;
+}
+
+/* ============================================
+   12. SAFE AREA / NOTCH SUPPORT
+   ============================================ */
+
+/* Safe Area / Notch support */
+@supports (padding: env(safe-area-inset-top)) {
+  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .safe-left { padding-left: env(safe-area-inset-left); }
+  .safe-right { padding-right: env(safe-area-inset-right); }
+}
+
+/* Mobile touch improvements */
+@media (hover: none) and (pointer: coarse) {
+  button, a, [role="button"], input, select, textarea {
+    min-height: 44px;
+  }
+
+  input, select, textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* Smooth scrolling for mobile */
+.overflow-y-auto, .overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
 }

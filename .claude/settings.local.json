@@ -13,7 +13,18 @@
       "WebSearch",
       "WebFetch(domain:snsmeme.com)",
       "WebFetch(domain:xn--sns-h84mk60k.com)",
-      "WebFetch(domain:snscloud.kr)"
+      "WebFetch(domain:snscloud.kr)",
+      "WebFetch(domain:www.influx-lab.com)",
+      "Bash(npx next build:*)",
+      "Bash(node -e:*)",
+      "Bash(node add-emojis.mjs:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:snshelper.com)",
+      "WebFetch(domain:likestore.co.kr)",
+      "WebFetch(domain:snsshop.kr)",
+      "WebFetch(domain:sns-cafe.com)",
+      "WebFetch(domain:snssupporter.com)",
+      "Bash(cat:*)"
     ]
   }
 }

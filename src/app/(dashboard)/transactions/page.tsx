@@ -52,28 +52,28 @@ const TRANSACTION_CONFIG: Record<TransactionType, {
 }> = {
   deposit: {
     icon: TrendingUp,
-    color: 'text-emerald-600',
-    bgColor: 'bg-emerald-100',
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-500/10',
   },
   refund: {
     icon: RotateCcw,
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-100',
+    color: 'text-blue-400',
+    bgColor: 'bg-blue-500/10',
   },
   order: {
     icon: ShoppingCart,
-    color: 'text-red-600',
-    bgColor: 'bg-red-100',
+    color: 'text-red-400',
+    bgColor: 'bg-red-500/10',
   },
   bonus: {
     icon: Gift,
-    color: 'text-[#00C896]',
-    bgColor: 'bg-[#00C896]/10',
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-500/10',
   },
   adjustment: {
     icon: Wrench,
-    color: 'text-gray-600',
-    bgColor: 'bg-gray-100',
+    color: 'text-white/50',
+    bgColor: 'bg-white/[0.06]',
   },
 };
 
@@ -182,7 +182,7 @@ export default function TransactionsPage() {
     return (
       <div className="space-y-6">
         <Skeleton className="h-10 w-48" />
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {[1, 2, 3, 4].map(i => (
             <Skeleton key={i} className="h-24" />
           ))}
@@ -216,7 +216,7 @@ export default function TransactionsPage() {
       </div>
 
       {/* 통계 카드 */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
@@ -225,7 +225,7 @@ export default function TransactionsPage() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">현재 잔액</p>
-                <p className="text-xl font-bold">{formatCurrency(balance)}</p>
+                <p className="text-lg sm:text-xl font-bold">{formatCurrency(balance)}</p>
               </div>
             </div>
           </CardContent>
@@ -234,12 +234,12 @@ export default function TransactionsPage() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-emerald-100 flex items-center justify-center">
-                <ArrowUpRight className="h-5 w-5 text-emerald-600" />
+              <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                <ArrowUpRight className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">총 충전</p>
-                <p className="text-xl font-bold text-emerald-600">{formatCurrency(stats.totalDeposit)}</p>
+                <p className="text-lg sm:text-xl font-bold text-emerald-400">{formatCurrency(stats.totalDeposit)}</p>
               </div>
             </div>
           </CardContent>
@@ -248,12 +248,12 @@ export default function TransactionsPage() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-red-100 flex items-center justify-center">
-                <ArrowDownRight className="h-5 w-5 text-red-600" />
+              <div className="h-10 w-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+                <ArrowDownRight className="h-5 w-5 text-red-400" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">총 사용</p>
-                <p className="text-xl font-bold text-red-600">{formatCurrency(stats.totalSpent)}</p>
+                <p className="text-lg sm:text-xl font-bold text-red-400">{formatCurrency(stats.totalSpent)}</p>
               </div>
             </div>
           </CardContent>
@@ -262,12 +262,12 @@ export default function TransactionsPage() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-blue-100 flex items-center justify-center">
-                <RotateCcw className="h-5 w-5 text-blue-600" />
+              <div className="h-10 w-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                <RotateCcw className="h-5 w-5 text-blue-400" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">총 환불</p>
-                <p className="text-xl font-bold text-blue-600">{formatCurrency(stats.totalRefund)}</p>
+                <p className="text-lg sm:text-xl font-bold text-blue-400">{formatCurrency(stats.totalRefund)}</p>
               </div>
             </div>
           </CardContent>
@@ -276,9 +276,9 @@ export default function TransactionsPage() {
 
       {/* 필터 탭 */}
       <Tabs value={filterType} onValueChange={setFilterType}>
-        <TabsList className="grid w-full grid-cols-5 h-auto p-1">
+        <TabsList className="grid w-full grid-cols-5 h-auto p-1 gap-0.5">
           {FILTER_TABS.map(tab => (
-            <TabsTrigger key={tab.value} value={tab.value} className="py-2.5">
+            <TabsTrigger key={tab.value} value={tab.value} className="py-2.5 text-xs sm:text-sm">
               {tab.label}
             </TabsTrigger>
           ))}
@@ -336,7 +336,7 @@ export default function TransactionsPage() {
               )}
             </div>
           ) : (
-            <div className="overflow-x-auto -mx-6">
+            <div className="overflow-x-auto -mx-4 sm:-mx-6">
               <Table>
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
@@ -371,7 +371,7 @@ export default function TransactionsPage() {
                         <TableCell>
                           <span className={cn(
                             'font-semibold tabular-nums',
-                            isPositive ? 'text-emerald-600' : 'text-red-600'
+                            isPositive ? 'text-emerald-400' : 'text-red-400'
                           )}>
                             {isPositive ? '+' : ''}{formatCurrency(tx.amount)}
                           </span>

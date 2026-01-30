@@ -170,18 +170,18 @@ export default function AdminUsersPage() {
 
   const getTierColor = (tier: string) => {
     switch (tier) {
-      case "enterprise": return "bg-purple-100 text-purple-700 border-purple-200";
-      case "premium": return "bg-amber-100 text-amber-700 border-amber-200";
-      case "standard": return "bg-blue-100 text-blue-700 border-blue-200";
-      default: return "bg-gray-100 text-gray-700 border-gray-200";
+      case "enterprise": return "bg-purple-500/10 text-purple-400 border-purple-500/20";
+      case "premium": return "bg-amber-500/10 text-amber-400 border-amber-500/20";
+      case "standard": return "bg-blue-500/10 text-blue-400 border-blue-500/20";
+      default: return "bg-muted text-muted-foreground border-border";
     }
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">회원 관리</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">회원 관리</h1>
           <p className="text-muted-foreground">전체 회원: {users.length}명</p>
         </div>
         <Button variant="outline" onClick={fetchUsers} disabled={isLoading}>

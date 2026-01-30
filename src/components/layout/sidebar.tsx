@@ -57,9 +57,9 @@ const adminRoutes = [
 // 티어 설정
 const tierConfig = {
   basic: { label: '일반', color: 'text-muted-foreground', bg: 'bg-muted' },
-  vip: { label: 'VIP', color: 'text-amber-600', bg: 'bg-amber-100 dark:bg-amber-900/30' },
-  premium: { label: '프리미엄', color: 'text-[#00C896]', bg: 'bg-[#00C896]/10 dark:bg-[#00C896]/20' },
-  enterprise: { label: '엔터프라이즈', color: 'text-blue-600', bg: 'bg-blue-100 dark:bg-blue-900/30' },
+  vip: { label: 'VIP', color: 'text-amber-600', bg: 'bg-amber-900/30' },
+  premium: { label: '프리미엄', color: 'text-[#00C896]', bg: 'bg-[#00C896]/20' },
+  enterprise: { label: '엔터프라이즈', color: 'text-blue-600', bg: 'bg-blue-900/30' },
 };
 
 interface SidebarProps {
@@ -108,8 +108,8 @@ export function Sidebar({ isGuestMode = false }: SidebarProps) {
             "bg-gradient-to-r from-[#0064FF]/10 to-[#00C896]/10 border border-[#0064FF]/20",
             "hover:from-[#0064FF]/20 hover:to-[#00C896]/20 hover:border-[#0064FF]/30",
             pathname === "/guide"
-              ? "from-[#0064FF]/20 to-[#00C896]/20 border-[#0064FF]/40 text-[#0064FF] dark:text-[#4D9FFF]"
-              : "text-[#0064FF] dark:text-[#4D9FFF]"
+              ? "from-[#0064FF]/20 to-[#00C896]/20 border-[#0064FF]/40 text-[#4D9FFF]"
+              : "text-[#4D9FFF]"
           )}
         >
           <div className="p-1.5 rounded-lg bg-gradient-to-br from-[#0064FF] to-[#00C896]">
@@ -182,7 +182,7 @@ export function Sidebar({ isGuestMode = false }: SidebarProps) {
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200",
                     isActive
-                      ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                      ? "bg-amber-900/30 text-amber-400"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   )}
                 >
@@ -343,7 +343,7 @@ export function Sidebar({ isGuestMode = false }: SidebarProps) {
       {isGuestMode && (
         <div className="p-4 border-t border-border">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-full bg-amber-900/30 flex items-center justify-center">
               <span className="text-amber-600 font-semibold">G</span>
             </div>
             <div className="flex-1 min-w-0">

@@ -131,7 +131,7 @@ function TickerItem({ order, onComplete }: { order: Order; onComplete: () => voi
         isVisible && !isExiting ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
       )}
     >
-      <div className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 backdrop-blur-md">
+      <div className="flex items-center gap-3 px-4 py-3 bg-slate-900 rounded-xl shadow-lg border border-slate-700 backdrop-blur-md">
         {/* 아이콘 */}
         <div
           className="w-10 h-10 rounded-lg flex items-center justify-center"
@@ -143,26 +143,26 @@ function TickerItem({ order, onComplete }: { order: Order; onComplete: () => voi
         {/* 내용 */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 text-sm">
-            <span className="font-semibold text-slate-900 dark:text-white">
+            <span className="font-semibold text-white">
               {order.username}
             </span>
-            <span className="text-slate-500 dark:text-slate-400">님이</span>
+            <span className="text-slate-400">님이</span>
           </div>
-          <div className="flex items-center gap-1 text-sm text-slate-600 dark:text-slate-300">
+          <div className="flex items-center gap-1 text-sm text-slate-300">
             <span className="font-medium" style={{ color: order.color }}>
               {order.service}
             </span>
-            <span className="font-bold text-slate-900 dark:text-white">
+            <span className="font-bold text-white">
               {formatQuantity(order.quantity)}개
             </span>
-            <span className="text-slate-500 dark:text-slate-400">주문</span>
+            <span className="text-slate-400">주문</span>
           </div>
         </div>
 
         {/* 완료 배지 */}
-        <div className="flex items-center gap-1 px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded-full">
-          <CheckCircle className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
-          <span className="text-xs font-medium text-green-600 dark:text-green-400">방금</span>
+        <div className="flex items-center gap-1 px-2 py-1 bg-green-900/30 rounded-full">
+          <CheckCircle className="w-3.5 h-3.5 text-green-400" />
+          <span className="text-xs font-medium text-green-400">방금</span>
         </div>
       </div>
     </div>

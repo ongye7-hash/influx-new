@@ -36,17 +36,17 @@ const platformIcons: Record<string, React.ElementType> = {
 const platformColors: Record<string, { bg: string; text: string; gradient: string }> = {
   instagram: {
     bg: 'bg-pink-500/10',
-    text: 'text-pink-600',
+    text: 'text-pink-400',
     gradient: 'from-pink-500 to-orange-500',
   },
   youtube: {
     bg: 'bg-red-500/10',
-    text: 'text-red-600',
+    text: 'text-red-400',
     gradient: 'from-red-500 to-red-600',
   },
   tiktok: {
-    bg: 'bg-slate-800/10',
-    text: 'text-slate-700',
+    bg: 'bg-white/[0.06]',
+    text: 'text-white/60',
     gradient: 'from-slate-600 to-slate-800',
   },
 };
@@ -200,7 +200,7 @@ export default function FreeTrialPage() {
                   </div>
 
                   {isSoldOut && (
-                    <div className="flex items-center gap-2 text-sm text-amber-600">
+                    <div className="flex items-center gap-2 text-sm text-amber-400">
                       <AlertCircle className="h-4 w-4" />
                       오늘 소진됨 - 내일 다시 신청하세요
                     </div>

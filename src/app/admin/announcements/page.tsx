@@ -262,7 +262,7 @@ export default function AdminAnnouncementsPage() {
                       <div className="flex items-center gap-2 mb-1">
                         <p className="font-medium truncate">{announcement.title}</p>
                         {announcement.is_active ? (
-                          <Badge className="bg-green-100 text-green-700">활성</Badge>
+                          <Badge className="bg-green-500/10 text-green-400">활성</Badge>
                         ) : (
                           <Badge variant="secondary">비활성</Badge>
                         )}

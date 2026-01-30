@@ -27,6 +27,7 @@ import {
   Menu,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
 // ============================================
@@ -122,13 +123,22 @@ export default function AdminLayout({
         <div className="flex h-16 items-center justify-between border-b px-4">
           {!collapsed && (
             <Link href="/admin" className="flex items-center gap-2">
-              <Shield className="h-6 w-6 text-primary" />
-              <span className="font-bold text-lg">INFLUX Admin</span>
+              <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                <rect x="0" y="14" width="8" height="14" rx="1" fill="#4A5568" />
+                <rect x="9.5" y="8" width="8" height="20" rx="1" fill="#64748B" />
+                <rect x="19" y="0" width="8" height="28" rx="1" fill="#0EA5E9" />
+              </svg>
+              <span className="font-black text-white tracking-tight text-lg">INFLUX</span>
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-5 border-amber-500/30 text-amber-400">Admin</Badge>
             </Link>
           )}
           {collapsed && (
             <Link href="/admin" className="mx-auto">
-              <Shield className="h-6 w-6 text-primary" />
+              <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                <rect x="0" y="14" width="8" height="14" rx="1" fill="#4A5568" />
+                <rect x="9.5" y="8" width="8" height="20" rx="1" fill="#64748B" />
+                <rect x="19" y="0" width="8" height="28" rx="1" fill="#0EA5E9" />
+              </svg>
             </Link>
           )}
         </div>
@@ -180,7 +190,7 @@ export default function AdminLayout({
                   'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                   isActive
                     ? 'bg-amber-500 text-white'
-                    : 'text-muted-foreground hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-amber-950 dark:hover:text-amber-400',
+                    : 'text-muted-foreground hover:bg-amber-500/10 hover:text-amber-400',
                   collapsed && 'justify-center px-2'
                 )}
                 title={collapsed ? item.title : undefined}

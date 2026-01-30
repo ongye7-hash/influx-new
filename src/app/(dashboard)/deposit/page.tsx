@@ -81,22 +81,22 @@ function StatusBadge({ status }: { status: Deposit['status'] }) {
     pending: {
       label: '대기중',
       icon: Clock,
-      className: 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400',
+      className: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
     },
     approved: {
       label: '승인완료',
       icon: CheckCircle,
-      className: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400',
+      className: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
     },
     rejected: {
       label: '거절됨',
       icon: XCircle,
-      className: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400',
+      className: 'bg-red-500/10 text-red-400 border-red-500/20',
     },
     canceled: {
       label: '취소됨',
       icon: XCircle,
-      className: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400',
+      className: 'bg-white/[0.06] text-white/40 border-white/[0.06]',
     },
   };
 
@@ -117,14 +117,14 @@ function StatusBadge({ status }: { status: Deposit['status'] }) {
 function PaymentMethodBadge({ method }: { method: PaymentMethod }) {
   if (method === 'crypto') {
     return (
-      <Badge variant="outline" className="bg-orange-100 text-orange-700 border-orange-200">
+      <Badge variant="outline" className="bg-orange-500/10 text-orange-400 border-orange-500/20">
         <Bitcoin className="h-3 w-3 mr-1" />
         USDT
       </Badge>
     );
   }
   return (
-    <Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-200">
+    <Badge variant="outline" className="bg-blue-500/10 text-blue-400 border-blue-500/20">
       <Building2 className="h-3 w-3 mr-1" />
       무통장
     </Badge>
@@ -498,7 +498,7 @@ export default function DepositPage() {
                 <Wallet className="h-5 w-5" />
                 <span className="text-sm font-medium">현재 보유 잔액</span>
               </div>
-              <div className="text-4xl sm:text-5xl font-bold">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold">
                 {formatCurrency(balance)}
               </div>
             </div>
@@ -545,7 +545,7 @@ export default function DepositPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-10 shrink-0 text-red-500 border-red-200 hover:bg-red-50"
+                    className="h-10 shrink-0 text-red-400 border-red-500/20 hover:bg-red-500/10"
                     onClick={() => { setAppliedCoupon(null); setCouponCode(''); }}
                   >
                     취소
@@ -562,7 +562,7 @@ export default function DepositPage() {
                 )}
               </div>
               {appliedCoupon && (
-                <div className="mt-2 flex items-center gap-2 text-sm text-green-600">
+                <div className="mt-2 flex items-center gap-2 text-sm text-emerald-400">
                   <CheckCircle className="h-4 w-4" />
                   <span className="font-medium">
                     {appliedCoupon.type === 'percent'
@@ -579,7 +579,7 @@ export default function DepositPage() {
 
       {/* 충전 방식 탭 */}
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'bank' | 'crypto')} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2 h-14">
+        <TabsList className="grid w-full grid-cols-2 h-12 sm:h-14">
           <TabsTrigger value="bank" className="text-base gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <Building2 className="h-5 w-5" />
             <span className="hidden sm:inline">무통장 입금</span>
@@ -609,7 +609,7 @@ export default function DepositPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
-                <div className="p-5 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border">
+                <div className="p-5 rounded-xl bg-white/[0.03] border">
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-muted-foreground">은행</span>
@@ -619,7 +619,7 @@ export default function DepositPage() {
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-muted-foreground">계좌번호</span>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-lg sm:text-xl tracking-wider">
+                        <span className="font-mono font-bold text-sm sm:text-lg md:text-xl tracking-wider">
                           {BANK_INFO.accountNumber}
                         </span>
                         <Button variant="outline" size="icon" className="h-8 w-8 shrink-0" onClick={handleCopyAccount}>
@@ -635,9 +635,9 @@ export default function DepositPage() {
                   </div>
                 </div>
 
-                <div className="mt-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 flex items-start gap-2">
-                  <AlertCircle className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-amber-700 dark:text-amber-300">
+                <div className="mt-4 p-3 rounded-lg bg-amber-500/10 flex items-start gap-2">
+                  <AlertCircle className="h-4 w-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-amber-300">
                     입금자명을 아래 폼에 입력한 것과 <strong>동일하게</strong> 입력해 주세요.
                   </p>
                 </div>
@@ -671,7 +671,7 @@ export default function DepositPage() {
 
                   <div className="space-y-2">
                     <Label>빠른 금액 선택</Label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {QUICK_AMOUNTS.map((item) => (
                         <button
                           key={item.value}
@@ -726,7 +726,7 @@ export default function DepositPage() {
                         </span>
                       </div>
                       {appliedCoupon && couponBonusPreview(bankAmount) > 0 && (
-                        <div className="flex items-center justify-between text-sm text-green-600">
+                        <div className="flex items-center justify-between text-sm text-emerald-400">
                           <span className="flex items-center gap-1">
                             <Ticket className="h-3.5 w-3.5" />
                             쿠폰 보너스
@@ -768,8 +768,8 @@ export default function DepositPage() {
           <Card className={cn(
             "border-2",
             exchangeRate?.source === 'coingecko'
-              ? "border-green-500/50 bg-green-50/50 dark:bg-green-950/20"
-              : "border-amber-500/50 bg-amber-50/50 dark:bg-amber-950/20"
+              ? "border-green-500/50 bg-green-500/10"
+              : "border-amber-500/50 bg-amber-500/10"
           )}>
             <CardContent className="py-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -777,15 +777,15 @@ export default function DepositPage() {
                   <div className={cn(
                     "h-10 w-10 rounded-full flex items-center justify-center",
                     exchangeRate?.source === 'coingecko'
-                      ? "bg-green-100 dark:bg-green-900/50"
-                      : "bg-amber-100 dark:bg-amber-900/50"
+                      ? "bg-green-500/10"
+                      : "bg-amber-500/10"
                   )}>
                     {isLoadingRate ? (
                       <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                     ) : (
                       <TrendingUp className={cn(
                         "h-5 w-5",
-                        exchangeRate?.source === 'coingecko' ? "text-green-600" : "text-amber-600"
+                        exchangeRate?.source === 'coingecko' ? "text-green-400" : "text-amber-400"
                       )} />
                     )}
                   </div>
@@ -798,7 +798,7 @@ export default function DepositPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   {exchangeRate?.source === 'fallback' && (
-                    <Badge variant="outline" className="bg-amber-100 text-amber-700 border-amber-300">
+                    <Badge variant="outline" className="bg-amber-500/10 text-amber-400 border-amber-500/20">
                       <AlertCircle className="h-3 w-3 mr-1" />
                       기준 환율 적용
                     </Badge>
@@ -812,15 +812,15 @@ export default function DepositPage() {
           </Card>
 
           {/* 경고 문구 */}
-          <Card className="border-2 border-red-500/50 bg-red-50/50 dark:bg-red-950/20">
+          <Card className="border-2 border-red-500/50 bg-red-500/10">
             <CardContent className="py-4">
               <div className="flex items-start gap-3">
-                <AlertTriangle className="h-6 w-6 text-red-600 flex-shrink-0 mt-0.5" />
+                <AlertTriangle className="h-6 w-6 text-red-400 flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-bold text-red-700 dark:text-red-400">
+                  <p className="font-bold text-red-400">
                     반드시 TRC-20 (Tron) 네트워크로 전송하세요!
                   </p>
-                  <p className="text-sm text-red-600 dark:text-red-300 mt-1">
+                  <p className="text-sm text-red-300 mt-1">
                     다른 네트워크(ERC-20, BEP-20 등)로 전송 시 자산이 영구 소실됩니다. 복구 불가능합니다.
                   </p>
                 </div>
@@ -843,7 +843,7 @@ export default function DepositPage() {
               <CardContent className="pt-6 space-y-6">
                 {/* QR 코드 영역 */}
                 <div className="flex justify-center">
-                  <div className="p-4 bg-white rounded-2xl border-2 border-orange-200 shadow-lg">
+                  <div className="p-4 bg-white rounded-2xl border-2 border-orange-500/20 shadow-lg">
                     <QRCodeSVG
                       value={USDT_WALLET_ADDRESS}
                       size={176}
@@ -876,7 +876,7 @@ export default function DepositPage() {
                 {/* 자동 계산기 */}
                 <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500/10 to-amber-500/10 border border-orange-500/20 space-y-4">
                   <div className="flex items-center gap-2">
-                    <Calculator className="h-5 w-5 text-orange-600" />
+                    <Calculator className="h-5 w-5 text-orange-400" />
                     <span className="font-semibold">자동 계산기</span>
                   </div>
 
@@ -905,10 +905,10 @@ export default function DepositPage() {
                     </div>
                   </div>
 
-                  <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border-2 border-orange-500/30">
+                  <div className="p-4 bg-white/[0.03] rounded-xl border-2 border-orange-500/30">
                     <div className="text-center">
                       <p className="text-sm text-muted-foreground mb-1">보내실 USDT</p>
-                      <p className="text-3xl font-bold text-orange-600">
+                      <p className="text-3xl font-bold text-orange-400">
                         {calculatedUsdtAmount} <span className="text-lg">USDT</span>
                       </p>
                     </div>
@@ -933,7 +933,7 @@ export default function DepositPage() {
                 <form onSubmit={handleCryptoSubmit} className="space-y-5">
                   <div className="space-y-2">
                     <Label>빠른 금액 선택</Label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {QUICK_AMOUNTS.map((item) => (
                         <button
                           key={item.value}
@@ -983,7 +983,7 @@ export default function DepositPage() {
                       </div>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">보내실 USDT</span>
-                        <span className="font-semibold text-orange-600">{calculatedUsdtAmount} USDT</span>
+                        <span className="font-semibold text-orange-400">{calculatedUsdtAmount} USDT</span>
                       </div>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">적용 환율</span>
@@ -995,7 +995,7 @@ export default function DepositPage() {
                           <Sparkles className="h-4 w-4 text-orange-500" />
                           충전 후 잔액
                         </span>
-                        <span className="text-xl font-bold text-orange-600">
+                        <span className="text-xl font-bold text-orange-400">
                           {formatCurrency(balance + cryptoKrwAmount)}
                         </span>
                       </div>
@@ -1065,9 +1065,9 @@ export default function DepositPage() {
                   <div className="flex items-center gap-4">
                     <div className={cn(
                       'h-10 w-10 rounded-full flex items-center justify-center shrink-0',
-                      deposit.status === 'approved' ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' :
-                      deposit.status === 'pending' ? 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400' :
-                      'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
+                      deposit.status === 'approved' ? 'bg-emerald-500/10 text-emerald-400' :
+                      deposit.status === 'pending' ? 'bg-amber-500/10 text-amber-400' :
+                      'bg-red-500/10 text-red-400'
                     )}>
                       {deposit.status === 'approved' ? (
                         <CheckCircle className="h-5 w-5" />
@@ -1108,17 +1108,17 @@ export default function DepositPage() {
       </Card>
 
       {/* 안내사항 */}
-      <Card className="bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-900">
+      <Card className="bg-blue-500/10 border-blue-500/20">
         <CardContent className="p-6">
           <div className="flex items-start gap-3">
-            <div className="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center flex-shrink-0">
-              <AlertCircle className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <div className="h-10 w-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+              <AlertCircle className="h-5 w-5 text-blue-400" />
             </div>
             <div>
-              <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+              <h4 className="font-semibold text-blue-100 mb-2">
                 충전 안내
               </h4>
-              <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+              <ul className="text-sm text-blue-300 space-y-1">
                 <li>• <strong>무통장 입금:</strong> 입금 확인 후 1-5분 이내 충전됩니다.</li>
                 <li>• <strong>USDT 충전:</strong> 블록체인 확인 후 1-10분 이내 충전됩니다.</li>
                 <li>• 영업시간 외(22시~09시)에는 처리가 지연될 수 있습니다.</li>

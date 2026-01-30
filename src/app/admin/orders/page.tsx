@@ -108,20 +108,20 @@ function StatusIcon({ status, className }: { status: string; className?: string 
     case 'refunded':
       return <XCircle className={cn('h-4 w-4 text-red-500', className)} />;
     default:
-      return <Clock className={cn('h-4 w-4 text-gray-500', className)} />;
+      return <Clock className={cn('h-4 w-4 text-muted-foreground', className)} />;
   }
 }
 
 // Status badge colors
 const STATUS_BADGE_COLORS: Record<string, string> = {
-  pending: 'bg-amber-100 text-amber-700 border-amber-200',
-  processing: 'bg-blue-100 text-blue-700 border-blue-200',
-  in_progress: 'bg-blue-100 text-blue-700 border-blue-200',
-  completed: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  partial: 'bg-orange-100 text-orange-700 border-orange-200',
-  canceled: 'bg-red-100 text-red-700 border-red-200',
-  refunded: 'bg-purple-100 text-purple-700 border-purple-200',
-  failed: 'bg-red-100 text-red-700 border-red-200',
+  pending: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  processing: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  in_progress: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  completed: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  partial: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+  canceled: 'bg-red-500/10 text-red-400 border-red-500/20',
+  refunded: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+  failed: 'bg-red-500/10 text-red-400 border-red-500/20',
 };
 
 // ============================================
@@ -276,7 +276,7 @@ export default function AdminOrdersPage() {
       {/* 헤더 */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">주문 관리</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">주문 관리</h1>
           <p className="text-muted-foreground">
             모든 사용자의 주문을 관리합니다
           </p>
@@ -288,7 +288,7 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* 통계 카드 */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
@@ -297,7 +297,7 @@ export default function AdminOrdersPage() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">전체 주문</p>
-                <p className="text-2xl font-bold">{formatCompactNumber(stats.total)}</p>
+                <p className="text-lg sm:text-2xl font-bold">{formatCompactNumber(stats.total)}</p>
               </div>
             </div>
           </CardContent>
@@ -305,12 +305,12 @@ export default function AdminOrdersPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-amber-100 flex items-center justify-center">
-                <Clock className="h-5 w-5 text-amber-600" />
+              <div className="h-10 w-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                <Clock className="h-5 w-5 text-amber-400" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">대기중</p>
-                <p className="text-2xl font-bold">{stats.pending}</p>
+                <p className="text-lg sm:text-2xl font-bold">{stats.pending}</p>
               </div>
             </div>
           </CardContent>
@@ -318,12 +318,12 @@ export default function AdminOrdersPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                <Loader2 className="h-5 w-5 text-blue-600" />
+              <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                <Loader2 className="h-5 w-5 text-blue-400" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">진행중</p>
-                <p className="text-2xl font-bold">{stats.processing}</p>
+                <p className="text-lg sm:text-2xl font-bold">{stats.processing}</p>
               </div>
             </div>
           </CardContent>
@@ -331,12 +331,12 @@ export default function AdminOrdersPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-emerald-100 flex items-center justify-center">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                <CheckCircle2 className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">완료</p>
-                <p className="text-2xl font-bold">{stats.completed}</p>
+                <p className="text-lg sm:text-2xl font-bold">{stats.completed}</p>
               </div>
             </div>
           </CardContent>
@@ -407,7 +407,7 @@ export default function AdminOrdersPage() {
               <p className="text-muted-foreground">주문이 없습니다</p>
             </div>
           ) : (
-            <div className="overflow-x-auto -mx-6">
+            <div className="overflow-x-auto -mx-4 sm:-mx-6">
               <Table>
                 <TableHeader>
                   <TableRow>

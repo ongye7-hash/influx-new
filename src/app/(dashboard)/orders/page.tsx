@@ -232,7 +232,7 @@ function StatusIcon({ status, className }: { status: string; className?: string 
     case 'failed':
       return <XCircle className={cn('h-4 w-4 text-red-500', className)} />;
     default:
-      return <Clock className={cn('h-4 w-4 text-gray-500', className)} />;
+      return <Clock className={cn('h-4 w-4 text-white/40', className)} />;
   }
 }
 
@@ -590,7 +590,7 @@ export default function HistoryPage() {
 
       {/* Status Filter Tabs */}
       <Tabs value={statusFilter} onValueChange={setStatusFilter}>
-        <TabsList className="grid w-full grid-cols-4 h-auto p-1">
+        <TabsList className="grid w-full grid-cols-4 h-auto p-1 gap-1">
           {STATUS_TABS.map((tab) => {
             const Icon = tab.icon;
             const count = stats[tab.value as keyof typeof stats];
@@ -648,7 +648,7 @@ export default function HistoryPage() {
           ) : showEmptyState ? (
             <EmptyState hasFilter={hasFilter} onReset={handleReset} />
           ) : (
-            <div className="overflow-x-auto -mx-6">
+            <div className="overflow-x-auto -mx-4 sm:-mx-6">
               <Table>
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
@@ -669,10 +669,10 @@ export default function HistoryPage() {
                     >
                       <TableCell className="pl-6">
                         <div className="min-w-0">
-                          <p className="font-medium truncate max-w-[200px]">
+                          <p className="text-sm sm:text-base font-medium truncate max-w-[140px] sm:max-w-[200px]">
                             {order.service?.name || '서비스'}
                           </p>
-                          <p className="text-xs text-muted-foreground truncate max-w-[200px]">
+                          <p className="text-xs text-muted-foreground truncate max-w-[140px] sm:max-w-[200px]">
                             {order.link}
                           </p>
                         </div>

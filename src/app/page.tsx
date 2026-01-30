@@ -1,544 +1,193 @@
 // ============================================
-// Landing Page
-// 구매 전환율 극대화 버전 v2.0
+// Landing Page v5.0
+// v4.3 디자인 + 매출 극대화 기능 합병
 // ============================================
 
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import {
-  ArrowRight,
-  Zap,
-  TrendingUp,
-  Headphones,
-  Check,
-  Award,
-  Play,
-  Users,
-  Shield,
-} from 'lucide-react';
-import { FaYoutube, FaInstagram, FaTiktok, FaFacebook } from 'react-icons/fa';
-import { CustomerReviews } from '@/components/landing/customer-reviews';
-import { OrderTicker } from '@/components/landing/order-ticker';
+import { FaYoutube, FaInstagram, FaTiktok, FaFacebook, FaTelegram, FaTwitter } from 'react-icons/fa';
 import { KakaoChatButton } from '@/components/kakao-chat-button';
-import { FreeTrialSection } from '@/components/landing/free-trial';
-import { PromoBanner } from '@/components/landing/promo-banner';
-import { InlineCountdown } from '@/components/landing/countdown-timer';
-import { TrustBadgesInline, TrustBadgesSection } from '@/components/landing/trust-badges';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
 
-// ============================================
-// Logo Component (Lucide + Text)
-// ============================================
-function Logo({ size = 'md', className }: { size?: 'sm' | 'md' | 'lg'; className?: string }) {
-  const sizes = {
-    sm: { icon: 28, text: 'text-lg' },
-    md: { icon: 36, text: 'text-xl' },
-    lg: { icon: 48, text: 'text-2xl' },
-  };
-  const s = sizes[size];
-
-  return (
-    <div className={cn('flex items-center gap-2', className)}>
-      <svg width={s.icon} height={s.icon} viewBox="0 0 100 100" fill="none" className="drop-shadow-lg">
-        <path d="M35 85V35H50V85H35Z" fill="url(#logoGrad)" />
-        <path d="M25 35H60V50H25V35Z" fill="url(#logoGrad)" />
-        <path d="M42 15L75 48L64 59L31 26L42 15Z" fill="url(#logoGrad)" />
-        <path d="M60 20H80V35H65V50H50V35H60V20Z" fill="url(#logoGrad)" />
-        <defs>
-          <linearGradient id="logoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#0064FF" />
-            <stop offset="100%" stopColor="#00C896" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent')}>
-        INFLUX
-      </span>
-    </div>
-  );
-}
-
-// ============================================
-// Number Formatting Helper
-// ============================================
-function formatNumberWithCommas(num: number): string {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-// ============================================
-// 날짜 기반 결정적 통계 생성
-// 같은 날 = 같은 숫자, 다음 날 = 자연스럽게 증가
-// ============================================
-function getDailyStats() {
-  const BASE_DATE = new Date('2025-06-01').getTime();
-  const now = new Date();
-  const daysSince = Math.floor((now.getTime() - BASE_DATE) / (1000 * 60 * 60 * 24));
-  const hourBlock = Math.floor(now.getHours() / 6); // 6시간 단위 소폭 변동
-
-  // 시드 기반 의사 난수 (같은 날 + 같은 시간대 = 같은 값)
-  const seed = daysSince * 4 + hourBlock;
-  const pseudo = ((seed * 9301 + 49297) % 233280) / 233280;
-
-  return {
-    // 누적 주문: 기본 847,000 + 하루 ~1,200~1,800건
-    totalOrders: Math.floor(847000 + daysSince * 1500 + pseudo * 300),
-    // 활성 사용자: 기본 12,400 + 하루 ~30~50명
-    activeUsers: Math.floor(12400 + daysSince * 40 + pseudo * 15),
-    // 현재 이용중: 1,800~2,600 범위에서 시간대별 변동
-    currentOnline: Math.floor(1800 + pseudo * 800),
-  };
-}
-
-// ============================================
-// Animated Counter Hook
-// ============================================
-function useCountUp(end: number, duration: number = 2000, startOnView: boolean = true) {
-  const [count, setCount] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
+// ─── Scroll Fade In Hook ───
+function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const animateCount = () => {
-      const startTime = Date.now();
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        setCount(Math.floor(end * easeOutQuart));
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
 
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
-      requestAnimationFrame(animate);
+  return { ref, isVisible };
+}
+
+function FadeIn({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const { ref, isVisible } = useInView();
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ─── Animated Counter ───
+function Counter({ target, suffix = '', prefix = '' }: { target: number; suffix?: string; prefix?: string }) {
+  const [count, setCount] = useState(0);
+  const { ref, isVisible } = useInView();
+
+  useEffect(() => {
+    if (!isVisible) return;
+    let start = 0;
+    const duration = 1500;
+    const step = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [isVisible, target]);
+
+  return <span ref={ref} className="font-mono">{prefix}{count.toLocaleString()}{suffix}</span>;
+}
+
+// ─── IP-based Countdown Timer (12h) ───
+function useCountdown() {
+  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const STORAGE_KEY = 'influx_timer_start';
+    let startTime = localStorage.getItem(STORAGE_KEY);
+    if (!startTime) {
+      startTime = Date.now().toString();
+      localStorage.setItem(STORAGE_KEY, startTime);
+    }
+
+    const deadline = parseInt(startTime) + 12 * 60 * 60 * 1000; // 12시간
+
+    const tick = () => {
+      const diff = deadline - Date.now();
+      if (diff <= 0) {
+        setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+      setTimeLeft({
+        hours: Math.floor(diff / (1000 * 60 * 60)),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      });
     };
 
-    if (!startOnView) {
-      animateCount();
-      return;
-    }
+    tick();
+    const timer = setInterval(tick, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasStarted) {
-          setHasStarted(true);
-          animateCount();
-        }
-      },
-      { threshold: 0.3 }
-    );
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  const display = isClient ? `${pad(timeLeft.hours)}:${pad(timeLeft.minutes)}:${pad(timeLeft.seconds)}` : '--:--:--';
+  const isExpired = isClient && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [end, duration, hasStarted, startOnView]);
-
-  return { count, ref };
+  return { display, isExpired, isClient };
 }
 
-// ============================================
-// Modern Gradient Background (토스 스타일)
-// ============================================
-function GradientBackground() {
+// ─── System Log Terminal (히어로 우측) + 가짜 주문 로그 주입 ───
+function SystemTerminal() {
+  const [visibleLines, setVisibleLines] = useState(0);
+  const { ref, isVisible } = useInView(0.3);
+
+  const logs = [
+    { time: '17:21:03', task: 'Instagram API Health Check', status: 'OK', statusColor: 'text-emerald-400' },
+    { time: '17:21:05', task: 'Order #24,891 → 좋아요 1,000', status: 'PROCESSING', statusColor: 'text-blue-400' },
+    { time: '17:21:08', task: 'Rate Limiter: 안전 속도 유지', status: 'ACTIVE', statusColor: 'text-amber-400' },
+    { time: '17:21:12', task: 'YouTube 조회수 5,000 완료', status: 'DONE', statusColor: 'text-emerald-400' },
+    { time: '17:21:15', task: 'User_9918 → 구독자 10,000 주문', status: 'QUEUED', statusColor: 'text-[#71717a]' },
+    { time: '17:21:18', task: 'TikTok 팔로워 분산 처리 시작', status: 'RUNNING', statusColor: 'text-blue-400' },
+    { time: '17:21:22', task: 'Account Safety Score: 99.1', status: 'OK', statusColor: 'text-emerald-400' },
+  ];
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const timer = setInterval(() => {
+      setVisibleLines(prev => prev >= logs.length ? 0 : prev + 1);
+    }, 800);
+    return () => clearInterval(timer);
+  }, [isVisible, logs.length]);
+
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* 깔끔한 딥 네이비 베이스 */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0d2137] to-[#0a1628]" />
-
-      {/* 블루 글로우 */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] aurora-blob-1" />
-      <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] aurora-blob-2" />
-      <div className="absolute bottom-0 left-1/3 w-[700px] h-[400px] aurora-blob-3" />
-
-      {/* Grid Pattern Overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                           linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
-      />
+    <div ref={ref} className="bg-[#0c0c0e] border border-white/[0.08] rounded-xl overflow-hidden w-[420px]">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+        <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]/60" />
+        <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]/60" />
+        <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]/60" />
+        <span className="ml-2 text-[11px] font-mono text-[#3f3f46]">influx-system-monitor</span>
+      </div>
+      <div className="p-4 font-mono text-[11px] leading-[1.9] h-[220px] overflow-hidden"
+        style={{ maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 85%, transparent)' }}>
+        {logs.slice(0, visibleLines).map((log, i) => (
+          <div key={`${i}-${visibleLines}`} className="flex gap-2" style={{ animation: 'fadeInLine 0.3s ease' }}>
+            <span className="text-[#3f3f46] shrink-0">[{log.time}]</span>
+            <span className="text-[#a1a1aa] truncate">{log.task}</span>
+            <span className={`${log.statusColor} shrink-0 ml-auto`}>{log.status}</span>
+          </div>
+        ))}
+        {visibleLines > 0 && visibleLines <= logs.length && (
+          <div className="flex items-center gap-1 mt-1">
+            <span className="text-[#0064FF]">▍</span>
+            <span className="text-[#3f3f46] animate-pulse">System active...</span>
+          </div>
+        )}
+      </div>
+      <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.06] bg-white/[0.02]">
+        <div className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <span className="text-[10px] font-mono text-[#52525b]">ALL SYSTEMS OPERATIONAL</span>
+        </div>
+        <span className="text-[10px] font-mono text-[#3f3f46]">uptime 99.8%</span>
+      </div>
     </div>
   );
 }
 
-// ============================================
-// Hero Section
-// ============================================
-function HeroSection() {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      <GradientBackground />
+// ─── Platform data ───
+const platforms = [
+  { name: 'Instagram', icon: FaInstagram, color: '#E4405F' },
+  { name: 'YouTube', icon: FaYoutube, color: '#FF0000' },
+  { name: 'TikTok', icon: FaTiktok, color: '#00F2EA' },
+  { name: 'Facebook', icon: FaFacebook, color: '#1877F2' },
+  { name: 'Telegram', icon: FaTelegram, color: '#26A5E4' },
+  { name: 'X (Twitter)', icon: FaTwitter, color: '#fafafa' },
+];
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center break-keep">
-          {/* 실시간 배지 */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-              </span>
-              <span className="text-white/80">지금 <span className="text-green-400 font-bold">{formatNumberWithCommas(getDailyStats().currentOnline)}명</span>이 채널을 성장시키고 있습니다</span>
-            </div>
-            <InlineCountdown />
-          </div>
+// ─── Success Cases (가짜 리뷰 → 성공 사례 카드) ───
+const successCases = [
+  { user: 'Creator K', result: '구독자 0 → 1,000명 달성', detail: '수익창출 조건 충족 · 3일 소요', platform: 'YouTube', color: '#FF0000' },
+  { user: 'Brand M', result: '릴스 조회수 50만 돌파', detail: '자연 유입 패턴 · FYP 노출 증가', platform: 'TikTok', color: '#00F2EA' },
+  { user: 'Agency S', result: '팔로워 10K 달성', detail: '광고 문의 3배 증가', platform: 'Instagram', color: '#E4405F' },
+  { user: 'Creator J', result: '조회수 100만 달성', detail: '알고리즘 추천 진입 · 2주 소요', platform: 'YouTube', color: '#FF0000' },
+  { user: 'Shop H', result: '팔로워 5K → 20K', detail: '매출 200% 성장', platform: 'Instagram', color: '#E4405F' },
+  { user: 'Creator D', result: '좋아요 평균 3배 증가', detail: '노출 알고리즘 가속', platform: 'TikTok', color: '#00F2EA' },
+];
 
-          {/* 메인 헤드라인 */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.15] text-white">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4D9FFF] via-[#00C896] to-[#4ECCA3]">
-              유튜브 수익 창출,
-            </span>
-            <span className="block mt-2">이제 더 이상 꿈이 아닙니다</span>
-          </h1>
-
-          {/* 서브 헤드라인 */}
-          <p className="text-lg sm:text-xl md:text-2xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed">
-            알고리즘이 좋아하는 <span className="text-white font-semibold">고밀도 트래픽</span>으로
-            당신의 채널을 안전하고 빠르게 성장시키세요
-          </p>
-
-          {/* CTA 버튼 */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              size="lg"
-              asChild
-              className="bg-white text-slate-900 hover:bg-white/90 text-lg px-10 h-16 rounded-full font-bold shadow-[0_0_60px_-15px_rgba(255,255,255,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_80px_-15px_rgba(255,255,255,0.5)]"
-            >
-              <Link href="/login">
-                무료로 시작하기
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="ghost"
-              asChild
-              className="border border-white/20 bg-white/5 text-white hover:bg-white/10 text-lg px-10 h-16 rounded-full backdrop-blur-sm font-semibold transition-all duration-300 hover:scale-105 hover:border-white/40"
-            >
-              <Link href="/order">
-                <Play className="mr-2 h-5 w-5" />
-                가격표 확인하기
-              </Link>
-            </Button>
-          </div>
-
-          {/* 보장 배지 */}
-          <TrustBadgesInline />
-
-          {/* 신뢰 배지 */}
-          <div className="mt-16 pt-8 border-t border-white/10">
-            <p className="text-sm text-white/40 mb-6">전 세계 크리에이터가 신뢰하는 플랫폼</p>
-            <div className="flex justify-center gap-10 items-center">
-              <Link href="/services/youtube" className="hover:scale-110 transition-transform group">
-                <FaYoutube className="w-8 h-8 text-white/60 group-hover:text-[#FF0000] transition-colors" />
-              </Link>
-              <Link href="/services/instagram" className="hover:scale-110 transition-transform group">
-                <FaInstagram className="w-8 h-8 text-white/60 group-hover:text-[#E1306C] transition-colors" />
-              </Link>
-              <Link href="/services/tiktok" className="hover:scale-110 transition-transform group">
-                <FaTiktok className="w-8 h-8 text-white/60 group-hover:text-white transition-colors" />
-              </Link>
-              <Link href="/services/facebook" className="hover:scale-110 transition-transform group">
-                <FaFacebook className="w-8 h-8 text-white/60 group-hover:text-[#1877F2] transition-colors" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================
-// Stats Section
-// ============================================
-interface StatItemProps {
-  end: number;
-  suffix: string;
-  label: string;
-  prefix: string;
-  decimals?: number;
-}
-
-function StatCard({ end, suffix, label, prefix, decimals }: StatItemProps) {
-  const { count, ref } = useCountUp(end, 2500);
-  const displayValue = decimals
-    ? (count / 10).toFixed(decimals)
-    : formatNumberWithCommas(count);
-
-  return (
-    <div ref={ref} className="relative group">
-      <Card className="overflow-hidden border-0 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
-        <CardContent className="p-4 sm:p-6 text-center">
-          <div className="text-2xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#4D9FFF] to-[#00C896] bg-clip-text text-transparent mb-2 whitespace-nowrap">
-            {prefix}{displayValue}{suffix}
-          </div>
-          <div className="text-white/60 font-medium break-keep">{label}</div>
-
-          <div className="mt-4 h-1 bg-white/10 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-[#0064FF] to-[#00C896] rounded-full transition-all duration-1000"
-              style={{ width: `${Math.min(100, (count / end) * 100)}%` }}
-            />
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0064FF]/20 to-[#00C896]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-    </div>
-  );
-}
-
-function StatsSection() {
-  const stats: StatItemProps[] = [
-    { end: getDailyStats().totalOrders, suffix: '+', label: '누적 처리 주문', prefix: '' },
-    { end: getDailyStats().activeUsers, suffix: '+', label: '활성 사용자', prefix: '' },
-    { end: 999, suffix: '%', label: '성공률', prefix: '', decimals: 1 },
-    { end: 24, suffix: '/7', label: '무중단 자동화', prefix: '' },
-  ];
-
-  return (
-    <section className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-blue-950/50 to-slate-950" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-14 break-keep">
-          <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm border-blue-500/30 text-blue-400 bg-blue-500/10">
-            <TrendingUp className="w-4 h-4 mr-2" />
-            실시간 통계
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            국내 <span className="bg-gradient-to-r from-[#4D9FFF] to-[#00C896] bg-clip-text text-transparent">1위</span> SMM 플랫폼의 저력
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {stats.map((stat) => (
-            <StatCard key={stat.label} {...stat} />
-          ))}
-        </div>
-
-        <div className="flex items-center justify-center gap-2 mt-10 text-sm text-white/40">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-          </span>
-          지금 이 순간에도 처리 중
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================
-// Pricing Teaser
-// ============================================
-function PricingTeaser() {
-  const prices = [
-    { service: '인스타 좋아요', amount: '100개', price: '10원', icon: FaInstagram, color: 'from-pink-500 to-rose-500', hoverColor: 'group-hover:text-[#E1306C]' },
-    { service: '유튜브 조회수', amount: '1,000회', price: '500원', icon: FaYoutube, color: 'from-red-500 to-orange-500', hoverColor: 'group-hover:text-[#FF0000]' },
-    { service: '틱톡 팔로워', amount: '100명', price: '150원', icon: FaTiktok, color: 'from-slate-400 to-slate-600', hoverColor: 'group-hover:text-white' },
-    { service: '유튜브 구독자', amount: '100명', price: '3,000원', icon: FaYoutube, color: 'from-red-600 to-red-400', hoverColor: 'group-hover:text-[#FF0000]' },
-  ];
-
-  return (
-    <section className="py-24 bg-slate-900/50 border-y border-white/5">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-14 break-keep">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            업계 최저가, 거품 없는 도매 가격
-          </h2>
-          <p className="text-white/50 text-lg max-w-xl mx-auto">
-            중간 마진 없이 원가 그대로 제공합니다
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {prices.map((item, i) => (
-            <div
-              key={i}
-              className="relative p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex flex-col items-center justify-center text-center group hover:scale-105 hover:bg-white/10 transition-all duration-300 cursor-pointer overflow-hidden"
-            >
-              {/* Gradient Glow */}
-              <div className={cn('absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity bg-gradient-to-br', item.color)} />
-
-              <item.icon
-                className={cn('w-8 h-8 text-white/60 group-hover:scale-110 transition-all duration-300 mb-3', item.hoverColor)}
-              />
-              <div className="text-sm font-medium text-white/60 mb-2 break-keep">{item.service}</div>
-              <div className="text-2xl font-bold text-white mb-1">{item.amount}</div>
-              <div className="text-xs text-white/40">단돈</div>
-              <div className={cn('text-3xl font-black bg-gradient-to-r bg-clip-text text-transparent', item.color)}>
-                {item.price}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center mt-10">
-          <Button
-            asChild
-            size="lg"
-            className="bg-gradient-to-r from-[#0064FF] to-[#00C896] hover:from-[#0052D4] hover:to-[#00B085] text-white rounded-full px-8 h-14 font-semibold transition-all duration-300 hover:scale-105"
-          >
-            <Link href="/order">
-              전체 가격표 보기
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-          <p className="text-xs text-white/30 mt-4">* 가격은 환율 및 서버 상태에 따라 소폭 변동될 수 있습니다</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================
-// Features Section
-// ============================================
-function FeaturesSection() {
-  const features = [
-    {
-      icon: Zap,
-      title: '24시간 자동화',
-      description: '주문 즉시 처리가 시작됩니다. 잠든 사이에도 쉬지 않는 무중단 자동화 시스템.',
-      color: 'from-amber-500 to-orange-500',
-      benefits: ['주문 후 5분 내 시작', 'API 연동 지원', '실시간 진행 상황 확인'],
-    },
-    {
-      icon: Shield,
-      title: '100% 안전 보장',
-      description: '플랫폼 정책을 준수하는 안전한 방식. 계정 보호가 최우선입니다.',
-      color: 'from-emerald-500 to-teal-500',
-      benefits: ['자연스러운 유입 패턴', '계정 제재 無', '비밀번호 불필요'],
-    },
-    {
-      icon: Headphones,
-      title: '완벽 A/S',
-      description: '문제 발생 시 전액 환불 또는 100% 재처리. 고객 만족이 우리의 기준입니다.',
-      color: 'from-blue-500 to-indigo-500',
-      benefits: ['30일 무료 리필', '전액 환불 보장', '카카오톡 1:1 상담'],
-    },
-  ];
-
-  return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-blue-950/30" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16 break-keep">
-          <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm border-[#00C896]/30 text-[#00C896] bg-[#00C896]/10">
-            <Award className="w-4 h-4 mr-2" />
-            왜 INFLUX인가요?
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            성공하는 크리에이터의 <span className="bg-gradient-to-r from-[#4D9FFF] to-[#00C896] bg-clip-text text-transparent">비밀 무기</span>
-          </h2>
-          <p className="text-lg text-white/50 max-w-2xl mx-auto">
-            10년 이상의 노하우로 최고의 품질과 서비스를 약속드립니다
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <Card
-              key={feature.title}
-              className="group relative overflow-hidden border-0 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-500"
-            >
-              <div className={cn('h-1 bg-gradient-to-r', feature.color)} />
-
-              <CardContent className="p-8">
-                <div className={cn(
-                  'w-16 h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3',
-                  feature.color
-                )}>
-                  <feature.icon className="w-8 h-8 text-white" />
-                </div>
-
-                <h3 className="text-2xl font-bold text-white mb-3 break-keep">{feature.title}</h3>
-                <p className="text-white/60 mb-6 leading-relaxed break-keep">{feature.description}</p>
-
-                <ul className="space-y-3">
-                  {feature.benefits.map((benefit) => (
-                    <li key={benefit} className="flex items-center gap-3">
-                      <div className={cn('w-5 h-5 rounded-full bg-gradient-to-br flex items-center justify-center flex-shrink-0', feature.color)}>
-                        <Check className="w-3 h-3 text-white" />
-                      </div>
-                      <span className="text-sm font-medium text-white/80 break-keep">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-
-              <div className={cn(
-                'absolute -bottom-20 -right-20 w-40 h-40 rounded-full blur-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 bg-gradient-to-br',
-                feature.color
-              )} />
-            </Card>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================
-// CTA Section
-// ============================================
-function CTASection() {
-  return (
-    <section className="py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0d2840] to-slate-950">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10 text-center break-keep">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium mb-8">
-          <Users className="w-4 h-4 text-blue-400" />
-          <span className="text-white/80">이미 <span className="text-blue-400 font-bold">{formatNumberWithCommas(getDailyStats().activeUsers)}+</span> 크리에이터가 선택했습니다</span>
-        </div>
-
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
-          경쟁자는 이미 시작했습니다
-        </h2>
-        <p className="text-xl text-white/50 mb-12 max-w-2xl mx-auto leading-relaxed">
-          지금 이 순간에도 수천 개의 채널이 성장하고 있습니다. 더 이상 망설이지 마세요.
-        </p>
-
-        <div className="flex flex-col items-center gap-6">
-          <Button
-            size="lg"
-            asChild
-            className="bg-white text-slate-900 text-xl px-14 h-20 rounded-full font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105 shadow-[0_0_80px_-20px_rgba(255,255,255,0.4)]"
-          >
-            <Link href="/login">
-              지금 바로 시작하기
-              <ArrowRight className="ml-3 h-6 w-6" />
-            </Link>
-          </Button>
-          <p className="text-sm text-white/40 flex items-center gap-4">
-            <span className="flex items-center gap-1"><Check className="w-4 h-4 text-green-400" /> 가입 30초</span>
-            <span className="flex items-center gap-1"><Check className="w-4 h-4 text-green-400" /> 카드 불필요</span>
-            <span className="flex items-center gap-1"><Check className="w-4 h-4 text-green-400" /> 즉시 환불</span>
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================
-// Footer (전자상거래법 필수 표기사항 포함)
-// ============================================
+// ─── Company Info ───
 const companyInfo = {
   name: "루프셀앤미디어",
   ceo: "박주현",
@@ -548,137 +197,456 @@ const companyInfo = {
   email: "support@influx-lab.com",
 };
 
-function Footer() {
-  return (
-    <footer className="py-12 bg-slate-950 border-t border-white/5">
-      <div className="container mx-auto px-4">
-        {/* 상단 링크 영역 */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
-          <Logo size="md" />
-
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/40">
-            <Link href="/services/youtube" className="hover:text-white/80 transition-colors">유튜브</Link>
-            <Link href="/services/instagram" className="hover:text-white/80 transition-colors">인스타그램</Link>
-            <Link href="/services/tiktok" className="hover:text-white/80 transition-colors">틱톡</Link>
-            <Link href="/blog" className="hover:text-white/80 transition-colors">인사이트</Link>
-            <Link href="/terms" className="hover:text-white/80 transition-colors">이용약관</Link>
-            <Link href="/privacy" className="hover:text-white/80 transition-colors">개인정보처리방침</Link>
-          </div>
-        </div>
-
-        {/* 법적 정보 (전자상거래법 필수 표기사항) */}
-        <div className="border-t border-white/5 pt-6">
-          <div className="text-xs text-white/30 text-center md:text-left space-y-1">
-            <p>
-              상호: {companyInfo.name} | 대표: {companyInfo.ceo} | 사업자등록번호: {companyInfo.businessNumber}
-            </p>
-            <p>
-              통신판매업신고: {companyInfo.salesRegistration} | 주소: {companyInfo.address}
-            </p>
-            <p>
-              이메일: {companyInfo.email} | 운영시간: 평일 10:00 - 18:00
-            </p>
-            <p className="pt-3 text-white/20">
-              &copy; {new Date().getFullYear()} {companyInfo.name}. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+// ─── Section Divider ───
+function SectionDivider() {
+  return <div className="h-px w-full" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 50%, transparent)' }} />;
 }
 
-// ============================================
-// Main Landing Page
-// ============================================
+// ═══════════════════════════════════════════
+// MAIN PAGE
+// ═══════════════════════════════════════════
 export default function LandingPage() {
+  const timer = useCountdown();
+
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden bg-slate-950">
-      {/* Global Styles */}
-      <style jsx global>{`
-        @keyframes aurora-1 {
-          0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-          33% { transform: translate(30px, -50px) rotate(5deg) scale(1.1); }
-          66% { transform: translate(-20px, 20px) rotate(-5deg) scale(0.9); }
-        }
-        @keyframes aurora-2 {
-          0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-          33% { transform: translate(-40px, 30px) rotate(-5deg) scale(1.05); }
-          66% { transform: translate(50px, -40px) rotate(5deg) scale(0.95); }
-        }
-        @keyframes aurora-3 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(40px, -30px) scale(1.1); }
-        }
-        @keyframes fade-in-up {
-          0% { opacity: 0; transform: translateY(20px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .aurora-blob-1 {
-          background: radial-gradient(ellipse at center, rgba(0, 100, 255, 0.2) 0%, transparent 70%);
-          animation: aurora-1 15s ease-in-out infinite;
-        }
-        .aurora-blob-2 {
-          background: radial-gradient(ellipse at center, rgba(0, 200, 150, 0.15) 0%, transparent 70%);
-          animation: aurora-2 20s ease-in-out infinite;
-        }
-        .aurora-blob-3 {
-          background: radial-gradient(ellipse at center, rgba(77, 159, 255, 0.12) 0%, transparent 70%);
-          animation: aurora-3 18s ease-in-out infinite;
-        }
-        .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
-      `}</style>
+    <div className="min-h-screen bg-[#09090b] text-[#fafafa] antialiased overflow-x-hidden">
 
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-white/5">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/">
-              <Logo size="md" />
+      {/* ─── Sticky Top Banner (닫기 없음) ─── */}
+      <div className="sticky top-0 z-[60] bg-[#0064FF] text-white py-2.5 px-4 sm:px-6 text-center text-[13px] font-medium">
+        <span className="mr-1">⚡</span>
+        신규 가입 즉시 <span className="font-bold">2,000원 크레딧 지급</span>
+        <span className="mx-2 text-white/40">|</span>
+        <Link href="/login" className="underline underline-offset-2 hover:text-white/80 transition-colors">
+          지금 받기 →
+        </Link>
+      </div>
+
+      {/* ─── Nav ─── */}
+      <nav className="sticky top-[41px] z-50 border-b border-white/[0.06] bg-[#09090b]/80 backdrop-blur-md">
+        <div className="max-w-[1120px] mx-auto flex items-center justify-between h-14 px-4 sm:px-6">
+          <div className="flex items-center gap-8">
+            <Link href="/" className="flex items-center gap-2.5">
+              <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                <rect x="0" y="14" width="8" height="14" rx="1" fill="#4A5568" />
+                <rect x="9.5" y="8" width="8" height="20" rx="1" fill="#64748B" />
+                <rect x="19" y="0" width="8" height="28" rx="1" fill="#0EA5E9" />
+              </svg>
+              <span className="text-[15px] font-black text-white tracking-tight">INFLUX</span>
             </Link>
+            <div className="hidden md:flex items-center gap-5">
+              {[
+                { label: '서비스', href: '#services' },
+                { label: '처리 방식', href: '#how' },
+                { label: '가격', href: '#pricing' },
+              ].map(t => (
+                <a key={t.label} href={t.href} className="text-[13px] text-[#71717a] hover:text-[#fafafa] cursor-pointer transition-colors">{t.label}</a>
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link href="/login" className="text-[13px] text-[#71717a] hover:text-[#fafafa] transition-colors">로그인</Link>
+            <Link href="/login" className="h-10 sm:h-8 px-4 bg-[#0064FF] text-white text-[13px] font-semibold rounded-md hover:bg-[#0052d4] transition-colors inline-flex items-center">
+              지금 시작하기
+            </Link>
+          </div>
+        </div>
+      </nav>
 
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" asChild className="hidden sm:inline-flex text-white/70 hover:text-white hover:bg-white/10">
-                <Link href="/blog">인사이트</Link>
-              </Button>
-              <Button variant="ghost" asChild className="hidden sm:inline-flex text-white/70 hover:text-white hover:bg-white/10">
-                <Link href="/login">로그인</Link>
-              </Button>
-              <Button
-                asChild
-                className="bg-gradient-to-r from-[#0064FF] to-[#00C896] hover:from-[#0052D4] hover:to-[#00B085] text-white rounded-full transition-all duration-300 hover:scale-105"
-              >
-                <Link href="/login">
-                  시작하기
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+      {/* ═══════════ Hero ═══════════ */}
+      <section className="bg-[#09090b]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '30px 30px' }}>
+        <div className="max-w-[1120px] mx-auto px-6">
+          <div className="relative pt-20 sm:pt-32 pb-20 sm:pb-28">
+            <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#0064FF]/[0.03] rounded-full blur-[120px] pointer-events-none" />
+
+            <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left - Copy */}
+              <div>
+                <FadeIn>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] text-[12px] text-[#a1a1aa] mb-6">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    국내 운영 · 한국어 CS · 원화 결제
+                  </div>
+                </FadeIn>
+
+                <FadeIn delay={0.1}>
+                  <h1 className="text-[clamp(32px,5vw,52px)] font-extrabold leading-[1.1]" style={{ letterSpacing: '-0.035em' }}>
+                    SNS 운영을
+                    <br />
+                    <span className="text-[#0064FF]">시스템</span>으로 관리하세요
+                  </h1>
+                </FadeIn>
+
+                <FadeIn delay={0.2}>
+                  <p className="mt-5 text-[16px] leading-[1.8] text-[#a1a1aa] max-w-[480px]" style={{ letterSpacing: '-0.01em' }}>
+                    플랫폼 알고리즘을 이해합니다.
+                    <br />
+                    인위적인 숫자가 아닌, 시스템이 설계한 자연스러운 성장.
+                  </p>
+                </FadeIn>
+
+                <FadeIn delay={0.3}>
+                  <div className="flex items-center gap-3 mt-8">
+                    <Link href="/login" className="h-11 px-6 bg-[#0064FF] text-white text-[14px] font-semibold rounded-lg hover:bg-[#0052d4] transition-all inline-flex items-center cta-pulse">
+                      지금 무료 크레딧 받기
+                    </Link>
+                    <a href="#how" className="h-11 px-6 text-[14px] font-medium text-[#71717a] hover:text-[#fafafa] border border-white/[0.08] rounded-lg hover:border-white/[0.15] transition-colors inline-flex items-center">
+                      처리 방식 보기
+                    </a>
+                  </div>
+                  <p className="mt-3 text-[12px] text-[#3f3f46]">가입 즉시 2,000원 크레딧 · 카드 불필요</p>
+
+                  {/* IP Timer */}
+                  {!timer.isExpired && (
+                    <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#0064FF]/20 bg-[#0064FF]/[0.05] text-[12px]">
+                      <span className="text-[#71717a]">🔥 신규 혜택 종료까지</span>
+                      <span className="font-mono font-bold text-[#0064FF]">{timer.display}</span>
+                    </div>
+                  )}
+                </FadeIn>
+              </div>
+
+              {/* Right - System Terminal */}
+              <FadeIn delay={0.3}>
+                <div className="hidden lg:flex justify-end">
+                  <SystemTerminal />
+                </div>
+              </FadeIn>
             </div>
           </div>
         </div>
-      </header>
-
-      {/* Sections */}
-      <HeroSection />
-      <StatsSection />
-      <TrustBadgesSection />
-      <PricingTeaser />
-      <FreeTrialSection />
-      <CustomerReviews />
-      <section id="features">
-        <FeaturesSection />
       </section>
-      <CTASection />
-      <Footer />
 
-      {/* Real-time Order Ticker */}
-      <OrderTicker />
+      <SectionDivider />
 
-      {/* Promotional Banner */}
-      <PromoBanner />
+      {/* ═══════════ 왜 INFLUX인가 ═══════════ */}
+      <section className="bg-[#0f0f11]">
+        <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
+          <FadeIn>
+            <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>
+              왜 INFLUX인가
+            </h2>
+            <p className="text-[14px] text-[#52525b] mb-10" style={{ letterSpacing: '-0.01em' }}>
+              우리의 기준은 최저가가 아닌, 계정의 생존입니다
+            </p>
+          </FadeIn>
 
-      {/* Kakao Chat Button */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <FadeIn>
+              <div className="md:row-span-2 p-8 bg-[#111113] border border-white/[0.06] rounded-xl flex flex-col justify-between min-h-[240px] hover:border-[#0064FF]/20 transition-colors">
+                <div>
+                  <div className="text-[11px] text-[#3f3f46] uppercase tracking-wider font-medium font-mono">최근 30일 기준</div>
+                  <div className="text-[48px] font-extrabold text-white mt-2 font-mono" style={{ letterSpacing: '-0.04em' }}>
+                    <Counter target={98} suffix="%" />
+                  </div>
+                  <div className="text-[14px] text-[#71717a] mt-1">자동 처리 완료율</div>
+                </div>
+                <p className="text-[13px] text-[#3f3f46] leading-[1.6] mt-6">
+                  API 자동화 기반. 미처리분은 별도 요청 없이 자동 환불됩니다.
+                </p>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.1}>
+              <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
+                <div className="text-[28px] font-extrabold text-white font-mono" style={{ letterSpacing: '-0.03em' }}>
+                  <Counter target={30} suffix="분" />
+                </div>
+                <div className="text-[13px] text-[#52525b] mt-1">평균 처리 시작 시간</div>
+                <p className="text-[12px] text-[#3f3f46] mt-3">새벽 주문도 즉시 처리. 24시간 무중단.</p>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.15}>
+              <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
+                <div className="text-[28px] font-extrabold text-white font-mono" style={{ letterSpacing: '-0.03em' }}>
+                  <Counter target={840000} suffix="+" />
+                </div>
+                <div className="text-[13px] text-[#52525b] mt-1">누적 처리 주문</div>
+                <p className="text-[12px] text-[#3f3f46] mt-3">크리에이터, 마케터, 에이전시가 이용 중.</p>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.2}>
+              <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
+                <div className="text-[28px] font-extrabold text-[#0064FF]" style={{ letterSpacing: '-0.03em' }}>자동 환불</div>
+                <div className="text-[13px] text-[#52525b] mt-1">미완료분 100% 환불</div>
+                <p className="text-[12px] text-[#3f3f46] mt-3">별도 문의 없이 잔액으로 자동 복구.</p>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.25}>
+              <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
+                <div className="text-[28px] font-extrabold text-white" style={{ letterSpacing: '-0.03em' }}>계정 보호</div>
+                <div className="text-[13px] text-[#52525b] mt-1">플랫폼 정책 준수 설계</div>
+                <p className="text-[12px] text-[#3f3f46] mt-3">속도 제한 · 자연 유입 패턴 · 분산 처리.</p>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ═══════════ 운영 기준 ═══════════ */}
+      <section id="how" className="bg-[#09090b]">
+        <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
+          <FadeIn>
+            <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>
+              운영 기준
+            </h2>
+            <p className="text-[14px] text-[#52525b] mb-10" style={{ letterSpacing: '-0.01em' }}>
+              자동화이지만, 사람이 설계한 기준으로 동작합니다
+            </p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {[
+              { num: '01', title: '속도 제한', desc: '플랫폼별 안전 속도 이내로만 처리. 급격한 증가를 방지합니다.' },
+              { num: '02', title: '리필 정책', desc: '30일 이내 감소분 자동 리필. 서비스별 리필 기준이 명시되어 있습니다.' },
+              { num: '03', title: '중단 조건', desc: '계정 비공개 전환, 링크 오류 시 자동 중단. 잔여분은 환불.' },
+              { num: '04', title: '한국어 CS', desc: '평일 10:00–22:00 실시간 응답. 평균 응답 시간 15분 이내.' },
+            ].map((item, i) => (
+              <FadeIn key={item.title} delay={i * 0.08}>
+                <div className="group/card relative p-6 bg-[#111113] border border-white/[0.06] rounded-xl h-full overflow-hidden hover:border-[#0064FF]/30 hover:-translate-y-1 transition-all duration-300">
+                  <span className="absolute top-3 right-4 text-[64px] font-black font-mono text-white/[0.02] leading-none select-none pointer-events-none transition-opacity group-hover/card:text-white/[0.04]">{item.num}</span>
+                  <div className="relative">
+                    <span className="text-[11px] font-mono font-bold text-[#0064FF] tracking-wider">{item.num}</span>
+                    <h3 className="text-[15px] font-bold text-white mt-2 mb-2" style={{ letterSpacing: '-0.02em' }}>{item.title}</h3>
+                    <p className="text-[13px] leading-[1.7] text-[#52525b]">{item.desc}</p>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn delay={0.4}>
+            <p className="text-[12px] text-[#3f3f46] mt-6 text-center font-mono">
+              Violation 시 100% 자동 환불 정책 적용 중
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ═══════════ 성공 사례 (가짜 리뷰 → 카드형) ═══════════ */}
+      <section className="bg-[#0f0f11]">
+        <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
+          <FadeIn>
+            <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>
+              최근 성공 케이스
+            </h2>
+            <p className="text-[14px] text-[#52525b] mb-10">시스템을 통해 달성한 실제 결과</p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {successCases.map((c, i) => (
+              <FadeIn key={i} delay={i * 0.06}>
+                <div className="p-5 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
+                  <div className="flex items-center gap-2.5 mb-3">
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: c.color }} />
+                    <span className="text-[12px] text-[#52525b]">{c.platform}</span>
+                    <span className="ml-auto text-[11px] font-mono text-[#3f3f46]">{c.user}</span>
+                  </div>
+                  <div className="text-[15px] font-bold text-white mb-1" style={{ letterSpacing: '-0.02em' }}>{c.result}</div>
+                  <p className="text-[12px] text-[#3f3f46]">{c.detail}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ═══════════ 3단계로 끝 ═══════════ */}
+      <section className="bg-[#09090b]">
+        <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
+          <FadeIn>
+            <h2 className="text-[24px] sm:text-[28px] font-bold" style={{ letterSpacing: '-0.03em' }}>3단계로 끝</h2>
+            <p className="text-[14px] text-[#52525b] mt-1 mb-10">복잡한 절차 없이, 바로 시작</p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {[
+              { step: '01', title: '가입', desc: '이메일 또는 Google 계정으로 30초 만에 가입', detail: '가입 즉시 2,000원 크레딧 지급' },
+              { step: '02', title: '충전', desc: '계좌이체 또는 USDT로 원하는 금액만큼 충전', detail: '최소 충전 금액 5,000원' },
+              { step: '03', title: '주문', desc: '서비스 선택 → 링크 입력 → 수량 설정 → 완료', detail: 'API 자동 처리, 평균 30분 내 시작' },
+            ].map((item, i) => (
+              <FadeIn key={item.step} delay={i * 0.1}>
+                <div className="p-6 sm:p-8 bg-[#111113] border border-white/[0.06] rounded-xl h-full hover:border-[#0064FF]/20 transition-colors">
+                  <span className="text-[12px] font-mono font-bold text-[#0064FF]">{item.step}</span>
+                  <h3 className="text-[18px] font-bold mt-3 mb-2" style={{ letterSpacing: '-0.02em' }}>{item.title}</h3>
+                  <p className="text-[14px] leading-[1.7] text-[#71717a]">{item.desc}</p>
+                  <p className="text-[12px] text-[#3f3f46] mt-3">{item.detail}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ═══════════ 지원 플랫폼 ═══════════ */}
+      <section id="services" className="bg-[#0f0f11]">
+        <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
+          <FadeIn>
+            <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>지원 플랫폼</h2>
+            <p className="text-[14px] text-[#52525b] mb-8">주요 SNS 전체 지원 · 팔로워, 좋아요, 조회수, 댓글 등</p>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+              {platforms.map((p) => (
+                <Link key={p.name} href={`/services/${p.name.toLowerCase().replace(/\s*\(.*\)/, '')}`}
+                  className="group flex items-center gap-3 p-4 bg-[#111113] border border-white/[0.06] rounded-lg hover:border-white/[0.12] transition-all cursor-pointer">
+                  <p.icon className="w-4 h-4 text-[#52525b] group-hover:scale-110 transition-transform" style={{ color: undefined }} />
+                  <span className="text-[13px] font-medium text-[#a1a1aa]">{p.name}</span>
+                </Link>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ═══════════ 가격 ═══════════ */}
+      <section id="pricing" className="bg-[#09090b]">
+        <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
+          <FadeIn>
+            <h2 className="text-[24px] sm:text-[28px] font-bold" style={{ letterSpacing: '-0.03em' }}>가격</h2>
+            <p className="text-[14px] text-[#52525b] mt-1 mb-10">VAT 포함 · 합리적인 단가 · 서비스별 리필 기준 명시</p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {[
+              { platform: 'Instagram', service: '좋아요', amount: '100개', price: '10', color: '#E4405F', desc: '즉시 시작 · 고품질', highlight: true },
+              { platform: 'YouTube', service: '조회수', amount: '1,000회', price: '500', color: '#FF0000', desc: '리텐션 보장 · 리필 지원' },
+              { platform: 'TikTok', service: '팔로워', amount: '100명', price: '150', color: '#00F2EA', desc: '실계정 · 자연 유입 패턴' },
+              { platform: 'YouTube', service: '구독자', amount: '100명', price: '3,000', color: '#FF0000', desc: '30일 감소 보상' },
+            ].map((item, i) => (
+              <FadeIn key={i} delay={i * 0.05}>
+                <div className={`group p-5 border rounded-xl transition-all cursor-pointer ${
+                  item.highlight
+                    ? 'bg-[#0064FF]/[0.04] border-[#0064FF]/20 hover:border-[#0064FF]/40'
+                    : 'bg-[#111113] border-white/[0.06] hover:border-[#0064FF]/20'
+                }`}>
+                  {item.highlight && (
+                    <div className="text-[10px] font-bold text-[#0064FF] uppercase tracking-wider mb-3 font-mono">MOST POPULAR</div>
+                  )}
+                  <div className="flex items-center gap-2.5 mb-4">
+                    <div className="w-2.5 h-2.5 rounded-full transition-transform group-hover:scale-125" style={{ backgroundColor: item.color }} />
+                    <span className="text-[13px] font-medium text-[#71717a]">{item.platform}</span>
+                  </div>
+                  <div className="text-[14px] text-[#a1a1aa]">{item.service} {item.amount}</div>
+                  <div className="flex items-baseline gap-0.5 mt-1">
+                    <span className="text-[32px] font-extrabold font-mono" style={{ letterSpacing: '-0.04em' }}>{item.price}</span>
+                    <span className="text-[14px] text-[#52525b] font-medium">원</span>
+                  </div>
+                  <div className="text-[12px] text-[#3f3f46] mt-3">{item.desc}</div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn delay={0.3}>
+            <div className="text-center mt-8">
+              <Link href="/order" className="text-[13px] text-[#0064FF] hover:underline font-medium">
+                전체 가격표 보기 →
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ═══════════ CTA ═══════════ */}
+      <section className="bg-[#0f0f11] border-t border-white/[0.06]">
+        <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
+          <FadeIn>
+            <div className="max-w-[480px]">
+              <h2 className="text-[28px] sm:text-[36px] font-extrabold leading-[1.1]" style={{ letterSpacing: '-0.035em' }}>
+                내 계정에 안전한지
+                <br />
+                먼저 확인해보세요
+              </h2>
+              <p className="mt-4 text-[15px] text-[#52525b] leading-[1.7]">
+                가입 30초 · 카드 불필요 · 신규 2,000원 크레딧
+              </p>
+              <Link href="/login" className="mt-8 h-12 px-8 bg-[#0064FF] text-white text-[15px] font-semibold rounded-lg hover:bg-[#0052d4] transition-all inline-flex items-center cta-pulse">
+                지금 구조 확인하기
+              </Link>
+
+              {/* Timer repeat */}
+              {!timer.isExpired && (
+                <div className="mt-4">
+                  <span className="text-[12px] text-[#3f3f46] font-mono">
+                    🔥 신규 30% 추가 충전 혜택 종료까지 <span className="text-[#0064FF] font-bold">{timer.display}</span>
+                  </span>
+                </div>
+              )}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ═══════════ Footer ═══════════ */}
+      <footer className="bg-[#09090b] border-t border-white/[0.04]">
+        <div className="max-w-[1120px] mx-auto px-4 sm:px-6 py-8 sm:py-10">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <Link href="/" className="flex items-center gap-2.5">
+              <svg width="20" height="21" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                <rect x="0" y="14" width="8" height="14" rx="1" fill="#4A5568" />
+                <rect x="9.5" y="8" width="8" height="20" rx="1" fill="#64748B" />
+                <rect x="19" y="0" width="8" height="28" rx="1" fill="#0EA5E9" />
+              </svg>
+              <span className="text-[13px] font-black text-white tracking-tight">INFLUX</span>
+            </Link>
+            <div className="flex flex-wrap items-center gap-5">
+              {[
+                { label: '이용약관', href: '/terms' },
+                { label: '개인정보처리방침', href: '/privacy' },
+                { label: '인사이트', href: '/blog' },
+              ].map(t => (
+                <Link key={t.label} href={t.href} className="text-[12px] text-[#3f3f46] hover:text-[#52525b] transition-colors">{t.label}</Link>
+              ))}
+              <span className="text-[12px] text-[#3f3f46]">{companyInfo.email}</span>
+            </div>
+          </div>
+          <div className="mt-6 pt-6 border-t border-white/[0.04]">
+            <p className="text-[11px] text-[#27272a] leading-[1.8]">
+              상호: {companyInfo.name} | 대표: {companyInfo.ceo} | 사업자등록번호: {companyInfo.businessNumber}
+              <br />
+              통신판매업신고: {companyInfo.salesRegistration} | 주소: {companyInfo.address}
+              <br />
+              이메일: {companyInfo.email} | 운영시간: 평일 10:00 - 18:00
+              <br />
+              &copy; 2026 {companyInfo.name}. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      {/* ─── Floating: Kakao Chat ─── */}
       <KakaoChatButton />
+
+      {/* ─── Keyframes ─── */}
+      <style jsx>{`
+        @keyframes fadeInLine {
+          from { opacity: 0; transform: translateY(4px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes ctaPulse {
+          0% { box-shadow: 0 0 10px rgba(0, 100, 255, 0.2), 0 0 40px rgba(0, 100, 255, 0.05); }
+          50% { box-shadow: 0 0 25px rgba(0, 100, 255, 0.5), 0 0 60px rgba(0, 100, 255, 0.15); }
+          100% { box-shadow: 0 0 10px rgba(0, 100, 255, 0.2), 0 0 40px rgba(0, 100, 255, 0.05); }
+        }
+        .cta-pulse {
+          animation: ctaPulse 3s infinite ease-in-out;
+        }
+      `}</style>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import {
   Clock,
   ArrowUpRight,
   ArrowDownRight,
+  Minus,
   Loader2,
 } from "lucide-react";
 import { FaInstagram, FaYoutube, FaTiktok, FaFacebook, FaTelegram, FaTwitter } from "react-icons/fa";
@@ -66,11 +67,96 @@ interface PopularService {
   color: string;
 }
 
+// 월 시작/끝 날짜 유틸
+function getMonthRange(offset: number = 0) {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+  const end = new Date(now.getFullYear(), now.getMonth() + offset + 1, 0, 23, 59, 59, 999);
+  return { start: start.toISOString(), end: end.toISOString() };
+}
+
+// 변화율 계산
+function calcChange(current: number, previous: number): { label: string; trend: "up" | "down" | "neutral" } {
+  if (previous === 0 && current === 0) return { label: "-", trend: "neutral" };
+  if (previous === 0) return { label: `+${current}`, trend: "up" };
+  const pct = ((current - previous) / previous) * 100;
+  if (pct === 0) return { label: "0%", trend: "neutral" };
+  const sign = pct > 0 ? "+" : "";
+  return {
+    label: `${sign}${pct.toFixed(0)}%`,
+    trend: pct > 0 ? "up" : "down",
+  };
+}
+
+interface MonthlyStats {
+  thisMonthOrders: number;
+  lastMonthOrders: number;
+  thisMonthSpent: number;
+  lastMonthSpent: number;
+  processingCount: number;
+  completedCount: number;
+  totalCount: number;
+  lastMonthCompletedRate: number;
+}
+
 export default function DashboardPage() {
   const { profile, isLoading: authLoading } = useAuth();
   const { data: orders = [], isLoading: ordersLoading } = useOrders({ limit: 5 });
   const [popularServices, setPopularServices] = useState<PopularService[]>([]);
   const [productsLoading, setProductsLoading] = useState(true);
+  const [monthlyStats, setMonthlyStats] = useState<MonthlyStats | null>(null);
+  const [statsLoading, setStatsLoading] = useState(true);
+
+  // 월별 통계 조회 (이번 달 + 지난 달)
+  useEffect(() => {
+    const fetchMonthlyStats = async () => {
+      setStatsLoading(true);
+      try {
+        const thisMonth = getMonthRange(0);
+        const lastMonth = getMonthRange(-1);
+
+        // 이번 달 주문
+        const { data: thisData } = await supabase
+          .from('orders')
+          .select('status, amount')
+          .gte('created_at', thisMonth.start)
+          .lte('created_at', thisMonth.end);
+
+        // 지난 달 주문
+        const { data: lastData } = await supabase
+          .from('orders')
+          .select('status, amount')
+          .gte('created_at', lastMonth.start)
+          .lte('created_at', lastMonth.end);
+
+        const thisOrders = (thisData || []) as { status: string; amount: number }[];
+        const lastOrders = (lastData || []) as { status: string; amount: number }[];
+
+        const lastCompleted = lastOrders.filter(o => o.status === 'completed').length;
+
+        setMonthlyStats({
+          thisMonthOrders: thisOrders.length,
+          lastMonthOrders: lastOrders.length,
+          thisMonthSpent: thisOrders.reduce((s, o) => s + (Number(o.amount) || 0), 0),
+          lastMonthSpent: lastOrders.reduce((s, o) => s + (Number(o.amount) || 0), 0),
+          processingCount: thisOrders.filter(o =>
+            o.status === 'processing' || o.status === 'in_progress' || o.status === 'pending'
+          ).length,
+          completedCount: thisOrders.filter(o => o.status === 'completed').length,
+          totalCount: thisOrders.length,
+          lastMonthCompletedRate: lastOrders.length > 0
+            ? (lastCompleted / lastOrders.length) * 100
+            : 0,
+        });
+      } catch (error) {
+        console.error('Error fetching monthly stats:', error);
+      } finally {
+        setStatsLoading(false);
+      }
+    };
+
+    fetchMonthlyStats();
+  }, []);
 
   // 인기 서비스 조회 (admin_products 사용)
   useEffect(() => {
@@ -116,69 +202,78 @@ export default function DashboardPage() {
     fetchPopularProducts();
   }, []);
 
-  // 통계 계산
+  // 통계 계산 (실제 전월 대비)
   const stats = useMemo(() => {
-    const thisMonthOrders = orders.filter(o => {
-      const orderDate = new Date(o.created_at);
-      const now = new Date();
-      return orderDate.getMonth() === now.getMonth() && orderDate.getFullYear() === now.getFullYear();
-    });
+    if (!monthlyStats) return [];
 
-    const totalSpent = orders.reduce((sum, o) => sum + (Number(o.amount) || 0), 0);
-    const processingOrders = orders.filter(o =>
-      o.status === 'processing' || o.status === 'in_progress' || o.status === 'pending'
+    const {
+      thisMonthOrders, lastMonthOrders,
+      thisMonthSpent, lastMonthSpent,
+      processingCount, completedCount, totalCount,
+      lastMonthCompletedRate,
+    } = monthlyStats;
+
+    const completionRate = totalCount > 0
+      ? (completedCount / totalCount) * 100
+      : 0;
+
+    const orderChange = calcChange(thisMonthOrders, lastMonthOrders);
+    const spentChange = calcChange(thisMonthSpent, lastMonthSpent);
+    const rateChange = calcChange(
+      Math.round(completionRate),
+      Math.round(lastMonthCompletedRate)
     );
-    const completedOrders = orders.filter(o => o.status === 'completed');
-    const completionRate = orders.length > 0
-      ? ((completedOrders.length / orders.length) * 100).toFixed(1)
-      : "0.0";
 
     return [
       {
         title: "이번 달 주문",
-        value: thisMonthOrders.length,
-        change: "+12%",
-        trend: "up" as const,
+        value: thisMonthOrders,
+        change: orderChange.label,
+        trend: orderChange.trend,
+        subtitle: `지난 달 ${lastMonthOrders}건`,
         icon: ShoppingCart,
-        color: "text-blue-600",
-        bg: "bg-blue-100",
+        color: "text-white",
+        bg: "bg-gradient-to-br from-blue-500 to-blue-600",
       },
       {
-        title: "총 지출",
-        value: totalSpent,
-        change: "+8%",
-        trend: "up" as const,
+        title: "이번 달 지출",
+        value: thisMonthSpent,
+        change: spentChange.label,
+        trend: spentChange.trend,
+        subtitle: `지난 달 ${formatCurrency(lastMonthSpent)}`,
         icon: DollarSign,
-        color: "text-green-600",
-        bg: "bg-green-100",
+        color: "text-white",
+        bg: "bg-gradient-to-br from-emerald-500 to-emerald-600",
         isCurrency: true,
       },
       {
         title: "진행중 주문",
-        value: processingOrders.length,
-        change: `-${processingOrders.length}`,
-        trend: "down" as const,
+        value: processingCount,
+        change: `${processingCount}건 대기`,
+        trend: processingCount > 0 ? "down" as const : "neutral" as const,
+        subtitle: "현재 처리 중",
         icon: Clock,
-        color: "text-amber-600",
-        bg: "bg-amber-100",
+        color: "text-white",
+        bg: "bg-gradient-to-br from-amber-500 to-orange-500",
       },
       {
         title: "완료율",
-        value: `${completionRate}%`,
-        change: "+0.5%",
-        trend: "up" as const,
+        value: `${completionRate.toFixed(1)}%`,
+        change: rateChange.label,
+        trend: rateChange.trend,
+        subtitle: `${completedCount}/${totalCount}건 완료`,
         icon: TrendingUp,
-        color: "text-[#00C896]",
-        bg: "bg-[#00C896]/10",
+        color: "text-white",
+        bg: "bg-gradient-to-br from-[#00C896] to-emerald-500",
       },
     ];
-  }, [orders]);
+  }, [monthlyStats]);
 
-  const isLoading = authLoading || productsLoading || ordersLoading;
+  const isLoading = authLoading || productsLoading || ordersLoading || statsLoading;
 
   if (isLoading) {
     return (
-      <div className="p-6 lg:p-8 space-y-8">
+      <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <Skeleton className="h-8 w-32" />
@@ -186,12 +281,12 @@ export default function DashboardPage() {
           </div>
           <Skeleton className="h-10 w-32" />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} className="h-32 w-full" />
           ))}
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           <Skeleton className="lg:col-span-2 h-64" />
           <Skeleton className="h-64" />
         </div>
@@ -200,11 +295,11 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-6 lg:p-8 space-y-8">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl lg:text-3xl font-bold">대시보드</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">대시보드</h1>
           <p className="text-muted-foreground mt-1">
             안녕하세요{profile?.username ? `, ${profile.username}님` : ''}! 오늘도 성공적인 마케팅 되세요.
           </p>
@@ -218,34 +313,39 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         {stats.map((stat) => (
           <Card key={stat.title} className="card-interactive">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
-                <div className={`p-3 rounded-xl ${stat.bg}`}>
-                  <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                <div className={`p-3 rounded-xl shadow-lg ${stat.bg}`}>
+                  <stat.icon className={`h-5 w-5 ${stat.color}`} strokeWidth={2.5} />
                 </div>
                 <div
                   className={`flex items-center gap-1 text-sm font-medium ${
-                    stat.trend === "up" ? "text-green-600" : "text-red-600"
+                    stat.trend === "up" ? "text-emerald-400" : stat.trend === "down" ? "text-red-400" : "text-muted-foreground"
                   }`}
                 >
                   {stat.trend === "up" ? (
                     <ArrowUpRight className="h-4 w-4" />
-                  ) : (
+                  ) : stat.trend === "down" ? (
                     <ArrowDownRight className="h-4 w-4" />
+                  ) : (
+                    <Minus className="h-4 w-4" />
                   )}
                   {stat.change}
                 </div>
               </div>
               <div className="mt-4">
                 <p className="text-sm text-muted-foreground">{stat.title}</p>
-                <p className="text-2xl font-bold mt-1">
+                <p className="text-lg sm:text-2xl font-bold mt-1 font-mono">
                   {stat.isCurrency
                     ? formatCurrency(stat.value as number)
                     : stat.value}
                 </p>
+                {stat.subtitle && (
+                  <p className="text-xs text-muted-foreground mt-1">{stat.subtitle}</p>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -253,7 +353,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Recent Orders */}
         <Card className="lg:col-span-2">
           <CardHeader className="flex flex-row items-center justify-between">
@@ -277,7 +377,7 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={order.id}
-                      className="flex items-center justify-between p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
+                      className="flex items-center justify-between p-3 sm:p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
                     >
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
@@ -291,12 +391,12 @@ export default function DashboardPage() {
                             {statusLabels[order.status]}
                           </Badge>
                         </div>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <span className="truncate max-w-[150px]">{order.link}</span>
-                          <span>•</span>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+                          <span className="truncate max-w-[120px] sm:max-w-[200px]">{order.link}</span>
+                          <span className="hidden sm:inline">•</span>
                           <span>{formatNumber(order.quantity)}개</span>
-                          <span>•</span>
-                          <span>{formatRelativeTime(order.created_at)}</span>
+                          <span className="hidden sm:inline">•</span>
+                          <span className="text-xs sm:text-sm">{formatRelativeTime(order.created_at)}</span>
                         </div>
                       </div>
                       <div className="text-right ml-4">
@@ -359,12 +459,12 @@ export default function DashboardPage() {
       </div>
 
       {/* Quick Actions / Announcement Banner */}
-      <Card className="bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-primary/20">
-        <CardContent className="p-6">
+      <Card className="bg-[#0064FF]/5 border-[#0064FF]/20">
+        <CardContent className="p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="p-3 rounded-xl bg-primary/20">
-                <TrendingUp className="h-6 w-6 text-primary" />
+                <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               </div>
               <div>
                 <h3 className="font-semibold">

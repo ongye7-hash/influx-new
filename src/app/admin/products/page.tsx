@@ -470,9 +470,9 @@ export default function ProductsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold flex items-center gap-2">
             <ShoppingBag className="h-6 w-6" />
             상품 관리
           </h1>
@@ -493,7 +493,7 @@ export default function ProductsPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -501,7 +501,7 @@ export default function ProductsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{products.length}</div>
+            <div className="text-lg sm:text-2xl font-bold">{products.length}</div>
           </CardContent>
         </Card>
         <Card>
@@ -511,7 +511,7 @@ export default function ProductsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-lg sm:text-2xl font-bold text-green-400">
               {products.filter((p) => p.is_active).length}
             </div>
           </CardContent>
@@ -523,7 +523,7 @@ export default function ProductsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-600">
+            <div className="text-lg sm:text-2xl font-bold text-amber-400">
               {products.filter((p) => p.is_recommended).length}
             </div>
           </CardContent>
@@ -535,7 +535,7 @@ export default function ProductsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-lg sm:text-2xl font-bold text-blue-400">
               {products.filter((p) => p.primary_provider_id).length}
             </div>
           </CardContent>
@@ -562,7 +562,7 @@ export default function ProductsPage() {
                 현재 환율 (USD → KRW)
               </Label>
               <div className="flex items-center gap-2">
-                <div className="text-2xl font-bold">
+                <div className="text-lg sm:text-2xl font-bold">
                   {marginSettings.loading ? (
                     <Loader2 className="h-6 w-6 animate-spin" />
                   ) : (
@@ -653,14 +653,14 @@ export default function ProductsPage() {
                 적용 결과
               </h4>
               <div className="grid gap-4 md:grid-cols-2 mb-4">
-                <div className="bg-green-100 dark:bg-green-900/20 rounded-md p-3">
-                  <div className="text-2xl font-bold text-green-600">
+                <div className="bg-green-500/10 rounded-md p-3">
+                  <div className="text-lg sm:text-2xl font-bold text-green-400">
                     {marginSettings.lastResult.updated}개
                   </div>
                   <div className="text-sm text-muted-foreground">가격 업데이트됨</div>
                 </div>
-                <div className="bg-amber-100 dark:bg-amber-900/20 rounded-md p-3">
-                  <div className="text-2xl font-bold text-amber-600">
+                <div className="bg-amber-500/10 rounded-md p-3">
+                  <div className="text-lg sm:text-2xl font-bold text-amber-400">
                     {marginSettings.lastResult.skipped}개
                   </div>
                   <div className="text-sm text-muted-foreground">스킵됨 (API 미연결)</div>
@@ -682,7 +682,7 @@ export default function ProductsPage() {
                             ₩{r.oldPrice.toLocaleString()}
                           </span>
                           <ArrowRight className="h-3 w-3" />
-                          <span className="font-medium text-green-600">
+                          <span className="font-medium text-green-400">
                             ₩{r.newPrice.toLocaleString()}
                           </span>
                           <span className="text-muted-foreground">
@@ -753,6 +753,7 @@ export default function ProductsPage() {
               </Button>
             </div>
           ) : (
+            <div className="overflow-x-auto -mx-4 sm:-mx-6">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -869,6 +870,7 @@ export default function ProductsPage() {
                 ))}
               </TableBody>
             </Table>
+            </div>
           )}
         </CardContent>
       </Card>
@@ -1051,7 +1053,7 @@ export default function ProductsPage() {
               </CollapsibleTrigger>
               <CollapsibleContent className="space-y-4 pt-4">
                 {/* Primary API */}
-                <Card className="border-green-200 bg-green-50/50 dark:border-green-900 dark:bg-green-950/20">
+                <Card className="border-green-500/20 bg-green-500/10">
                   <CardHeader className="pb-3">
                     <CardTitle className="text-sm flex items-center gap-2">
                       <Badge className="bg-green-600">1순위</Badge>
@@ -1099,7 +1101,7 @@ export default function ProductsPage() {
                 </Card>
 
                 {/* Fallback 1 */}
-                <Card className="border-amber-200 bg-amber-50/50 dark:border-amber-900 dark:bg-amber-950/20">
+                <Card className="border-amber-500/20 bg-amber-500/10">
                   <CardHeader className="pb-3">
                     <CardTitle className="text-sm flex items-center gap-2">
                       <Badge className="bg-amber-600">2순위</Badge>
@@ -1150,7 +1152,7 @@ export default function ProductsPage() {
                 </Card>
 
                 {/* Fallback 2 */}
-                <Card className="border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/20">
+                <Card className="border-red-500/20 bg-red-500/10">
                   <CardHeader className="pb-3">
                     <CardTitle className="text-sm flex items-center gap-2">
                       <Badge className="bg-red-600">3순위</Badge>

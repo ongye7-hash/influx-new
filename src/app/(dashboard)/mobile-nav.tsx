@@ -52,10 +52,10 @@ const adminNavigation = [
 ];
 
 const tierConfig = {
-  basic: { label: '일반', color: 'text-muted-foreground', bg: 'bg-muted' },
-  vip: { label: 'VIP', color: 'text-amber-600', bg: 'bg-amber-100 dark:bg-amber-900/30' },
-  premium: { label: '프리미엄', color: 'text-[#00C896]', bg: 'bg-[#00C896]/10 dark:bg-[#00C896]/20' },
-  enterprise: { label: '엔터프라이즈', color: 'text-blue-600', bg: 'bg-blue-100 dark:bg-blue-900/30' },
+  basic: { label: '일반', color: 'text-white/60', bg: 'bg-white/[0.06]' },
+  vip: { label: 'VIP', color: 'text-amber-400', bg: 'bg-amber-500/10' },
+  premium: { label: '프리미엄', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+  enterprise: { label: '엔터프라이즈', color: 'text-blue-400', bg: 'bg-blue-500/10' },
 };
 
 interface MobileNavProps {
@@ -95,14 +95,18 @@ export function MobileNav({ isGuestMode = false }: MobileNavProps) {
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-80 p-0">
+      <SheetContent side="left" className="w-[85vw] max-w-80 p-0">
         <SheetTitle className="sr-only">메뉴</SheetTitle>
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center h-16 px-6 border-b border-border">
             <Link href="/dashboard" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-              <Zap className="w-7 h-7 text-primary" />
-              <span className="text-xl font-bold bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent">
+              <svg width="24" height="25" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                <rect x="0" y="14" width="8" height="14" rx="1" fill="#4A5568" />
+                <rect x="9.5" y="8" width="8" height="20" rx="1" fill="#64748B" />
+                <rect x="19" y="0" width="8" height="28" rx="1" fill="#0EA5E9" />
+              </svg>
+              <span className="text-xl font-black text-foreground tracking-tight">
                 INFLUX
               </span>
             </Link>
@@ -188,8 +192,8 @@ export function MobileNav({ isGuestMode = false }: MobileNavProps) {
                 "flex items-center gap-3 px-4 py-4 rounded-xl text-base font-bold transition-all duration-200 mb-3",
                 "bg-gradient-to-r from-[#0064FF]/10 to-[#00C896]/10 border border-[#0064FF]/20",
                 pathname === "/guide"
-                  ? "from-[#0064FF]/20 to-[#00C896]/20 border-[#0064FF]/40 text-[#0064FF] dark:text-[#4D9FFF]"
-                  : "text-[#0064FF] dark:text-[#4D9FFF]"
+                  ? "from-[#0064FF]/20 to-[#00C896]/20 border-[#0064FF]/40 text-[#4D9FFF]"
+                  : "text-[#4D9FFF]"
               )}
             >
               <div className="p-1.5 rounded-lg bg-gradient-to-br from-[#0064FF] to-[#00C896]">
@@ -262,7 +266,7 @@ export function MobileNav({ isGuestMode = false }: MobileNavProps) {
                       className={cn(
                         "flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium transition-all duration-200 mb-1",
                         isActive
-                          ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                          ? "bg-amber-500/10 text-amber-400"
                           : "text-muted-foreground hover:text-foreground hover:bg-muted"
                       )}
                     >
@@ -309,8 +313,8 @@ export function MobileNav({ isGuestMode = false }: MobileNavProps) {
           {isGuestMode && (
             <div className="p-4 border-t border-border">
               <div className="flex items-center gap-3 mb-4">
-                <div className="h-12 w-12 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
-                  <span className="text-amber-600 font-semibold text-lg">G</span>
+                <div className="h-12 w-12 rounded-full bg-amber-500/10 flex items-center justify-center">
+                  <span className="text-amber-400 font-semibold text-lg">G</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium">비회원</p>

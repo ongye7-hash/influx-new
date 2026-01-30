@@ -38,31 +38,15 @@ export const metadata: Metadata = {
 // ============================================
 // Logo Component
 // ============================================
-function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
-  const sizes = {
-    sm: { icon: 28, text: 'text-lg' },
-    md: { icon: 36, text: 'text-xl' },
-    lg: { icon: 48, text: 'text-2xl' },
-  };
-  const s = sizes[size];
-
+function Logo() {
   return (
     <div className="flex items-center gap-2">
-      <svg width={s.icon} height={s.icon} viewBox="0 0 100 100" fill="none" className="drop-shadow-lg">
-        <path d="M35 85V35H50V85H35Z" fill="url(#logoGradYT)" />
-        <path d="M25 35H60V50H25V35Z" fill="url(#logoGradYT)" />
-        <path d="M42 15L75 48L64 59L31 26L42 15Z" fill="url(#logoGradYT)" />
-        <path d="M60 20H80V35H65V50H50V35H60V20Z" fill="url(#logoGradYT)" />
-        <defs>
-          <linearGradient id="logoGradYT" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#0064FF" />
-            <stop offset="100%" stopColor="#00C896" />
-          </linearGradient>
-        </defs>
+      <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+        <rect x="0" y="14" width="8" height="14" rx="1" fill="#4A5568" />
+        <rect x="9.5" y="8" width="8" height="20" rx="1" fill="#64748B" />
+        <rect x="19" y="0" width="8" height="28" rx="1" fill="#0EA5E9" />
       </svg>
-      <span className={cn(s.text, 'font-black tracking-tight bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent')}>
-        INFLUX
-      </span>
+      <span className="text-xl font-black text-white tracking-tight">INFLUX</span>
     </div>
   );
 }
@@ -147,7 +131,7 @@ export default function YouTubeServicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-[#09090b] antialiased">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
@@ -155,13 +139,13 @@ export default function YouTubeServicesPage() {
       />
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-white/5">
+      <header className="sticky top-0 z-50 bg-[#09090b]/80 backdrop-blur-lg border-b border-white/5">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <Link href="/">
-              <Logo size="md" />
+              <Logo />
             </Link>
-            <nav className="flex items-center gap-4">
+            <nav className="flex items-center gap-2 sm:gap-4">
               <Link
                 href="/"
                 className="text-sm font-medium text-white/60 hover:text-white transition-colors flex items-center gap-1"
@@ -190,7 +174,7 @@ export default function YouTubeServicesPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden">
+      <section className="relative py-16 sm:py-20 md:py-32 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-red-950/20 to-slate-950" />
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-red-500/10 rounded-full blur-3xl" />
@@ -205,7 +189,7 @@ export default function YouTubeServicesPage() {
             </Badge>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight break-keep">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight break-keep">
               유튜브 채널을
               <span className="bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent"> 폭발적으로 </span>
               성장시키세요
@@ -242,17 +226,17 @@ export default function YouTubeServicesPage() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mt-16 max-w-xl mx-auto">
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 mt-12 sm:mt-16 max-w-xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-white">50K+</div>
+                <div className="text-3xl font-bold font-mono text-white">50K+</div>
                 <div className="text-sm text-white/40">활성 사용자</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white">99.9%</div>
+                <div className="text-3xl font-bold font-mono text-white">99.9%</div>
                 <div className="text-sm text-white/40">만족도</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white">24/7</div>
+                <div className="text-3xl font-bold font-mono text-white">24/7</div>
                 <div className="text-sm text-white/40">자동화</div>
               </div>
             </div>
@@ -460,10 +444,10 @@ export default function YouTubeServicesPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-slate-950 border-t border-white/5">
+      <footer className="py-12 bg-[#09090b] antialiased border-t border-white/5">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <Logo size="md" />
+            <Logo />
             <div className="flex items-center gap-6 text-sm text-white/40">
               <Link href="/terms" className="hover:text-white/80 transition-colors">이용약관</Link>
               <Link href="/privacy" className="hover:text-white/80 transition-colors">개인정보처리방침</Link>

@@ -350,9 +350,9 @@ export default function NewOrderPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
             <ShoppingCart className="h-6 w-6" />
             새 주문
           </h1>
@@ -360,7 +360,7 @@ export default function NewOrderPage() {
         </div>
         <div className="text-right">
           <p className="text-sm text-muted-foreground">내 잔액</p>
-          <p className="text-xl font-bold text-primary">
+          <p className="text-lg sm:text-xl font-bold text-primary">
             {formatCurrency(profile?.balance || 0)}
           </p>
         </div>
@@ -408,7 +408,7 @@ export default function NewOrderPage() {
                 <CardTitle className="text-lg">2. 카테고리 선택</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                   {platformCategories.map((category) => {
                     const isActive = selectedCategory === category.id;
                     return (
@@ -578,7 +578,7 @@ export default function NewOrderPage() {
 
         {/* Right: Order Summary */}
         <div className="space-y-6">
-          <Card className="sticky top-6">
+          <Card className="lg:sticky lg:top-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CreditCard className="h-5 w-5" />
@@ -591,7 +591,7 @@ export default function NewOrderPage() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">상품</span>
-                      <span className="font-medium truncate max-w-[150px]">
+                      <span className="font-medium truncate max-w-[120px] sm:max-w-[200px]">
                         {selectedProduct.name}
                       </span>
                     </div>
@@ -608,7 +608,7 @@ export default function NewOrderPage() {
                   <div className="border-t pt-4">
                     <div className="flex justify-between items-center">
                       <span className="font-semibold">총 결제금액</span>
-                      <span className="text-2xl font-bold text-primary">
+                      <span className="text-xl sm:text-2xl font-bold text-primary">
                         {formatCurrency(totalPrice)}
                       </span>
                     </div>
@@ -619,8 +619,8 @@ export default function NewOrderPage() {
                     <div className={cn(
                       'p-3 rounded-lg text-sm',
                       (profile.balance || 0) >= totalPrice
-                        ? 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300'
-                        : 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'
+                        ? 'bg-emerald-500/10 text-emerald-400'
+                        : 'bg-red-500/10 text-red-400'
                     )}>
                       <div className="flex items-center gap-2">
                         {(profile.balance || 0) >= totalPrice ? (

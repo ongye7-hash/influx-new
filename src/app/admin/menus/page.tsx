@@ -368,7 +368,7 @@ export default function MenusPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-green-400">
               {menus.filter((m) => m.is_active).length}
             </div>
           </CardContent>
@@ -380,7 +380,7 @@ export default function MenusPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-blue-400">
               {menus.filter((m) => !m.parent_id).length}
             </div>
           </CardContent>
@@ -392,7 +392,7 @@ export default function MenusPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-600">
+            <div className="text-2xl font-bold text-amber-400">
               {menus.filter((m) => m.is_admin_only).length}
             </div>
           </CardContent>
@@ -400,15 +400,15 @@ export default function MenusPage() {
       </div>
 
       {/* Info Card */}
-      <Card className="bg-blue-50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-900">
+      <Card className="bg-blue-500/10 border-blue-500/20">
         <CardContent className="pt-6">
           <div className="flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-blue-600 mt-0.5" />
+            <AlertCircle className="h-5 w-5 text-blue-400 mt-0.5" />
             <div>
-              <p className="font-medium text-blue-900 dark:text-blue-100">
+              <p className="font-medium text-blue-100">
                 메뉴 관리 안내
               </p>
-              <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
+              <p className="text-sm text-blue-300 mt-1">
                 이 기능은 DB에 메뉴 설정을 저장합니다. 실제 사이드바에 적용하려면
                 프론트엔드 코드에서 이 데이터를 불러와 렌더링해야 합니다.
                 현재는 설정 관리 용도로 사용됩니다.

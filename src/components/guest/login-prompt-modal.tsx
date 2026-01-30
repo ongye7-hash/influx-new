@@ -136,7 +136,7 @@ export function LoginPromptModal({
             </div>
 
             {/* 긴급성 요소 */}
-            <div className="flex items-center justify-center gap-2 text-sm text-orange-600 bg-orange-50 dark:bg-orange-950/30 rounded-lg py-2">
+            <div className="flex items-center justify-center gap-2 text-sm text-orange-600 bg-orange-950/30 rounded-lg py-2">
               <Clock className="h-4 w-4" />
               <span>신규 가입 혜택은 <span className="font-bold">오늘까지만</span> 제공됩니다</span>
             </div>

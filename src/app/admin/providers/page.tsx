@@ -328,7 +328,7 @@ export default function ProvidersPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-green-400">
               {providers.filter((p) => p.is_active).length}
             </div>
           </CardContent>
@@ -340,7 +340,7 @@ export default function ProvidersPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-blue-400">
               ${providers.reduce((sum, p) => sum + (p.balance || 0), 0).toFixed(2)}
             </div>
             <div className="text-sm text-muted-foreground">
@@ -403,7 +403,7 @@ export default function ProvidersPage() {
                         href={provider.api_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-blue-600 hover:underline text-sm"
+                        className="flex items-center gap-1 text-blue-400 hover:underline text-sm"
                       >
                         {provider.api_url.substring(0, 30)}...
                         <ExternalLink className="h-3 w-3" />

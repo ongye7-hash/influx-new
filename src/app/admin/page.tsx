@@ -76,21 +76,21 @@ function StatCard({ title, value, description, icon: Icon, trend, href, variant 
   const content = (
     <Card className={cn(
       'transition-all hover:shadow-lg',
-      variant === 'warning' && 'border-amber-200 bg-amber-50/50 dark:bg-amber-950/20',
-      variant === 'success' && 'border-emerald-200 bg-emerald-50/50 dark:bg-emerald-950/20'
+      variant === 'warning' && 'border-amber-500/20 bg-amber-500/10',
+      variant === 'success' && 'border-emerald-500/20 bg-emerald-500/10'
     )}>
-      <CardContent className="p-6">
+      <CardContent className="p-4 sm:p-6">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <p className="text-sm font-medium text-muted-foreground">{title}</p>
-            <p className="text-2xl font-bold">{value}</p>
+            <p className="text-lg sm:text-2xl font-bold">{value}</p>
             {description && (
               <p className="text-xs text-muted-foreground">{description}</p>
             )}
             {typeof trend === 'number' && (
               <div className={cn(
                 'flex items-center gap-1 text-xs font-medium',
-                trend >= 0 ? 'text-emerald-600' : 'text-red-600'
+                trend >= 0 ? 'text-emerald-400' : 'text-red-400'
               )}>
                 {trend >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
                 <span>{trend >= 0 ? '+' : ''}{trend.toFixed(1)}% 전일 대비</span>
@@ -99,8 +99,8 @@ function StatCard({ title, value, description, icon: Icon, trend, href, variant 
           </div>
           <div className={cn(
             'h-10 w-10 rounded-lg flex items-center justify-center',
-            variant === 'warning' ? 'bg-amber-100 text-amber-600 dark:bg-amber-900/50' :
-            variant === 'success' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/50' :
+            variant === 'warning' ? 'bg-amber-500/10 text-amber-400' :
+            variant === 'success' ? 'bg-emerald-500/10 text-emerald-400' :
             'bg-primary/10 text-primary'
           )}>
             <Icon className="h-5 w-5" />
@@ -269,7 +269,7 @@ export default function AdminDashboardPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">대시보드</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">대시보드</h1>
           <p className="text-muted-foreground mt-1">
             현재 시스템 상태와 매출 현황입니다.
           </p>
@@ -289,10 +289,10 @@ export default function AdminDashboardPage() {
 
       {/* Stats Grid */}
       {isLoading || !stats ? (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {[1, 2, 3, 4].map((i) => (
             <Card key={i}>
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <Skeleton className="h-4 w-[100px] mb-4" />
                 <Skeleton className="h-8 w-[150px]" />
               </CardContent>
@@ -300,7 +300,7 @@ export default function AdminDashboardPage() {
           ))}
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           <StatCard
             title="오늘 매출"
             value={formatCurrency(stats.todaySales)}
@@ -361,8 +361,8 @@ export default function AdminDashboardPage() {
                     className="flex items-center justify-between p-4 rounded-xl bg-muted/30 border hover:bg-muted/50 transition-colors"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center shrink-0">
-                        <Clock className="h-5 w-5 text-amber-600" />
+                      <div className="h-10 w-10 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
+                        <Clock className="h-5 w-5 text-amber-400" />
                       </div>
                       <div>
                         <p className="font-semibold">{deposit.depositor_name}</p>
@@ -373,7 +373,7 @@ export default function AdminDashboardPage() {
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-primary">{formatCurrency(deposit.amount)}</p>
-                      <Badge variant="outline" className="text-amber-600 border-amber-200 bg-amber-50 dark:bg-amber-950/30">
+                      <Badge variant="outline" className="text-amber-400 border-amber-500/20 bg-amber-500/10">
                         승인 대기
                       </Badge>
                     </div>
@@ -417,16 +417,16 @@ export default function AdminDashboardPage() {
                     <div className="flex items-center gap-4 overflow-hidden">
                       <div className={cn(
                         'h-10 w-10 rounded-full flex items-center justify-center shrink-0',
-                        order.status === 'completed' ? 'bg-emerald-100 dark:bg-emerald-900/50' :
-                        order.status.includes('progress') || order.status === 'processing' ? 'bg-blue-100 dark:bg-blue-900/50' :
-                        'bg-gray-100 dark:bg-gray-800'
+                        order.status === 'completed' ? 'bg-emerald-500/10' :
+                        order.status.includes('progress') || order.status === 'processing' ? 'bg-blue-500/10' :
+                        'bg-muted'
                       )}>
                         {order.status === 'completed' ? (
-                          <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                          <CheckCircle2 className="h-5 w-5 text-emerald-400" />
                         ) : order.status.includes('progress') || order.status === 'processing' ? (
-                          <Loader2 className="h-5 w-5 text-blue-600 animate-spin" />
+                          <Loader2 className="h-5 w-5 text-blue-400 animate-spin" />
                         ) : (
-                          <Package className="h-5 w-5 text-gray-500" />
+                          <Package className="h-5 w-5 text-muted-foreground" />
                         )}
                       </div>
                       <div className="min-w-0">
@@ -442,9 +442,9 @@ export default function AdminDashboardPage() {
                       <p className="font-bold text-sm">{formatCurrency(order.amount)}</p>
                       <Badge variant="outline" className={cn(
                         'text-[10px] px-2 py-0 h-5',
-                        order.status === 'completed' ? 'text-emerald-600 border-emerald-300 bg-emerald-50 dark:bg-emerald-950/30' :
-                        order.status.includes('progress') || order.status === 'processing' ? 'text-blue-600 border-blue-300 bg-blue-50 dark:bg-blue-950/30' :
-                        'text-gray-600 border-gray-300'
+                        order.status === 'completed' ? 'text-emerald-400 border-emerald-500/20 bg-emerald-500/10' :
+                        order.status.includes('progress') || order.status === 'processing' ? 'text-blue-400 border-blue-500/20 bg-blue-500/10' :
+                        'text-muted-foreground border-border'
                       )}>
                         {order.status === 'completed' ? '완료' :
                          order.status === 'processing' || order.status === 'in_progress' ? '진행중' :

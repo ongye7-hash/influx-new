@@ -107,7 +107,7 @@ function StepCard({
           </div>
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Badge variant="outline" className={cn("text-xs", color.replace("bg-", "text-").replace("-500", "-600"))}>
+              <Badge variant="outline" className={cn("text-xs", color.replace("bg-", "text-").replace("-500", "-400"))}>
                 STEP {step}
               </Badge>
             </div>
@@ -164,7 +164,7 @@ export default function GuidePage() {
             <div className="p-3 rounded-xl bg-gradient-to-br from-[#0064FF] to-[#00C896]">
               <BookOpen className="w-6 h-6 text-white" />
             </div>
-            <Badge className="bg-gradient-to-r from-[#0064FF] to-[#00C896] text-white border-0">
+            <Badge className="bg-[#0064FF] text-white border-0">
               <Sparkles className="w-3 h-3 mr-1" />
               신규 회원 필독
             </Badge>
@@ -243,7 +243,7 @@ export default function GuidePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="border-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-green-600 dark:text-green-400">
+            <CardTitle className="flex items-center gap-2 text-green-400">
               <Shield className="w-5 h-5" />
               안전하게 이용하기
             </CardTitle>
@@ -272,7 +272,7 @@ export default function GuidePage() {
 
         <Card className="border-0 bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+            <CardTitle className="flex items-center gap-2 text-amber-400">
               <AlertTriangle className="w-5 h-5" />
               주문 전 확인사항
             </CardTitle>

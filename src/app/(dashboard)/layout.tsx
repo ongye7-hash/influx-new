@@ -33,7 +33,7 @@ export default async function DashboardLayout({
 
   // 비회원 모드 컨텐츠
   const content = (
-    <div className="flex h-full min-h-screen bg-background">
+    <div className="flex h-full min-h-screen bg-background safe-bottom">
       {/* PC 사이드바 */}
       <div className={`hidden h-full md:flex md:w-72 md:flex-col md:fixed z-[80] ${isGuestMode ? 'md:top-12 md:bottom-0' : 'md:inset-y-0'}`}>
         <Suspense fallback={<SidebarSkeleton />}>
@@ -44,7 +44,7 @@ export default async function DashboardLayout({
       {/* 메인 컨텐츠 */}
       <main className="md:pl-72 flex-1 h-full relative min-w-0 overflow-x-hidden">
         {/* 상단 헤더 */}
-        <header className={`h-16 border-b border-border flex items-center px-4 md:px-6 bg-background sticky z-40 ${isGuestMode ? 'top-12' : 'top-0'}`}>
+        <header className={`h-14 sm:h-16 border-b border-border flex items-center px-3 sm:px-4 md:px-6 bg-background sticky z-40 ${isGuestMode ? 'top-12' : 'top-0'}`}>
           {/* 모바일 네비게이션 */}
           <div className="md:hidden">
             <Suspense fallback={null}>
@@ -53,7 +53,7 @@ export default async function DashboardLayout({
           </div>
 
           {/* 모바일 로고 */}
-          <span className="font-bold text-xl md:hidden bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent ml-3">
+          <span className="font-black text-lg sm:text-xl md:hidden text-foreground tracking-tight ml-3">
             INFLUX
           </span>
 
@@ -70,8 +70,8 @@ export default async function DashboardLayout({
             {/* 사용자 정보 */}
             {isGuestMode ? (
               <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 text-sm border border-amber-500/30">
-                <UserCircle className="w-4 h-4 text-amber-600" />
-                <span className="text-amber-700 font-medium">비회원 모드</span>
+                <UserCircle className="w-4 h-4 text-amber-400" />
+                <span className="text-amber-400 font-medium">비회원 모드</span>
               </div>
             ) : user ? (
               <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50 text-sm">
@@ -87,7 +87,7 @@ export default async function DashboardLayout({
         </header>
 
         {/* 페이지 내용 */}
-        <div className="p-4 pt-6 md:p-6 md:pt-8 lg:p-8 lg:pt-8 min-w-0">
+        <div className="p-3 pt-4 sm:p-4 sm:pt-6 md:p-6 md:pt-8 lg:p-8 lg:pt-8 min-w-0">
           {children}
         </div>
 

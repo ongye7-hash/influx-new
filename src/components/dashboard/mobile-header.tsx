@@ -131,7 +131,7 @@ export function MobileHeader({ user }: MobileHeaderProps) {
                           className={cn(
                             "flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium transition-all duration-200 mb-1",
                             isActive
-                              ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                              ? "bg-amber-900/30 text-amber-400"
                               : "text-muted-foreground hover:text-foreground hover:bg-muted"
                           )}
                         >

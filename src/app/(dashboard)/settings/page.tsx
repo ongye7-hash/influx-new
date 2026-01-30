@@ -62,32 +62,32 @@ import { formatCurrency, cn } from '@/lib/utils';
 const TIER_CONFIG = {
   basic: {
     label: '일반',
-    color: 'text-gray-600',
-    bg: 'bg-gray-100',
+    color: 'text-white/60',
+    bg: 'bg-white/[0.06]',
     discount: 0,
     nextTier: 'vip',
     requirement: 500000,
   },
   vip: {
     label: 'VIP',
-    color: 'text-amber-600',
-    bg: 'bg-amber-100',
+    color: 'text-amber-400',
+    bg: 'bg-amber-500/10',
     discount: 5,
     nextTier: 'premium',
     requirement: 2000000,
   },
   premium: {
     label: '프리미엄',
-    color: 'text-[#00C896]',
-    bg: 'bg-[#00C896]/10',
+    color: 'text-emerald-400',
+    bg: 'bg-emerald-500/10',
     discount: 10,
     nextTier: 'enterprise',
     requirement: 5000000,
   },
   enterprise: {
     label: '엔터프라이즈',
-    color: 'text-blue-600',
-    bg: 'bg-blue-100',
+    color: 'text-blue-400',
+    bg: 'bg-blue-500/10',
     discount: 15,
     nextTier: null,
     requirement: null,
@@ -409,11 +409,11 @@ export default function SettingsPage() {
       {/* 회원 등급 카드 */}
       <Card className="overflow-hidden">
         <div className={cn("p-6", tier.bg)}>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className={cn(
                 "h-16 w-16 rounded-full flex items-center justify-center",
-                "bg-white/80 shadow-lg"
+                "bg-white/10"
               )}>
                 <Crown className={cn("h-8 w-8", tier.color)} />
               </div>
@@ -423,7 +423,7 @@ export default function SettingsPage() {
                     {tier.label}
                   </Badge>
                   {tier.discount > 0 && (
-                    <Badge variant="secondary" className="bg-white/80">
+                    <Badge variant="secondary" className="bg-white/10">
                       {tier.discount}% 할인
                     </Badge>
                   )}
@@ -444,9 +444,9 @@ export default function SettingsPage() {
                   {formatCurrency(Math.max(0, tier.requirement - totalSpent))} 남음
                 </span>
               </div>
-              <div className="h-2 bg-white/50 rounded-full overflow-hidden">
+              <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-white rounded-full transition-all duration-500"
+                  className="h-full bg-[#0064FF] rounded-full transition-all duration-500"
                   style={{ width: `${progressToNextTier}%` }}
                 />
               </div>
@@ -457,7 +457,7 @@ export default function SettingsPage() {
 
       {/* 탭 콘텐츠 */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-4 gap-0.5">
           <TabsTrigger value="profile" className="gap-2">
             <User className="h-4 w-4" />
             <span className="hidden sm:inline">프로필</span>
@@ -626,7 +626,7 @@ export default function SettingsPage() {
                     </p>
                   )}
                   {confirmPassword && newPassword === confirmPassword && (
-                    <p className="text-xs text-green-600 flex items-center gap-1">
+                    <p className="text-xs text-emerald-400 flex items-center gap-1">
                       <CheckCircle className="h-3 w-3" />
                       비밀번호가 일치합니다
                     </p>
@@ -754,8 +754,8 @@ export default function SettingsPage() {
                           <Badge
                             variant="outline"
                             className={keyData.is_active
-                              ? "bg-green-50 text-green-700 border-green-200"
-                              : "bg-gray-50 text-gray-500 border-gray-200"
+                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                              : "bg-white/[0.06] text-white/40 border-white/[0.06]"
                             }
                           >
                             {keyData.is_active ? (
@@ -833,12 +833,12 @@ export default function SettingsPage() {
               <Separator />
 
               {/* 주의사항 */}
-              <div className="p-4 rounded-lg bg-amber-50 border border-amber-200">
+              <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
                 <div className="flex gap-3">
-                  <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <AlertTriangle className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" />
                   <div className="space-y-1">
-                    <p className="font-medium text-amber-800">API 키 보안 안내</p>
-                    <ul className="text-sm text-amber-700 space-y-1">
+                    <p className="font-medium text-amber-400">API 키 보안 안내</p>
+                    <ul className="text-sm text-amber-300/70 space-y-1">
                       <li>• API 키는 비밀번호처럼 안전하게 보관하세요.</li>
                       <li>• 키가 노출된 경우 즉시 삭제하고 새로 생성하세요.</li>
                       <li>• 키를 코드에 직접 포함하지 마세요.</li>
@@ -881,35 +881,35 @@ export default function SettingsPage() {
                 <div className="space-y-2">
                   <div className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
+                      <Badge variant="outline" className="bg-blue-500/10 text-blue-400">POST</Badge>
                       <code className="font-mono text-sm">action=services</code>
                     </div>
                     <p className="text-sm text-muted-foreground">서비스 목록 조회</p>
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
+                      <Badge variant="outline" className="bg-blue-500/10 text-blue-400">POST</Badge>
                       <code className="font-mono text-sm">action=add</code>
                     </div>
                     <p className="text-sm text-muted-foreground">새 주문 생성 (service, link, quantity 필수)</p>
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
+                      <Badge variant="outline" className="bg-blue-500/10 text-blue-400">POST</Badge>
                       <code className="font-mono text-sm">action=status</code>
                     </div>
                     <p className="text-sm text-muted-foreground">주문 상태 조회 (order 또는 orders 필수)</p>
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
+                      <Badge variant="outline" className="bg-blue-500/10 text-blue-400">POST</Badge>
                       <code className="font-mono text-sm">action=balance</code>
                     </div>
                     <p className="text-sm text-muted-foreground">잔액 조회</p>
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700">POST</Badge>
+                      <Badge variant="outline" className="bg-blue-500/10 text-blue-400">POST</Badge>
                       <code className="font-mono text-sm">action=refill</code>
                     </div>
                     <p className="text-sm text-muted-foreground">리필 요청 (order 필수)</p>

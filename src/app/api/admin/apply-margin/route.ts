@@ -5,11 +5,25 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { getSupabaseRouteClient } from '@/lib/supabase/server';
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
+
+async function requireAdmin() {
+  const supabase = await getSupabaseRouteClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return { error: NextResponse.json({ success: false, error: '인증이 필요합니다' }, { status: 401 }) };
+  }
+  const { data: profile } = await supabase.from('profiles').select('is_admin').eq('id', user.id).single() as any;
+  if (!profile?.is_admin) {
+    return { error: NextResponse.json({ success: false, error: '관리자 권한이 필요합니다' }, { status: 403 }) };
+  }
+  return { user };
+}
 
 interface PanelService {
   service: string;
@@ -59,6 +73,9 @@ async function getExchangeRate(): Promise<number> {
 
 export async function POST(request: NextRequest) {
   try {
+    const auth = await requireAdmin();
+    if ('error' in auth) return auth.error;
+
     const { margin } = await request.json();
 
     if (typeof margin !== 'number' || margin < 0 || margin > 1000) {
@@ -188,6 +205,9 @@ export async function POST(request: NextRequest) {
 // GET: 현재 환율 및 예상 가격 미리보기
 export async function GET(request: NextRequest) {
   try {
+    const auth = await requireAdmin();
+    if ('error' in auth) return auth.error;
+
     const { searchParams } = new URL(request.url);
     const margin = parseFloat(searchParams.get('margin') || '50');
 

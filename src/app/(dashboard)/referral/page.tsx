@@ -220,7 +220,7 @@ export default function ReferralPage() {
       </div>
 
       {/* 보상 안내 배너 */}
-      <Card className="bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-primary/20">
+      <Card className="bg-[#0064FF]/5 border-[#0064FF]/20">
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
@@ -234,14 +234,14 @@ export default function ReferralPage() {
                 </p>
               </div>
             </div>
-            <div className="flex gap-6">
+            <div className="flex gap-4 sm:gap-6">
               <div className="text-center">
                 <p className="text-sm text-muted-foreground">나의 보상</p>
                 <p className="text-2xl font-bold text-primary">{formatCurrency(REFERRAL_REWARD.referrer)}</p>
               </div>
               <div className="text-center">
                 <p className="text-sm text-muted-foreground">친구 보상</p>
-                <p className="text-2xl font-bold text-emerald-600">{formatCurrency(REFERRAL_REWARD.referred)}</p>
+                <p className="text-2xl font-bold text-emerald-400">{formatCurrency(REFERRAL_REWARD.referred)}</p>
               </div>
             </div>
           </div>
@@ -249,16 +249,16 @@ export default function ReferralPage() {
       </Card>
 
       {/* 통계 카드 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-3 sm:gap-4">
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-blue-100 flex items-center justify-center">
-                <Users className="h-5 w-5 text-blue-600" />
+              <div className="h-10 w-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                <Users className="h-5 w-5 text-blue-400" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">총 추천 수</p>
-                <p className="text-2xl font-bold">{stats.totalReferrals}명</p>
+                <p className="text-lg sm:text-2xl font-bold">{stats.totalReferrals}명</p>
               </div>
             </div>
           </CardContent>
@@ -267,12 +267,12 @@ export default function ReferralPage() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-emerald-100 flex items-center justify-center">
-                <TrendingUp className="h-5 w-5 text-emerald-600" />
+              <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                <TrendingUp className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">받은 보상</p>
-                <p className="text-2xl font-bold text-emerald-600">{formatCurrency(stats.totalRewards)}</p>
+                <p className="text-lg sm:text-2xl font-bold text-emerald-400">{formatCurrency(stats.totalRewards)}</p>
               </div>
             </div>
           </CardContent>
@@ -281,12 +281,12 @@ export default function ReferralPage() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-amber-100 flex items-center justify-center">
-                <Award className="h-5 w-5 text-amber-600" />
+              <div className="h-10 w-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+                <Award className="h-5 w-5 text-amber-400" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">대기 중</p>
-                <p className="text-2xl font-bold text-amber-600">{stats.pendingReferrals}명</p>
+                <p className="text-lg sm:text-2xl font-bold text-amber-400">{stats.pendingReferrals}명</p>
               </div>
             </div>
           </CardContent>
@@ -314,10 +314,10 @@ export default function ReferralPage() {
               <Button
                 variant="outline"
                 onClick={handleCopyCode}
-                className={cn(copiedCode && 'bg-green-50 border-green-300')}
+                className={cn(copiedCode && 'bg-emerald-500/10 border-emerald-500/30')}
               >
                 {copiedCode ? (
-                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <CheckCircle className="h-4 w-4 text-emerald-400" />
                 ) : (
                   <Copy className="h-4 w-4" />
                 )}
@@ -337,10 +337,10 @@ export default function ReferralPage() {
               <Button
                 variant="outline"
                 onClick={handleCopyLink}
-                className={cn(copiedLink && 'bg-green-50 border-green-300')}
+                className={cn(copiedLink && 'bg-emerald-500/10 border-emerald-500/30')}
               >
                 {copiedLink ? (
-                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <CheckCircle className="h-4 w-4 text-emerald-400" />
                 ) : (
                   <Copy className="h-4 w-4" />
                 )}
@@ -355,15 +355,15 @@ export default function ReferralPage() {
               <Button
                 variant="outline"
                 onClick={() => handleShare('kakao')}
-                className="bg-yellow-50 border-yellow-300 hover:bg-yellow-100"
+                className="bg-yellow-500/10 border-yellow-500/20 hover:bg-yellow-500/20"
               >
-                <MessageCircle className="mr-2 h-4 w-4 text-yellow-600" />
+                <MessageCircle className="mr-2 h-4 w-4 text-yellow-400" />
                 카카오톡
               </Button>
               <Button
                 variant="outline"
                 onClick={() => handleShare('twitter')}
-                className="bg-blue-50 border-blue-300 hover:bg-blue-100"
+                className="bg-blue-500/10 border-blue-500/20 hover:bg-blue-500/20"
               >
                 <Twitter className="mr-2 h-4 w-4 text-blue-500" />
                 트위터
@@ -435,8 +435,8 @@ export default function ReferralPage() {
                           variant="secondary"
                           className={cn(
                             user.status === 'completed'
-                              ? 'bg-emerald-100 text-emerald-700'
-                              : 'bg-amber-100 text-amber-700'
+                              ? 'bg-emerald-500/10 text-emerald-400'
+                              : 'bg-amber-500/10 text-amber-400'
                           )}
                         >
                           {user.status === 'completed' ? '완료' : '대기'}
@@ -444,7 +444,7 @@ export default function ReferralPage() {
                       </TableCell>
                       <TableCell>
                         {user.status === 'completed' ? (
-                          <span className="font-medium text-emerald-600">
+                          <span className="font-medium text-emerald-400">
                             {formatCurrency(REFERRAL_REWARD.referrer)}
                           </span>
                         ) : (
@@ -502,8 +502,8 @@ export default function ReferralPage() {
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center">
-              <CheckCircle className="h-4 w-4 text-emerald-600" />
+            <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
+              <CheckCircle className="h-4 w-4 text-emerald-400" />
             </div>
             <div>
               <p className="font-medium">보상 지급</p>

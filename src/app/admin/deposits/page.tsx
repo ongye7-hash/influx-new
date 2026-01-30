@@ -168,10 +168,10 @@ const MOCK_DEPOSITS: DepositWithUser[] = [
 // ============================================
 function StatusBadge({ status }: { status: string }) {
   const config = {
-    pending: { label: '대기중', icon: Clock, className: 'bg-amber-100 text-amber-700 border-amber-200' },
-    approved: { label: '승인완료', icon: CheckCircle2, className: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
-    rejected: { label: '거절됨', icon: XCircle, className: 'bg-red-100 text-red-700 border-red-200' },
-    canceled: { label: '취소됨', icon: XCircle, className: 'bg-gray-100 text-gray-700 border-gray-200' },
+    pending: { label: '대기중', icon: Clock, className: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
+    approved: { label: '승인완료', icon: CheckCircle2, className: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
+    rejected: { label: '거절됨', icon: XCircle, className: 'bg-red-500/10 text-red-400 border-red-500/20' },
+    canceled: { label: '취소됨', icon: XCircle, className: 'bg-muted text-muted-foreground border-border' },
   }[status] || { label: status, icon: Clock, className: '' };
 
   const Icon = config.icon;
@@ -192,12 +192,12 @@ function PaymentMethodBadge({ method }: { method: PaymentMethod }) {
     bank_transfer: {
       label: '무통장',
       icon: Building2,
-      className: 'bg-blue-100 text-blue-700 border-blue-200',
+      className: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
     },
     crypto: {
       label: 'USDT',
       icon: Bitcoin,
-      className: 'bg-orange-100 text-orange-700 border-orange-200',
+      className: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
     },
   }[method] || { label: method, icon: Wallet, className: '' };
 
@@ -242,7 +242,7 @@ function TxIdLink({ txId, network }: { txId: string | null; network: string | nu
         href={explorerUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 hover:underline"
+        className="flex items-center gap-1 text-sm text-blue-400 hover:text-blue-300 hover:underline"
         title={`블록체인 탐색기에서 확인: ${txId}`}
       >
         <code className="font-mono text-xs">{truncatedId}</code>
@@ -424,7 +424,7 @@ export default function AdminDepositsPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">입금 관리</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">입금 관리</h1>
           <p className="text-muted-foreground">
             입금 요청을 확인하고 승인하세요
           </p>
@@ -437,42 +437,42 @@ export default function AdminDepositsPage() {
 
       {/* Summary Cards */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="border-amber-200 bg-amber-50/50">
+        <Card className="border-amber-500/20 bg-amber-500/10">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-amber-100 flex items-center justify-center">
-                <Clock className="h-5 w-5 text-amber-600" />
+              <div className="h-10 w-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                <Clock className="h-5 w-5 text-amber-400" />
               </div>
               <div>
-                <p className="text-sm text-amber-600 font-medium">대기중</p>
-                <p className="text-2xl font-bold">{stats.pending}건</p>
+                <p className="text-sm text-amber-400 font-medium">대기중</p>
+                <p className="text-lg sm:text-2xl font-bold">{stats.pending}건</p>
                 <p className="text-xs text-muted-foreground">{formatCurrency(stats.pendingAmount)}</p>
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-emerald-200 bg-emerald-50/50">
+        <Card className="border-emerald-500/20 bg-emerald-500/10">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-emerald-100 flex items-center justify-center">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                <CheckCircle2 className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
-                <p className="text-sm text-emerald-600 font-medium">승인완료</p>
-                <p className="text-2xl font-bold">{stats.approved}건</p>
+                <p className="text-sm text-emerald-400 font-medium">승인완료</p>
+                <p className="text-lg sm:text-2xl font-bold">{stats.approved}건</p>
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-red-200 bg-red-50/50">
+        <Card className="border-red-500/20 bg-red-500/10">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-red-100 flex items-center justify-center">
-                <XCircle className="h-5 w-5 text-red-600" />
+              <div className="h-10 w-10 rounded-lg bg-red-500/10 flex items-center justify-center">
+                <XCircle className="h-5 w-5 text-red-400" />
               </div>
               <div>
-                <p className="text-sm text-red-600 font-medium">거절됨</p>
-                <p className="text-2xl font-bold">{stats.rejected}건</p>
+                <p className="text-sm text-red-400 font-medium">거절됨</p>
+                <p className="text-lg sm:text-2xl font-bold">{stats.rejected}건</p>
               </div>
             </div>
           </CardContent>
@@ -523,7 +523,7 @@ export default function AdminDepositsPage() {
               ))}
             </div>
           ) : filteredDeposits.length > 0 ? (
-            <div className="overflow-x-auto -mx-6">
+            <div className="overflow-x-auto -mx-4 sm:-mx-6">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -671,7 +671,7 @@ export default function AdminDepositsPage() {
                   <div className="text-muted-foreground">현재 잔액</div>
                   <div>{formatCurrency(selectedDeposit.user?.balance || 0)}</div>
                   <div className="text-muted-foreground">충전 후 잔액</div>
-                  <div className="font-medium text-emerald-600">
+                  <div className="font-medium text-emerald-400">
                     {formatCurrency((selectedDeposit.user?.balance || 0) + selectedDeposit.amount)}
                   </div>
                 </div>

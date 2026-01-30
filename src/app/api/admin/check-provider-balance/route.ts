@@ -4,9 +4,21 @@
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { getSupabaseRouteClient } from '@/lib/supabase/server';
 
 export async function POST(request: NextRequest) {
   try {
+    // 관리자 인증 확인
+    const supabase = await getSupabaseRouteClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ success: false, error: '인증이 필요합니다' }, { status: 401 });
+    }
+    const { data: profile } = await supabase.from('profiles').select('is_admin').eq('id', user.id).single() as any;
+    if (!profile?.is_admin) {
+      return NextResponse.json({ success: false, error: '관리자 권한이 필요합니다' }, { status: 403 });
+    }
+
     const { provider_id, api_url, api_key } = await request.json();
 
     if (!api_url || !api_key) {

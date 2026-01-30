@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { getSupabaseRouteClient } from '@/lib/supabase/server';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -15,6 +16,17 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // 관리자 인증 확인
+    const authClient = await getSupabaseRouteClient();
+    const { data: { user } } = await authClient.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ success: false, error: '인증이 필요합니다' }, { status: 401 });
+    }
+    const { data: profile } = await authClient.from('profiles').select('is_admin').eq('id', user.id).single() as any;
+    if (!profile?.is_admin) {
+      return NextResponse.json({ success: false, error: '관리자 권한이 필요합니다' }, { status: 403 });
+    }
+
     const { id: providerId } = await params;
 
     // 1. 공급자 정보 조회

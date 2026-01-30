@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -12,10 +11,37 @@ interface LogoProps {
 }
 
 const sizeMap = {
-  sm: { icon: 28, text: "text-lg" },
-  md: { icon: 36, text: "text-xl" },
-  lg: { icon: 44, text: "text-2xl" },
+  sm: { barScale: 0.7, text: "text-base", gap: "gap-1.5" },
+  md: { barScale: 1, text: "text-xl", gap: "gap-2" },
+  lg: { barScale: 1.2, text: "text-2xl", gap: "gap-2.5" },
 };
+
+function LogoBars({ scale = 1 }: { scale?: number }) {
+  const w = Math.round(8 * scale);
+  const h1 = Math.round(14 * scale);
+  const h2 = Math.round(20 * scale);
+  const h3 = Math.round(28 * scale);
+  const totalH = h3;
+  const svgW = w * 3 + Math.round(3 * scale);
+
+  return (
+    <svg
+      width={svgW}
+      height={totalH}
+      viewBox={`0 0 ${svgW} ${totalH}`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="flex-shrink-0"
+    >
+      {/* Bar 1 - shortest, dark */}
+      <rect x={0} y={totalH - h1} width={w} height={h1} rx={1} fill="#4A5568" />
+      {/* Bar 2 - medium, dark gray */}
+      <rect x={w + Math.round(1.5 * scale)} y={totalH - h2} width={w} height={h2} rx={1} fill="#64748B" />
+      {/* Bar 3 - tallest, blue */}
+      <rect x={(w + Math.round(1.5 * scale)) * 2} y={0} width={w} height={h3} rx={1} fill="#0EA5E9" />
+    </svg>
+  );
+}
 
 export function Logo({
   className,
@@ -23,26 +49,14 @@ export function Logo({
   showText = true,
   linkTo = "/",
 }: LogoProps) {
-  const { icon, text } = sizeMap[size];
+  const { barScale, text, gap } = sizeMap[size];
 
   const content = (
-    <div className={cn("flex items-center gap-2", className)}>
-      {/* 실제 로고 이미지 */}
-      <Image
-        src="/logo-sidebar.png"
-        alt="INFLUX"
-        width={icon}
-        height={icon}
-        className="flex-shrink-0"
-        priority
-      />
-
-      {/* Text Logo */}
+    <div className={cn("flex items-center", gap, className)}>
+      <LogoBars scale={barScale} />
       {showText && (
-        <span className={cn("font-bold tracking-tight", text)}>
-          <span className="bg-gradient-to-r from-[#0064FF] to-[#00C896] bg-clip-text text-transparent">
-            INFLUX
-          </span>
+        <span className={cn("font-black tracking-tight text-foreground", text)}>
+          INFLUX
         </span>
       )}
     </div>
@@ -62,13 +76,7 @@ export function Logo({
 export function LogoIcon({ className, size = 32 }: { className?: string; size?: number }) {
   return (
     <div className={className}>
-      <Image
-        src="/logo-sidebar.png"
-        alt="INFLUX"
-        width={size}
-        height={size}
-        className="flex-shrink-0"
-      />
+      <LogoBars scale={size / 28} />
     </div>
   );
 }

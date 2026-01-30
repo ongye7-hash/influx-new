@@ -110,8 +110,8 @@ export function Sidebar({ user }: SidebarProps) {
             "bg-gradient-to-r from-[#0064FF]/10 to-[#00C896]/10 border border-[#0064FF]/20",
             "hover:from-[#0064FF]/20 hover:to-[#00C896]/20 hover:border-[#0064FF]/30",
             pathname === "/guide"
-              ? "from-[#0064FF]/20 to-[#00C896]/20 border-[#0064FF]/40 text-[#0064FF] dark:text-[#4D9FFF]"
-              : "text-[#0064FF] dark:text-[#4D9FFF]"
+              ? "from-[#0064FF]/20 to-[#00C896]/20 border-[#0064FF]/40 text-[#4D9FFF]"
+              : "text-[#4D9FFF]"
           )}
         >
           <div className="p-1.5 rounded-lg bg-gradient-to-br from-[#0064FF] to-[#00C896]">
@@ -204,7 +204,7 @@ export function Sidebar({ user }: SidebarProps) {
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200",
                     isActive
-                      ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                      ? "bg-amber-900/30 text-amber-400"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   )}
                 >

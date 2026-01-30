@@ -91,13 +91,13 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
 };
 
 const PLATFORM_COLORS: Record<string, string> = {
-  instagram: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
-  youtube: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
-  tiktok: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  facebook: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-  twitter: 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400',
-  telegram: 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400',
-  other: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400',
+  instagram: 'bg-pink-500/10 text-pink-400',
+  youtube: 'bg-red-500/10 text-red-400',
+  tiktok: 'bg-muted text-muted-foreground',
+  facebook: 'bg-blue-500/10 text-blue-400',
+  twitter: 'bg-sky-500/10 text-sky-400',
+  telegram: 'bg-blue-500/10 text-blue-400',
+  other: 'bg-muted text-muted-foreground',
 };
 
 const REGION_LABELS: Record<string, string> = {
@@ -295,7 +295,7 @@ export default function ProviderServicesPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-green-400">
               {services.filter((s) => s.is_imported).length}
             </div>
           </CardContent>
@@ -307,7 +307,7 @@ export default function ProviderServicesPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-2xl font-bold text-orange-400">
               {services.filter((s) => !s.is_imported).length}
             </div>
           </CardContent>
@@ -319,7 +319,7 @@ export default function ProviderServicesPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-blue-400">
               {selectedIds.size}
             </div>
           </CardContent>
@@ -514,7 +514,7 @@ export default function ProviderServicesPage() {
                         </TableCell>
                         <TableCell>
                           {service.is_imported ? (
-                            <Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                            <Badge className="bg-green-500/10 text-green-400">
                               <CheckCircle className="mr-1 h-3 w-3" />
                               등록됨
                             </Badge>
