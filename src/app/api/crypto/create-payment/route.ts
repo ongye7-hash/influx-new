@@ -25,15 +25,6 @@ const CRYPTOMUS_MERCHANT_ID = process.env.CRYPTOMUS_MERCHANT_ID!;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.influx-lab.com';
 
 // ============================================
-// Cryptomus 서명 생성
-// ============================================
-function createSign(body: Record<string, unknown>): string {
-  const jsonStr = JSON.stringify(body);
-  const base64 = Buffer.from(jsonStr).toString('base64');
-  return crypto.createHash('md5').update(base64 + CRYPTOMUS_API_KEY).digest('hex');
-}
-
-// ============================================
 // 환율 조회 (내부 호출)
 // ============================================
 async function getExchangeRate(): Promise<number> {
@@ -118,7 +109,13 @@ export async function POST(request: NextRequest) {
       is_payment_multiple: false,
     };
 
-    const sign = createSign(paymentBody);
+    const jsonBody = JSON.stringify(paymentBody);
+    const base64Body = Buffer.from(jsonBody).toString('base64');
+    const sign = crypto.createHash('md5').update(base64Body + CRYPTOMUS_API_KEY).digest('hex');
+
+    console.log('[CreatePayment] API_KEY length:', CRYPTOMUS_API_KEY?.length);
+    console.log('[CreatePayment] MERCHANT_ID:', CRYPTOMUS_MERCHANT_ID);
+    console.log('[CreatePayment] body:', jsonBody);
 
     const cryptomusRes = await fetch(CRYPTOMUS_API_URL, {
       method: 'POST',
@@ -127,13 +124,13 @@ export async function POST(request: NextRequest) {
         merchant: CRYPTOMUS_MERCHANT_ID,
         sign,
       },
-      body: JSON.stringify(paymentBody),
+      body: jsonBody,
     });
 
     const cryptomusData = await cryptomusRes.json();
 
     if (!cryptomusRes.ok || !cryptomusData?.result?.url) {
-      console.error('[CreatePayment] Cryptomus API error:', cryptomusData);
+      console.error('[CreatePayment] Cryptomus API error:', JSON.stringify(cryptomusData));
 
       // 실패 시 deposit 레코드 삭제
       await supabaseAdmin.from('deposits').delete().eq('id', deposit.id);
