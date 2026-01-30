@@ -111,19 +111,45 @@ export function CopyProtection() {
       return false;
     };
 
-    // 6. 개발자 도구 감지 (타이밍 기반)
+    // 6. 개발자 도구 감지 (다중 방법)
+    let devToolsDetected = false;
+
+    const handleDevToolsOpen = () => {
+      if (devToolsDetected) return;
+      devToolsDetected = true;
+      // 콘솔 클리어 + 페이지 내용 숨기기
+      console.clear();
+      document.body.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#000;color:#fff;font-family:sans-serif;text-align:center;">
+          <div>
+            <h1 style="font-size:48px;margin-bottom:16px;">⛔</h1>
+            <h2 style="font-size:24px;margin-bottom:8px;">접근이 차단되었습니다</h2>
+            <p style="color:#888;">개발자 도구 사용이 감지되었습니다.</p>
+            <p style="color:#888;margin-top:8px;">페이지를 새로고침 해주세요.</p>
+          </div>
+        </div>
+      `;
+    };
+
     const detectDevTools = () => {
+      // 방법 1: 창 크기 차이 감지 (사이드/하단 패널)
       const threshold = 160;
       const widthDiff = window.outerWidth - window.innerWidth;
       const heightDiff = window.outerHeight - window.innerHeight;
-
       if (widthDiff > threshold || heightDiff > threshold) {
-        // 개발자 도구 열림 감지 시 경고만 표시 (페이지 차단하면 UX 저하)
-        console.clear();
-        console.log('%c⚠️ 보안 경고', 'color: red; font-size: 30px; font-weight: bold;');
-        console.log('%c이 사이트의 콘텐츠는 저작권법으로 보호됩니다.', 'font-size: 16px;');
-        console.log('%c무단 복제, 배포 시 법적 책임을 질 수 있습니다.', 'font-size: 14px; color: orange;');
+        handleDevToolsOpen();
+        return;
       }
+
+      // 방법 2: console.log 오버라이드 감지
+      const element = new Image();
+      Object.defineProperty(element, 'id', {
+        get: function () {
+          handleDevToolsOpen();
+          return '';
+        },
+      });
+      console.debug(element);
     };
 
     // 7. iframe 삽입 방지
@@ -151,8 +177,9 @@ export function CopyProtection() {
     document.addEventListener('copy', handleCopy, true);
     document.addEventListener('cut', handleCopy, true);
 
-    // 개발자 도구 감지 (2초마다)
-    const devToolsInterval = isProduction ? setInterval(detectDevTools, 2000) : null;
+    // 개발자 도구 감지 (즉시 + 1초마다)
+    if (isProduction) detectDevTools();
+    const devToolsInterval = isProduction ? setInterval(detectDevTools, 1000) : null;
 
     // CSS로 선택 방지
     const style = document.createElement('style');

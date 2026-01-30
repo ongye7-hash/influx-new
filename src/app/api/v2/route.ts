@@ -374,14 +374,15 @@ async function handleRefill(
     throw new Error('Order is not eligible for refill');
   }
 
-  // 리필 상태로 변경
+  // 리필 상태로 변경 (user_id 조건 포함하여 IDOR 방지)
   await supabase
     .from('orders')
     .update({
       status: 'pending',
       refill_requested_at: new Date().toISOString(),
     })
-    .eq('id', order);
+    .eq('id', order)
+    .eq('user_id', userId);
 
   return {
     refill: order,
@@ -422,11 +423,12 @@ async function handleCancel(
       continue;
     }
 
-    // 주문 취소 및 환불
+    // 주문 취소 및 환불 (user_id 조건 포함하여 IDOR 방지)
     const { error: cancelError } = await supabase
       .from('orders')
       .update({ status: 'canceled' })
-      .eq('id', orderId);
+      .eq('id', orderId)
+      .eq('user_id', userId);
 
     if (cancelError) {
       result[orderId] = { cancel: 0, error: 'Failed to cancel' };

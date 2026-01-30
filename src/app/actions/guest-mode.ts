@@ -1,11 +1,12 @@
 'use server';
 
 import { cookies } from 'next/headers';
+import { createSignedGuestValue } from '@/lib/guest-mode';
 
 export async function enableGuestMode() {
   const cookieStore = await cookies();
 
-  cookieStore.set('influx_guest_mode', 'true', {
+  cookieStore.set('influx_guest_mode', createSignedGuestValue(), {
     path: '/',
     maxAge: 86400, // 24시간
     sameSite: 'lax',

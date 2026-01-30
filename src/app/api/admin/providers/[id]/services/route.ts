@@ -61,7 +61,7 @@ export async function GET(
     } else if (imported === 'false') {
       query = query.eq('is_imported', false);
     }
-    if (search) {
+    if (search && search.length <= 100) {
       query = query.ilike('name', `%${search}%`);
     }
 

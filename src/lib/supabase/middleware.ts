@@ -58,12 +58,31 @@ export async function updateSession(request: NextRequest) {
                           pathname.startsWith('/order') ||
                           pathname.startsWith('/orders') ||
                           pathname.startsWith('/deposit') ||
+                          pathname.startsWith('/transactions') ||
+                          pathname.startsWith('/referral') ||
+                          pathname.startsWith('/free-trial') ||
+                          pathname.startsWith('/guide') ||
                           pathname.startsWith('/history') ||
                           pathname.startsWith('/support') ||
                           pathname.startsWith('/settings');
 
-  // 비회원 모드 쿠키 확인
-  const isGuestMode = request.cookies.get('influx_guest_mode')?.value === 'true';
+  // 비회원 모드 쿠키 확인 (서명 검증)
+  const guestCookie = request.cookies.get('influx_guest_mode')?.value;
+  let isGuestMode = false;
+  if (guestCookie) {
+    const parts = guestCookie.split('.');
+    if (parts.length === 2 && parts[0] === 'guest') {
+      // Edge Runtime에서 HMAC 서명 검증
+      const signKey = process.env.GUEST_MODE_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || 'influx-guest-fallback-key';
+      const encoder = new TextEncoder();
+      const key = await crypto.subtle.importKey(
+        'raw', encoder.encode(signKey), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+      );
+      const sig = await crypto.subtle.sign('HMAC', key, encoder.encode('guest'));
+      const expectedSig = Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
+      isGuestMode = parts[1] === expectedSig;
+    }
+  }
 
   // 비로그인 사용자가 대시보드 페이지 접근 시 (비회원 모드 허용)
   if (!user && isDashboardPage && !isGuestMode) {

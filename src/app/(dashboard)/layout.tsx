@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import { createClient } from '@/lib/supabase/server';
+import { verifyGuestCookie } from '@/lib/guest-mode';
 import { ClientSidebar } from './client-sidebar';
 import { MobileNav } from './mobile-nav';
 import { GuestLayoutWrapper } from './guest-layout-wrapper';
@@ -22,9 +23,9 @@ export default async function DashboardLayout({
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // 비회원 모드 확인 (쿠키)
+  // 비회원 모드 확인 (서명된 쿠키 검증)
   const cookieStore = await cookies();
-  const isGuestMode = cookieStore.get('influx_guest_mode')?.value === 'true';
+  const isGuestMode = verifyGuestCookie(cookieStore.get('influx_guest_mode')?.value);
 
   // 로그인도 안 되어있고 비회원 모드도 아니면 로그인 페이지로
   if (!user && !isGuestMode) {

@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
+import { createSignedGuestValue } from '@/lib/guest-mode';
 
 export async function POST() {
   const response = NextResponse.json({ success: true });
 
-  response.cookies.set('influx_guest_mode', 'true', {
+  response.cookies.set('influx_guest_mode', createSignedGuestValue(), {
     path: '/',
     maxAge: 86400,
     sameSite: 'lax',

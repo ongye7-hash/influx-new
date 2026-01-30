@@ -39,7 +39,8 @@ function LoginContent() {
   const [registerUsername, setRegisterUsername] = useState("");
 
   const clearGuestModeCookie = () => {
-    document.cookie = 'influx_guest_mode=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    // httpOnly 쿠키는 서버에서 삭제
+    fetch('/api/guest-mode', { method: 'DELETE' }).catch(() => {});
   };
 
   const handleLogin = async (e: React.FormEvent) => {
