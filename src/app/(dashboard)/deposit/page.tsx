@@ -896,6 +896,17 @@ function DepositPageContent() {
                     </div>
                   )}
 
+                  {/* 결제 진행 안내 (영문 페이지 대비 한글 가이드) */}
+                  <div className="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20 space-y-2.5">
+                    <p className="text-sm font-semibold text-orange-400">결제 페이지 안내 (영문 페이지)</p>
+                    <ol className="text-xs text-muted-foreground space-y-1.5 list-decimal list-inside">
+                      <li>아래 버튼을 누르면 <strong className="text-foreground">Cryptomus 결제창</strong>으로 이동합니다</li>
+                      <li>화면에 표시된 <strong className="text-foreground">지갑 주소</strong>로 USDT를 전송하세요</li>
+                      <li>전송 시 네트워크는 <strong className="text-foreground">TRC-20 (Tron)</strong> 을 선택하세요</li>
+                      <li>블록체인 확인 후 <strong className="text-foreground">자동으로 잔액이 충전</strong>됩니다 (1~10분)</li>
+                    </ol>
+                  </div>
+
                   <Button
                     type="submit"
                     disabled={isCryptoSubmitting || cryptoKrwAmount < 10000}
@@ -915,10 +926,6 @@ function DepositPageContent() {
                       </>
                     )}
                   </Button>
-
-                  <p className="text-xs text-center text-muted-foreground">
-                    Cryptomus 결제 페이지에서 USDT (TRC-20) 전송 후 자동 충전됩니다
-                  </p>
                 </form>
               </CardContent>
             </Card>

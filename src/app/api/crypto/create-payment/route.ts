@@ -113,10 +113,6 @@ export async function POST(request: NextRequest) {
     const base64Body = Buffer.from(jsonBody).toString('base64');
     const sign = crypto.createHash('md5').update(base64Body + CRYPTOMUS_API_KEY).digest('hex');
 
-    console.log('[CreatePayment] API_KEY length:', CRYPTOMUS_API_KEY?.length);
-    console.log('[CreatePayment] MERCHANT_ID:', CRYPTOMUS_MERCHANT_ID);
-    console.log('[CreatePayment] body:', jsonBody);
-
     const cryptomusRes = await fetch(CRYPTOMUS_API_URL, {
       method: 'POST',
       headers: {
