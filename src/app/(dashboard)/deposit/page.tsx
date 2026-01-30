@@ -360,7 +360,9 @@ function DepositPageContent() {
       const data = await res.json();
 
       if (!res.ok) {
-        toast.error(data.error || 'Cryptomus 결제 생성 실패');
+        toast.error(data.error || 'Cryptomus 결제 생성 실패', {
+          description: data.details || undefined,
+        });
         return;
       }
 

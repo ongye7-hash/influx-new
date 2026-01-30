@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
 
     if (depositError) {
       console.error('[CreatePayment] Deposit insert error:', depositError);
-      return NextResponse.json({ error: '충전 요청 생성 실패' }, { status: 500 });
+      return NextResponse.json({ error: '충전 요청 생성 실패', details: depositError.message }, { status: 500 });
     }
 
     // Cryptomus 인보이스 생성
@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
       amount: usdtAmount,
       currency: 'USDT',
       network: 'tron',
-      order_id: deposit.id,
+      order_id: String(deposit.id),
       url_callback: `${SITE_URL}/api/crypto/webhook`,
       url_return: `${SITE_URL}/deposit`,
       url_success: `${SITE_URL}/deposit?status=success`,
