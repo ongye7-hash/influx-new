@@ -112,17 +112,28 @@ function useCountdown() {
 // ─── System Log Terminal (히어로 우측) + 가짜 주문 로그 주입 ───
 function SystemTerminal() {
   const [visibleLines, setVisibleLines] = useState(0);
+  const [logs, setLogs] = useState<{ time: string; task: string; status: string; statusColor: string }[]>([]);
   const { ref, isVisible } = useInView(0.3);
 
-  const logs = [
-    { time: '17:21:03', task: 'Instagram API Health Check', status: 'OK', statusColor: 'text-emerald-400' },
-    { time: '17:21:05', task: 'Order #24,891 → 좋아요 1,000', status: 'PROCESSING', statusColor: 'text-blue-400' },
-    { time: '17:21:08', task: 'Rate Limiter: 안전 속도 유지', status: 'ACTIVE', statusColor: 'text-amber-400' },
-    { time: '17:21:12', task: 'YouTube 조회수 5,000 완료', status: 'DONE', statusColor: 'text-emerald-400' },
-    { time: '17:21:15', task: 'User_9918 → 구독자 10,000 주문', status: 'QUEUED', statusColor: 'text-[#71717a]' },
-    { time: '17:21:18', task: 'TikTok 팔로워 분산 처리 시작', status: 'RUNNING', statusColor: 'text-blue-400' },
-    { time: '17:21:22', task: 'Account Safety Score: 99.1', status: 'OK', statusColor: 'text-emerald-400' },
-  ];
+  useEffect(() => {
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    // 한국 시간(KST, UTC+9) 기준 — 사용자 로컬 시간 조작 방지
+    const kstNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+    const base = kstNow.getTime();
+    const templates = [
+      { task: 'Instagram API Health Check', status: 'OK', statusColor: 'text-emerald-400' },
+      { task: `Order #${(24000 + Math.floor(Math.random() * 900)).toLocaleString()} → 좋아요 1,000`, status: 'PROCESSING', statusColor: 'text-blue-400' },
+      { task: 'Rate Limiter: 안전 속도 유지', status: 'ACTIVE', statusColor: 'text-amber-400' },
+      { task: 'YouTube 조회수 5,000 완료', status: 'DONE', statusColor: 'text-emerald-400' },
+      { task: `User_${Math.floor(1000 + Math.random() * 9000)} → 구독자 10,000 주문`, status: 'QUEUED', statusColor: 'text-[#71717a]' },
+      { task: 'TikTok 팔로워 분산 처리 시작', status: 'RUNNING', statusColor: 'text-blue-400' },
+      { task: 'Account Safety Score: 99.1', status: 'OK', statusColor: 'text-emerald-400' },
+    ];
+    setLogs(templates.map((t, i) => {
+      const d = new Date(base - (templates.length - 1 - i) * 3000);
+      return { ...t, time: `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}` };
+    }));
+  }, []);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -138,13 +149,13 @@ function SystemTerminal() {
         <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]/60" />
         <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]/60" />
         <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]/60" />
-        <span className="ml-2 text-[11px] font-mono text-[#3f3f46]">influx-system-monitor</span>
+        <span className="ml-2 text-[11px] font-mono text-[#71717a]">influx-system-monitor</span>
       </div>
       <div className="p-4 font-mono text-[11px] leading-[1.9] h-[220px] overflow-hidden"
         style={{ maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 85%, transparent)' }}>
         {logs.slice(0, visibleLines).map((log, i) => (
           <div key={`${i}-${visibleLines}`} className="flex gap-2" style={{ animation: 'fadeInLine 0.3s ease' }}>
-            <span className="text-[#3f3f46] shrink-0">[{log.time}]</span>
+            <span className="text-[#71717a] shrink-0">[{log.time}]</span>
             <span className="text-[#a1a1aa] truncate">{log.task}</span>
             <span className={`${log.statusColor} shrink-0 ml-auto`}>{log.status}</span>
           </div>
@@ -152,16 +163,16 @@ function SystemTerminal() {
         {visibleLines > 0 && visibleLines <= logs.length && (
           <div className="flex items-center gap-1 mt-1">
             <span className="text-[#0064FF]">▍</span>
-            <span className="text-[#3f3f46] animate-pulse">System active...</span>
+            <span className="text-[#71717a] animate-pulse">System active...</span>
           </div>
         )}
       </div>
       <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.06] bg-white/[0.02]">
         <div className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span className="text-[10px] font-mono text-[#52525b]">ALL SYSTEMS OPERATIONAL</span>
+          <span className="text-[10px] font-mono text-[#a1a1aa]">ALL SYSTEMS OPERATIONAL</span>
         </div>
-        <span className="text-[10px] font-mono text-[#3f3f46]">uptime 99.8%</span>
+        <span className="text-[10px] font-mono text-[#71717a]">uptime 99.8%</span>
       </div>
     </div>
   );
@@ -179,12 +190,12 @@ const platforms = [
 
 // ─── Success Cases (가짜 리뷰 → 성공 사례 카드) ───
 const successCases = [
-  { user: 'Creator K', result: '구독자 0 → 1,000명 달성', detail: '수익창출 조건 충족 · 3일 소요', platform: 'YouTube', color: '#FF0000' },
-  { user: 'Brand M', result: '릴스 조회수 50만 돌파', detail: '자연 유입 패턴 · FYP 노출 증가', platform: 'TikTok', color: '#00F2EA' },
-  { user: 'Agency S', result: '팔로워 10K 달성', detail: '광고 문의 3배 증가', platform: 'Instagram', color: '#E4405F' },
-  { user: 'Creator J', result: '조회수 100만 달성', detail: '알고리즘 추천 진입 · 2주 소요', platform: 'YouTube', color: '#FF0000' },
-  { user: 'Shop H', result: '팔로워 5K → 20K', detail: '매출 200% 성장', platform: 'Instagram', color: '#E4405F' },
-  { user: 'Creator D', result: '좋아요 평균 3배 증가', detail: '노출 알고리즘 가속', platform: 'TikTok', color: '#00F2EA' },
+  { user: '유튜버 김OO님', result: '구독자 0 → 1,000명 달성', detail: '수익창출 조건 충족 · 3일 소요', platform: 'YouTube', color: '#FF0000' },
+  { user: '쇼핑몰 A사', result: '틱톡 조회수 50만 돌파', detail: '자연 유입 패턴 · 추천 노출 증가', platform: 'TikTok', color: '#00F2EA' },
+  { user: '마케팅 대행사 B', result: '팔로워 10K 달성', detail: '광고 문의 3배 증가', platform: 'Instagram', color: '#E4405F' },
+  { user: '크리에이터 박OO님', result: '조회수 100만 달성', detail: '알고리즘 추천 진입 · 2주 소요', platform: 'YouTube', color: '#FF0000' },
+  { user: '브랜드 C사', result: '팔로워 5K → 20K', detail: '매출 200% 성장', platform: 'Instagram', color: '#E4405F' },
+  { user: '인플루언서 이OO님', result: '좋아요 평균 3배 증가', detail: '노출 알고리즘 가속', platform: 'TikTok', color: '#00F2EA' },
 ];
 
 // ─── Company Info ───
@@ -239,12 +250,12 @@ export default function LandingPage() {
                 { label: '처리 방식', href: '#how' },
                 { label: '가격', href: '#pricing' },
               ].map(t => (
-                <a key={t.label} href={t.href} className="text-[13px] text-[#71717a] hover:text-[#fafafa] cursor-pointer transition-colors">{t.label}</a>
+                <a key={t.label} href={t.href} className="text-[13px] text-[#a1a1aa] hover:text-[#fafafa] cursor-pointer transition-colors">{t.label}</a>
               ))}
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/login" className="text-[13px] text-[#71717a] hover:text-[#fafafa] transition-colors">로그인</Link>
+            <Link href="/login" className="text-[13px] text-[#a1a1aa] hover:text-[#fafafa] transition-colors">로그인</Link>
             <Link href="/login" className="h-10 sm:h-8 px-4 bg-[#0064FF] text-white text-[13px] font-semibold rounded-md hover:bg-[#0052d4] transition-colors inline-flex items-center">
               지금 시작하기
             </Link>
@@ -289,16 +300,16 @@ export default function LandingPage() {
                     <Link href="/login" className="h-11 px-6 bg-[#0064FF] text-white text-[14px] font-semibold rounded-lg hover:bg-[#0052d4] transition-all inline-flex items-center cta-pulse">
                       지금 무료 크레딧 받기
                     </Link>
-                    <a href="#how" className="h-11 px-6 text-[14px] font-medium text-[#71717a] hover:text-[#fafafa] border border-white/[0.08] rounded-lg hover:border-white/[0.15] transition-colors inline-flex items-center">
-                      처리 방식 보기
+                    <a href="#how" className="h-11 px-6 text-[14px] font-medium text-[#a1a1aa] hover:text-[#fafafa] border border-white/[0.08] rounded-lg hover:border-white/[0.15] transition-colors inline-flex items-center">
+                      내 계정 진단받기
                     </a>
                   </div>
-                  <p className="mt-3 text-[12px] text-[#3f3f46]">가입 즉시 2,000원 크레딧 · 카드 불필요</p>
+                  <p className="mt-3 text-[12px] text-[#a1a1aa]">인스타 좋아요 1,000개 무료 쿠폰 증정 · 가입 시 결제 정보 불필요</p>
 
                   {/* IP Timer */}
                   {!timer.isExpired && (
                     <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#0064FF]/20 bg-[#0064FF]/[0.05] text-[12px]">
-                      <span className="text-[#71717a]">🔥 신규 혜택 종료까지</span>
+                      <span className="text-[#a1a1aa]">🔥 신규 혜택 종료까지</span>
                       <span className="font-mono font-bold text-[#0064FF]">{timer.display}</span>
                     </div>
                   )}
@@ -325,7 +336,7 @@ export default function LandingPage() {
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>
               왜 INFLUX인가
             </h2>
-            <p className="text-[14px] text-[#52525b] mb-10" style={{ letterSpacing: '-0.01em' }}>
+            <p className="text-[14px] text-[#a1a1aa] mb-10" style={{ letterSpacing: '-0.01em' }}>
               우리의 기준은 최저가가 아닌, 계정의 생존입니다
             </p>
           </FadeIn>
@@ -334,14 +345,14 @@ export default function LandingPage() {
             <FadeIn>
               <div className="md:row-span-2 p-8 bg-[#111113] border border-white/[0.06] rounded-xl flex flex-col justify-between min-h-[240px] hover:border-[#0064FF]/20 transition-colors">
                 <div>
-                  <div className="text-[11px] text-[#3f3f46] uppercase tracking-wider font-medium font-mono">최근 30일 기준</div>
+                  <div className="text-[11px] text-[#71717a] uppercase tracking-wider font-medium font-mono">최근 30일 기준</div>
                   <div className="text-[48px] font-extrabold text-white mt-2 font-mono" style={{ letterSpacing: '-0.04em' }}>
                     <Counter target={98} suffix="%" />
                   </div>
-                  <div className="text-[14px] text-[#71717a] mt-1">자동 처리 완료율</div>
+                  <div className="text-[14px] text-[#a1a1aa] mt-1">자동 처리 완료율</div>
                 </div>
-                <p className="text-[13px] text-[#3f3f46] leading-[1.6] mt-6">
-                  API 자동화 기반. 미처리분은 별도 요청 없이 자동 환불됩니다.
+                <p className="text-[13px] text-[#71717a] leading-[1.6] mt-6">
+                  API 자동화 기반. 잔여 수량은 별도 요청 없이 자동 환불됩니다.
                 </p>
               </div>
             </FadeIn>
@@ -351,8 +362,8 @@ export default function LandingPage() {
                 <div className="text-[28px] font-extrabold text-white font-mono" style={{ letterSpacing: '-0.03em' }}>
                   <Counter target={30} suffix="분" />
                 </div>
-                <div className="text-[13px] text-[#52525b] mt-1">평균 처리 시작 시간</div>
-                <p className="text-[12px] text-[#3f3f46] mt-3">새벽 주문도 즉시 처리. 24시간 무중단.</p>
+                <div className="text-[13px] text-[#a1a1aa] mt-1">평균 처리 시작 시간</div>
+                <p className="text-[12px] text-[#71717a] mt-3">새벽 주문도 즉시 처리. 24시간 무중단.</p>
               </div>
             </FadeIn>
 
@@ -361,24 +372,24 @@ export default function LandingPage() {
                 <div className="text-[28px] font-extrabold text-white font-mono" style={{ letterSpacing: '-0.03em' }}>
                   <Counter target={840000} suffix="+" />
                 </div>
-                <div className="text-[13px] text-[#52525b] mt-1">누적 처리 주문</div>
-                <p className="text-[12px] text-[#3f3f46] mt-3">크리에이터, 마케터, 에이전시가 이용 중.</p>
+                <div className="text-[13px] text-[#a1a1aa] mt-1">누적 처리 주문</div>
+                <p className="text-[12px] text-[#71717a] mt-3">크리에이터, 마케터, 에이전시가 이용 중.</p>
               </div>
             </FadeIn>
 
             <FadeIn delay={0.2}>
               <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
                 <div className="text-[28px] font-extrabold text-[#0064FF]" style={{ letterSpacing: '-0.03em' }}>자동 환불</div>
-                <div className="text-[13px] text-[#52525b] mt-1">미완료분 100% 환불</div>
-                <p className="text-[12px] text-[#3f3f46] mt-3">별도 문의 없이 잔액으로 자동 복구.</p>
+                <div className="text-[13px] text-[#a1a1aa] mt-1">잔여 수량 100% 환불</div>
+                <p className="text-[12px] text-[#71717a] mt-3">별도 문의 없이 잔액으로 자동 복구.</p>
               </div>
             </FadeIn>
 
             <FadeIn delay={0.25}>
               <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
                 <div className="text-[28px] font-extrabold text-white" style={{ letterSpacing: '-0.03em' }}>계정 보호</div>
-                <div className="text-[13px] text-[#52525b] mt-1">플랫폼 정책 준수 설계</div>
-                <p className="text-[12px] text-[#3f3f46] mt-3">속도 제한 · 자연 유입 패턴 · 분산 처리.</p>
+                <div className="text-[13px] text-[#a1a1aa] mt-1">플랫폼 정책 준수 설계</div>
+                <p className="text-[12px] text-[#71717a] mt-3">속도 제한 · 자연 유입 패턴 · 분산 처리.</p>
               </div>
             </FadeIn>
           </div>
@@ -394,17 +405,17 @@ export default function LandingPage() {
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>
               운영 기준
             </h2>
-            <p className="text-[14px] text-[#52525b] mb-10" style={{ letterSpacing: '-0.01em' }}>
+            <p className="text-[14px] text-[#a1a1aa] mb-10" style={{ letterSpacing: '-0.01em' }}>
               자동화이지만, 사람이 설계한 기준으로 동작합니다
             </p>
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {[
-              { num: '01', title: '속도 제한', desc: '플랫폼별 안전 속도 이내로만 처리. 급격한 증가를 방지합니다.' },
-              { num: '02', title: '리필 정책', desc: '30일 이내 감소분 자동 리필. 서비스별 리필 기준이 명시되어 있습니다.' },
-              { num: '03', title: '중단 조건', desc: '계정 비공개 전환, 링크 오류 시 자동 중단. 잔여분은 환불.' },
-              { num: '04', title: '한국어 CS', desc: '평일 10:00–22:00 실시간 응답. 평균 응답 시간 15분 이내.' },
+              { num: '01', title: '속도 제한', desc: '플랫폼별 안전 속도 이내로만 처리합니다.\n급격한 증가를 방지합니다.' },
+              { num: '02', title: 'A/S (이탈 복구)', desc: '30일 이내 감소분 자동 복구.\n서비스별 기준이 명시되어 있습니다.' },
+              { num: '03', title: '중단 조건', desc: '계정 비공개 전환, 링크 오류 시 자동 중단.\n잔여분은 환불됩니다.' },
+              { num: '04', title: '한국어 CS', desc: '평일 10:00–22:00 실시간 응답.\n평균 응답 시간 15분 이내.' },
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 0.08}>
                 <div className="group/card relative p-6 bg-[#111113] border border-white/[0.06] rounded-xl h-full overflow-hidden hover:border-[#0064FF]/30 hover:-translate-y-1 transition-all duration-300">
@@ -412,7 +423,7 @@ export default function LandingPage() {
                   <div className="relative">
                     <span className="text-[11px] font-mono font-bold text-[#0064FF] tracking-wider">{item.num}</span>
                     <h3 className="text-[15px] font-bold text-white mt-2 mb-2" style={{ letterSpacing: '-0.02em' }}>{item.title}</h3>
-                    <p className="text-[13px] leading-[1.7] text-[#52525b]">{item.desc}</p>
+                    <p className="text-[13px] leading-[1.7] text-[#a1a1aa] whitespace-pre-line">{item.desc}</p>
                   </div>
                 </div>
               </FadeIn>
@@ -420,8 +431,8 @@ export default function LandingPage() {
           </div>
 
           <FadeIn delay={0.4}>
-            <p className="text-[12px] text-[#3f3f46] mt-6 text-center font-mono">
-              Violation 시 100% 자동 환불 정책 적용 중
+            <p className="text-[12px] text-[#71717a] mt-6 text-center font-mono">
+              규정 위반 시 잔여 수량 100% 자동 환불 적용 중
             </p>
           </FadeIn>
         </div>
@@ -436,7 +447,7 @@ export default function LandingPage() {
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>
               최근 성공 케이스
             </h2>
-            <p className="text-[14px] text-[#52525b] mb-10">시스템을 통해 달성한 실제 결과</p>
+            <p className="text-[14px] text-[#a1a1aa] mb-10">시스템을 통해 달성한 실제 결과</p>
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -445,11 +456,11 @@ export default function LandingPage() {
                 <div className="p-5 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
                   <div className="flex items-center gap-2.5 mb-3">
                     <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: c.color }} />
-                    <span className="text-[12px] text-[#52525b]">{c.platform}</span>
-                    <span className="ml-auto text-[11px] font-mono text-[#3f3f46]">{c.user}</span>
+                    <span className="text-[12px] text-[#a1a1aa]">{c.platform}</span>
+                    <span className="ml-auto text-[11px] font-mono text-[#71717a]">{c.user}</span>
                   </div>
                   <div className="text-[15px] font-bold text-white mb-1" style={{ letterSpacing: '-0.02em' }}>{c.result}</div>
-                  <p className="text-[12px] text-[#3f3f46]">{c.detail}</p>
+                  <p className="text-[12px] text-[#71717a]">{c.detail}</p>
                 </div>
               </FadeIn>
             ))}
@@ -464,21 +475,21 @@ export default function LandingPage() {
         <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
           <FadeIn>
             <h2 className="text-[24px] sm:text-[28px] font-bold" style={{ letterSpacing: '-0.03em' }}>3단계로 끝</h2>
-            <p className="text-[14px] text-[#52525b] mt-1 mb-10">복잡한 절차 없이, 바로 시작</p>
+            <p className="text-[14px] text-[#a1a1aa] mt-1 mb-10">복잡한 절차 없이, 바로 시작</p>
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {[
-              { step: '01', title: '가입', desc: '이메일 또는 Google 계정으로 30초 만에 가입', detail: '가입 즉시 2,000원 크레딧 지급' },
-              { step: '02', title: '충전', desc: '계좌이체 또는 USDT로 원하는 금액만큼 충전', detail: '최소 충전 금액 5,000원' },
+              { step: '01', title: '가입', desc: '간편가입 / 구글로 3초 시작', detail: '가입 즉시 무료 쿠폰 증정' },
+              { step: '02', title: '충전', desc: '실시간 계좌이체 (세금계산서 가능) 또는 USDT', detail: '최소 충전 금액 5,000원' },
               { step: '03', title: '주문', desc: '서비스 선택 → 링크 입력 → 수량 설정 → 완료', detail: 'API 자동 처리, 평균 30분 내 시작' },
             ].map((item, i) => (
               <FadeIn key={item.step} delay={i * 0.1}>
                 <div className="p-6 sm:p-8 bg-[#111113] border border-white/[0.06] rounded-xl h-full hover:border-[#0064FF]/20 transition-colors">
                   <span className="text-[12px] font-mono font-bold text-[#0064FF]">{item.step}</span>
                   <h3 className="text-[18px] font-bold mt-3 mb-2" style={{ letterSpacing: '-0.02em' }}>{item.title}</h3>
-                  <p className="text-[14px] leading-[1.7] text-[#71717a]">{item.desc}</p>
-                  <p className="text-[12px] text-[#3f3f46] mt-3">{item.detail}</p>
+                  <p className="text-[14px] leading-[1.7] text-[#a1a1aa]">{item.desc}</p>
+                  <p className="text-[12px] text-[#71717a] mt-3">{item.detail}</p>
                 </div>
               </FadeIn>
             ))}
@@ -493,14 +504,14 @@ export default function LandingPage() {
         <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
           <FadeIn>
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>지원 플랫폼</h2>
-            <p className="text-[14px] text-[#52525b] mb-8">주요 SNS 전체 지원 · 팔로워, 좋아요, 조회수, 댓글 등</p>
+            <p className="text-[14px] text-[#a1a1aa] mb-8">주요 SNS 전체 지원 · 팔로워, 좋아요, 조회수, 댓글 등</p>
           </FadeIn>
           <FadeIn delay={0.1}>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
               {platforms.map((p) => (
                 <Link key={p.name} href={`/services/${p.name.toLowerCase().replace(/\s*\(.*\)/, '')}`}
                   className="group flex items-center gap-3 p-4 bg-[#111113] border border-white/[0.06] rounded-lg hover:border-white/[0.12] transition-all cursor-pointer">
-                  <p.icon className="w-4 h-4 text-[#52525b] group-hover:scale-110 transition-transform" style={{ color: undefined }} />
+                  <p.icon className="w-4 h-4 text-[#a1a1aa] group-hover:scale-110 transition-transform" style={{ color: undefined }} />
                   <span className="text-[13px] font-medium text-[#a1a1aa]">{p.name}</span>
                 </Link>
               ))}
@@ -516,12 +527,12 @@ export default function LandingPage() {
         <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
           <FadeIn>
             <h2 className="text-[24px] sm:text-[28px] font-bold" style={{ letterSpacing: '-0.03em' }}>가격</h2>
-            <p className="text-[14px] text-[#52525b] mt-1 mb-10">VAT 포함 · 합리적인 단가 · 서비스별 리필 기준 명시</p>
+            <p className="text-[14px] text-[#a1a1aa] mt-1 mb-10">VAT 포함 · 합리적인 단가 · 서비스별 리필 기준 명시</p>
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {[
-              { platform: 'Instagram', service: '좋아요', amount: '100개', price: '10', color: '#E4405F', desc: '즉시 시작 · 고품질', highlight: true },
+              { platform: 'Instagram', service: '좋아요', amount: '100개', price: '100', color: '#E4405F', desc: '즉시 시작 · 고품질', highlight: true },
               { platform: 'YouTube', service: '조회수', amount: '1,000회', price: '500', color: '#FF0000', desc: '리텐션 보장 · 리필 지원' },
               { platform: 'TikTok', service: '팔로워', amount: '100명', price: '150', color: '#00F2EA', desc: '실계정 · 자연 유입 패턴' },
               { platform: 'YouTube', service: '구독자', amount: '100명', price: '3,000', color: '#FF0000', desc: '30일 감소 보상' },
@@ -533,18 +544,18 @@ export default function LandingPage() {
                     : 'bg-[#111113] border-white/[0.06] hover:border-[#0064FF]/20'
                 }`}>
                   {item.highlight && (
-                    <div className="text-[10px] font-bold text-[#0064FF] uppercase tracking-wider mb-3 font-mono">MOST POPULAR</div>
+                    <div className="text-[10px] font-bold text-[#0064FF] uppercase tracking-wider mb-3 font-mono">BEST</div>
                   )}
                   <div className="flex items-center gap-2.5 mb-4">
                     <div className="w-2.5 h-2.5 rounded-full transition-transform group-hover:scale-125" style={{ backgroundColor: item.color }} />
-                    <span className="text-[13px] font-medium text-[#71717a]">{item.platform}</span>
+                    <span className="text-[13px] font-medium text-[#a1a1aa]">{item.platform}</span>
                   </div>
                   <div className="text-[14px] text-[#a1a1aa]">{item.service} {item.amount}</div>
                   <div className="flex items-baseline gap-0.5 mt-1">
                     <span className="text-[32px] font-extrabold font-mono" style={{ letterSpacing: '-0.04em' }}>{item.price}</span>
-                    <span className="text-[14px] text-[#52525b] font-medium">원</span>
+                    <span className="text-[14px] text-[#a1a1aa] font-medium">원</span>
                   </div>
-                  <div className="text-[12px] text-[#3f3f46] mt-3">{item.desc}</div>
+                  <div className="text-[12px] text-[#71717a] mt-3">{item.desc}</div>
                 </div>
               </FadeIn>
             ))}
@@ -552,8 +563,8 @@ export default function LandingPage() {
 
           <FadeIn delay={0.3}>
             <div className="text-center mt-8">
-              <Link href="/order" className="text-[13px] text-[#0064FF] hover:underline font-medium">
-                전체 가격표 보기 →
+              <Link href="/order" className="inline-flex items-center h-10 px-6 text-[13px] text-[#0064FF] font-semibold border border-[#0064FF]/30 rounded-lg hover:bg-[#0064FF]/10 transition-colors">
+                전체 단가표 확인하기
               </Link>
             </div>
           </FadeIn>
@@ -572,17 +583,17 @@ export default function LandingPage() {
                 <br />
                 먼저 확인해보세요
               </h2>
-              <p className="mt-4 text-[15px] text-[#52525b] leading-[1.7]">
-                가입 30초 · 카드 불필요 · 신규 2,000원 크레딧
+              <p className="mt-4 text-[15px] text-[#a1a1aa] leading-[1.7]">
+                가입 30초 · 결제 정보 불필요 · 인스타 좋아요 1,000개 무료 쿠폰
               </p>
               <Link href="/login" className="mt-8 h-12 px-8 bg-[#0064FF] text-white text-[15px] font-semibold rounded-lg hover:bg-[#0052d4] transition-all inline-flex items-center cta-pulse">
-                지금 구조 확인하기
+                무료 크레딧 받고 시작
               </Link>
 
               {/* Timer repeat */}
               {!timer.isExpired && (
                 <div className="mt-4">
-                  <span className="text-[12px] text-[#3f3f46] font-mono">
+                  <span className="text-[12px] text-[#71717a] font-mono">
                     🔥 신규 30% 추가 충전 혜택 종료까지 <span className="text-[#0064FF] font-bold">{timer.display}</span>
                   </span>
                 </div>
@@ -610,18 +621,18 @@ export default function LandingPage() {
                 { label: '개인정보처리방침', href: '/privacy' },
                 { label: '인사이트', href: '/blog' },
               ].map(t => (
-                <Link key={t.label} href={t.href} className="text-[12px] text-[#3f3f46] hover:text-[#52525b] transition-colors">{t.label}</Link>
+                <Link key={t.label} href={t.href} className="text-[12px] text-[#71717a] hover:text-[#d4d4d8] transition-colors">{t.label}</Link>
               ))}
-              <span className="text-[12px] text-[#3f3f46]">{companyInfo.email}</span>
+              <span className="text-[12px] text-[#71717a]">{companyInfo.email}</span>
             </div>
           </div>
           <div className="mt-6 pt-6 border-t border-white/[0.04]">
-            <p className="text-[11px] text-[#27272a] leading-[1.8]">
+            <p className="text-[11px] text-[#52525b] leading-[1.8]">
               상호: {companyInfo.name} | 대표: {companyInfo.ceo} | 사업자등록번호: {companyInfo.businessNumber}
               <br />
               통신판매업신고: {companyInfo.salesRegistration} | 주소: {companyInfo.address}
               <br />
-              이메일: {companyInfo.email} | 운영시간: 평일 10:00 - 18:00
+              이메일: {companyInfo.email} | 운영시간: 평일 10:00 - 22:00 (주말/공휴일 탄력 운영)
               <br />
               &copy; 2026 {companyInfo.name}. All rights reserved.
             </p>

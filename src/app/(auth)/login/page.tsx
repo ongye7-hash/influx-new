@@ -480,7 +480,7 @@ function LoginContent() {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-[#09090b] px-3 text-white/30">
-                  또는 소셜 계정으로
+                  또는
                 </span>
               </div>
             </div>
@@ -493,7 +493,7 @@ function LoginContent() {
               disabled={isLoading}
             >
               <GoogleIcon className="h-5 w-5" />
-              Google로 계속하기
+              구글로 3초 시작
             </button>
 
             {/* 비회원 둘러보기 */}

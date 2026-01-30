@@ -106,7 +106,7 @@ function SystemTerminal() {
         <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]/60" />
         <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]/60" />
         <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]/60" />
-        <span className="ml-2 text-[11px] font-mono text-[#3f3f46]">influx-system-monitor</span>
+        <span className="ml-2 text-[11px] font-mono text-[#71717a]">influx-system-monitor</span>
       </div>
 
       {/* 로그 라인 */}
@@ -119,7 +119,7 @@ function SystemTerminal() {
               opacity: 1,
               animation: 'fadeInLine 0.3s ease',
             }}>
-            <span className="text-[#3f3f46] shrink-0">[{log.time}]</span>
+            <span className="text-[#71717a] shrink-0">[{log.time}]</span>
             <span className="text-[#a1a1aa] truncate">{log.task}</span>
             <span className={`${log.statusColor} shrink-0 ml-auto`}>{log.status}</span>
           </div>
@@ -127,7 +127,7 @@ function SystemTerminal() {
         {visibleLines > 0 && visibleLines <= logs.length && (
           <div className="flex items-center gap-1 mt-1">
             <span className="text-[#0064FF]">▍</span>
-            <span className="text-[#3f3f46] animate-pulse">System active...</span>
+            <span className="text-[#71717a] animate-pulse">System active...</span>
           </div>
         )}
       </div>
@@ -136,9 +136,9 @@ function SystemTerminal() {
       <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.06] bg-white/[0.02]">
         <div className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span className="text-[10px] font-mono text-[#52525b]">ALL SYSTEMS OPERATIONAL</span>
+          <span className="text-[10px] font-mono text-[#a1a1aa]">ALL SYSTEMS OPERATIONAL</span>
         </div>
-        <span className="text-[10px] font-mono text-[#3f3f46]">uptime 99.8%</span>
+        <span className="text-[10px] font-mono text-[#71717a]">uptime 99.8%</span>
       </div>
     </div>
   );
@@ -172,12 +172,12 @@ function LandingPreview() {
             </div>
             <div className="hidden md:flex items-center gap-5">
               {['서비스', '처리 방식', '가격'].map(t => (
-                <span key={t} className="text-[13px] text-[#71717a] hover:text-[#fafafa] cursor-pointer transition-colors">{t}</span>
+                <span key={t} className="text-[13px] text-[#a1a1aa] hover:text-[#fafafa] cursor-pointer transition-colors">{t}</span>
               ))}
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-[13px] text-[#71717a] hover:text-[#fafafa] cursor-pointer transition-colors">로그인</span>
+            <span className="text-[13px] text-[#a1a1aa] hover:text-[#fafafa] cursor-pointer transition-colors">로그인</span>
             <button className="h-8 px-4 bg-[#0064FF] text-white text-[13px] font-semibold rounded-md hover:bg-[#0052d4] transition-colors">
               지금 시작하기
             </button>
@@ -223,11 +223,11 @@ function LandingPreview() {
                     <button className="h-11 px-6 bg-[#0064FF] text-white text-[14px] font-semibold rounded-lg hover:bg-[#0052d4] transition-all cta-pulse">
                       지금 무료 크레딧 받기
                     </button>
-                    <button className="h-11 px-6 text-[14px] font-medium text-[#71717a] hover:text-[#fafafa] border border-white/[0.08] rounded-lg hover:border-white/[0.15] transition-colors">
+                    <button className="h-11 px-6 text-[14px] font-medium text-[#a1a1aa] hover:text-[#fafafa] border border-white/[0.08] rounded-lg hover:border-white/[0.15] transition-colors">
                       처리 방식 보기
                     </button>
                   </div>
-                  <p className="mt-3 text-[12px] text-[#3f3f46]">가입 즉시 2,000원 크레딧 · 카드 불필요</p>
+                  <p className="mt-3 text-[12px] text-[#71717a]">인스타 좋아요 1,000개 무료 쿠폰 증정 · 가입 시 결제 정보 불필요</p>
                 </FadeIn>
               </div>
 
@@ -252,7 +252,7 @@ function LandingPreview() {
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>
               왜 INFLUX인가
             </h2>
-            <p className="text-[14px] text-[#52525b] mb-10" style={{ letterSpacing: '-0.01em' }}>
+            <p className="text-[14px] text-[#a1a1aa] mb-10" style={{ letterSpacing: '-0.01em' }}>
               우리의 기준은 최저가가 아닌, 계정의 생존입니다
             </p>
           </FadeIn>
@@ -263,14 +263,14 @@ function LandingPreview() {
             <FadeIn>
               <div className="md:row-span-2 p-8 bg-[#111113] border border-white/[0.06] rounded-xl flex flex-col justify-between min-h-[240px] hover:border-[#0064FF]/20 transition-colors">
                 <div>
-                  <div className="text-[11px] text-[#3f3f46] uppercase tracking-wider font-medium font-mono">최근 30일 기준</div>
+                  <div className="text-[11px] text-[#71717a] uppercase tracking-wider font-medium font-mono">최근 30일 기준</div>
                   <div className="text-[48px] font-extrabold text-white mt-2 font-mono" style={{ letterSpacing: '-0.04em' }}>
                     <Counter target={98} suffix="%" />
                   </div>
                   <div className="text-[14px] text-[#71717a] mt-1">자동 처리 완료율</div>
                 </div>
-                <p className="text-[13px] text-[#3f3f46] leading-[1.6] mt-6">
-                  API 자동화 기반. 미처리분은 별도 요청 없이 자동 환불됩니다.
+                <p className="text-[13px] text-[#71717a] leading-[1.6] mt-6">
+                  API 자동화 기반. 잔여 수량은 별도 요청 없이 자동 환불됩니다.
                 </p>
               </div>
             </FadeIn>
@@ -280,8 +280,8 @@ function LandingPreview() {
                 <div className="text-[28px] font-extrabold text-white font-mono" style={{ letterSpacing: '-0.03em' }}>
                   <Counter target={30} suffix="분" />
                 </div>
-                <div className="text-[13px] text-[#52525b] mt-1">평균 처리 시작 시간</div>
-                <p className="text-[12px] text-[#3f3f46] mt-3">새벽 주문도 즉시 처리. 24시간 무중단.</p>
+                <div className="text-[13px] text-[#a1a1aa] mt-1">평균 처리 시작 시간</div>
+                <p className="text-[12px] text-[#71717a] mt-3">새벽 주문도 즉시 처리. 24시간 무중단.</p>
               </div>
             </FadeIn>
 
@@ -290,24 +290,24 @@ function LandingPreview() {
                 <div className="text-[28px] font-extrabold text-white font-mono" style={{ letterSpacing: '-0.03em' }}>
                   <Counter target={12400} suffix="+" />
                 </div>
-                <div className="text-[13px] text-[#52525b] mt-1">활성 사용자</div>
-                <p className="text-[12px] text-[#3f3f46] mt-3">크리에이터, 마케터, 에이전시가 사용 중.</p>
+                <div className="text-[13px] text-[#a1a1aa] mt-1">활성 사용자</div>
+                <p className="text-[12px] text-[#71717a] mt-3">크리에이터, 마케터, 에이전시가 사용 중.</p>
               </div>
             </FadeIn>
 
             <FadeIn delay={0.2}>
               <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
                 <div className="text-[28px] font-extrabold text-[#0064FF]" style={{ letterSpacing: '-0.03em' }}>자동 환불</div>
-                <div className="text-[13px] text-[#52525b] mt-1">미완료분 100% 환불</div>
-                <p className="text-[12px] text-[#3f3f46] mt-3">별도 문의 없이 잔액으로 자동 복구.</p>
+                <div className="text-[13px] text-[#a1a1aa] mt-1">잔여 수량 100% 환불</div>
+                <p className="text-[12px] text-[#71717a] mt-3">별도 문의 없이 잔액으로 자동 복구.</p>
               </div>
             </FadeIn>
 
             <FadeIn delay={0.25}>
               <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-xl hover:border-[#0064FF]/20 transition-colors">
                 <div className="text-[28px] font-extrabold text-white" style={{ letterSpacing: '-0.03em' }}>계정 보호</div>
-                <div className="text-[13px] text-[#52525b] mt-1">플랫폼 정책 준수 설계</div>
-                <p className="text-[12px] text-[#3f3f46] mt-3">속도 제한 · 자연 유입 패턴 · 분산 처리.</p>
+                <div className="text-[13px] text-[#a1a1aa] mt-1">플랫폼 정책 준수 설계</div>
+                <p className="text-[12px] text-[#71717a] mt-3">속도 제한 · 자연 유입 패턴 · 분산 처리.</p>
               </div>
             </FadeIn>
           </div>
@@ -324,17 +324,17 @@ function LandingPreview() {
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>
               운영 기준
             </h2>
-            <p className="text-[14px] text-[#52525b] mb-10" style={{ letterSpacing: '-0.01em' }}>
+            <p className="text-[14px] text-[#a1a1aa] mb-10" style={{ letterSpacing: '-0.01em' }}>
               자동화이지만, 사람이 설계한 기준으로 동작합니다
             </p>
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {[
-              { num: '01', title: '속도 제한', desc: '플랫폼별 안전 속도 이내로만 처리. 급격한 증가를 방지합니다.' },
-              { num: '02', title: '리필 정책', desc: '30일 이내 감소분 자동 리필. 서비스별 리필 기준이 명시되어 있습니다.' },
-              { num: '03', title: '중단 조건', desc: '계정 비공개 전환, 링크 오류 시 자동 중단. 잔여분은 환불.' },
-              { num: '04', title: '한국어 CS', desc: '평일 10:00–22:00 실시간 응답. 평균 응답 시간 15분 이내.' },
+              { num: '01', title: '속도 제한', desc: '플랫폼별 안전 속도 이내로만 처리합니다.\n급격한 증가를 방지합니다.' },
+              { num: '02', title: 'A/S (이탈 복구)', desc: '30일 이내 감소분 자동 복구.\n서비스별 기준이 명시되어 있습니다.' },
+              { num: '03', title: '중단 조건', desc: '계정 비공개 전환, 링크 오류 시 자동 중단.\n잔여분은 환불됩니다.' },
+              { num: '04', title: '한국어 CS', desc: '평일 10:00–22:00 실시간 응답.\n평균 응답 시간 15분 이내.' },
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 0.08}>
                 <div className="group/card relative p-6 bg-[#111113] border border-white/[0.06] rounded-xl h-full overflow-hidden hover:border-[#0064FF]/30 hover:-translate-y-1 transition-all duration-300">
@@ -343,7 +343,7 @@ function LandingPreview() {
                   <div className="relative">
                     <span className="text-[11px] font-mono font-bold text-[#0064FF] tracking-wider">{item.num}</span>
                     <h3 className="text-[15px] font-bold text-white mt-2 mb-2" style={{ letterSpacing: '-0.02em' }}>{item.title}</h3>
-                    <p className="text-[13px] leading-[1.7] text-[#52525b]">{item.desc}</p>
+                    <p className="text-[13px] leading-[1.7] text-[#a1a1aa] whitespace-pre-line">{item.desc}</p>
                   </div>
                 </div>
               </FadeIn>
@@ -351,8 +351,8 @@ function LandingPreview() {
           </div>
 
           <FadeIn delay={0.4}>
-            <p className="text-[12px] text-[#3f3f46] mt-6 text-center font-mono">
-              Violation 시 100% 자동 환불 정책 적용 중
+            <p className="text-[12px] text-[#71717a] mt-6 text-center font-mono">
+              규정 위반 시 잔여 수량 100% 자동 환불 적용 중
             </p>
           </FadeIn>
         </div>
@@ -366,13 +366,13 @@ function LandingPreview() {
         <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
           <FadeIn>
             <h2 className="text-[24px] sm:text-[28px] font-bold" style={{ letterSpacing: '-0.03em' }}>3단계로 끝</h2>
-            <p className="text-[14px] text-[#52525b] mt-1 mb-10">복잡한 절차 없이, 바로 시작</p>
+            <p className="text-[14px] text-[#a1a1aa] mt-1 mb-10">복잡한 절차 없이, 바로 시작</p>
           </FadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {[
-              { step: '01', title: '가입', desc: '이메일 또는 Google 계정으로 30초 만에 가입', detail: '가입 즉시 2,000원 크레딧 지급' },
-              { step: '02', title: '충전', desc: '계좌이체 또는 USDT로 원하는 금액만큼 충전', detail: '최소 충전 금액 5,000원' },
+              { step: '01', title: '가입', desc: '간편가입 / 구글로 3초 시작', detail: '가입 즉시 무료 쿠폰 증정' },
+              { step: '02', title: '충전', desc: '실시간 계좌이체 (세금계산서 가능) 또는 USDT', detail: '최소 충전 금액 5,000원' },
               { step: '03', title: '주문', desc: '서비스 선택 → 링크 입력 → 수량 설정 → 완료', detail: 'API 자동 처리, 평균 30분 내 시작' },
             ].map((item, i) => (
               <FadeIn key={item.step} delay={i * 0.1}>
@@ -380,7 +380,7 @@ function LandingPreview() {
                   <span className="text-[12px] font-mono font-bold text-[#0064FF]">{item.step}</span>
                   <h3 className="text-[18px] font-bold mt-3 mb-2" style={{ letterSpacing: '-0.02em' }}>{item.title}</h3>
                   <p className="text-[14px] leading-[1.7] text-[#71717a]">{item.desc}</p>
-                  <p className="text-[12px] text-[#3f3f46] mt-3">{item.detail}</p>
+                  <p className="text-[12px] text-[#71717a] mt-3">{item.detail}</p>
                 </div>
               </FadeIn>
             ))}
@@ -396,7 +396,7 @@ function LandingPreview() {
         <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
           <FadeIn>
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-3" style={{ letterSpacing: '-0.03em' }}>지원 플랫폼</h2>
-            <p className="text-[14px] text-[#52525b] mb-8">주요 SNS 전체 지원 · 팔로워, 좋아요, 조회수, 댓글 등</p>
+            <p className="text-[14px] text-[#a1a1aa] mb-8">주요 SNS 전체 지원 · 팔로워, 좋아요, 조회수, 댓글 등</p>
           </FadeIn>
           <FadeIn delay={0.1}>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
@@ -419,12 +419,12 @@ function LandingPreview() {
         <div className="max-w-[1120px] mx-auto px-6 py-20 sm:py-28">
           <FadeIn>
             <h2 className="text-[24px] sm:text-[28px] font-bold" style={{ letterSpacing: '-0.03em' }}>가격</h2>
-            <p className="text-[14px] text-[#52525b] mt-1 mb-10">VAT 포함 · 합리적인 단가 · 서비스별 리필 기준 명시</p>
+            <p className="text-[14px] text-[#a1a1aa] mt-1 mb-10">VAT 포함 · 합리적인 단가 · 서비스별 리필 기준 명시</p>
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {[
-              { platform: 'Instagram', service: '좋아요', amount: '100개', price: '10', color: '#E4405F', desc: '즉시 시작 · 고품질', highlight: true },
+              { platform: 'Instagram', service: '좋아요', amount: '100개', price: '100', color: '#E4405F', desc: '즉시 시작 · 고품질', highlight: true },
               { platform: 'YouTube', service: '조회수', amount: '1,000회', price: '500', color: '#FF0000', desc: '리텐션 보장 · 리필 지원' },
               { platform: 'TikTok', service: '팔로워', amount: '100명', price: '150', color: '#00F2EA', desc: '실계정 · 자연 유입 패턴' },
               { platform: 'YouTube', service: '구독자', amount: '100명', price: '3,000', color: '#FF0000', desc: '30일 감소 보상' },
@@ -436,7 +436,7 @@ function LandingPreview() {
                     : 'bg-[#111113] border-white/[0.06] hover:border-[#0064FF]/20'
                 }`}>
                   {item.highlight && (
-                    <div className="text-[10px] font-bold text-[#0064FF] uppercase tracking-wider mb-3 font-mono">MOST POPULAR</div>
+                    <div className="text-[10px] font-bold text-[#0064FF] uppercase tracking-wider mb-3 font-mono">BEST</div>
                   )}
                   <div className="flex items-center gap-2.5 mb-4">
                     <div className="w-2.5 h-2.5 rounded-full transition-transform group-hover:scale-125" style={{ backgroundColor: item.color }} />
@@ -445,9 +445,9 @@ function LandingPreview() {
                   <div className="text-[14px] text-[#a1a1aa]">{item.service} {item.amount}</div>
                   <div className="flex items-baseline gap-0.5 mt-1">
                     <span className="text-[32px] font-extrabold font-mono" style={{ letterSpacing: '-0.04em' }}>{item.price}</span>
-                    <span className="text-[14px] text-[#52525b] font-medium">원</span>
+                    <span className="text-[14px] text-[#a1a1aa] font-medium">원</span>
                   </div>
-                  <div className="text-[12px] text-[#3f3f46] mt-3">{item.desc}</div>
+                  <div className="text-[12px] text-[#71717a] mt-3">{item.desc}</div>
                 </div>
               </FadeIn>
             ))}
@@ -465,11 +465,11 @@ function LandingPreview() {
                 <br />
                 먼저 확인해보세요
               </h2>
-              <p className="mt-4 text-[15px] text-[#52525b] leading-[1.7]">
-                가입 30초 · 카드 불필요 · 신규 2,000원 크레딧
+              <p className="mt-4 text-[15px] text-[#a1a1aa] leading-[1.7]">
+                가입 30초 · 결제 정보 불필요 · 인스타 좋아요 1,000개 무료 쿠폰
               </p>
               <button className="mt-8 h-12 px-8 bg-[#0064FF] text-white text-[15px] font-semibold rounded-lg hover:bg-[#0052d4] transition-all cta-pulse">
-                지금 구조 확인하기
+                무료 크레딧 받고 시작
               </button>
             </div>
           </FadeIn>
@@ -490,13 +490,13 @@ function LandingPreview() {
             </div>
             <div className="flex flex-wrap items-center gap-5">
               {['이용약관', '개인정보처리방침'].map(t => (
-                <span key={t} className="text-[12px] text-[#3f3f46] hover:text-[#52525b] cursor-pointer transition-colors">{t}</span>
+                <span key={t} className="text-[12px] text-[#71717a] hover:text-[#d4d4d8] cursor-pointer transition-colors">{t}</span>
               ))}
-              <span className="text-[12px] text-[#3f3f46]">support@influx-lab.com</span>
+              <span className="text-[12px] text-[#71717a]">support@influx-lab.com</span>
             </div>
           </div>
           <div className="mt-6 pt-6 border-t border-white/[0.04]">
-            <p className="text-[11px] text-[#27272a] leading-[1.8]">
+            <p className="text-[11px] text-[#52525b] leading-[1.8]">
               상호명: 인플럭스랩 | 대표: — | 사업자등록번호: —
               <br />
               주소: 서울특별시 — | 통신판매업신고: —
@@ -556,14 +556,14 @@ function LoginPreview() {
               { value: '24/7', label: '무중단 자동 처리' },
             ].map((s) => (
               <div key={s.label} className="flex items-center justify-between py-3.5 border-b border-white/[0.06]">
-                <span className="text-[13px] text-[#52525b]">{s.label}</span>
+                <span className="text-[13px] text-[#a1a1aa]">{s.label}</span>
                 <span className="text-[14px] font-bold text-white font-mono">{s.value}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="text-[12px] text-[#27272a]">&copy; 2026 INFLUX</p>
+        <p className="text-[12px] text-[#52525b]">&copy; 2026 INFLUX</p>
       </div>
 
       {/* Right - Form */}
@@ -587,7 +587,7 @@ function LoginPreview() {
                 className={`flex-1 h-9 text-[13px] font-medium rounded-md transition-all ${
                   activeTab === tab
                     ? 'bg-white/[0.08] text-white'
-                    : 'text-[#52525b] hover:text-[#71717a]'
+                    : 'text-[#a1a1aa] hover:text-[#71717a]'
                 }`}
               >
                 {tab === 'login' ? '로그인' : '회원가입'}
@@ -602,7 +602,7 @@ function LoginPreview() {
                 <input
                   type="text"
                   placeholder="username"
-                  className="w-full h-11 px-3.5 text-[14px] bg-white/[0.03] border border-white/[0.06] rounded-lg outline-none focus:border-[#0064FF] transition-colors text-white placeholder:text-[#27272a]"
+                  className="w-full h-11 px-3.5 text-[14px] bg-white/[0.03] border border-white/[0.06] rounded-lg outline-none focus:border-[#0064FF] transition-colors text-white placeholder:text-[#52525b]"
                   readOnly
                 />
               </div>
@@ -612,7 +612,7 @@ function LoginPreview() {
               <input
                 type="email"
                 placeholder="name@example.com"
-                className="w-full h-11 px-3.5 text-[14px] bg-white/[0.03] border border-white/[0.06] rounded-lg outline-none focus:border-[#0064FF] transition-colors text-white placeholder:text-[#27272a]"
+                className="w-full h-11 px-3.5 text-[14px] bg-white/[0.03] border border-white/[0.06] rounded-lg outline-none focus:border-[#0064FF] transition-colors text-white placeholder:text-[#52525b]"
                 readOnly
               />
             </div>
@@ -620,13 +620,13 @@ function LoginPreview() {
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-[13px] font-medium text-[#a1a1aa]">비밀번호</label>
                 {activeTab === 'login' && (
-                  <span className="text-[12px] text-[#3f3f46] hover:text-[#52525b] cursor-pointer transition-colors">비밀번호 찾기</span>
+                  <span className="text-[12px] text-[#71717a] hover:text-[#d4d4d8] cursor-pointer transition-colors">비밀번호 찾기</span>
                 )}
               </div>
               <input
                 type="password"
                 placeholder="••••••••"
-                className="w-full h-11 px-3.5 text-[14px] bg-white/[0.03] border border-white/[0.06] rounded-lg outline-none focus:border-[#0064FF] transition-colors text-white placeholder:text-[#27272a]"
+                className="w-full h-11 px-3.5 text-[14px] bg-white/[0.03] border border-white/[0.06] rounded-lg outline-none focus:border-[#0064FF] transition-colors text-white placeholder:text-[#52525b]"
                 readOnly
               />
             </div>
@@ -640,17 +640,17 @@ function LoginPreview() {
               <div className="w-full border-t border-white/[0.06]" />
             </div>
             <div className="relative flex justify-center">
-              <span className="bg-[#09090b] px-3 text-[12px] text-[#3f3f46]">또는</span>
+              <span className="bg-[#09090b] px-3 text-[12px] text-[#71717a]">또는</span>
             </div>
           </div>
 
           <button className="w-full h-11 bg-white/[0.03] border border-white/[0.06] text-[14px] font-medium rounded-lg hover:border-white/[0.12] transition-colors text-white flex items-center justify-center gap-2.5">
             <svg className="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            Google로 계속하기
+            구글로 3초 시작
           </button>
 
           {activeTab === 'register' && (
-            <p className="mt-4 text-[12px] text-[#3f3f46] text-center">
+            <p className="mt-4 text-[12px] text-[#71717a] text-center">
               가입 시 2,000원 크레딧이 즉시 지급됩니다
             </p>
           )}
@@ -689,7 +689,7 @@ function DashboardPreview() {
                 className={`flex items-center h-9 px-3 rounded-md text-[13px] font-medium transition-colors ${
                   item.active
                     ? 'bg-white/[0.06] text-white'
-                    : 'text-[#52525b] hover:text-[#71717a] hover:bg-white/[0.03]'
+                    : 'text-[#a1a1aa] hover:text-[#71717a] hover:bg-white/[0.03]'
                 }`}
               >
                 {item.name}
@@ -698,7 +698,7 @@ function DashboardPreview() {
 
             <div className="pt-3 mt-3 border-t border-white/[0.06] space-y-0.5">
               {['고객센터', '설정'].map((name) => (
-                <div key={name} className="flex items-center h-9 px-3 rounded-md text-[13px] font-medium text-[#3f3f46] hover:text-[#52525b] hover:bg-white/[0.03] transition-colors">
+                <div key={name} className="flex items-center h-9 px-3 rounded-md text-[13px] font-medium text-[#71717a] hover:text-[#d4d4d8] hover:bg-white/[0.03] transition-colors">
                   {name}
                 </div>
               ))}
@@ -708,7 +708,7 @@ function DashboardPreview() {
           {/* Balance */}
           <div className="p-3">
             <div className="p-4 bg-white/[0.03] border border-white/[0.06] rounded-xl">
-              <div className="text-[11px] text-[#3f3f46] font-medium uppercase tracking-wider">잔액</div>
+              <div className="text-[11px] text-[#71717a] font-medium uppercase tracking-wider">잔액</div>
               <div className="text-[22px] font-extrabold text-white mt-1 font-mono" style={{ letterSpacing: '-0.03em' }}>₩128,500</div>
               <button className="w-full h-8 mt-4 bg-[#0064FF] text-white text-[12px] font-semibold rounded-md hover:bg-[#0052d4] transition-colors">
                 충전하기
@@ -719,12 +719,12 @@ function DashboardPreview() {
           {/* User */}
           <div className="p-3 pt-0">
             <div className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer">
-              <div className="w-8 h-8 rounded-full bg-white/[0.06] flex items-center justify-center text-[11px] font-bold text-[#52525b]">
+              <div className="w-8 h-8 rounded-full bg-white/[0.06] flex items-center justify-center text-[11px] font-bold text-[#a1a1aa]">
                 U
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-[13px] font-medium text-white truncate">user@example.com</div>
-                <div className="text-[11px] text-[#3f3f46]">일반 회원</div>
+                <div className="text-[11px] text-[#71717a]">일반 회원</div>
               </div>
             </div>
           </div>
@@ -742,7 +742,7 @@ function DashboardPreview() {
           <div className="p-6">
             <div className="mb-6">
               <h2 className="text-[18px] font-bold text-white" style={{ letterSpacing: '-0.02em' }}>안녕하세요, user님</h2>
-              <p className="text-[13px] text-[#3f3f46] mt-0.5">오늘의 현황입니다</p>
+              <p className="text-[13px] text-[#71717a] mt-0.5">오늘의 현황입니다</p>
             </div>
 
             {/* Stats */}
@@ -758,10 +758,10 @@ function DashboardPreview() {
                     ? 'bg-[#0064FF]/[0.04] border-[#0064FF]/20'
                     : 'bg-[#111113] border-white/[0.06] hover:border-white/[0.1]'
                 }`}>
-                  <div className="text-[12px] text-[#3f3f46] font-medium">{stat.label}</div>
+                  <div className="text-[12px] text-[#71717a] font-medium">{stat.label}</div>
                   <div className="text-[24px] font-extrabold text-white mt-1 font-mono" style={{ letterSpacing: '-0.03em' }}>{stat.value}</div>
                   {stat.sub && (
-                    <div className="text-[12px] font-medium mt-1 text-[#52525b]">{stat.sub}</div>
+                    <div className="text-[12px] font-medium mt-1 text-[#a1a1aa]">{stat.sub}</div>
                   )}
                 </div>
               ))}
@@ -772,13 +772,13 @@ function DashboardPreview() {
               <div className="lg:col-span-2 bg-[#111113] border border-white/[0.06] rounded-xl overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
                   <h3 className="text-[14px] font-semibold text-white">최근 주문</h3>
-                  <span className="text-[12px] text-[#3f3f46] hover:text-[#52525b] cursor-pointer transition-colors">전체 보기 →</span>
+                  <span className="text-[12px] text-[#71717a] hover:text-[#d4d4d8] cursor-pointer transition-colors">전체 보기 →</span>
                 </div>
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-white/[0.04]">
                       {['주문번호', '서비스', '수량', '상태', '금액'].map((h) => (
-                        <th key={h} className="text-left text-[11px] font-medium text-[#3f3f46] uppercase tracking-wider px-5 py-2.5">{h}</th>
+                        <th key={h} className="text-left text-[11px] font-medium text-[#71717a] uppercase tracking-wider px-5 py-2.5">{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -797,7 +797,7 @@ function DashboardPreview() {
                             <span className="text-[13px] text-[#a1a1aa]">{o.service}</span>
                           </div>
                         </td>
-                        <td className="px-5 py-3 text-[13px] font-mono text-[#52525b]">{o.qty}</td>
+                        <td className="px-5 py-3 text-[13px] font-mono text-[#a1a1aa]">{o.qty}</td>
                         <td className="px-5 py-3">
                           <span className={`inline-flex items-center gap-1.5 text-[12px] font-medium ${
                             o.sc === 'emerald' ? 'text-emerald-500' : o.sc === 'blue' ? 'text-blue-400' : 'text-amber-500'
@@ -836,9 +836,9 @@ function DashboardPreview() {
                 </div>
 
                 <div className="p-5 bg-[#111113] border border-white/[0.06] rounded-xl">
-                  <div className="text-[11px] text-[#3f3f46] uppercase tracking-wider">이번 달 지출</div>
+                  <div className="text-[11px] text-[#71717a] uppercase tracking-wider">이번 달 지출</div>
                   <div className="text-[20px] font-extrabold text-white mt-1 font-mono" style={{ letterSpacing: '-0.03em' }}>₩485,000</div>
-                  <div className="text-[12px] text-[#52525b] mt-0.5">지난 달 대비 +8%</div>
+                  <div className="text-[12px] text-[#a1a1aa] mt-0.5">지난 달 대비 +8%</div>
                   {/* Mini bar chart */}
                   <div className="flex items-end gap-1 mt-4 h-12">
                     {[35, 52, 45, 68, 42, 78, 55, 90, 65, 48, 72, 85].map((h, i) => (
@@ -850,8 +850,8 @@ function DashboardPreview() {
                     ))}
                   </div>
                   <div className="flex justify-between mt-1.5">
-                    <span className="text-[10px] text-[#27272a] font-mono">1월</span>
-                    <span className="text-[10px] text-[#27272a] font-mono">12월</span>
+                    <span className="text-[10px] text-[#52525b] font-mono">1월</span>
+                    <span className="text-[10px] text-[#52525b] font-mono">12월</span>
                   </div>
                 </div>
               </div>

@@ -160,7 +160,7 @@ export function Footer() {
 
             {/* 운영 시간 */}
             <div className="text-xs text-muted-foreground/70">
-              운영시간: {siteConfig.serviceHours.support} (주말/공휴일 휴무) | 시스템: {siteConfig.serviceHours.system}
+              운영시간: {siteConfig.serviceHours.support} (주말/공휴일 탄력 운영) | 시스템: {siteConfig.serviceHours.system}
             </div>
           </div>
 

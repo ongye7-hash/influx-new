@@ -23,7 +23,7 @@ export const siteConfig = {
 
   // 서비스 운영 시간
   serviceHours: {
-    support: "평일 10:00 - 18:00",
+    support: "평일 10:00 - 22:00",
     system: "24시간 자동화 운영",
   },
 
