@@ -5,7 +5,8 @@
 
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   Wallet,
   Building2,
@@ -21,12 +22,9 @@ import {
   CreditCard,
   RefreshCw,
   Bitcoin,
-  AlertTriangle,
-  ExternalLink,
-  Calculator,
   Ticket,
 } from 'lucide-react';
-import { QRCodeSVG } from 'qrcode.react';
+// QRCodeSVG removed - Cryptomus handles payment UI
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -50,8 +48,7 @@ const BANK_INFO = {
   accountHolder: 'ㅂㅈㅎ',
 };
 
-// USDT TRC-20 지갑 주소 (환경변수 또는 상수)
-const USDT_WALLET_ADDRESS = process.env.NEXT_PUBLIC_USDT_WALLET_ADDRESS || 'TYourTRC20WalletAddressHere123456789';
+// Cryptomus 결제 연동 (지갑 주소 직접 노출 없음)
 
 const QUICK_AMOUNTS = [
   { value: 10000, label: '1만원' },
@@ -134,7 +131,8 @@ function PaymentMethodBadge({ method }: { method: PaymentMethod }) {
 // ============================================
 // 충전하기 페이지 컴포넌트
 // ============================================
-export default function DepositPage() {
+function DepositPageContent() {
+  const searchParams = useSearchParams();
   const { profile, refreshProfile, isLoading: authLoading } = useAuth();
   const balance = profile?.balance || 0;
 
@@ -157,11 +155,10 @@ export default function DepositPage() {
     id: string; code: string; type: 'fixed' | 'percent'; value: number; min_amount: number;
   } | null>(null);
 
-  // USDT 충전 상태
+  // USDT 충전 상태 (Cryptomus 연동)
   const [exchangeRate, setExchangeRate] = useState<ExchangeRate | null>(null);
   const [isLoadingRate, setIsLoadingRate] = useState(false);
   const [cryptoKrwAmount, setCryptoKrwAmount] = useState<number>(0);
-  const [cryptoTxId, setCryptoTxId] = useState('');
   const [isCryptoSubmitting, setIsCryptoSubmitting] = useState(false);
 
   // 계산된 USDT 수량
@@ -239,6 +236,18 @@ export default function DepositPage() {
     return () => clearInterval(rateInterval);
   }, [fetchDeposits, fetchExchangeRate]);
 
+  // Cryptomus 결제 성공 후 리다이렉트 처리
+  useEffect(() => {
+    if (searchParams.get('status') === 'success') {
+      toast.success('USDT 결제가 완료되었습니다!', {
+        description: '잔액이 곧 자동으로 충전됩니다. (1-5분 소요)',
+      });
+      refreshProfile();
+      // URL에서 status 파라미터 제거
+      window.history.replaceState({}, '', '/deposit');
+    }
+  }, [searchParams, refreshProfile]);
+
   // ============================================
   // 무통장 입금 핸들러
   // ============================================
@@ -314,15 +323,8 @@ export default function DepositPage() {
   };
 
   // ============================================
-  // USDT 충전 핸들러
+  // USDT 충전 핸들러 (Cryptomus 결제)
   // ============================================
-  const handleCopyWalletAddress = async () => {
-    const success = await copyToClipboard(USDT_WALLET_ADDRESS);
-    if (success) {
-      toast.success('지갑 주소가 복사되었습니다');
-    }
-  };
-
   const handleCryptoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -331,67 +333,51 @@ export default function DepositPage() {
       return;
     }
 
-    if (!cryptoTxId.trim() || cryptoTxId.trim().length < 10) {
-      toast.error('유효한 TXID(거래 해시)를 입력해주세요', {
-        description: '최소 10자 이상이어야 합니다.',
-      });
-      return;
-    }
-
     if (cryptoKrwAmount < 10000) {
       toast.error('최소 충전 금액은 10,000원입니다');
-      return;
-    }
-
-    if (!exchangeRate) {
-      toast.error('환율 정보가 없습니다. 잠시 후 다시 시도해주세요.');
       return;
     }
 
     setIsCryptoSubmitting(true);
 
     try {
-      const usdtAmount = parseFloat(calculatedUsdtAmount);
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error } = await (supabase.from('deposits') as any).insert({
-        user_id: profile.id,
-        amount: cryptoKrwAmount,
-        depositor_name: cryptoTxId.trim().substring(0, 20), // TXID 앞부분을 식별자로
-        payment_method: 'crypto',
-        tx_id: cryptoTxId.trim(),
-        exchange_rate: exchangeRate.systemRate,
-        crypto_amount: usdtAmount,
-        crypto_currency: 'USDT',
-        network: 'TRC-20',
-        status: 'pending',
-      });
-
-      if (error) {
-        if (error.message.includes('unique') || error.message.includes('duplicate')) {
-          toast.error('이미 등록된 TXID입니다', {
-            description: '동일한 거래 해시로 중복 신청할 수 없습니다.',
-          });
-          return;
-        }
-        throw error;
+      // Supabase 세션에서 토큰 가져오기
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        toast.error('인증 세션이 만료되었습니다. 다시 로그인해주세요.');
+        return;
       }
 
-      toast.success('USDT 충전 신청이 완료되었습니다!', {
-        description: '블록체인 확인 후 충전됩니다. (보통 1-10분 소요)',
+      const res = await fetch('/api/crypto/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ amount: cryptoKrwAmount }),
       });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error || 'Cryptomus 결제 생성 실패');
+        return;
+      }
 
       // 쿠폰이 적용되어 있으면 보너스 지급
       if (appliedCoupon && cryptoKrwAmount >= appliedCoupon.min_amount) {
         await handleCouponApply(cryptoKrwAmount);
       }
 
-      setCryptoTxId('');
-      setCryptoKrwAmount(0);
-      fetchDeposits();
+      // Cryptomus 결제 페이지로 이동
+      toast.success('결제 페이지로 이동합니다...', {
+        description: `${data.data.amount_usdt} USDT 결제`,
+      });
+
+      window.location.href = data.data.payment_url;
     } catch (error) {
       const message = error instanceof Error ? error.message : '알 수 없는 오류';
-      toast.error('충전 신청 중 오류가 발생했습니다', { description: message });
+      toast.error('결제 생성 중 오류가 발생했습니다', { description: message });
     } finally {
       setIsCryptoSubmitting(false);
     }
@@ -811,125 +797,18 @@ export default function DepositPage() {
             </CardContent>
           </Card>
 
-          {/* 경고 문구 */}
-          <Card className="border-2 border-red-500/50 bg-red-500/10">
-            <CardContent className="py-4">
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="h-6 w-6 text-red-400 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-bold text-red-400">
-                    반드시 TRC-20 (Tron) 네트워크로 전송하세요!
-                  </p>
-                  <p className="text-sm text-red-300 mt-1">
-                    다른 네트워크(ERC-20, BEP-20 등)로 전송 시 자산이 영구 소실됩니다. 복구 불가능합니다.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* 지갑 주소 & 계산기 */}
+          <div className="max-w-xl mx-auto">
             <Card className="border-2 border-orange-500/20">
               <CardHeader className="bg-gradient-to-r from-orange-500/5 to-amber-500/5">
                 <CardTitle className="flex items-center gap-2">
                   <Bitcoin className="h-5 w-5 text-orange-500" />
-                  USDT 입금 정보
+                  USDT 결제
                 </CardTitle>
                 <CardDescription>
-                  TRC-20 네트워크 지갑 주소
+                  충전 금액을 입력하면 Cryptomus 결제 페이지로 이동합니다
                 </CardDescription>
               </CardHeader>
-              <CardContent className="pt-6 space-y-6">
-                {/* QR 코드 영역 */}
-                <div className="flex justify-center">
-                  <div className="p-4 bg-white rounded-2xl border-2 border-orange-500/20 shadow-lg">
-                    <QRCodeSVG
-                      value={USDT_WALLET_ADDRESS}
-                      size={176}
-                      level="H"
-                      includeMargin={true}
-                      bgColor="#FFFFFF"
-                      fgColor="#000000"
-                    />
-                  </div>
-                </div>
-                <p className="text-xs text-center text-muted-foreground mt-2">
-                  TRC-20 네트워크 전용 주소입니다
-                </p>
-
-                {/* 지갑 주소 */}
-                <div className="space-y-2">
-                  <Label>USDT (TRC-20) 지갑 주소</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      readOnly
-                      value={USDT_WALLET_ADDRESS}
-                      className="font-mono text-sm bg-muted/50"
-                    />
-                    <Button variant="outline" size="icon" onClick={handleCopyWalletAddress}>
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-
-                {/* 자동 계산기 */}
-                <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500/10 to-amber-500/10 border border-orange-500/20 space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Calculator className="h-5 w-5 text-orange-400" />
-                    <span className="font-semibold">자동 계산기</span>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>충전할 원화 금액</Label>
-                    <div className="relative">
-                      <Input
-                        type="text"
-                        placeholder="예: 100,000"
-                        value={cryptoKrwAmount > 0 ? cryptoKrwAmount.toLocaleString() : ''}
-                        onChange={(e) => {
-                          const val = parseInt(e.target.value.replace(/,/g, ''), 10) || 0;
-                          setCryptoKrwAmount(val);
-                        }}
-                        className="h-12 pr-12 text-lg font-semibold"
-                      />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">원</span>
-                    </div>
-                  </div>
-
-                  <div className="text-center py-2">
-                    <div className="inline-flex items-center gap-2 text-muted-foreground">
-                      <div className="h-px w-8 bg-border" />
-                      <span className="text-xs">환산 결과</span>
-                      <div className="h-px w-8 bg-border" />
-                    </div>
-                  </div>
-
-                  <div className="p-4 bg-white/[0.03] rounded-xl border-2 border-orange-500/30">
-                    <div className="text-center">
-                      <p className="text-sm text-muted-foreground mb-1">보내실 USDT</p>
-                      <p className="text-3xl font-bold text-orange-400">
-                        {calculatedUsdtAmount} <span className="text-lg">USDT</span>
-                      </p>
-                    </div>
-                  </div>
-
-                  <p className="text-xs text-center text-muted-foreground">
-                    * 1.5% 수수료가 포함된 환율입니다
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* USDT 충전 신청 폼 */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="h-5 w-5" />
-                  USDT 충전 신청
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+              <CardContent className="pt-6">
                 <form onSubmit={handleCryptoSubmit} className="space-y-5">
                   <div className="space-y-2">
                     <Label>빠른 금액 선택</Label>
@@ -958,21 +837,25 @@ export default function DepositPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="cryptoTxId" className="flex items-center gap-2">
-                      <ExternalLink className="h-4 w-4" />
-                      TXID (거래 해시)
+                    <Label htmlFor="cryptoKrwAmount" className="flex items-center gap-2">
+                      <Wallet className="h-4 w-4" />
+                      충전 금액
                     </Label>
-                    <Input
-                      id="cryptoTxId"
-                      placeholder="예: a1b2c3d4e5f6..."
-                      value={cryptoTxId}
-                      onChange={(e) => setCryptoTxId(e.target.value)}
-                      className="h-12 font-mono"
-                      required
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      USDT 전송 후 받은 거래 해시(TXID)를 입력하세요
-                    </p>
+                    <div className="relative">
+                      <Input
+                        id="cryptoKrwAmount"
+                        type="text"
+                        placeholder="직접 입력"
+                        value={cryptoKrwAmount > 0 ? cryptoKrwAmount.toLocaleString() : ''}
+                        onChange={(e) => {
+                          const val = parseInt(e.target.value.replace(/,/g, ''), 10) || 0;
+                          setCryptoKrwAmount(val);
+                        }}
+                        className="h-12 pr-12 text-lg font-semibold"
+                      />
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">원</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">최소 충전 금액: 10,000원</p>
                   </div>
 
                   {cryptoKrwAmount >= 10000 && (
@@ -982,7 +865,7 @@ export default function DepositPage() {
                         <span className="font-semibold">{formatCurrency(cryptoKrwAmount)}</span>
                       </div>
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">보내실 USDT</span>
+                        <span className="text-muted-foreground">결제 USDT</span>
                         <span className="font-semibold text-orange-400">{calculatedUsdtAmount} USDT</span>
                       </div>
                       <div className="flex items-center justify-between text-sm">
@@ -996,31 +879,44 @@ export default function DepositPage() {
                           충전 후 잔액
                         </span>
                         <span className="text-xl font-bold text-orange-400">
-                          {formatCurrency(balance + cryptoKrwAmount)}
+                          {formatCurrency(balance + cryptoKrwAmount + couponBonusPreview(cryptoKrwAmount))}
                         </span>
                       </div>
+                      {appliedCoupon && couponBonusPreview(cryptoKrwAmount) > 0 && (
+                        <div className="flex items-center justify-between text-sm text-emerald-400">
+                          <span className="flex items-center gap-1">
+                            <Ticket className="h-3.5 w-3.5" />
+                            쿠폰 보너스
+                          </span>
+                          <span className="font-semibold">+{formatCurrency(couponBonusPreview(cryptoKrwAmount))}</span>
+                        </div>
+                      )}
                     </div>
                   )}
 
                   <Button
                     type="submit"
-                    disabled={isCryptoSubmitting || cryptoKrwAmount < 10000 || cryptoTxId.trim().length < 10}
+                    disabled={isCryptoSubmitting || cryptoKrwAmount < 10000}
                     className="w-full h-14 text-lg bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white"
                   >
                     {isCryptoSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        처리 중...
+                        결제 페이지 생성 중...
                       </>
                     ) : (
                       <>
                         <Bitcoin className="mr-2 h-5 w-5" />
-                        {cryptoKrwAmount >= 10000 && cryptoTxId.trim().length >= 10
-                          ? `${calculatedUsdtAmount} USDT로 ${formatCurrency(cryptoKrwAmount)} 충전`
-                          : '정보를 입력하세요'}
+                        {cryptoKrwAmount >= 10000
+                          ? `USDT로 ${formatCurrency(cryptoKrwAmount)} 결제하기`
+                          : '금액을 입력하세요'}
                       </>
                     )}
                   </Button>
+
+                  <p className="text-xs text-center text-muted-foreground">
+                    Cryptomus 결제 페이지에서 USDT (TRC-20) 전송 후 자동 충전됩니다
+                  </p>
                 </form>
               </CardContent>
             </Card>
@@ -1129,5 +1025,18 @@ export default function DepositPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function DepositPage() {
+  return (
+    <Suspense fallback={
+      <div className="space-y-6">
+        <Skeleton className="h-10 w-48" />
+        <Skeleton className="h-40 w-full" />
+      </div>
+    }>
+      <DepositPageContent />
+    </Suspense>
   );
 }
