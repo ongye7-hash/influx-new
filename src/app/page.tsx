@@ -84,7 +84,7 @@ function useCountdown() {
       localStorage.setItem(STORAGE_KEY, startTime);
     }
 
-    const deadline = parseInt(startTime) + 12 * 60 * 60 * 1000; // 12시간
+    const deadline = parseInt(startTime) + 3 * 60 * 60 * 1000; // 3시간
 
     const tick = () => {
       const diff = deadline - Date.now();
