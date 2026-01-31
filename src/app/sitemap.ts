@@ -65,6 +65,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // 법적 페이지
+  const legalPages = [
+    {
+      url: `${BASE_URL}/terms`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.4,
+    },
+    {
+      url: `${BASE_URL}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.4,
+    },
+  ];
+
+  // 리셀러 페이지
+  const resellerPages = [
+    {
+      url: `${BASE_URL}/reseller`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+  ];
+
   // 대시보드 페이지 (비회원 둘러보기 가능)
   const dashboardPages = [
     {
@@ -84,6 +110,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/transactions`,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 0.6,
     },
     {
       url: `${BASE_URL}/deposit`,
@@ -140,5 +172,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...staticPages, ...servicePages, ...dashboardPages, ...blogPages];
+  return [...staticPages, ...servicePages, ...legalPages, ...resellerPages, ...dashboardPages, ...blogPages];
 }
