@@ -9,6 +9,8 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { FaYoutube, FaInstagram, FaTiktok, FaFacebook, FaTelegram, FaTwitter } from 'react-icons/fa';
 import { KakaoChatButton } from '@/components/kakao-chat-button';
+import { LiveOrderNotification } from '@/components/live-order-notification';
+import { TrustBadges } from '@/components/trust-badges';
 
 // ─── Scroll Fade In Hook ───
 function useInView(threshold = 0.15) {
@@ -296,15 +298,27 @@ export default function LandingPage() {
                 </FadeIn>
 
                 <FadeIn delay={0.3}>
-                  <div className="flex items-center gap-3 mt-8">
-                    <Link href="/login" className="h-11 px-6 bg-[#0064FF] text-white text-[14px] font-semibold rounded-lg hover:bg-[#0052d4] transition-all inline-flex items-center cta-pulse">
-                      지금 무료 크레딧 받기
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-8">
+                    <Link href="/login" className="h-12 px-7 bg-[#0064FF] text-white text-[15px] font-bold rounded-lg hover:bg-[#0052d4] transition-all inline-flex items-center gap-2 cta-pulse shadow-lg shadow-[#0064FF]/20">
+                      <span>2,000원 무료 크레딧 받고 시작하기</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
-                    <a href="#how" className="h-11 px-6 text-[14px] font-medium text-[#a1a1aa] hover:text-[#fafafa] border border-white/[0.08] rounded-lg hover:border-white/[0.15] transition-colors inline-flex items-center">
-                      내 계정 진단받기
+                    <a href="#how" className="h-12 px-6 text-[14px] font-medium text-[#a1a1aa] hover:text-[#fafafa] border border-white/[0.08] rounded-lg hover:border-white/[0.15] transition-colors inline-flex items-center">
+                      처리 방식 알아보기
                     </a>
                   </div>
-                  <p className="mt-3 text-[12px] text-[#a1a1aa]">인스타 좋아요 1,000개 무료 쿠폰 증정 · 가입 시 결제 정보 불필요</p>
+                  <p className="mt-4 text-[13px] text-[#a1a1aa]">
+                    <span className="text-emerald-400">✓</span> 30초 가입 (결제 정보 불필요)
+                    <span className="mx-2">·</span>
+                    <span className="text-emerald-400">✓</span> 인스타 좋아요 1,000개 무료
+                  </p>
+                  
+                  {/* 신뢰 배지 추가 */}
+                  <div className="mt-6">
+                    <TrustBadges />
+                  </div>
 
                   {/* IP Timer */}
                   {!timer.isExpired && (
@@ -642,6 +656,9 @@ export default function LandingPage() {
 
       {/* ─── Floating: Kakao Chat ─── */}
       <KakaoChatButton />
+
+      {/* ─── Floating: Live Order Notification ─── */}
+      <LiveOrderNotification />
 
       {/* ─── Keyframes ─── */}
       <style jsx>{`
