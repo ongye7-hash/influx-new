@@ -123,7 +123,24 @@ async function approveDeposit(depositId: string): Promise<{ toast: string; newTe
     return { toast: '잘못된 요청입니다' };
   }
 
+  // 환경변수 확인
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    console.error('[Telegram] Missing env vars:', { url: !!url, key: !!key });
+    return { toast: `환경변수 없음` };
+  }
+
   try {
+    // 연결 테스트: 전체 deposits 카운트
+    const { count, error: countError } = await getSupabase()
+      .from('deposits')
+      .select('*', { count: 'exact', head: true });
+
+    if (countError) {
+      return { toast: `DB연결실패: ${countError.code}` };
+    }
+
     // 1. 조인 없이 deposit만 먼저 조회
     const { data: depositBasic, error: basicError } = await getSupabase()
       .from('deposits')
@@ -144,7 +161,7 @@ async function approveDeposit(depositId: string): Promise<{ toast: string; newTe
         .single();
 
       if (!prefixMatch) {
-        return { toast: `없음: ${cleanId.substring(0, 8)}` };
+        return { toast: `없음: ${cleanId.substring(0, 8)} (총${count}건)` };
       }
 
       // prefix로 찾았으면 profile 정보도 가져오기
