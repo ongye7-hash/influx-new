@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -16,11 +17,14 @@ import {
   TrendingUp,
   BookOpen,
   Sparkles,
+  Loader2,
 } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn, formatCurrency } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
+import { toast } from "sonner";
 
 interface SidebarProps {
   user?: {
@@ -91,7 +95,15 @@ const tierConfig = {
 
 export function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname();
+  const { signOut } = useAuth();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const tier = tierConfig[user?.tier as keyof typeof tierConfig] || tierConfig.basic;
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    toast.success('로그아웃 중...');
+    await signOut();
+  };
 
   return (
     <aside className="hidden lg:flex lg:flex-col lg:w-72 lg:fixed lg:inset-y-0 bg-card border-r border-border">
@@ -277,8 +289,18 @@ export function Sidebar({ user }: SidebarProps) {
             <p className="text-sm font-medium truncate">{user?.email || "로딩 중..."}</p>
             <p className="text-xs text-muted-foreground">{tier.label} 회원</p>
           </div>
-          <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive">
-            <LogOut className="h-5 w-5" />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-muted-foreground hover:text-destructive"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+          >
+            {isLoggingOut ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <LogOut className="h-5 w-5" />
+            )}
           </Button>
         </div>
       </div>

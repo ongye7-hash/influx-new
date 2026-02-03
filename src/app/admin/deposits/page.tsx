@@ -527,7 +527,8 @@ export default function AdminDepositsPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="pl-6">입금자</TableHead>
+                    <TableHead className="pl-6 w-24">ID</TableHead>
+                    <TableHead>입금자</TableHead>
                     <TableHead>회원정보</TableHead>
                     <TableHead>금액</TableHead>
                     <TableHead>결제수단</TableHead>
@@ -541,6 +542,11 @@ export default function AdminDepositsPage() {
                   {filteredDeposits.map((deposit) => (
                     <TableRow key={deposit.id}>
                       <TableCell className="pl-6">
+                        <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">
+                          {deposit.id.substring(0, 8)}
+                        </code>
+                      </TableCell>
+                      <TableCell>
                         <div className="flex items-center gap-3">
                           <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
                             <User className="h-5 w-5 text-muted-foreground" />

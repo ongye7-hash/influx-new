@@ -4,12 +4,20 @@
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseRouteClient } from '@/lib/supabase/server';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+let supabase: SupabaseClient | null = null;
+
+function getSupabase(): SupabaseClient {
+  if (!supabase) {
+    supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabase;
+}
 
 // USD to KRW 환율 (실제로는 API에서 가져오는 것이 좋음)
 const USD_TO_KRW = 1400;
@@ -110,7 +118,7 @@ export async function POST(
     }
 
     // 1. 선택된 서비스 조회
-    const { data: services, error: servicesError } = await supabase
+    const { data: services, error: servicesError } = await getSupabase()
       .from('provider_services_cache')
       .select('*')
       .eq('provider_id', providerId)
@@ -135,7 +143,7 @@ export async function POST(
           .replace(/\s+/g, '-')
           .replace(/[^a-z0-9-]/g, '') || `category-${Date.now()}`;
 
-        const { data: newCat, error: catError } = await supabase
+        const { data: newCat, error: catError } = await getSupabase()
           .from('admin_categories')
           .insert({
             platform,
@@ -196,7 +204,7 @@ export async function POST(
       }
 
       // 상품 생성
-      const { data: product, error: productError } = await supabase
+      const { data: product, error: productError } = await getSupabase()
         .from('admin_products')
         .insert({
           category_id: categoryId,
@@ -222,7 +230,7 @@ export async function POST(
         createdProducts.push(product);
 
         // 서비스 캐시 업데이트 (imported 상태)
-        await supabase
+        await getSupabase()
           .from('provider_services_cache')
           .update({
             is_imported: true,

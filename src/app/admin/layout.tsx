@@ -25,6 +25,8 @@ import {
   FolderTree,
   ShoppingBag,
   Menu,
+  Sparkles,
+  Bot,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -60,9 +62,19 @@ const navItems = [
     icon: Users,
   },
   {
+    title: '무료 체험',
+    href: '/admin/free-trials',
+    icon: Sparkles,
+  },
+  {
     title: '공지사항',
     href: '/admin/announcements',
     icon: Bell,
+  },
+  {
+    title: '자동화',
+    href: '/admin/automation',
+    icon: Bot,
   },
   {
     title: '설정',

@@ -292,15 +292,29 @@ function DepositPageContent() {
 
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error } = await (supabase.from('deposits') as any).insert({
+      const { data: depositData, error } = await (supabase.from('deposits') as any).insert({
         user_id: userId,
         amount: bankAmount,
         depositor_name: bankDepositorName.trim(),
         payment_method: 'bank_transfer',
         status: 'pending',
-      });
+      }).select('id').single();
 
       if (error) throw error;
+
+      // 자동화 알림 (텔레그램 + 자동승인 체크)
+      if (depositData?.id) {
+        fetch('/api/deposits/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            deposit_id: depositData.id,
+            amount: bankAmount,
+            user_id: userId,
+            method: 'bank_transfer',
+          }),
+        }).catch(() => {}); // 알림 실패해도 무시
+      }
 
       toast.success('충전 신청이 완료되었습니다!', {
         description: '입금 확인 후 자동으로 충전됩니다.',

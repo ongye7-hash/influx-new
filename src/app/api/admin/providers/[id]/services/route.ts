@@ -4,12 +4,20 @@
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseRouteClient } from '@/lib/supabase/server';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+let supabase: SupabaseClient | null = null;
+
+function getSupabase(): SupabaseClient {
+  if (!supabase) {
+    supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabase;
+}
 
 export async function GET(
   request: NextRequest,
@@ -40,7 +48,7 @@ export async function GET(
     const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '50') || 50, 1), 200);
 
     // 쿼리 빌드
-    let query = supabase
+    let query = getSupabase()
       .from('provider_services_cache')
       .select('*', { count: 'exact' })
       .eq('provider_id', providerId)

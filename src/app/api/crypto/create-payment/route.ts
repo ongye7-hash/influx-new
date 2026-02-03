@@ -4,16 +4,23 @@
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
 
 // ============================================
-// Supabase Admin Client
+// Supabase Admin Client (lazy initialization)
 // ============================================
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+let supabaseAdmin: SupabaseClient | null = null;
+
+function getSupabaseAdmin(): SupabaseClient {
+  if (!supabaseAdmin) {
+    supabaseAdmin = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabaseAdmin;
+}
 
 // ============================================
 // Cryptomus 설정
@@ -56,7 +63,7 @@ export async function POST(request: NextRequest) {
     }
 
     const token = authHeader.split(' ')[1];
-    const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
+    const { data: { user }, error: authError } = await getSupabaseAdmin().auth.getUser(token);
 
     if (authError || !user) {
       return NextResponse.json({ error: '유효하지 않은 인증입니다' }, { status: 401 });
@@ -75,7 +82,7 @@ export async function POST(request: NextRequest) {
     const usdtAmount = (krwAmount / systemRate).toFixed(2);
 
     // deposits 레코드 생성
-    const { data: deposit, error: depositError } = await supabaseAdmin
+    const { data: deposit, error: depositError } = await getSupabaseAdmin()
       .from('deposits')
       .insert({
         user_id: user.id,
@@ -129,7 +136,7 @@ export async function POST(request: NextRequest) {
       console.error('[CreatePayment] Cryptomus API error:', JSON.stringify(cryptomusData));
 
       // 실패 시 deposit 레코드 삭제
-      await supabaseAdmin.from('deposits').delete().eq('id', deposit.id);
+      await getSupabaseAdmin().from('deposits').delete().eq('id', deposit.id);
 
       return NextResponse.json(
         { error: 'Cryptomus 결제 생성 실패', details: cryptomusData?.message },
@@ -138,7 +145,7 @@ export async function POST(request: NextRequest) {
     }
 
     // deposit에 Cryptomus UUID 저장
-    await supabaseAdmin
+    await getSupabaseAdmin()
       .from('deposits')
       .update({ tx_id: cryptomusData.result.uuid })
       .eq('id', deposit.id);

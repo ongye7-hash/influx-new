@@ -4,13 +4,20 @@
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseRouteClient } from '@/lib/supabase/server';
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+let supabaseAdmin: SupabaseClient | null = null;
+
+function getSupabaseAdmin(): SupabaseClient {
+  if (!supabaseAdmin) {
+    supabaseAdmin = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabaseAdmin;
+}
 
 async function requireAdmin() {
   const supabase = await getSupabaseRouteClient();
@@ -90,7 +97,7 @@ export async function POST(request: NextRequest) {
     console.log('현재 환율:', exchangeRate);
 
     // 2. 활성 패널 목록 가져오기
-    const { data: providers } = await supabaseAdmin
+    const { data: providers } = await getSupabaseAdmin()
       .from('api_providers')
       .select('*')
       .eq('is_active', true);
@@ -115,7 +122,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 4. 상품 목록 가져오기
-    const { data: products } = await supabaseAdmin
+    const { data: products } = await getSupabaseAdmin()
       .from('admin_products')
       .select('*');
 
@@ -168,7 +175,7 @@ export async function POST(request: NextRequest) {
       const newPrice = Math.round(wholesaleUsd * exchangeRate * marginMultiplier);
 
       // 업데이트
-      const { error } = await supabaseAdmin
+      const { error } = await getSupabaseAdmin()
         .from('admin_products')
         .update({ price_per_1000: newPrice })
         .eq('id', product.id);

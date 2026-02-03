@@ -4,12 +4,20 @@
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseRouteClient } from '@/lib/supabase/server';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+let supabase: SupabaseClient | null = null;
+
+function getSupabase(): SupabaseClient {
+  if (!supabase) {
+    supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabase;
+}
 
 export async function POST(
   request: NextRequest,
@@ -30,7 +38,7 @@ export async function POST(
     const { id: providerId } = await params;
 
     // 1. 공급자 정보 조회
-    const { data: provider, error: providerError } = await supabase
+    const { data: provider, error: providerError } = await getSupabase()
       .from('api_providers')
       .select('*')
       .eq('id', providerId)
@@ -66,7 +74,7 @@ export async function POST(
     }
 
     // 3. 기존 캐시된 서비스의 imported 상태 보존을 위해 먼저 조회
-    const { data: existingServices } = await supabase
+    const { data: existingServices } = await getSupabase()
       .from('provider_services_cache')
       .select('service_id, is_imported, imported_product_id')
       .eq('provider_id', providerId);
@@ -102,7 +110,7 @@ export async function POST(
 
     for (let i = 0; i < servicesToUpsert.length; i += batchSize) {
       const batch = servicesToUpsert.slice(i, i + batchSize);
-      const { error: upsertError } = await supabase
+      const { error: upsertError } = await getSupabase()
         .from('provider_services_cache')
         .upsert(batch, {
           onConflict: 'provider_id,service_id',
@@ -116,7 +124,7 @@ export async function POST(
     }
 
     // 6. 공급자의 마지막 동기화 시간 업데이트
-    await supabase
+    await getSupabase()
       .from('api_providers')
       .update({ last_balance_check: new Date().toISOString() })
       .eq('id', providerId);

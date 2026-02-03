@@ -28,7 +28,8 @@
       "Bash(git pull:*)",
       "Bash(git stash:*)",
       "Bash(curl:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(timeout 10 npx vercel logs:*)"
     ]
   }
 }

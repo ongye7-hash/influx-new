@@ -15,12 +15,15 @@ import {
   LogOut,
   Wallet,
   Crown,
+  Loader2,
 } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { cn, formatCurrency } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
+import { toast } from "sonner";
 
 interface MobileHeaderProps {
   user?: {
@@ -54,7 +57,16 @@ const tierConfig = {
 export function MobileHeader({ user }: MobileHeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { signOut } = useAuth();
   const tier = tierConfig[user?.tier as keyof typeof tierConfig] || tierConfig.basic;
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    setOpen(false);
+    toast.success('로그아웃 중...');
+    await signOut();
+  };
 
   return (
     <header className="lg:hidden sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
@@ -160,9 +172,14 @@ export function MobileHeader({ user }: MobileHeaderProps) {
                 <Button
                   variant="outline"
                   className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
-                  onClick={() => setOpen(false)}
+                  onClick={handleLogout}
+                  disabled={isLoggingOut}
                 >
-                  <LogOut className="mr-2 h-4 w-4" />
+                  {isLoggingOut ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <LogOut className="mr-2 h-4 w-4" />
+                  )}
                   로그아웃
                 </Button>
               </div>

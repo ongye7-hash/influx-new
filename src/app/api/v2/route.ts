@@ -4,13 +4,20 @@
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// Supabase Admin Client (서비스 역할)
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Supabase Admin Client (lazy initialization)
+let supabase: SupabaseClient | null = null;
+
+function getSupabase(): SupabaseClient {
+  if (!supabase) {
+    supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabase;
+}
 
 // ============================================
 // Types
@@ -45,7 +52,7 @@ async function validateApiKey(apiKey: string): Promise<{
     return { valid: false, error: 'API key is required' };
   }
 
-  const { data: keyData, error } = await supabase
+  const { data: keyData, error } = await getSupabase()
     .from('api_keys')
     .select('id, user_id, is_active, rate_limit, allowed_ips, expires_at, total_requests')
     .eq('api_key', apiKey)
@@ -64,7 +71,7 @@ async function validateApiKey(apiKey: string): Promise<{
   }
 
   // API 키 사용 기록 업데이트
-  await supabase
+  await getSupabase()
     .from('api_keys')
     .update({
       last_used_at: new Date().toISOString(),
@@ -90,7 +97,7 @@ function errorResponse(message: string, status: number = 400): NextResponse {
 // Helper: 사용자 잔액 조회
 // ============================================
 async function getUserBalance(userId: string): Promise<number> {
-  const { data } = await supabase
+  const { data } = await getSupabase()
     .from('profiles')
     .select('balance')
     .eq('id', userId)
@@ -103,7 +110,7 @@ async function getUserBalance(userId: string): Promise<number> {
 // Action: services - 서비스 목록
 // ============================================
 async function handleServices(): Promise<APIResponse> {
-  const { data: services, error } = await supabase
+  const { data: services, error } = await getSupabase()
     .from('services')
     .select(`
       id,
@@ -184,7 +191,7 @@ async function handleAddOrder(
   }
 
   // 서비스 조회 (index 기반)
-  const { data: services } = await supabase
+  const { data: services } = await getSupabase()
     .from('services')
     .select('*')
     .eq('is_active', true)
@@ -216,12 +223,12 @@ async function handleAddOrder(
 
   // 트랜잭션: 잔액 차감 + 주문 생성
   // 1. 잔액 차감 (atomic: balance >= totalAmount 조건으로 race condition 방지)
-  const { data: updatedProfile, error: balanceError } = await supabase
+  const { data: updatedProfile, error: balanceError } = await getSupabase()
     .from('profiles')
     .update({
       balance: balance - totalAmount,
-      total_spent: supabase.rpc('increment', { x: totalAmount }),
-      total_orders: supabase.rpc('increment', { x: 1 }),
+      total_spent: getSupabase().rpc('increment', { x: totalAmount }),
+      total_orders: getSupabase().rpc('increment', { x: 1 }),
     })
     .eq('id', userId)
     .gte('balance', totalAmount)
@@ -233,7 +240,7 @@ async function handleAddOrder(
   }
 
   // 2. 주문 생성
-  const { data: order, error: orderError } = await supabase
+  const { data: order, error: orderError } = await getSupabase()
     .from('orders')
     .insert({
       user_id: userId,
@@ -252,7 +259,7 @@ async function handleAddOrder(
 
   if (orderError || !order) {
     // 롤백: 잔액 복구
-    await supabase
+    await getSupabase()
       .from('profiles')
       .update({ balance: balance })
       .eq('id', userId);
@@ -261,7 +268,7 @@ async function handleAddOrder(
   }
 
   // 3. 거래 내역 기록
-  await supabase.from('transactions').insert({
+  await getSupabase().from('transactions').insert({
     user_id: userId,
     type: 'order',
     amount: -totalAmount,
@@ -290,7 +297,7 @@ async function handleStatus(
 
   // 단일 주문 조회
   if (order) {
-    const { data: orderData, error } = await supabase
+    const { data: orderData, error } = await getSupabase()
       .from('orders')
       .select('*')
       .eq('id', order)
@@ -317,7 +324,7 @@ async function handleStatus(
     throw new Error('Maximum 100 orders per request');
   }
 
-  const { data: ordersData, error } = await supabase
+  const { data: ordersData, error } = await getSupabase()
     .from('orders')
     .select('*')
     .in('id', orderIds)
@@ -355,7 +362,7 @@ async function handleRefill(
   }
 
   // 주문 조회
-  const { data: orderData, error } = await supabase
+  const { data: orderData, error } = await getSupabase()
     .from('orders')
     .select('*, service:services(*)')
     .eq('id', order)
@@ -375,7 +382,7 @@ async function handleRefill(
   }
 
   // 리필 상태로 변경 (user_id 조건 포함하여 IDOR 방지)
-  await supabase
+  await getSupabase()
     .from('orders')
     .update({
       status: 'pending',
@@ -406,7 +413,7 @@ async function handleCancel(
   const result: Record<string, { cancel: number; error?: string }> = {};
 
   for (const orderId of orderIds) {
-    const { data: orderData, error } = await supabase
+    const { data: orderData, error } = await getSupabase()
       .from('orders')
       .select('*, service:services(*)')
       .eq('id', orderId)
@@ -424,7 +431,7 @@ async function handleCancel(
     }
 
     // 주문 취소 및 환불 (user_id 조건 포함하여 IDOR 방지)
-    const { error: cancelError } = await supabase
+    const { error: cancelError } = await getSupabase()
       .from('orders')
       .update({ status: 'canceled' })
       .eq('id', orderId)
@@ -436,7 +443,7 @@ async function handleCancel(
     }
 
     // 환불 처리 (atomic: select 후 update에서 race condition 방지)
-    const { data: refundedProfile } = await supabase.rpc('add_balance' as any, {
+    const { data: refundedProfile } = await getSupabase().rpc('add_balance' as any, {
       p_user_id: userId,
       p_amount: orderData.amount,
       p_type: 'refund',
@@ -447,14 +454,14 @@ async function handleCancel(
 
     if (!refundedProfile) {
       // fallback: 직접 업데이트
-      const { data: profile } = await supabase
+      const { data: profile } = await getSupabase()
         .from('profiles')
         .select('balance')
         .eq('id', userId)
         .single();
 
       if (profile) {
-        await supabase
+        await getSupabase()
           .from('profiles')
           .update({ balance: profile.balance + orderData.amount })
           .eq('id', userId);
@@ -527,9 +534,9 @@ export async function POST(request: NextRequest) {
         });
 
         // 주문 수 업데이트
-        await supabase
+        await getSupabase()
           .from('api_keys')
-          .update({ total_orders: supabase.rpc('increment', { x: 1 }) })
+          .update({ total_orders: getSupabase().rpc('increment', { x: 1 }) })
           .eq('id', apiKeyId);
         break;
 
@@ -558,7 +565,7 @@ export async function POST(request: NextRequest) {
 
     // 요청 로그 기록 (선택적)
     const executionTime = Date.now() - startTime;
-    await supabase.from('api_request_logs').insert({
+    await getSupabase().from('api_request_logs').insert({
       api_key_id: apiKeyId,
       user_id: userId,
       action: action,

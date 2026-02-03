@@ -4,16 +4,23 @@
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
 
 // ============================================
-// Supabase Admin Client
+// Supabase Admin Client (lazy initialization)
 // ============================================
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+let supabaseAdmin: SupabaseClient | null = null;
+
+function getSupabaseAdmin(): SupabaseClient {
+  if (!supabaseAdmin) {
+    supabaseAdmin = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabaseAdmin;
+}
 
 // ============================================
 // 설정
@@ -69,7 +76,7 @@ export async function POST(request: NextRequest) {
     if (status !== 'paid' && status !== 'paid_over') {
       // 실패/취소 상태 업데이트
       if (status === 'fail' || status === 'cancel' || status === 'wrong_amount') {
-        await supabaseAdmin
+        await getSupabaseAdmin()
           .from('deposits')
           .update({
             status: 'rejected',
@@ -83,7 +90,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 중복 처리 방지: 이미 approved면 skip
-    const { data: deposit } = await supabaseAdmin
+    const { data: deposit } = await getSupabaseAdmin()
       .from('deposits')
       .select('id, user_id, amount, status')
       .eq('id', order_id)
@@ -101,14 +108,14 @@ export async function POST(request: NextRequest) {
 
     // txid 업데이트
     if (txid) {
-      await supabaseAdmin
+      await getSupabaseAdmin()
         .from('deposits')
         .update({ tx_id: txid })
         .eq('id', order_id);
     }
 
     // 잔액 충전 (add_balance RPC)
-    const { error: balanceError } = await supabaseAdmin.rpc('add_balance', {
+    const { error: balanceError } = await getSupabaseAdmin().rpc('add_balance', {
       p_user_id: deposit.user_id,
       p_amount: deposit.amount,
     });
@@ -119,7 +126,7 @@ export async function POST(request: NextRequest) {
     }
 
     // deposit 상태 업데이트
-    await supabaseAdmin
+    await getSupabaseAdmin()
       .from('deposits')
       .update({
         status: 'approved',
