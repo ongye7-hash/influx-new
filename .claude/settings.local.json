@@ -25,9 +25,8 @@
       "WebFetch(domain:sns-cafe.com)",
       "WebFetch(domain:snssupporter.com)",
       "Bash(cat:*)",
-      "Bash(git rebase:*)",
-      "Bash(GIT_EDITOR=true git rebase:*)",
-      "Bash(GIT_EDITOR=\":\" git rebase --continue)"
+      "Bash(git pull:*)",
+      "Bash(git stash:*)"
     ]
   }
 }
