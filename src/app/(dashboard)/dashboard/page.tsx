@@ -10,6 +10,7 @@ import {
   ArrowDownRight,
   Minus,
   Loader2,
+  AlertCircle,
 } from "lucide-react";
 import { FaInstagram, FaYoutube, FaTiktok, FaFacebook, FaTelegram, FaTwitter } from "react-icons/fa";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -106,11 +107,13 @@ export default function DashboardPage() {
   const [productsLoading, setProductsLoading] = useState(true);
   const [monthlyStats, setMonthlyStats] = useState<MonthlyStats | null>(null);
   const [statsLoading, setStatsLoading] = useState(true);
+  const [statsError, setStatsError] = useState<string | null>(null);
 
   // 월별 통계 조회 (이번 달 + 지난 달)
   useEffect(() => {
     const fetchMonthlyStats = async () => {
       setStatsLoading(true);
+      setStatsError(null);
       try {
         const thisMonth = getMonthRange(0);
         const lastMonth = getMonthRange(-1);
@@ -150,6 +153,18 @@ export default function DashboardPage() {
         });
       } catch (error) {
         console.error('Error fetching monthly stats:', error);
+        setStatsError('통계 데이터를 불러올 수 없습니다');
+        // 기본값으로 초기화하여 UI가 깨지지 않도록
+        setMonthlyStats({
+          thisMonthOrders: 0,
+          lastMonthOrders: 0,
+          thisMonthSpent: 0,
+          lastMonthSpent: 0,
+          processingCount: 0,
+          completedCount: 0,
+          totalCount: 0,
+          lastMonthCompletedRate: 0,
+        });
       } finally {
         setStatsLoading(false);
       }
@@ -313,6 +328,12 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Grid */}
+      {statsError && (
+        <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center gap-2 text-amber-400 text-sm">
+          <AlertCircle className="h-4 w-4 shrink-0" />
+          {statsError} - 새로고침을 시도해주세요.
+        </div>
+      )}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         {stats.map((stat) => (
           <Card key={stat.title} className="card-interactive">

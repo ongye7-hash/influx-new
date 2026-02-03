@@ -135,17 +135,8 @@ export default function AdminDashboardPage() {
       const yesterday = new Date(today);
       yesterday.setDate(yesterday.getDate() - 1);
 
-      // Promise.all로 병렬 처리
-      const [
-        todayOrdersResult,
-        yesterdayOrdersResult,
-        totalUsersResult,
-        newUsersTodayResult,
-        pendingDepositsResult,
-        processingOrdersResult,
-        depositsResult,
-        ordersResult
-      ] = await Promise.all([
+      // Promise.allSettled로 병렬 처리 (부분 실패 허용)
+      const results = await Promise.allSettled([
         // 오늘 매출
         supabase
           .from('orders')
@@ -199,6 +190,16 @@ export default function AdminDashboardPage() {
           .order('created_at', { ascending: false })
           .limit(5)
       ]);
+
+      // 결과 추출 (실패 시 기본값 사용)
+      const todayOrdersResult = results[0].status === 'fulfilled' ? results[0].value : { data: [], error: null };
+      const yesterdayOrdersResult = results[1].status === 'fulfilled' ? results[1].value : { data: [], error: null };
+      const totalUsersResult = results[2].status === 'fulfilled' ? results[2].value : { count: 0, error: null };
+      const newUsersTodayResult = results[3].status === 'fulfilled' ? results[3].value : { count: 0, error: null };
+      const pendingDepositsResult = results[4].status === 'fulfilled' ? results[4].value : { data: [], error: null };
+      const processingOrdersResult = results[5].status === 'fulfilled' ? results[5].value : { count: 0, error: null };
+      const depositsResult = results[6].status === 'fulfilled' ? results[6].value : { data: [], error: null };
+      const ordersResult = results[7].status === 'fulfilled' ? results[7].value : { data: [], error: null };
 
       // 매출 계산
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

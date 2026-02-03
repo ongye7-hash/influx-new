@@ -99,10 +99,13 @@ export default function AdminAutomationPage() {
 
   const fetchSettings = async () => {
     try {
-      const [telegramRes, automationRes] = await Promise.all([
+      const results = await Promise.allSettled([
         supabase.from("admin_settings").select("value").eq("key", "telegram").single(),
         supabase.from("admin_settings").select("value").eq("key", "automation").single(),
       ]);
+
+      const telegramRes = results[0].status === 'fulfilled' ? results[0].value : { data: null };
+      const automationRes = results[1].status === 'fulfilled' ? results[1].value : { data: null };
 
       const telegramData = telegramRes.data as { value: TelegramSettings } | null;
       const automationData = automationRes.data as { value: AutomationSettings } | null;
@@ -115,19 +118,27 @@ export default function AdminAutomationPage() {
       }
     } catch (error) {
       console.error("Error fetching settings:", error);
+      // Use defaults on error
+      setTelegram(defaultTelegram);
+      setAutomation(defaultAutomation);
     } finally {
       setIsLoading(false);
     }
   };
 
   const fetchLogs = async () => {
-    const { data } = await supabase
-      .from("automation_logs")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(20);
+    try {
+      const { data } = await supabase
+        .from("automation_logs")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(20);
 
-    setAutomationLogs(data || []);
+      setAutomationLogs(data || []);
+    } catch (error) {
+      console.error("Error fetching logs:", error);
+      setAutomationLogs([]);
+    }
   };
 
   const saveTelegramSettings = async () => {

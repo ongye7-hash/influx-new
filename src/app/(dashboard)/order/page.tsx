@@ -170,27 +170,38 @@ export default function NewOrderPage() {
     async function fetchData() {
       setLoading(true);
 
-      const [categoriesRes, productsRes] = await Promise.all([
-        supabase
-          .from('admin_categories')
-          .select('*')
-          .eq('is_active', true)
-          .order('sort_order'),
-        supabase
-          .from('admin_products')
-          .select('*')
-          .eq('is_active', true)
-          .order('sort_order'),
-      ]);
+      try {
+        // Promise.allSettled로 부분 실패 허용
+        const results = await Promise.allSettled([
+          supabase
+            .from('admin_categories')
+            .select('*')
+            .eq('is_active', true)
+            .order('sort_order'),
+          supabase
+            .from('admin_products')
+            .select('*')
+            .eq('is_active', true)
+            .order('sort_order'),
+        ]);
 
-      if (categoriesRes.data) {
-        setCategories(categoriesRes.data);
-      }
-      if (productsRes.data) {
-        setProducts(productsRes.data);
-      }
+        // 카테고리 결과 처리
+        if (results[0].status === 'fulfilled' && results[0].value.data) {
+          setCategories(results[0].value.data);
+        }
 
-      setLoading(false);
+        // 상품 결과 처리
+        if (results[1].status === 'fulfilled' && results[1].value.data) {
+          setProducts(results[1].value.data);
+        }
+      } catch (error) {
+        console.error('Error fetching order data:', error);
+        // 에러 시에도 빈 배열로 초기화하여 UI 깨짐 방지
+        setCategories([]);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchData();

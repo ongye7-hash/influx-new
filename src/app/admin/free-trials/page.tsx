@@ -123,50 +123,62 @@ export default function FreeTrialsPage() {
   const fetchData = useCallback(async () => {
     setLoading(true);
 
-    // Fetch all data in parallel
-    const [servicesRes, requestsRes, productsRes] = await Promise.all([
-      (supabase as any)
-        .from('free_trial_services')
-        .select(`
-          *,
-          product:admin_products(id, name, category_id, is_active, category:admin_categories(platform, name))
-        `)
-        .order('created_at', { ascending: false }),
-      (supabase as any)
-        .from('free_trials')
-        .select(`
-          *,
-          user:profiles(email),
-          product:admin_products(name)
-        `)
-        .order('created_at', { ascending: false })
-        .limit(100),
-      (supabase as any)
-        .from('admin_products')
-        .select('id, name, category_id, is_active, category:admin_categories(platform, name)')
-        .eq('is_active', true)
-        .order('name'),
-    ]);
+    try {
+      // Fetch all data in parallel with allSettled to handle partial failures
+      const results = await Promise.allSettled([
+        (supabase as any)
+          .from('free_trial_services')
+          .select(`
+            *,
+            product:admin_products(id, name, category_id, is_active, category:admin_categories(platform, name))
+          `)
+          .order('created_at', { ascending: false }),
+        (supabase as any)
+          .from('free_trials')
+          .select(`
+            *,
+            user:profiles(email),
+            product:admin_products(name)
+          `)
+          .order('created_at', { ascending: false })
+          .limit(100),
+        (supabase as any)
+          .from('admin_products')
+          .select('id, name, category_id, is_active, category:admin_categories(platform, name)')
+          .eq('is_active', true)
+          .order('name'),
+      ]);
 
-    if (servicesRes.error) {
-      console.error('Services error:', servicesRes.error);
-      // If table doesn't exist, show empty state
+      // Extract results with fallbacks
+      const servicesRes = results[0].status === 'fulfilled' ? results[0].value : { data: null, error: 'fetch failed' };
+      const requestsRes = results[1].status === 'fulfilled' ? results[1].value : { data: null, error: 'fetch failed' };
+      const productsRes = results[2].status === 'fulfilled' ? results[2].value : { data: null, error: 'fetch failed' };
+
+      if (servicesRes.error) {
+        console.error('Services error:', servicesRes.error);
+        // If table doesn't exist, show empty state
+        setTrialServices([]);
+      } else {
+        setTrialServices(servicesRes.data || []);
+      }
+
+      if (requestsRes.error) {
+        console.error('Requests error:', requestsRes.error);
+        setTrialRequests([]);
+      } else {
+        setTrialRequests(requestsRes.data || []);
+      }
+
+      if (productsRes.error) {
+        console.error('Products error:', productsRes.error);
+      } else {
+        setProducts(productsRes.data || []);
+      }
+    } catch (error) {
+      console.error('Unexpected fetch error:', error);
       setTrialServices([]);
-    } else {
-      setTrialServices(servicesRes.data || []);
-    }
-
-    if (requestsRes.error) {
-      console.error('Requests error:', requestsRes.error);
       setTrialRequests([]);
-    } else {
-      setTrialRequests(requestsRes.data || []);
-    }
-
-    if (productsRes.error) {
-      console.error('Products error:', productsRes.error);
-    } else {
-      setProducts(productsRes.data || []);
+      setProducts([]);
     }
 
     setLoading(false);

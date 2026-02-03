@@ -119,17 +119,23 @@ export default function CategoriesPage() {
 
   const fetchCategories = async () => {
     setLoading(true);
-    const { data, error } = await (supabase as any)
-      .from('admin_categories')
-      .select('*')
-      .order('platform')
-      .order('sort_order', { ascending: true });
+    try {
+      const { data, error } = await (supabase as any)
+        .from('admin_categories')
+        .select('*')
+        .order('platform')
+        .order('sort_order', { ascending: true });
 
-    if (error) {
-      toast.error('카테고리 목록 로드 실패');
-      console.error(error);
-    } else {
-      setCategories(data || []);
+      if (error) {
+        toast.error('카테고리 목록 로드 실패');
+        console.error(error);
+      } else {
+        setCategories(data || []);
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching categories:', err);
+      toast.error('카테고리 목록 로드 중 오류 발생');
+      setCategories([]);
     }
     setLoading(false);
   };

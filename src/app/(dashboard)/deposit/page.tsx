@@ -174,16 +174,45 @@ function DepositPageContent() {
     setIsLoadingRate(true);
     try {
       const response = await fetch('/api/crypto/exchange-rate');
+
+      // HTTP 에러 체크
+      if (!response.ok) {
+        console.error('Exchange rate API error:', response.status);
+        // fallback 환율 사용
+        setExchangeRate({
+          marketRate: 1450,
+          systemRate: 1500,
+          spreadPercent: 3.4,
+          source: 'fallback',
+          updatedAt: new Date().toISOString(),
+        });
+        return;
+      }
+
       const result = await response.json();
 
       if (result.success) {
         setExchangeRate(result.data);
       } else {
-        toast.error('환율 정보를 가져올 수 없습니다.');
+        // API는 성공했지만 데이터 실패 시 fallback
+        setExchangeRate({
+          marketRate: 1450,
+          systemRate: 1500,
+          spreadPercent: 3.4,
+          source: 'fallback',
+          updatedAt: new Date().toISOString(),
+        });
       }
     } catch (error) {
       console.error('Exchange rate fetch error:', error);
-      toast.error('환율 정보 로딩 실패');
+      // 네트워크 에러 시 fallback 환율 사용 (페이지 크래시 방지)
+      setExchangeRate({
+        marketRate: 1450,
+        systemRate: 1500,
+        spreadPercent: 3.4,
+        source: 'fallback',
+        updatedAt: new Date().toISOString(),
+      });
     } finally {
       setIsLoadingRate(false);
     }

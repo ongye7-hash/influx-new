@@ -182,46 +182,59 @@ export default function ProductsPage() {
   const fetchData = useCallback(async () => {
     setLoading(true);
 
-    // Fetch all data in parallel
-    const [productsRes, categoriesRes, providersRes] = await Promise.all([
-      (supabase as any)
-        .from('admin_products')
-        .select(`
-          *,
-          category:admin_categories(*),
-          primary_provider:api_providers!admin_products_primary_provider_id_fkey(*)
-        `)
-        .order('sort_order', { ascending: true }),
-      (supabase as any)
-        .from('admin_categories')
-        .select('*')
-        .eq('is_active', true)
-        .order('platform')
-        .order('sort_order'),
-      (supabase as any)
-        .from('api_providers')
-        .select('*')
-        .eq('is_active', true)
-        .order('priority', { ascending: false }),
-    ]);
+    try {
+      // Fetch all data in parallel with allSettled to handle partial failures
+      const results = await Promise.allSettled([
+        (supabase as any)
+          .from('admin_products')
+          .select(`
+            *,
+            category:admin_categories(*),
+            primary_provider:api_providers!admin_products_primary_provider_id_fkey(*)
+          `)
+          .order('sort_order', { ascending: true }),
+        (supabase as any)
+          .from('admin_categories')
+          .select('*')
+          .eq('is_active', true)
+          .order('platform')
+          .order('sort_order'),
+        (supabase as any)
+          .from('api_providers')
+          .select('*')
+          .eq('is_active', true)
+          .order('priority', { ascending: false }),
+      ]);
 
-    if (productsRes.error) {
-      console.error('Products error:', productsRes.error);
-      toast.error('상품 목록 로드 실패');
-    } else {
-      setProducts(productsRes.data || []);
-    }
+      // Extract results with fallbacks
+      const productsRes = results[0].status === 'fulfilled' ? results[0].value : { data: null, error: 'fetch failed' };
+      const categoriesRes = results[1].status === 'fulfilled' ? results[1].value : { data: null, error: 'fetch failed' };
+      const providersRes = results[2].status === 'fulfilled' ? results[2].value : { data: null, error: 'fetch failed' };
 
-    if (categoriesRes.error) {
-      console.error('Categories error:', categoriesRes.error);
-    } else {
-      setCategories(categoriesRes.data || []);
-    }
+      if (productsRes.error) {
+        console.error('Products error:', productsRes.error);
+        toast.error('상품 목록 로드 실패');
+      } else {
+        setProducts(productsRes.data || []);
+      }
 
-    if (providersRes.error) {
-      console.error('Providers error:', providersRes.error);
-    } else {
-      setProviders(providersRes.data || []);
+      if (categoriesRes.error) {
+        console.error('Categories error:', categoriesRes.error);
+      } else {
+        setCategories(categoriesRes.data || []);
+      }
+
+      if (providersRes.error) {
+        console.error('Providers error:', providersRes.error);
+      } else {
+        setProviders(providersRes.data || []);
+      }
+    } catch (error) {
+      console.error('Unexpected fetch error:', error);
+      toast.error('데이터 로드 중 오류 발생');
+      setProducts([]);
+      setCategories([]);
+      setProviders([]);
     }
 
     setLoading(false);

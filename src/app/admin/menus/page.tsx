@@ -124,16 +124,22 @@ export default function MenusPage() {
 
   const fetchMenus = async () => {
     setLoading(true);
-    const { data, error } = await (supabase as any)
-      .from('admin_menus')
-      .select('*')
-      .order('sort_order', { ascending: true });
+    try {
+      const { data, error } = await (supabase as any)
+        .from('admin_menus')
+        .select('*')
+        .order('sort_order', { ascending: true });
 
-    if (error) {
-      toast.error('메뉴 목록 로드 실패');
-      console.error(error);
-    } else {
-      setMenus(data || []);
+      if (error) {
+        toast.error('메뉴 목록 로드 실패');
+        console.error(error);
+      } else {
+        setMenus(data || []);
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching menus:', err);
+      toast.error('메뉴 목록 로드 중 오류 발생');
+      setMenus([]);
     }
     setLoading(false);
   };

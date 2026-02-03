@@ -140,14 +140,18 @@ export default function ProviderServicesPage() {
   // Fetch provider info
   useEffect(() => {
     async function fetchProvider() {
-      const { data, error } = await (supabase as any)
-        .from('api_providers')
-        .select('id, name, slug')
-        .eq('id', providerId)
-        .single();
+      try {
+        const { data, error } = await (supabase as any)
+          .from('api_providers')
+          .select('id, name, slug')
+          .eq('id', providerId)
+          .single();
 
-      if (data && !error) {
-        setProvider(data);
+        if (data && !error) {
+          setProvider(data);
+        }
+      } catch (err) {
+        console.error('Error fetching provider:', err);
       }
     }
     fetchProvider();
@@ -157,27 +161,41 @@ export default function ProviderServicesPage() {
   const fetchServices = useCallback(async () => {
     setLoading(true);
 
-    const params = new URLSearchParams({
-      page: page.toString(),
-      limit: limit.toString(),
-    });
+    try {
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString(),
+      });
 
-    if (search) params.append('search', search);
-    if (platformFilter !== 'all') params.append('platform', platformFilter);
-    if (typeFilter !== 'all') params.append('type', typeFilter);
-    if (regionFilter !== 'all') params.append('region', regionFilter);
-    if (importedFilter !== 'all') params.append('imported', importedFilter);
+      if (search) params.append('search', search);
+      if (platformFilter !== 'all') params.append('platform', platformFilter);
+      if (typeFilter !== 'all') params.append('type', typeFilter);
+      if (regionFilter !== 'all') params.append('region', regionFilter);
+      if (importedFilter !== 'all') params.append('imported', importedFilter);
 
-    const response = await fetch(
-      `/api/admin/providers/${providerId}/services?${params.toString()}`
-    );
-    const data = await response.json();
+      const response = await fetch(
+        `/api/admin/providers/${providerId}/services?${params.toString()}`
+      );
 
-    if (data.success) {
-      setServices(data.services);
-      setTotalCount(data.total);
-    } else {
-      toast.error(data.error || '서비스 목록 로드 실패');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        setServices(data.services);
+        setTotalCount(data.total);
+      } else {
+        toast.error(data.error || '서비스 목록 로드 실패');
+        setServices([]);
+        setTotalCount(0);
+      }
+    } catch (error) {
+      console.error('Error fetching services:', error);
+      toast.error('서비스 목록 로드 중 오류 발생');
+      setServices([]);
+      setTotalCount(0);
     }
 
     setLoading(false);

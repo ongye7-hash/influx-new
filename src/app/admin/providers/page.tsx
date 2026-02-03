@@ -116,16 +116,22 @@ export default function ProvidersPage() {
 
   const fetchProviders = async () => {
     setLoading(true);
-    const { data, error } = await (supabase as any)
-      .from('api_providers')
-      .select('*')
-      .order('priority', { ascending: false });
+    try {
+      const { data, error } = await (supabase as any)
+        .from('api_providers')
+        .select('*')
+        .order('priority', { ascending: false });
 
-    if (error) {
-      toast.error('공급자 목록 로드 실패');
-      console.error(error);
-    } else {
-      setProviders(data || []);
+      if (error) {
+        toast.error('공급자 목록 로드 실패');
+        console.error(error);
+      } else {
+        setProviders(data || []);
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching providers:', err);
+      toast.error('공급자 목록 로드 중 오류 발생');
+      setProviders([]);
     }
     setLoading(false);
   };
