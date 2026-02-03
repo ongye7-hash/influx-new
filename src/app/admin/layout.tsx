@@ -27,6 +27,7 @@ import {
   Menu,
   Sparkles,
   Bot,
+  MessageCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -70,6 +71,11 @@ const navItems = [
     title: '공지사항',
     href: '/admin/announcements',
     icon: Bell,
+  },
+  {
+    title: '고객 문의',
+    href: '/admin/tickets',
+    icon: MessageCircle,
   },
   {
     title: '자동화',

@@ -20,6 +20,7 @@ import {
   Phone,
   Mail,
   MessageSquare,
+  RefreshCw,
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -129,6 +130,10 @@ export default function SupportPage() {
   const [inquiryContent, setInquiryContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // 내 문의 목록 상태
+  const [myTickets, setMyTickets] = useState<any[]>([]);
+  const [isLoadingTickets, setIsLoadingTickets] = useState(false);
+
   // 공지사항 로드
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -153,6 +158,30 @@ export default function SupportPage() {
     fetchAnnouncements();
   }, []);
 
+  // 내 문의 목록 로드
+  const fetchMyTickets = async () => {
+    if (!profile?.id) return;
+
+    setIsLoadingTickets(true);
+    try {
+      const response = await fetch('/api/support');
+      const data = await response.json();
+      if (data.success) {
+        setMyTickets(data.data || []);
+      }
+    } catch (error) {
+      console.error('Error fetching tickets:', error);
+    } finally {
+      setIsLoadingTickets(false);
+    }
+  };
+
+  useEffect(() => {
+    if (profile?.id) {
+      fetchMyTickets();
+    }
+  }, [profile?.id]);
+
   // 문의 제출
   const handleSubmitInquiry = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -162,12 +191,29 @@ export default function SupportPage() {
       return;
     }
 
+    if (!profile?.id) {
+      toast.error('로그인이 필요합니다');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // 실제로는 tickets 테이블에 저장하거나 이메일 발송
-      // 현재는 토스트로 안내
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ticket_type: inquiryType,
+          title: inquiryTitle.trim(),
+          content: inquiryContent.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.error || '문의 접수 실패');
+      }
 
       toast.success('문의가 접수되었습니다', {
         description: '빠른 시간 내에 답변 드리겠습니다.',
@@ -177,9 +223,12 @@ export default function SupportPage() {
       setInquiryType('');
       setInquiryTitle('');
       setInquiryContent('');
-    } catch (error) {
+
+      // 내 문의 목록 새로고침
+      fetchMyTickets();
+    } catch (error: any) {
       console.error('Error submitting inquiry:', error);
-      toast.error('문의 접수 중 오류가 발생했습니다');
+      toast.error(error.message || '문의 접수 중 오류가 발생했습니다');
     } finally {
       setIsSubmitting(false);
     }
@@ -352,6 +401,76 @@ export default function SupportPage() {
                   )}
                 </Button>
               </form>
+            </CardContent>
+          </Card>
+
+          {/* 내 문의 내역 */}
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>내 문의 내역</span>
+                <Button variant="ghost" size="sm" onClick={fetchMyTickets} disabled={isLoadingTickets}>
+                  <RefreshCw className={cn("h-4 w-4", isLoadingTickets && "animate-spin")} />
+                </Button>
+              </CardTitle>
+              <CardDescription>
+                접수한 문의와 답변을 확인합니다.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoadingTickets ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                </div>
+              ) : myTickets.length > 0 ? (
+                <div className="space-y-3">
+                  {myTickets.map((ticket) => (
+                    <div
+                      key={ticket.id}
+                      className="p-4 rounded-lg border hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <Badge variant="outline" className={cn(
+                              ticket.status === 'pending' && 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+                              ticket.status === 'in_progress' && 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+                              ticket.status === 'resolved' && 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+                              ticket.status === 'closed' && 'bg-white/5 text-white/40 border-white/10',
+                            )}>
+                              {ticket.status === 'pending' && '대기중'}
+                              {ticket.status === 'in_progress' && '처리중'}
+                              {ticket.status === 'resolved' && '답변완료'}
+                              {ticket.status === 'closed' && '종료'}
+                            </Badge>
+                            <Badge variant="secondary" className="text-xs">
+                              {INQUIRY_TYPES.find(t => t.value === ticket.ticket_type)?.label || ticket.ticket_type}
+                            </Badge>
+                          </div>
+                          <p className="font-medium truncate">{ticket.title}</p>
+                          <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
+                            {ticket.content}
+                          </p>
+                          {ticket.admin_reply && (
+                            <div className="mt-3 p-3 rounded-md bg-primary/5 border border-primary/20">
+                              <p className="text-xs text-primary font-medium mb-1">관리자 답변</p>
+                              <p className="text-sm">{ticket.admin_reply}</p>
+                            </div>
+                          )}
+                        </div>
+                        <span className="text-xs text-muted-foreground whitespace-nowrap">
+                          {formatRelativeTime(ticket.created_at)}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  <MessageCircle className="h-10 w-10 mx-auto mb-3 opacity-30" />
+                  <p>접수한 문의가 없습니다.</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
