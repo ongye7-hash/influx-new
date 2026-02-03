@@ -123,74 +123,32 @@ async function approveDeposit(depositId: string): Promise<{ toast: string; newTe
     return { toast: '잘못된 요청입니다' };
   }
 
-  // 환경변수 확인
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) {
-    console.error('[Telegram] Missing env vars:', { url: !!url, key: !!key });
-    return { toast: `환경변수 없음` };
-  }
-
   try {
-    // 연결 테스트: 전체 deposits 카운트
-    const { count, error: countError } = await getSupabase()
-      .from('deposits')
-      .select('*', { count: 'exact', head: true });
-
-    if (countError) {
-      return { toast: `DB연결실패: ${countError.code}` };
-    }
-
-    // 1. 조인 없이 deposit만 먼저 조회
-    const { data: depositBasic, error: basicError } = await getSupabase()
+    // 1. deposit 조회 (조인 없이)
+    const { data: deposit } = await getSupabase()
       .from('deposits')
       .select('id, amount, user_id, status')
       .eq('id', cleanId)
       .single();
 
-    if (basicError && basicError.code !== 'PGRST116') {
-      return { toast: `DB에러: ${basicError.code}` };
+    if (!deposit) {
+      return { toast: '충전 요청을 찾을 수 없습니다' };
     }
 
-    // 2. 없으면 prefix로 재시도
-    if (!depositBasic) {
-      const { data: prefixMatch } = await getSupabase()
-        .from('deposits')
-        .select('id, amount, user_id, status')
-        .ilike('id', `${cleanId.substring(0, 8)}%`)
-        .single();
-
-      if (!prefixMatch) {
-        return { toast: `없음: ${cleanId.substring(0, 8)} (총${count}건)` };
-      }
-
-      // prefix로 찾았으면 profile 정보도 가져오기
-      const { data: profile } = await getSupabase()
-        .from('profiles')
-        .select('email, balance')
-        .eq('id', prefixMatch.user_id)
-        .single();
-
-      return await processApprovalInternal({
-        ...prefixMatch,
-        profiles: profile
-      });
-    }
-
-    // 3. 찾았으면 profile 정보도 가져오기
+    // 2. profile 정보 조회
     const { data: profile } = await getSupabase()
       .from('profiles')
       .select('email, balance')
-      .eq('id', depositBasic.user_id)
+      .eq('id', deposit.user_id)
       .single();
 
     return await processApprovalInternal({
-      ...depositBasic,
+      ...deposit,
       profiles: profile
     });
   } catch (err) {
-    console.error('[Telegram] Error:', err);
-    return { toast: '서버 에러' };
+    console.error('[Telegram] Approve error:', err);
+    return { toast: '처리 중 오류 발생' };
   }
 }
 
@@ -232,73 +190,52 @@ async function processApprovalInternal(deposit: any): Promise<{ toast: string; n
 }
 
 async function rejectDeposit(depositId: string): Promise<{ toast: string; newText?: string }> {
-  console.log('[Telegram] Rejecting deposit:', depositId);
-
   const cleanId = depositId?.trim();
   if (!cleanId) {
     return { toast: '잘못된 요청입니다' };
   }
 
-  // 1. 정확한 ID로 조회
-  let { data: deposit } = await getSupabase()
-    .from('deposits')
-    .select('id, amount, status, profiles(email)')
-    .eq('id', cleanId)
-    .single();
-
-  // 2. prefix로 재시도
-  if (!deposit) {
-    const { data: depositByPrefix } = await getSupabase()
+  try {
+    // 1. deposit 조회 (조인 없이)
+    const { data: deposit } = await getSupabase()
       .from('deposits')
-      .select('id, amount, status, profiles(email)')
-      .eq('status', 'pending')
-      .ilike('id', `${cleanId}%`)
+      .select('id, amount, user_id, status')
+      .eq('id', cleanId)
       .single();
 
-    if (depositByPrefix) {
-      deposit = depositByPrefix;
+    if (!deposit) {
+      return { toast: '충전 요청을 찾을 수 없습니다' };
     }
-  }
 
-  // 3. 모든 상태에서 prefix로 재시도
-  if (!deposit) {
-    const { data: depositAnyStatus } = await getSupabase()
-      .from('deposits')
-      .select('id, amount, status, profiles(email)')
-      .ilike('id', `${cleanId}%`)
+    if (deposit.status !== 'pending') {
+      return { toast: `이미 처리됨 (${deposit.status})` };
+    }
+
+    // 2. profile 정보 조회
+    const { data: profile } = await getSupabase()
+      .from('profiles')
+      .select('email')
+      .eq('id', deposit.user_id)
       .single();
 
-    if (depositAnyStatus) {
-      deposit = depositAnyStatus;
-    }
-  }
+    // 3. 거절 처리
+    await getSupabase()
+      .from('deposits')
+      .update({ status: 'rejected' } as never)
+      .eq('id', deposit.id);
 
-  // 4. 못 찾으면 에러
-  if (!deposit) {
-    return { toast: '충전 요청을 찾을 수 없습니다' };
-  }
-
-  if (deposit.status !== 'pending') {
-    return { toast: `이미 처리됨 (${deposit.status})` };
-  }
-
-  await getSupabase()
-    .from('deposits')
-    .update({ status: 'rejected' } as never)
-    .eq('id', deposit.id);
-
-  console.log('[Telegram] Deposit rejected:', deposit.id);
-
-  const profile = deposit.profiles as any;
-
-  return {
-    toast: '거절됨',
-    newText: `❌ <b>거절됨</b>
+    return {
+      toast: '거절됨',
+      newText: `❌ <b>거절됨</b>
 ━━━━━━━━━━━━━━━
 금액: ₩${deposit.amount.toLocaleString()}
 유저: ${profile?.email}
 처리: ${new Date().toLocaleString('ko-KR')}`,
-  };
+    };
+  } catch (err) {
+    console.error('[Telegram] Reject error:', err);
+    return { toast: '처리 중 오류 발생' };
+  }
 }
 
 async function sendCouponToUser(email: string): Promise<{ toast: string; newText?: string }> {
