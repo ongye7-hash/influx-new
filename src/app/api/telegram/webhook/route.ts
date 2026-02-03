@@ -303,21 +303,28 @@ async function giftBalanceToUser(email: string): Promise<{ toast: string; newTex
 }
 
 async function listPendingDeposits(): Promise<{ toast: string; newText?: string }> {
-  const { data } = await getSupabase()
+  const { data: deposits } = await getSupabase()
     .from('deposits')
-    .select('id, amount, created_at, profiles(email)')
+    .select('id, amount, user_id, created_at')
     .eq('status', 'pending')
     .order('created_at', { ascending: false })
     .limit(5);
 
-  if (!data || data.length === 0) {
+  if (!deposits || deposits.length === 0) {
     return { toast: '대기중 없음', newText: '✅ 대기중인 충전이 없습니다.' };
   }
 
-  let text = `⏳ <b>대기중 충전</b> (${data.length}건)\n━━━━━━━━━━━━━━━\n`;
+  // 각 deposit의 user_id로 email 조회
+  let text = `⏳ <b>대기중 충전</b> (${deposits.length}건)\n━━━━━━━━━━━━━━━\n`;
 
-  for (const d of data) {
-    const email = (d.profiles as any)?.email || 'unknown';
+  for (const d of deposits) {
+    const { data: profile } = await getSupabase()
+      .from('profiles')
+      .select('email')
+      .eq('id', d.user_id)
+      .single();
+
+    const email = profile?.email || 'unknown';
     const shortEmail = email.length > 15 ? email.substring(0, 15) + '...' : email;
     text += `• ₩${d.amount.toLocaleString()} - ${shortEmail}\n`;
   }

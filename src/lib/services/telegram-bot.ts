@@ -445,21 +445,27 @@ async function getTodayStats(): Promise<string> {
 }
 
 async function getPendingDeposits(): Promise<string> {
-  const { data } = await getSupabase()
+  const { data: deposits } = await getSupabase()
     .from('deposits')
-    .select('id, amount, created_at, profiles(email)')
+    .select('id, amount, user_id, created_at')
     .eq('status', 'pending')
     .order('created_at', { ascending: false })
     .limit(10);
 
-  if (!data || data.length === 0) {
+  if (!deposits || deposits.length === 0) {
     return '✅ 대기중인 충전이 없습니다.';
   }
 
-  let message = `⏳ <b>대기중 충전</b> (${data.length}건)\n━━━━━━━━━━━━━━━\n`;
+  let message = `⏳ <b>대기중 충전</b> (${deposits.length}건)\n━━━━━━━━━━━━━━━\n`;
 
-  for (const d of data) {
-    const email = (d.profiles as any)?.email || 'unknown';
+  for (const d of deposits) {
+    const { data: profile } = await getSupabase()
+      .from('profiles')
+      .select('email')
+      .eq('id', d.user_id)
+      .single();
+
+    const email = profile?.email || 'unknown';
     message += `• ₩${d.amount.toLocaleString()} - ${email.substring(0, 10)}...\n  /approve ${d.id.substring(0, 8)}\n`;
   }
 
