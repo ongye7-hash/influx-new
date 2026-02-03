@@ -117,6 +117,7 @@ function LoginContent() {
         setActiveTab('login');
         setLoginEmail(registerEmail);
       } else {
+        clearGuestModeCookie(); // 비회원 쿠키 삭제
         toast.success('🎉 가입 완료! 2,000원 크레딧이 지급되었습니다.');
         router.push(redirectTo);
         router.refresh();
@@ -141,17 +142,22 @@ function LoginContent() {
     }
   };
 
-  const handleGuestMode = () => {
-    enterGuestMode();
-    toast.success('비회원 모드로 둘러보기를 시작합니다!', {
-      description: '모든 기능을 체험해보고 회원가입하세요.',
-    });
-
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '/api/guest-mode';
-    document.body.appendChild(form);
-    form.submit();
+  const handleGuestMode = async () => {
+    try {
+      // 먼저 API 호출로 쿠키 설정
+      const res = await fetch('/api/guest-mode', { method: 'POST' });
+      if (res.ok) {
+        enterGuestMode();
+        toast.success('비회원 모드로 둘러보기를 시작합니다!', {
+          description: '모든 기능을 체험해보고 회원가입하세요.',
+        });
+        router.push('/dashboard');
+      } else {
+        toast.error('비회원 모드 시작에 실패했습니다.');
+      }
+    } catch {
+      toast.error('오류가 발생했습니다.');
+    }
   };
 
   const inputClass = "w-full h-12 px-4 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white placeholder:text-white/30 focus:outline-none focus:border-[#0064FF]/50 focus:ring-1 focus:ring-[#0064FF]/30 transition-colors";
@@ -561,10 +567,15 @@ function LoginContent() {
             {/* Help Text */}
             <p className="text-center text-sm text-white/30">
               문제가 있으신가요?{" "}
-              <Link href="/support" className="text-[#0064FF] hover:text-[#0054DD]">
-                고객센터
-              </Link>
-              로 문의해주세요
+              <a
+                href="https://pf.kakao.com/_xgpUAX"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#0064FF] hover:text-[#0054DD]"
+              >
+                카카오톡 상담
+              </a>
+              으로 문의해주세요
             </p>
           </div>
         </div>
