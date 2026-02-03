@@ -69,7 +69,7 @@ interface SidebarProps {
 export function Sidebar({ isGuestMode = false }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const { profile, signOut } = useAuth();
+  const { profile, user, signOut } = useAuth();
   const exitGuestMode = useGuestStore((state) => state.exitGuestMode);
   const getEngagementScore = useGuestStore((state) => state.getEngagementScore);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -315,11 +315,11 @@ export function Sidebar({ isGuestMode = false }: SidebarProps) {
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
               <span className="text-primary font-semibold">
-                {profile?.email?.charAt(0).toUpperCase() || "U"}
+                {(profile?.email || user?.email)?.charAt(0).toUpperCase() || "U"}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{profile?.email || "user@example.com"}</p>
+              <p className="text-sm font-medium truncate">{profile?.email || user?.email || "로딩 중..."}</p>
               <p className="text-xs text-muted-foreground">{tier.label} 회원</p>
             </div>
             <Button

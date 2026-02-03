@@ -67,7 +67,7 @@ export function MobileNav({ isGuestMode = false }: MobileNavProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const { profile, signOut } = useAuth();
+  const { profile, user, signOut } = useAuth();
   const exitGuestMode = useGuestStore((state) => state.exitGuestMode);
   const getEngagementScore = useGuestStore((state) => state.getEngagementScore);
 
@@ -285,11 +285,11 @@ export function MobileNav({ isGuestMode = false }: MobileNavProps) {
               <div className="flex items-center gap-3 mb-4">
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
                   <span className="text-primary font-semibold text-lg">
-                    {profile?.email?.charAt(0).toUpperCase() || "U"}
+                    {(profile?.email || user?.email)?.charAt(0).toUpperCase() || "U"}
                   </span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium truncate">{profile?.email || "user@example.com"}</p>
+                  <p className="font-medium truncate">{profile?.email || user?.email || "로딩 중..."}</p>
                   <p className="text-sm text-muted-foreground">{tier.label} 회원</p>
                 </div>
               </div>

@@ -153,7 +153,7 @@ export function MobileHeader({ user }: MobileHeaderProps) {
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium truncate">{user?.email || "user@example.com"}</p>
+                    <p className="font-medium truncate">{user?.email || "로딩 중..."}</p>
                     <p className="text-sm text-muted-foreground">{tier.label} 회원</p>
                   </div>
                 </div>

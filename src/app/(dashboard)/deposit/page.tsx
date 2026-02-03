@@ -133,8 +133,9 @@ function PaymentMethodBadge({ method }: { method: PaymentMethod }) {
 // ============================================
 function DepositPageContent() {
   const searchParams = useSearchParams();
-  const { profile, refreshProfile, isLoading: authLoading } = useAuth();
+  const { profile, user, refreshProfile, isLoading: authLoading } = useAuth();
   const balance = profile?.balance || 0;
+  const userId = user?.id || profile?.id;
 
   // 공통 상태
   const [deposits, setDeposits] = useState<Deposit[]>([]);
@@ -192,7 +193,7 @@ function DepositPageContent() {
   // 입금 내역 조회
   // ============================================
   const fetchDeposits = useCallback(async () => {
-    if (!profile?.id) {
+    if (!userId) {
       setIsLoadingDeposits(false);
       return;
     }
@@ -201,7 +202,7 @@ function DepositPageContent() {
       const { data, error } = await supabase
         .from('deposits')
         .select('*')
-        .eq('user_id', profile.id)
+        .eq('user_id', userId)
         .order('created_at', { ascending: false })
         .limit(10);
 
@@ -225,7 +226,7 @@ function DepositPageContent() {
     } finally {
       setIsLoadingDeposits(false);
     }
-  }, [profile?.id]);
+  }, [userId]);
 
   useEffect(() => {
     fetchDeposits();
@@ -272,7 +273,7 @@ function DepositPageContent() {
   const handleBankSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!profile?.id) {
+    if (!userId) {
       toast.error('로그인이 필요합니다');
       return;
     }
@@ -292,7 +293,7 @@ function DepositPageContent() {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await (supabase.from('deposits') as any).insert({
-        user_id: profile.id,
+        user_id: userId,
         amount: bankAmount,
         depositor_name: bankDepositorName.trim(),
         payment_method: 'bank_transfer',
@@ -328,7 +329,7 @@ function DepositPageContent() {
   const handleCryptoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!profile?.id) {
+    if (!userId) {
       toast.error('로그인이 필요합니다');
       return;
     }
@@ -501,26 +502,61 @@ function DepositPageContent() {
         </div>
       </Card>
 
-      {/* 쿠폰 입력 */}
-      <Card className="border-2 border-dashed border-primary/30 bg-primary/5">
+      {/* 첫충전 20% 쿠폰 배너 - 가시성 강화 */}
+      {!appliedCoupon && (
+        <Card className="border-2 border-yellow-500/50 bg-gradient-to-r from-yellow-500/20 via-orange-500/20 to-yellow-500/20 overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+          <CardContent className="py-5">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shrink-0 shadow-lg">
+                  <Ticket className="h-7 w-7 text-white" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Badge className="bg-yellow-500 text-black font-bold px-2 py-0.5">신규회원</Badge>
+                    <span className="text-xs text-yellow-400">한정 혜택</span>
+                  </div>
+                  <p className="text-xl sm:text-2xl font-black text-yellow-400">
+                    첫 충전 20% 보너스
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    쿠폰코드: <span className="font-mono font-bold text-yellow-300">INFLUX2026</span>
+                  </p>
+                </div>
+              </div>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold shadow-lg"
+                onClick={() => { setCouponCode('INFLUX2026'); handleCouponValidate(); }}
+              >
+                <Sparkles className="mr-2 h-5 w-5" />
+                쿠폰 적용하기
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* 쿠폰 입력 / 적용 상태 */}
+      <Card className={cn(
+        "border-2",
+        appliedCoupon
+          ? "border-emerald-500/50 bg-emerald-500/10"
+          : "border-dashed border-primary/30 bg-primary/5"
+      )}>
         <CardContent className="py-4">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-              <Ticket className="h-5 w-5 text-primary" />
+            <div className={cn(
+              "h-10 w-10 rounded-full flex items-center justify-center shrink-0",
+              appliedCoupon ? "bg-emerald-500/20" : "bg-primary/10"
+            )}>
+              <Ticket className={cn("h-5 w-5", appliedCoupon ? "text-emerald-400" : "text-primary")} />
             </div>
             <div className="flex-1">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-medium">쿠폰 / 프로모션 코드</p>
-                {!appliedCoupon && (
-                  <button
-                    type="button"
-                    onClick={() => { setCouponCode('INFLUX2026'); }}
-                    className="text-xs text-primary hover:underline cursor-pointer"
-                  >
-                    첫충전 20% 쿠폰 사용하기
-                  </button>
-                )}
-              </div>
+              <p className="text-sm font-medium mb-2">
+                {appliedCoupon ? '적용된 쿠폰' : '다른 쿠폰 코드가 있으신가요?'}
+              </p>
               <div className="flex gap-2">
                 <Input
                   placeholder="쿠폰 코드 입력"

@@ -274,7 +274,7 @@ export function Sidebar({ user }: SidebarProps) {
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">{user?.email || "user@example.com"}</p>
+            <p className="text-sm font-medium truncate">{user?.email || "로딩 중..."}</p>
             <p className="text-xs text-muted-foreground">{tier.label} 회원</p>
           </div>
           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive">
