@@ -65,6 +65,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // SEO 키워드별 랜딩페이지 (검색 노출용)
+  const seoLandingPages = [
+    {
+      url: `${BASE_URL}/instagram-followers-korea`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.95,
+    },
+    {
+      url: `${BASE_URL}/instagram-likes`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.95,
+    },
+    {
+      url: `${BASE_URL}/youtube-views`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.95,
+    },
+    {
+      url: `${BASE_URL}/youtube-subscribers`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.95,
+    },
+  ];
+
   // 법적 페이지
   const legalPages = [
     {
@@ -172,5 +200,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...staticPages, ...servicePages, ...legalPages, ...resellerPages, ...dashboardPages, ...blogPages];
+  return [...staticPages, ...servicePages, ...seoLandingPages, ...legalPages, ...resellerPages, ...dashboardPages, ...blogPages];
 }
