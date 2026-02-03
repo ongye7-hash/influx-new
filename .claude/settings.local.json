@@ -26,7 +26,8 @@
       "WebFetch(domain:snssupporter.com)",
       "Bash(cat:*)",
       "Bash(git pull:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(curl:*)"
     ]
   }
 }

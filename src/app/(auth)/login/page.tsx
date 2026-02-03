@@ -106,12 +106,21 @@ function LoginContent() {
         return;
       }
 
-      toast.success('회원가입 성공!', {
-        description: '이메일 인증 후 로그인해주세요.',
-      });
+      // 가입 후 바로 로그인 시도
+      const { error: autoLoginError } = await signInWithEmail(registerEmail, registerPassword);
 
-      setActiveTab('login');
-      setLoginEmail(registerEmail);
+      if (autoLoginError) {
+        // 자동 로그인 실패 시 수동 로그인 유도
+        toast.success('회원가입 성공!', {
+          description: '로그인해주세요.',
+        });
+        setActiveTab('login');
+        setLoginEmail(registerEmail);
+      } else {
+        toast.success('🎉 가입 완료! 2,000원 크레딧이 지급되었습니다.');
+        router.push(redirectTo);
+        router.refresh();
+      }
     } catch (err) {
       setError('회원가입 중 오류가 발생했습니다.');
       console.error(err);
