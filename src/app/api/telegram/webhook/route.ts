@@ -165,24 +165,20 @@ async function approveDeposit(depositId: string): Promise<{ toast: string; newTe
     }
   }
 
-  // 4. 여전히 못 찾으면 최신 대기중 건 사용 (버튼 ID가 맞지 않아도 처리)
+  // 4. 못 찾으면 DB 대기중 목록과 비교해서 디버깅 정보 출력
   if (!deposit) {
-    console.log('[Telegram] ID not found, trying latest pending deposit');
-
-    const { data: latestPending } = await getSupabase()
+    const { data: pendingList } = await getSupabase()
       .from('deposits')
-      .select('id, amount, user_id, status, profiles(email, balance)')
+      .select('id')
       .eq('status', 'pending')
       .order('created_at', { ascending: false })
-      .limit(1)
-      .single();
+      .limit(5);
 
-    if (latestPending) {
-      console.log('[Telegram] Using latest pending:', latestPending.id.substring(0, 8));
-      return await processApprovalInternal(latestPending);
-    }
+    const pendingIds = pendingList?.map(d => d.id).join(', ') || '없음';
+    console.log('[Telegram] Callback ID:', cleanId);
+    console.log('[Telegram] Pending IDs in DB:', pendingIds);
 
-    return { toast: '대기중인 충전 요청이 없습니다' };
+    return { toast: `ID 불일치. 콜백:${cleanId.substring(0,8)} / DB:${pendingList?.[0]?.id?.substring(0,8) || '없음'}` };
   }
 
   return await processApprovalInternal(deposit);
@@ -267,21 +263,9 @@ async function rejectDeposit(depositId: string): Promise<{ toast: string; newTex
     }
   }
 
-  // 4. 못 찾으면 최신 대기중 건 사용
+  // 4. 못 찾으면 에러
   if (!deposit) {
-    const { data: latestPending } = await getSupabase()
-      .from('deposits')
-      .select('id, amount, status, profiles(email)')
-      .eq('status', 'pending')
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single();
-
-    if (latestPending) {
-      deposit = latestPending;
-    } else {
-      return { toast: '대기중인 충전 요청이 없습니다' };
-    }
+    return { toast: '충전 요청을 찾을 수 없습니다' };
   }
 
   if (deposit.status !== 'pending') {

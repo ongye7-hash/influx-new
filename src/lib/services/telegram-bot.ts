@@ -207,6 +207,10 @@ export async function notifyLargeDeposit(deposit: {
 ID: <code>${deposit.id.substring(0, 8)}</code>
 `;
 
+  // 로깅: 버튼에 사용될 ID 확인
+  console.log('[Telegram] Sending notification for deposit ID:', deposit.id);
+  console.log('[Telegram] ID length:', deposit.id.length, 'First 8:', deposit.id.substring(0, 8));
+
   const buttons: InlineButton[][] = [
     [
       { text: '✅ 승인', callback_data: `approve_deposit:${deposit.id}` },
