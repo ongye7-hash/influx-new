@@ -118,70 +118,63 @@ async function handleCallback(
 }
 
 async function approveDeposit(depositId: string): Promise<{ toast: string; newText?: string }> {
-  console.log('[Telegram] Raw depositId:', depositId, 'Length:', depositId?.length);
-
   const cleanId = depositId?.trim();
   if (!cleanId) {
     return { toast: '잘못된 요청입니다' };
   }
 
-  console.log('[Telegram] Clean ID:', cleanId, 'Length:', cleanId.length);
-
-  // 1. 정확한 ID로 조회
-  const { data: exactMatch, error: exactError } = await getSupabase()
-    .from('deposits')
-    .select('id, amount, user_id, status, profiles(email, balance)')
-    .eq('id', cleanId)
-    .single();
-
-  console.log('[Telegram] Exact match result:', exactMatch ? 'FOUND' : 'NOT FOUND', 'Error:', exactError?.message || 'none');
-
-  if (exactMatch) {
-    return await processApprovalInternal(exactMatch);
-  }
-
-  // 2. ID가 8자리면 prefix 검색
-  if (cleanId.length <= 8) {
-    const { data: prefixMatch } = await getSupabase()
+  try {
+    // 1. 조인 없이 deposit만 먼저 조회
+    const { data: depositBasic, error: basicError } = await getSupabase()
       .from('deposits')
-      .select('id, amount, user_id, status, profiles(email, balance)')
-      .ilike('id', `${cleanId}%`)
-      .eq('status', 'pending')
+      .select('id, amount, user_id, status')
+      .eq('id', cleanId)
       .single();
 
-    console.log('[Telegram] Prefix match (8char):', prefixMatch ? 'FOUND' : 'NOT FOUND');
-
-    if (prefixMatch) {
-      return await processApprovalInternal(prefixMatch);
+    if (basicError && basicError.code !== 'PGRST116') {
+      return { toast: `DB에러: ${basicError.code}` };
     }
-  }
 
-  // 3. 전체 목록 조회해서 비교
-  const { data: allPending } = await getSupabase()
-    .from('deposits')
-    .select('id, status')
-    .eq('status', 'pending')
-    .limit(10);
+    // 2. 없으면 prefix로 재시도
+    if (!depositBasic) {
+      const { data: prefixMatch } = await getSupabase()
+        .from('deposits')
+        .select('id, amount, user_id, status')
+        .ilike('id', `${cleanId.substring(0, 8)}%`)
+        .single();
 
-  console.log('[Telegram] All pending deposits:', JSON.stringify(allPending));
-  console.log('[Telegram] Looking for ID starting with:', cleanId);
+      if (!prefixMatch) {
+        return { toast: `없음: ${cleanId.substring(0, 8)}` };
+      }
 
-  // 4. 수동으로 찾기
-  const found = allPending?.find(d => d.id.toLowerCase().startsWith(cleanId.toLowerCase()));
-  if (found) {
-    console.log('[Telegram] Manual match found:', found.id);
-    const { data: deposit } = await getSupabase()
-      .from('deposits')
-      .select('id, amount, user_id, status, profiles(email, balance)')
-      .eq('id', found.id)
+      // prefix로 찾았으면 profile 정보도 가져오기
+      const { data: profile } = await getSupabase()
+        .from('profiles')
+        .select('email, balance')
+        .eq('id', prefixMatch.user_id)
+        .single();
+
+      return await processApprovalInternal({
+        ...prefixMatch,
+        profiles: profile
+      });
+    }
+
+    // 3. 찾았으면 profile 정보도 가져오기
+    const { data: profile } = await getSupabase()
+      .from('profiles')
+      .select('email, balance')
+      .eq('id', depositBasic.user_id)
       .single();
 
-    if (deposit) {
-      return await processApprovalInternal(deposit);
-    }
+    return await processApprovalInternal({
+      ...depositBasic,
+      profiles: profile
+    });
+  } catch (err) {
+    console.error('[Telegram] Error:', err);
+    return { toast: '서버 에러' };
   }
-
-  return { toast: `못찾음. ID:${cleanId} (len:${cleanId.length})` };
 }
 
 async function processApprovalInternal(deposit: any): Promise<{ toast: string; newText?: string }> {
