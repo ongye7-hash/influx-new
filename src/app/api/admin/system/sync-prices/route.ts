@@ -7,6 +7,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseRouteClient } from '@/lib/supabase/server';
 import { syncAllPrices, getMarginSettings, getExchangeRate } from '@/lib/services/pricing-engine';
+import { sendTelegramMessage } from '@/lib/services/telegram-bot';
 
 // Vercel Cron 보안 검증
 function verifyCronRequest(request: NextRequest): boolean {
@@ -78,10 +79,26 @@ export async function GET(request: NextRequest) {
 
     console.log(`[SyncPrices] Cron job completed - Updated: ${result.stats.updated}, Disabled: ${result.stats.disabled}`);
 
-    // 비활성화된 상품이 있으면 알림 (나중에 Slack/Discord webhook 연동 가능)
+    // 비활성화된 상품이 있으면 텔레그램 알림
     if (result.stats.disabled > 0) {
       console.warn(`[SyncPrices] ALERT: ${result.stats.disabled} products disabled due to price spike!`);
-      // TODO: Send notification to admin
+      try {
+        const alertMessage = `⚠️ <b>가격 급등 경고</b>
+━━━━━━━━━━━━━━━
+${result.stats.disabled}개 상품이 자동 비활성화됨
+
+📊 동기화 결과:
+• 업데이트: ${result.stats.updated}개
+• 비활성화: ${result.stats.disabled}개
+• 환율: $1 = ₩${result.exchangeRate?.toLocaleString() || 'N/A'}
+
+⏰ ${new Date().toLocaleString('ko-KR')}
+
+📌 어드민에서 확인하세요: /admin/products`;
+        await sendTelegramMessage(alertMessage);
+      } catch (telegramError) {
+        console.error('[SyncPrices] Telegram notification failed:', telegramError);
+      }
     }
 
     return NextResponse.json({

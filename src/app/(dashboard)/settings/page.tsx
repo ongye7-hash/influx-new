@@ -143,6 +143,9 @@ export default function SettingsPage() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [keyToDelete, setKeyToDelete] = useState<string | null>(null);
 
+  // 알림 설정 저장 상태
+  const [isSavingNotifications, setIsSavingNotifications] = useState(false);
+
   // 추천 코드 생성 함수
   const generateReferralCode = async (userId: string) => {
     const code = 'INF' + Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -184,6 +187,57 @@ export default function SettingsPage() {
     }
   };
 
+  // 알림 설정 로드 함수
+  const loadNotificationSettings = async () => {
+    try {
+      const response = await fetch('/api/notification-settings');
+      const result = await response.json();
+      if (result.success && result.data) {
+        setEmailNotifications(result.data.email_notifications ?? true);
+        setOrderNotifications(result.data.order_notifications ?? true);
+        setMarketingNotifications(result.data.marketing_notifications ?? false);
+        setTelegramNotifications(result.data.telegram_notifications ?? false);
+        setTelegramChatId(result.data.telegram_chat_id || '');
+        setBalanceAlertEnabled(result.data.balance_alert_enabled ?? false);
+        setBalanceAlertThreshold(result.data.balance_alert_threshold ?? 10000);
+      }
+    } catch (error) {
+      console.error('Failed to load notification settings:', error);
+    }
+  };
+
+  // 알림 설정 저장 함수
+  const handleSaveNotificationSettings = async () => {
+    setIsSavingNotifications(true);
+    try {
+      const response = await fetch('/api/notification-settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email_notifications: emailNotifications,
+          order_notifications: orderNotifications,
+          marketing_notifications: marketingNotifications,
+          telegram_notifications: telegramNotifications,
+          telegram_chat_id: telegramChatId,
+          balance_alert_enabled: balanceAlertEnabled,
+          balance_alert_threshold: balanceAlertThreshold,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        toast.success('알림 설정이 저장되었습니다');
+      } else {
+        toast.error(result.error || '저장에 실패했습니다');
+      }
+    } catch (error) {
+      console.error('Failed to save notification settings:', error);
+      toast.error('알림 설정 저장에 실패했습니다');
+    } finally {
+      setIsSavingNotifications(false);
+    }
+  };
+
   // 초기 데이터 로드
   useEffect(() => {
     if (profile) {
@@ -192,6 +246,9 @@ export default function SettingsPage() {
 
       // API 키 로드 (Supabase에서)
       loadApiKeys(profile.id);
+
+      // 알림 설정 로드
+      loadNotificationSettings();
 
       // 추천 코드가 없으면 자동 생성
       if (!profile.referral_code) {
@@ -1139,26 +1196,16 @@ export default function SettingsPage() {
 
           {/* 저장 버튼 */}
           <Button
-            onClick={() => {
-              // 로컬 스토리지에 알림 설정 저장
-              if (profile?.id) {
-                const settings = {
-                  emailNotifications,
-                  orderNotifications,
-                  marketingNotifications,
-                  telegramNotifications,
-                  telegramChatId,
-                  balanceAlertEnabled,
-                  balanceAlertThreshold,
-                };
-                localStorage.setItem(`notification_settings_${profile.id}`, JSON.stringify(settings));
-              }
-              toast.success('알림 설정이 저장되었습니다');
-            }}
+            onClick={handleSaveNotificationSettings}
+            disabled={isSavingNotifications}
             className="w-full"
           >
-            <Save className="mr-2 h-4 w-4" />
-            모든 알림 설정 저장
+            {isSavingNotifications ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Save className="mr-2 h-4 w-4" />
+            )}
+            {isSavingNotifications ? '저장 중...' : '모든 알림 설정 저장'}
           </Button>
         </TabsContent>
       </Tabs>

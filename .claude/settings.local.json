@@ -29,7 +29,9 @@
       "Bash(git stash:*)",
       "Bash(curl:*)",
       "Bash(npm run build:*)",
-      "Bash(timeout 10 npx vercel logs:*)"
+      "Bash(timeout 10 npx vercel logs:*)",
+      "Bash(npx supabase:*)",
+      "Bash(node run-migration.mjs:*)"
     ]
   }
 }

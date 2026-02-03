@@ -107,7 +107,7 @@ async function handleCallback(
       return await listPendingDeposits();
 
     case 'vip_welcome':
-      return { toast: 'VIP 환영 메시지 기능 준비중', newText: undefined };
+      return await sendVipWelcomeMessage(id);
 
     case 'user_detail':
       return await getUserDetail(id);
@@ -300,6 +300,59 @@ async function giftBalanceToUser(email: string): Promise<{ toast: string; newTex
 지급액: ₩${giftAmount.toLocaleString()}
 현재 잔액: ₩${(profile.balance + giftAmount).toLocaleString()}`,
   };
+}
+
+async function sendVipWelcomeMessage(email: string): Promise<{ toast: string; newText?: string }> {
+  try {
+    const { data: profile } = await getSupabase()
+      .from('profiles')
+      .select('id, email, balance')
+      .eq('email', email)
+      .single();
+
+    if (!profile) {
+      return { toast: '유저를 찾을 수 없습니다' };
+    }
+
+    // 1. VIP 전용 쿠폰 발급 (15% 할인, 60일 유효)
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 60);
+    const couponCode = `VIP-${profile.id.substring(0, 4).toUpperCase()}-${Date.now().toString(36).toUpperCase()}`;
+
+    await getSupabase().from('user_coupons').insert({
+      user_id: profile.id,
+      coupon_code: couponCode,
+      coupon_type: 'percentage',
+      discount_value: 15,
+      expires_at: expiresAt.toISOString(),
+      issue_reason: 'VIP 등극 축하',
+    } as never);
+
+    // 2. 보너스 잔액 지급 (10,000원)
+    const bonusAmount = 10000;
+    await getSupabase()
+      .from('profiles')
+      .update({ balance: profile.balance + bonusAmount } as never)
+      .eq('id', profile.id);
+
+    return {
+      toast: 'VIP 환영 완료!',
+      newText: `🌟 <b>VIP 환영 혜택 발송 완료</b>
+━━━━━━━━━━━━━━━
+유저: ${email}
+
+<b>발송된 혜택:</b>
+• 15% 할인 쿠폰 (${couponCode})
+  만료: ${expiresAt.toLocaleDateString('ko-KR')}
+• 보너스 ₩${bonusAmount.toLocaleString()} 지급
+  현재 잔액: ₩${(profile.balance + bonusAmount).toLocaleString()}
+
+🎉 VIP 고객님께 혜택이 전달되었습니다!`,
+    };
+  } catch (error) {
+    console.error('[Telegram] VIP welcome error:', error);
+    return { toast: 'VIP 환영 처리 중 오류' };
+  }
 }
 
 async function listPendingDeposits(): Promise<{ toast: string; newText?: string }> {
