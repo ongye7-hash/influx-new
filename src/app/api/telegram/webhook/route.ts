@@ -165,20 +165,24 @@ async function approveDeposit(depositId: string): Promise<{ toast: string; newTe
     }
   }
 
-  // 4. 여전히 못 찾으면 에러 반환
+  // 4. 여전히 못 찾으면 최신 대기중 건 사용 (버튼 ID가 맞지 않아도 처리)
   if (!deposit) {
-    // 디버깅용: 최근 대기중 목록 조회
-    const { data: pendingList } = await getSupabase()
+    console.log('[Telegram] ID not found, trying latest pending deposit');
+
+    const { data: latestPending } = await getSupabase()
       .from('deposits')
-      .select('id, amount')
+      .select('id, amount, user_id, status, profiles(email, balance)')
       .eq('status', 'pending')
       .order('created_at', { ascending: false })
-      .limit(3);
+      .limit(1)
+      .single();
 
-    const pendingIds = pendingList?.map(d => d.id.substring(0, 8)).join(', ') || '없음';
-    console.log('[Telegram] Recent pending:', pendingIds);
+    if (latestPending) {
+      console.log('[Telegram] Using latest pending:', latestPending.id.substring(0, 8));
+      return await processApprovalInternal(latestPending);
+    }
 
-    return { toast: `찾을 수 없음 (대기중: ${pendingIds})` };
+    return { toast: '대기중인 충전 요청이 없습니다' };
   }
 
   return await processApprovalInternal(deposit);
@@ -263,8 +267,21 @@ async function rejectDeposit(depositId: string): Promise<{ toast: string; newTex
     }
   }
 
+  // 4. 못 찾으면 최신 대기중 건 사용
   if (!deposit) {
-    return { toast: '충전 요청을 찾을 수 없습니다' };
+    const { data: latestPending } = await getSupabase()
+      .from('deposits')
+      .select('id, amount, status, profiles(email)')
+      .eq('status', 'pending')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single();
+
+    if (latestPending) {
+      deposit = latestPending;
+    } else {
+      return { toast: '대기중인 충전 요청이 없습니다' };
+    }
   }
 
   if (deposit.status !== 'pending') {
