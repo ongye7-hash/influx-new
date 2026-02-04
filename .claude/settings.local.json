@@ -31,7 +31,8 @@
       "Bash(npm run build:*)",
       "Bash(timeout 10 npx vercel logs:*)",
       "Bash(npx supabase:*)",
-      "Bash(node run-migration.mjs:*)"
+      "Bash(node run-migration.mjs:*)",
+      "Bash(python3:*)"
     ]
   }
 }

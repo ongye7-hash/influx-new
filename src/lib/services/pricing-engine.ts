@@ -2,6 +2,11 @@
 // 동적 마진 엔진 (Pricing Engine)
 // 도매가 × 환율 × (1 + 마진율) + 고정수수료 = 판매가
 // 역마진 방지 및 급등 감지 시스템
+//
+// [v2 수정사항]
+// 1. 이미 비활성화된 상품은 스킵 (수동 재활성화 필요)
+// 2. 비활성화 시 가격도 함께 업데이트 (재감지 방지)
+// 3. DB 실패 시 disabled 카운트 안 함 (정확한 알림)
 // ============================================
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
@@ -272,6 +277,22 @@ export async function syncAllPrices(
   let skipped = 0;
 
   for (const product of products as Product[]) {
+    // 이미 비활성화된 상품은 스킵 (수동 관리 필요)
+    if (!product.is_active) {
+      skipped++;
+      results.push({
+        productId: product.id,
+        productName: product.name,
+        oldPrice: product.price_per_1000,
+        newPrice: product.price_per_1000,
+        wholesaleUsd: 0,
+        priceChangePercent: 0,
+        action: 'skipped',
+        reason: 'Already disabled (manual review required)',
+      });
+      continue;
+    }
+
     // API 연결이 없으면 스킵
     if (!product.primary_provider_id || !product.primary_service_id) {
       skipped++;
@@ -345,17 +366,34 @@ export async function syncAllPrices(
     // 가격 급등 감지 (50% 이상)
     if (priceChangePercent >= PRICE_SPIKE_THRESHOLD) {
       if (!dryRun) {
-        // 상품 비활성화
+        // 상품 비활성화 + 새 가격으로 업데이트 (다음 동기화 시 재감지 방지)
         const { error: disableError } = await getSupabaseAdmin()
           .from('admin_products')
-          .update({ is_active: false })
+          .update({
+            is_active: false,
+            price_per_1000: newPrice  // 가격도 업데이트하여 재감지 방지
+          })
           .eq('id', product.id);
 
         if (disableError) {
           errors.push(`Failed to disable product ${product.name}: ${disableError.message}`);
+          // DB 실패 시 skipped로 처리
+          skipped++;
+          results.push({
+            productId: product.id,
+            productName: product.name,
+            oldPrice: product.price_per_1000,
+            newPrice,
+            wholesaleUsd,
+            priceChangePercent,
+            action: 'skipped',
+            reason: `DB error: ${disableError.message}`,
+          });
+          continue;
         }
       }
 
+      // DB 성공 또는 dryRun일 때만 disabled 카운트
       disabled++;
       results.push({
         productId: product.id,
@@ -513,12 +551,42 @@ export async function syncProductPrice(
   const newPrice = calculateSellingPrice(wholesaleUsd, exchangeRate, marginRate, fixedFee);
   const priceChangePercent = calculatePriceChangePercent(product.price_per_1000, newPrice);
 
+  // 이미 비활성화된 상품은 스킵
+  if (!product.is_active) {
+    return {
+      productId: product.id,
+      productName: product.name,
+      oldPrice: product.price_per_1000,
+      newPrice: product.price_per_1000,
+      wholesaleUsd: 0,
+      priceChangePercent: 0,
+      action: 'skipped',
+      reason: 'Already disabled (manual review required)',
+    };
+  }
+
   // 가격 급등 감지
   if (priceChangePercent >= PRICE_SPIKE_THRESHOLD) {
-    await getSupabaseAdmin()
+    const { error } = await getSupabaseAdmin()
       .from('admin_products')
-      .update({ is_active: false })
+      .update({
+        is_active: false,
+        price_per_1000: newPrice  // 가격도 업데이트하여 재감지 방지
+      })
       .eq('id', product.id);
+
+    if (error) {
+      return {
+        productId: product.id,
+        productName: product.name,
+        oldPrice: product.price_per_1000,
+        newPrice,
+        wholesaleUsd,
+        priceChangePercent,
+        action: 'skipped',
+        reason: `DB error: ${error.message}`,
+      };
+    }
 
     return {
       productId: product.id,
