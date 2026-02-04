@@ -25,6 +25,10 @@
     {
       "path": "/api/cron/automation",
       "schedule": "0 21 * * *"
+    },
+    {
+      "path": "/api/cron/analytics-report",
+      "schedule": "0 */3 * * *"
     }
   ],
   "regions": ["icn1"]

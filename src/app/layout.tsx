@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { CopyProtection, ImageProtection } from "@/components/security/copy-protection";
+import { VisitorTracker } from "@/components/analytics/VisitorTracker";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -171,6 +173,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <QueryProvider>
+            <Suspense fallback={null}>
+              <VisitorTracker />
+            </Suspense>
             {children}
           </QueryProvider>
           <Toaster
