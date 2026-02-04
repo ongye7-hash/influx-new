@@ -83,9 +83,18 @@ export async function GET(request: NextRequest) {
     if (result.stats.disabled > 0) {
       console.warn(`[SyncPrices] ALERT: ${result.stats.disabled} products disabled due to price spike!`);
       try {
+        // 비활성화된 상품 목록 추출
+        const disabledProducts = result.results
+          .filter(r => r.action === 'disabled')
+          .map(r => `• <b>${r.productName}</b>\n  ₩${r.oldPrice.toLocaleString()} → ₩${r.newPrice.toLocaleString()} (+${r.priceChangePercent.toFixed(0)}%)`)
+          .join('\n');
+
         const alertMessage = `⚠️ <b>가격 급등 경고</b>
 ━━━━━━━━━━━━━━━
-${result.stats.disabled}개 상품이 자동 비활성화됨
+${result.stats.disabled}개 상품 자동 비활성화
+
+🚨 <b>비활성화된 상품:</b>
+${disabledProducts}
 
 📊 동기화 결과:
 • 업데이트: ${result.stats.updated}개
@@ -94,7 +103,7 @@ ${result.stats.disabled}개 상품이 자동 비활성화됨
 
 ⏰ ${new Date().toLocaleString('ko-KR')}
 
-📌 어드민에서 확인하세요: /admin/products`;
+📌 확인: /admin/products`;
         await sendTelegramMessage(alertMessage);
       } catch (telegramError) {
         console.error('[SyncPrices] Telegram notification failed:', telegramError);

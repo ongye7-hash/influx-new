@@ -1,25 +1,30 @@
 // ============================================
 // 유튜브 구독자 늘리기 - SEO 랜딩페이지
 // 타겟 키워드: 유튜브 구독자, 유튜브 구독자 구매, 유튜브 구독자 늘리기
+// Server Component - DB에서 실제 가격 조회
 // ============================================
 
 import { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  ArrowRight, Users, CheckCircle2, Shield, Zap,
-  TrendingUp, Award, Bell, Play, Target
+  ArrowRight, Users, CheckCircle2,
+  TrendingUp, Award, Bell, Play,
 } from 'lucide-react';
 import { FaYoutube } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  getYoutubeSubscriberPrices,
+  getLowestPrice,
+} from '@/lib/seo-prices';
 
 // ============================================
 // SEO Metadata
 // ============================================
 export const metadata: Metadata = {
-  title: '유튜브 구독자 늘리기 - 실제 구독자로 채널 성장 | INFLUX',
-  description: '유튜브 구독자를 안전하게 늘려보세요. 실제 계정 구독자, 수익창출 1000명 달성, 24시간 자동 처리. 유튜브 채널 성장의 첫 걸음.',
+  title: '유튜브 구독자 늘리기 - 채널 성장 | INFLUX',
+  description: '유튜브 구독자를 늘려보세요. 수익창출 1000명 달성, 24시간 자동 처리. 유튜브 채널 성장 서비스.',
   keywords: [
     '유튜브 구독자',
     '유튜브 구독자 늘리기',
@@ -31,8 +36,8 @@ export const metadata: Metadata = {
     '구독자 늘리는법',
   ],
   openGraph: {
-    title: '유튜브 구독자 늘리기 - 실제 구독자 | INFLUX',
-    description: '유튜브 구독자를 안전하게 늘려보세요. 수익창출 1000명 달성.',
+    title: '유튜브 구독자 늘리기 | INFLUX',
+    description: '유튜브 구독자를 늘려보세요. 수익창출 1000명 달성.',
     type: 'website',
     url: 'https://www.influx-lab.com/youtube-subscribers',
   },
@@ -42,9 +47,26 @@ export const metadata: Metadata = {
 };
 
 // ============================================
-// Page Component
+// Page Component (Server Component)
 // ============================================
-export default function YouTubeSubscribersPage() {
+export default async function YouTubeSubscribersPage() {
+  // 실제 가격 조회
+  const products = await getYoutubeSubscriberPrices();
+  const lowestPrice = getLowestPrice(products);
+
+  // 구독자 패키지 가격 (100, 500, 1000, 5000 구독자)
+  const subsPackages = lowestPrice > 0
+    ? [
+        { quantity: 100, price: Math.round((lowestPrice / 1000) * 100) },
+        { quantity: 500, price: Math.round((lowestPrice / 1000) * 500) },
+        { quantity: 1000, price: Math.round(lowestPrice) },
+        { quantity: 5000, price: Math.round(lowestPrice * 5) },
+      ]
+    : [];
+
+  // 최저 시작 가격 (10명 기준)
+  const minStartPrice = lowestPrice > 0 ? Math.round((lowestPrice / 1000) * 10) : null;
+
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
@@ -56,14 +78,14 @@ export default function YouTubeSubscribersPage() {
           <nav className="flex items-center justify-center gap-2 text-sm text-white/50 mb-8">
             <Link href="/" className="hover:text-white">홈</Link>
             <span>/</span>
-            <Link href="/services/youtube" className="hover:text-white">유튜브</Link>
+            <Link href="/order" className="hover:text-white">주문</Link>
             <span>/</span>
             <span className="text-white">구독자</span>
           </nav>
 
           <Badge className="mb-4 bg-red-500/20 text-red-400 border-red-500/30">
             <FaYoutube className="w-3 h-3 mr-1" />
-            수익창출 1000명 달성
+            유튜브 구독자 서비스
           </Badge>
 
           <h1 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
@@ -74,7 +96,7 @@ export default function YouTubeSubscribersPage() {
 
           <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">
             구독자 1,000명은 수익창출의 첫 관문입니다.
-            <strong className="text-white"> 실제 계정 구독자</strong>로 빠르고 안전하게 달성하세요.
+            <strong className="text-white"> 구독자를 늘려</strong> 빠르게 달성하세요.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -91,9 +113,11 @@ export default function YouTubeSubscribersPage() {
             </Button>
           </div>
 
-          <p className="text-sm text-white/50 mt-4">
-            구독자 10명 ₩500부터 | 24시간 자동 처리
-          </p>
+          {minStartPrice && (
+            <p className="text-sm text-white/50 mt-4">
+              구독자 10명 {minStartPrice.toLocaleString()}원부터 | 24시간 자동 처리
+            </p>
+          )}
         </div>
       </section>
 
@@ -128,10 +152,6 @@ export default function YouTubeSubscribersPage() {
               </CardContent>
             </Card>
           </div>
-
-          <p className="text-center text-white/40 text-sm mt-8">
-            INFLUX에서 구독자와 시청시간 모두 해결할 수 있습니다
-          </p>
         </div>
       </section>
 
@@ -189,93 +209,78 @@ export default function YouTubeSubscribersPage() {
       <section className="py-16 px-4 bg-white/[0.02]">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            구독자 패키지
+            구독자 가격
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="bg-white/5 border-white/10">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-white mb-2">스타터</h3>
-                <p className="text-3xl font-black text-red-400 mb-4">100명</p>
-                <p className="text-2xl font-bold text-white mb-6">₩15,000</p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    실제 계정
-                  </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    1~3일 처리
-                  </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    30일 보충
-                  </li>
-                </ul>
-                <Button className="w-full" variant="outline" asChild>
-                  <Link href="/order">주문하기</Link>
-                </Button>
-              </CardContent>
-            </Card>
+          <div className="bg-gradient-to-br from-red-500/10 to-orange-500/10 rounded-2xl p-8 border border-white/10 max-w-md mx-auto">
+            {subsPackages.length > 0 ? (
+              <div className="space-y-4">
+                {subsPackages.map((pkg, idx) => (
+                  <div
+                    key={pkg.quantity}
+                    className={`flex justify-between items-center py-3 ${
+                      idx < subsPackages.length - 1 ? 'border-b border-white/10' : ''
+                    }`}
+                  >
+                    <span className="text-white">{pkg.quantity.toLocaleString()}명</span>
+                    <span className="text-red-400 font-bold">₩{pkg.price.toLocaleString()}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-white/60 text-sm mb-4 text-center">
+                실시간 가격은 주문 페이지에서 확인하세요.
+              </p>
+            )}
 
-            <Card className="bg-gradient-to-br from-red-500/20 to-orange-500/20 border-red-500/30 relative">
-              <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-500">
-                인기
-              </Badge>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-white mb-2">수익창출</h3>
-                <p className="text-3xl font-black text-red-400 mb-4">1,000명</p>
-                <p className="text-2xl font-bold text-white mb-6">₩120,000</p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    수익창출 달성
-                  </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    7~14일 자연 증가
-                  </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    60일 보충
-                  </li>
-                </ul>
-                <Button className="w-full bg-red-600 hover:bg-red-700" asChild>
-                  <Link href="/order">주문하기</Link>
-                </Button>
-              </CardContent>
-            </Card>
+            <p className="text-center text-white/40 text-sm mt-4">
+              * 상품별 가격이 다를 수 있습니다
+            </p>
 
-            <Card className="bg-white/5 border-white/10">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-white mb-2">그로스</h3>
-                <p className="text-3xl font-black text-red-400 mb-4">5,000명</p>
-                <p className="text-2xl font-bold text-white mb-6">₩500,000</p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    채널 권위 확보
-                  </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    30일 자연 증가
-                  </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    90일 보충
-                  </li>
-                </ul>
-                <Button className="w-full" variant="outline" asChild>
-                  <Link href="/order">주문하기</Link>
-                </Button>
-              </CardContent>
-            </Card>
+            <Button className="w-full mt-6 bg-red-600 hover:bg-red-700" asChild>
+              <Link href="/order">주문하기</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Features */}
+      <section className="py-16 px-4">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">
+            INFLUX 구독자 서비스
+          </h2>
+
+          <div className="space-y-6">
+            <div className="flex gap-4">
+              <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="font-bold text-white mb-1">자연스러운 증가</h3>
+                <p className="text-white/60 text-sm">한 번에 몰아서가 아닌, 자연스럽게 분산되어 증가합니다.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="font-bold text-white mb-1">24시간 자동 처리</h3>
+                <p className="text-white/60 text-sm">주문 후 자동으로 처리되며 진행 상황을 확인할 수 있습니다.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="font-bold text-white mb-1">다양한 상품 옵션</h3>
+                <p className="text-white/60 text-sm">저가형부터 고품질까지 다양한 구독자 상품이 있습니다.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-white/[0.02]">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
             자주 묻는 질문
@@ -285,23 +290,30 @@ export default function YouTubeSubscribersPage() {
             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="font-bold text-white mb-2">구독자가 빠지면 어떻게 하나요?</h3>
               <p className="text-white/60 text-sm">
-                30~90일 보충 정책이 있습니다. 이탈한 구독자 수만큼 무료로 재충전해드립니다.
+                상품별로 리필 정책이 다릅니다. 주문 페이지에서 각 상품의 리필 기간을 확인해주세요.
               </p>
             </div>
 
             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-              <h3 className="font-bold text-white mb-2">구독자 구매하면 수익창출 심사 통과되나요?</h3>
+              <h3 className="font-bold text-white mb-2">구독자를 늘리면 수익창출 심사 통과되나요?</h3>
               <p className="text-white/60 text-sm">
                 구독자 수는 조건 중 하나일 뿐입니다. 시청시간 4,000시간도 함께 충족해야 합니다.
-                INFLUX에서 시청시간 서비스도 제공합니다.
+                조회수/시청시간 서비스도 함께 이용해보세요.
               </p>
             </div>
 
             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-              <h3 className="font-bold text-white mb-2">채널이 정지되지 않나요?</h3>
+              <h3 className="font-bold text-white mb-2">채널 URL만 있으면 되나요?</h3>
               <p className="text-white/60 text-sm">
-                INFLUX는 실제 계정을 사용하며 자연스러운 증가 패턴을 따릅니다.
-                지금까지 구독자 서비스로 인한 채널 정지 사례는 없습니다.
+                네, 채널 URL만 입력하면 됩니다. 비밀번호나 계정 정보는 필요 없습니다.
+              </p>
+            </div>
+
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h3 className="font-bold text-white mb-2">결제는 어떻게 하나요?</h3>
+              <p className="text-white/60 text-sm">
+                무통장입금 또는 USDT 암호화폐 결제를 지원합니다.
+                충전 후 잔액으로 주문하는 방식입니다.
               </p>
             </div>
           </div>
@@ -312,10 +324,10 @@ export default function YouTubeSubscribersPage() {
       <section className="py-20 px-4 bg-gradient-to-t from-red-500/10 to-transparent">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            수익창출, 지금 시작하세요
+            채널 성장, 지금 시작하세요
           </h2>
           <p className="text-white/60 mb-8">
-            구독자 1,000명 달성. 유튜버의 첫 걸음.
+            무료 체험으로 먼저 테스트해보세요.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

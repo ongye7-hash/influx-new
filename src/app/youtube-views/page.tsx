@@ -1,25 +1,30 @@
 // ============================================
 // 유튜브 조회수 늘리기 - SEO 랜딩페이지
 // 타겟 키워드: 유튜브 조회수, 유튜브 트래픽, 유튜브 조회수 구매
+// Server Component - DB에서 실제 가격 조회
 // ============================================
 
 import { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  ArrowRight, Eye, CheckCircle2, Shield, Zap,
-  TrendingUp, Clock, Play, BarChart3, Target
+  ArrowRight, CheckCircle2,
+  TrendingUp, BarChart3, Target,
 } from 'lucide-react';
 import { FaYoutube } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  getYoutubeViewsPrices,
+  getLowestPrice,
+} from '@/lib/seo-prices';
 
 // ============================================
 // SEO Metadata
 // ============================================
 export const metadata: Metadata = {
-  title: '유튜브 조회수 늘리기 - 실제 트래픽으로 조회수 증가 | INFLUX',
-  description: '유튜브 조회수를 안전하고 빠르게 늘려보세요. 실제 시청 트래픽, 알고리즘 최적화, 수익창출 조건 달성. 100원부터 시작 가능한 유튜브 조회수 서비스.',
+  title: '유튜브 조회수 늘리기 - 트래픽으로 조회수 증가 | INFLUX',
+  description: '유튜브 조회수를 빠르게 늘려보세요. 트래픽 기반 조회수 증가, 24시간 자동 처리. 유튜브 조회수 서비스.',
   keywords: [
     '유튜브 조회수',
     '유튜브 조회수 늘리기',
@@ -31,8 +36,8 @@ export const metadata: Metadata = {
     'YouTube views',
   ],
   openGraph: {
-    title: '유튜브 조회수 늘리기 - 실제 트래픽 | INFLUX',
-    description: '유튜브 조회수를 안전하고 빠르게 늘려보세요. 실제 시청 트래픽으로 알고리즘 최적화.',
+    title: '유튜브 조회수 늘리기 | INFLUX',
+    description: '유튜브 조회수를 빠르게 늘려보세요. 트래픽 기반 조회수 증가.',
     type: 'website',
     url: 'https://www.influx-lab.com/youtube-views',
   },
@@ -42,9 +47,26 @@ export const metadata: Metadata = {
 };
 
 // ============================================
-// Page Component
+// Page Component (Server Component)
 // ============================================
-export default function YouTubeViewsPage() {
+export default async function YouTubeViewsPage() {
+  // 실제 가격 조회
+  const products = await getYoutubeViewsPrices();
+  const lowestPrice = getLowestPrice(products);
+
+  // 대량 주문 가격 (1000, 10000, 50000, 100000 조회수)
+  const viewsPackages = lowestPrice > 0
+    ? [
+        { quantity: 1000, price: Math.round(lowestPrice) },
+        { quantity: 10000, price: Math.round(lowestPrice * 10) },
+        { quantity: 50000, price: Math.round(lowestPrice * 50) },
+        { quantity: 100000, price: Math.round(lowestPrice * 100) },
+      ]
+    : [];
+
+  // 최저 시작 가격 (1000 조회수 기준)
+  const minStartPrice = lowestPrice > 0 ? Math.round(lowestPrice) : null;
+
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
@@ -56,25 +78,25 @@ export default function YouTubeViewsPage() {
           <nav className="flex items-center justify-center gap-2 text-sm text-white/50 mb-8">
             <Link href="/" className="hover:text-white">홈</Link>
             <span>/</span>
-            <Link href="/services/youtube" className="hover:text-white">유튜브</Link>
+            <Link href="/order" className="hover:text-white">주문</Link>
             <span>/</span>
             <span className="text-white">조회수</span>
           </nav>
 
           <Badge className="mb-4 bg-red-500/20 text-red-400 border-red-500/30">
             <FaYoutube className="w-3 h-3 mr-1" />
-            유튜브 공식 가이드라인 준수
+            유튜브 조회수 서비스
           </Badge>
 
           <h1 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
             유튜브 조회수 <span className="text-red-500">늘리기</span>
             <br />
-            실제 트래픽으로 안전하게
+            트래픽 기반 증가
           </h1>
 
           <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-            가짜 조회수는 의미 없습니다. <strong className="text-white">실제 시청 트래픽</strong>으로
-            유튜브 알고리즘에 긍정적인 신호를 보내고, 추천 영상에 노출되세요.
+            조회수가 높은 영상은 <strong className="text-white">유튜브 추천 알고리즘</strong>에 유리합니다.
+            트래픽 기반 조회수로 영상 노출을 높이세요.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -91,9 +113,11 @@ export default function YouTubeViewsPage() {
             </Button>
           </div>
 
-          <p className="text-sm text-white/50 mt-4">
-            100원부터 시작 | 24시간 자동 처리 | 수익창출 안전
-          </p>
+          {minStartPrice && (
+            <p className="text-sm text-white/50 mt-4">
+              1,000 조회수 {minStartPrice.toLocaleString()}원부터 | 24시간 자동 처리
+            </p>
+          )}
         </div>
       </section>
 
@@ -147,121 +171,85 @@ export default function YouTubeViewsPage() {
         </div>
       </section>
 
-      {/* Service Types */}
+      {/* Service Features */}
       <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            조회수 서비스 종류
+            INFLUX 조회수 서비스
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="bg-gradient-to-br from-red-500/10 to-orange-500/10 border-white/10">
-              <CardContent className="p-8">
-                <Badge className="mb-4 bg-red-500/20 text-red-400">인기</Badge>
-                <h3 className="text-2xl font-bold text-white mb-4">일반 조회수</h3>
-                <p className="text-white/60 mb-6">
-                  빠른 조회수 증가가 필요할 때. 글로벌 트래픽으로
-                  비용 대비 효율적인 조회수를 얻으세요.
-                </p>
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                    1,000 조회수 ₩1,000~
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                    1~24시간 내 시작
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                    자연스러운 분산 처리
-                  </li>
-                </ul>
-                <Button className="w-full bg-red-600 hover:bg-red-700" asChild>
-                  <Link href="/order">주문하기</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-white/10">
-              <CardContent className="p-8">
-                <Badge className="mb-4 bg-blue-500/20 text-blue-400">프리미엄</Badge>
-                <h3 className="text-2xl font-bold text-white mb-4">고품질 조회수</h3>
-                <p className="text-white/60 mb-6">
-                  시청 지속시간이 중요할 때. 실제 시청 패턴으로
-                  알고리즘에 최적화된 조회수를 얻으세요.
-                </p>
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                    높은 시청 지속시간
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                    실제 시청 패턴
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                    수익창출 안전
-                  </li>
-                </ul>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700" asChild>
-                  <Link href="/order">주문하기</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="py-16 px-4 bg-white/[0.02]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
-            조회수 가격표
-          </h2>
-
-          <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
-            <div className="space-y-4">
-              <div className="flex justify-between items-center py-4 border-b border-white/10">
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
                 <div>
-                  <span className="text-white font-medium">1,000 조회수</span>
-                  <span className="text-white/40 text-sm ml-2">테스트용</span>
+                  <h3 className="font-bold text-white mb-1">다양한 조회수 옵션</h3>
+                  <p className="text-white/60 text-sm">일반 조회수, 고품질 조회수, 쇼츠 조회수 등 다양한 상품.</p>
                 </div>
-                <span className="text-red-400 font-bold text-lg">₩1,000</span>
               </div>
-              <div className="flex justify-between items-center py-4 border-b border-white/10">
+
+              <div className="flex gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
                 <div>
-                  <span className="text-white font-medium">10,000 조회수</span>
-                  <span className="text-white/40 text-sm ml-2">소규모 채널</span>
+                  <h3 className="font-bold text-white mb-1">자연스러운 분산 처리</h3>
+                  <p className="text-white/60 text-sm">한 번에 몰아서가 아닌, 자연스럽게 분산되어 증가합니다.</p>
                 </div>
-                <span className="text-red-400 font-bold text-lg">₩8,000</span>
               </div>
-              <div className="flex justify-between items-center py-4 border-b border-white/10">
+
+              <div className="flex gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
                 <div>
-                  <span className="text-white font-medium">50,000 조회수</span>
-                  <Badge className="ml-2 bg-amber-500/20 text-amber-400 text-xs">인기</Badge>
+                  <h3 className="font-bold text-white mb-1">24시간 자동 처리</h3>
+                  <p className="text-white/60 text-sm">주문 후 자동으로 처리되며 진행 상황을 확인할 수 있습니다.</p>
                 </div>
-                <span className="text-red-400 font-bold text-lg">₩35,000</span>
               </div>
-              <div className="flex justify-between items-center py-4">
+
+              <div className="flex gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
                 <div>
-                  <span className="text-white font-medium">100,000 조회수</span>
-                  <span className="text-white/40 text-sm ml-2">바이럴용</span>
+                  <h3 className="font-bold text-white mb-1">대량 주문 가능</h3>
+                  <p className="text-white/60 text-sm">최대 수백만 조회수까지 대량 주문이 가능합니다.</p>
                 </div>
-                <span className="text-red-400 font-bold text-lg">₩60,000</span>
               </div>
             </div>
 
-            <p className="text-center text-white/40 text-sm mt-6">
-              * 가격은 서비스 종류에 따라 달라질 수 있습니다
-            </p>
+            <div className="bg-gradient-to-br from-red-500/10 to-orange-500/10 rounded-2xl p-8 border border-white/10">
+              <h3 className="text-xl font-bold text-white mb-6">조회수 가격</h3>
+
+              {viewsPackages.length > 0 ? (
+                <div className="space-y-4">
+                  {viewsPackages.map((pkg, idx) => (
+                    <div
+                      key={pkg.quantity}
+                      className={`flex justify-between items-center py-3 ${
+                        idx < viewsPackages.length - 1 ? 'border-b border-white/10' : ''
+                      }`}
+                    >
+                      <span className="text-white">{pkg.quantity.toLocaleString()} 조회수</span>
+                      <span className="text-red-400 font-bold">₩{pkg.price.toLocaleString()}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-white/60 text-sm mb-4">
+                  실시간 가격은 주문 페이지에서 확인하세요.
+                </p>
+              )}
+
+              <p className="text-center text-white/40 text-sm mt-4">
+                * 상품별 가격이 다를 수 있습니다
+              </p>
+
+              <Button className="w-full mt-6 bg-red-600 hover:bg-red-700" asChild>
+                <Link href="/order">주문하기</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-white/[0.02]">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
             자주 묻는 질문
@@ -269,26 +257,34 @@ export default function YouTubeViewsPage() {
 
           <div className="space-y-6">
             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-              <h3 className="font-bold text-white mb-2">조회수 구매하면 채널이 정지되나요?</h3>
-              <p className="text-white/60 text-sm">
-                INFLUX는 실제 트래픽을 사용하며 유튜브 가이드라인을 준수합니다.
-                현재까지 조회수로 인한 채널 정지 사례는 없습니다.
-              </p>
-            </div>
-
-            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-              <h3 className="font-bold text-white mb-2">수익창출 심사에 영향이 있나요?</h3>
-              <p className="text-white/60 text-sm">
-                고품질 조회수 서비스는 실제 시청 패턴을 따르므로 수익창출에 안전합니다.
-                단, 시청시간 서비스와 함께 사용하시면 더 효과적입니다.
-              </p>
-            </div>
-
-            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="font-bold text-white mb-2">조회수가 줄어들 수 있나요?</h3>
               <p className="text-white/60 text-sm">
-                유튜브는 주기적으로 비정상 조회수를 삭제합니다.
-                INFLUX 조회수는 실제 트래픽이므로 삭제율이 매우 낮습니다.
+                유튜브는 주기적으로 비정상 조회수를 점검합니다.
+                상품별로 리필 정책이 다르니 주문 페이지에서 확인해주세요.
+              </p>
+            </div>
+
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h3 className="font-bold text-white mb-2">비공개 영상도 가능한가요?</h3>
+              <p className="text-white/60 text-sm">
+                아니요, 조회수 서비스는 공개 또는 미등록 영상만 가능합니다.
+                비공개 영상에는 조회수를 추가할 수 없습니다.
+              </p>
+            </div>
+
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h3 className="font-bold text-white mb-2">쇼츠 영상도 가능한가요?</h3>
+              <p className="text-white/60 text-sm">
+                네, 쇼츠 전용 조회수 상품도 있습니다.
+                주문 페이지에서 쇼츠 조회수 상품을 선택해주세요.
+              </p>
+            </div>
+
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h3 className="font-bold text-white mb-2">결제는 어떻게 하나요?</h3>
+              <p className="text-white/60 text-sm">
+                무통장입금 또는 USDT 암호화폐 결제를 지원합니다.
+                충전 후 잔액으로 주문하는 방식입니다.
               </p>
             </div>
           </div>
@@ -302,7 +298,7 @@ export default function YouTubeViewsPage() {
             영상 조회수, 지금 바로 늘려보세요
           </h2>
           <p className="text-white/60 mb-8">
-            100원부터 테스트 가능. 24시간 자동 처리.
+            무료 체험으로 먼저 테스트해보세요.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -313,7 +309,7 @@ export default function YouTubeViewsPage() {
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10" asChild>
-              <Link href="/free-trial">무료 체험</Link>
+              <Link href="/youtube-subscribers">구독자도 함께</Link>
             </Button>
           </div>
         </div>

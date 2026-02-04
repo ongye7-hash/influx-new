@@ -1,25 +1,30 @@
 // ============================================
 // 인스타그램 좋아요 - SEO 랜딩페이지
 // 타겟 키워드: 인스타 좋아요, 인스타그램 좋아요 늘리기, 인스타 좋아요 구매
+// Server Component - DB에서 실제 가격 조회
 // ============================================
 
 import { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  ArrowRight, Heart, CheckCircle2, Shield, Zap,
-  TrendingUp, Star, Eye, Sparkles, Target
+  ArrowRight, Heart, CheckCircle2,
+  TrendingUp, Eye, Sparkles,
 } from 'lucide-react';
-import { FaInstagram } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  getInstagramLikesPrices,
+  generatePricePackages,
+  getLowestPrice,
+} from '@/lib/seo-prices';
 
 // ============================================
 // SEO Metadata
 // ============================================
 export const metadata: Metadata = {
   title: '인스타 좋아요 늘리기 - 게시물 인기도 상승 | INFLUX',
-  description: '인스타그램 좋아요를 빠르고 안전하게 늘려보세요. 한국인 좋아요, 외국인 좋아요, 자동 좋아요 서비스. 게시물당 10원부터 시작.',
+  description: '인스타그램 좋아요를 빠르고 안전하게 늘려보세요. 한국인 좋아요, 자동 좋아요 서비스. 게시물 인기도를 높이세요.',
   keywords: [
     '인스타 좋아요',
     '인스타그램 좋아요',
@@ -42,9 +47,17 @@ export const metadata: Metadata = {
 };
 
 // ============================================
-// Page Component
+// Page Component (Server Component)
 // ============================================
-export default function InstagramLikesPage() {
+export default async function InstagramLikesPage() {
+  // 실제 가격 조회
+  const products = await getInstagramLikesPrices();
+  const lowestPrice = getLowestPrice(products);
+  const packages = lowestPrice > 0 ? generatePricePackages(lowestPrice) : [];
+
+  // 최저 시작 가격 (10개 기준)
+  const minStartPrice = lowestPrice > 0 ? Math.round((lowestPrice / 1000) * 10) : null;
+
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
@@ -56,7 +69,7 @@ export default function InstagramLikesPage() {
           <nav className="flex items-center justify-center gap-2 text-sm text-white/50 mb-8">
             <Link href="/" className="hover:text-white">홈</Link>
             <span>/</span>
-            <Link href="/services/instagram" className="hover:text-white">인스타그램</Link>
+            <Link href="/order" className="hover:text-white">주문</Link>
             <span>/</span>
             <span className="text-white">좋아요</span>
           </nav>
@@ -91,9 +104,11 @@ export default function InstagramLikesPage() {
             </Button>
           </div>
 
-          <p className="text-sm text-white/50 mt-4">
-            좋아요 10개 ₩100부터 | 5분 내 시작
-          </p>
+          {minStartPrice && (
+            <p className="text-sm text-white/50 mt-4">
+              10개 {minStartPrice.toLocaleString()}원부터 | 빠른 처리
+            </p>
+          )}
         </div>
       </section>
 
@@ -147,134 +162,81 @@ export default function InstagramLikesPage() {
         </div>
       </section>
 
-      {/* Service Types */}
+      {/* Service Features */}
       <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            좋아요 서비스 종류
+            INFLUX 좋아요 서비스
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="bg-white/5 border-white/10">
-              <CardContent className="p-6">
-                <Badge className="mb-4 bg-emerald-500/20 text-emerald-400">저렴한</Badge>
-                <h3 className="text-xl font-bold text-white mb-2">글로벌 좋아요</h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-bold text-white mb-1">한국인/글로벌 선택</h3>
+                  <p className="text-white/60 text-sm">타겟에 맞는 좋아요를 선택할 수 있습니다.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-bold text-white mb-1">빠른 시작</h3>
+                  <p className="text-white/60 text-sm">주문 후 빠르게 좋아요가 시작됩니다.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-bold text-white mb-1">모든 콘텐츠 지원</h3>
+                  <p className="text-white/60 text-sm">일반 게시물, 릴스, IGTV 모두 가능합니다.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-bold text-white mb-1">24시간 자동 처리</h3>
+                  <p className="text-white/60 text-sm">주문 후 자동으로 처리됩니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-pink-500/10 to-purple-500/10 rounded-2xl p-8 border border-white/10">
+              <h3 className="text-xl font-bold text-white mb-6">좋아요 가격</h3>
+
+              {packages.length > 0 ? (
+                <div className="space-y-4">
+                  {packages.map((pkg, idx) => (
+                    <div
+                      key={pkg.quantity}
+                      className={`flex justify-between items-center py-3 ${
+                        idx < packages.length - 1 ? 'border-b border-white/10' : ''
+                      }`}
+                    >
+                      <span className="text-white">{pkg.quantity.toLocaleString()}개</span>
+                      <span className="text-pink-400 font-bold">₩{pkg.price.toLocaleString()}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
                 <p className="text-white/60 text-sm mb-4">
-                  전 세계 계정의 좋아요.
-                  빠르고 저렴하게 좋아요 수를 늘리세요.
+                  실시간 가격은 주문 페이지에서 확인하세요.
                 </p>
-                <p className="text-2xl font-bold text-pink-400 mb-4">
-                  100개 <span className="text-lg">₩500</span>
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    5분 내 시작
-                  </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    대량 주문 가능
-                  </li>
-                </ul>
-                <Button className="w-full" variant="outline" asChild>
-                  <Link href="/order">주문하기</Link>
-                </Button>
-              </CardContent>
-            </Card>
+              )}
 
-            <Card className="bg-gradient-to-br from-pink-500/20 to-purple-500/20 border-pink-500/30 relative">
-              <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-pink-500">
-                추천
-              </Badge>
-              <CardContent className="p-6">
-                <Badge className="mb-4 bg-pink-500/20 text-pink-400">한국인</Badge>
-                <h3 className="text-xl font-bold text-white mb-2">한국인 좋아요</h3>
-                <p className="text-white/60 text-sm mb-4">
-                  실제 한국 계정의 좋아요.
-                  타겟 고객에게 더 효과적입니다.
-                </p>
-                <p className="text-2xl font-bold text-pink-400 mb-4">
-                  100개 <span className="text-lg">₩3,000</span>
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    실제 한국 계정
-                  </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    알고리즘 최적화
-                  </li>
-                </ul>
-                <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-600" asChild>
-                  <Link href="/order">주문하기</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/5 border-white/10">
-              <CardContent className="p-6">
-                <Badge className="mb-4 bg-blue-500/20 text-blue-400">자동화</Badge>
-                <h3 className="text-xl font-bold text-white mb-2">자동 좋아요</h3>
-                <p className="text-white/60 text-sm mb-4">
-                  새 게시물에 자동으로 좋아요.
-                  매번 주문할 필요 없이 편리합니다.
-                </p>
-                <p className="text-2xl font-bold text-pink-400 mb-4">
-                  월 <span className="text-lg">₩30,000~</span>
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    신규 게시물 자동 감지
-                  </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    설정한 수량만큼 자동
-                  </li>
-                </ul>
-                <Button className="w-full" variant="outline" asChild>
-                  <Link href="/order">주문하기</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Table */}
-      <section className="py-16 px-4 bg-white/[0.02]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
-            좋아요 가격표
-          </h2>
-
-          <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
-            <h3 className="text-lg font-bold text-white mb-6 text-center">한국인 좋아요</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center py-3 border-b border-white/10">
-                <span className="text-white">50개</span>
-                <span className="text-pink-400 font-bold">₩2,000</span>
-              </div>
-              <div className="flex justify-between items-center py-3 border-b border-white/10">
-                <span className="text-white">100개</span>
-                <span className="text-pink-400 font-bold">₩3,000</span>
-              </div>
-              <div className="flex justify-between items-center py-3 border-b border-white/10">
-                <span className="text-white">500개</span>
-                <span className="text-pink-400 font-bold">₩12,000</span>
-              </div>
-              <div className="flex justify-between items-center py-3">
-                <span className="text-white">1,000개</span>
-                <span className="text-pink-400 font-bold">₩20,000</span>
-              </div>
+              <Button className="w-full mt-6 bg-gradient-to-r from-pink-500 to-purple-600" asChild>
+                <Link href="/order">주문하기</Link>
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-white/[0.02]">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
             자주 묻는 질문
@@ -284,9 +246,8 @@ export default function InstagramLikesPage() {
             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="font-bold text-white mb-2">좋아요가 줄어들 수 있나요?</h3>
               <p className="text-white/60 text-sm">
-                인스타그램이 비정상 좋아요를 삭제할 수 있습니다.
-                하지만 INFLUX의 좋아요는 실제 계정이므로 삭제율이 낮습니다.
-                30일 내 이탈 시 무료 보충해드립니다.
+                인스타그램 정책에 따라 일부 감소할 수 있습니다.
+                상품별로 리필 정책이 다르니 주문 페이지에서 확인해주세요.
               </p>
             </div>
 
@@ -305,6 +266,14 @@ export default function InstagramLikesPage() {
                 게시물 URL만 있으면 됩니다.
               </p>
             </div>
+
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h3 className="font-bold text-white mb-2">결제는 어떻게 하나요?</h3>
+              <p className="text-white/60 text-sm">
+                무통장입금 또는 USDT 암호화폐 결제를 지원합니다.
+                충전 후 잔액으로 주문하는 방식입니다.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -316,7 +285,7 @@ export default function InstagramLikesPage() {
             게시물 인기도, 지금 올려보세요
           </h2>
           <p className="text-white/60 mb-8">
-            좋아요 10개 ₩100부터. 5분 내 시작.
+            무료 체험으로 먼저 테스트해보세요.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

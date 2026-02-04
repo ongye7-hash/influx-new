@@ -1,25 +1,31 @@
 // ============================================
 // 인스타그램 한국인 팔로워 - SEO 랜딩페이지
 // 타겟 키워드: 인스타 팔로워 한국인, 인스타그램 한국인 팔로워
+// Server Component - DB에서 실제 가격 조회
 // ============================================
 
 import { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  ArrowRight, Users, CheckCircle2, Shield, Zap,
-  TrendingUp, Star, Clock, MessageCircle, Heart
+  ArrowRight, Users, CheckCircle2, Shield,
+  TrendingUp,
 } from 'lucide-react';
 import { FaInstagram } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  getInstagramKoreanFollowerPrices,
+  generatePricePackages,
+  getLowestPrice,
+} from '@/lib/seo-prices';
 
 // ============================================
 // SEO Metadata
 // ============================================
 export const metadata: Metadata = {
   title: '인스타 팔로워 한국인 - 실제 한국 계정으로 팔로워 늘리기 | INFLUX',
-  description: '인스타그램 한국인 팔로워를 안전하게 늘려보세요. 실제 한국 계정, 자연스러운 증가, 24시간 자동 처리. 500원부터 시작 가능한 인스타 팔로워 서비스.',
+  description: '인스타그램 한국인 팔로워를 안전하게 늘려보세요. 실제 한국 계정, 자연스러운 증가, 24시간 자동 처리. 인스타 팔로워 서비스.',
   keywords: [
     '인스타 팔로워 한국인',
     '인스타그램 한국인 팔로워',
@@ -42,9 +48,17 @@ export const metadata: Metadata = {
 };
 
 // ============================================
-// Page Component
+// Page Component (Server Component)
 // ============================================
-export default function InstagramFollowersKoreaPage() {
+export default async function InstagramFollowersKoreaPage() {
+  // 실제 가격 조회
+  const products = await getInstagramKoreanFollowerPrices();
+  const lowestPrice = getLowestPrice(products);
+  const packages = lowestPrice > 0 ? generatePricePackages(lowestPrice) : [];
+
+  // 최저 시작 가격 (10명 기준)
+  const minStartPrice = lowestPrice > 0 ? Math.round((lowestPrice / 1000) * 10) : null;
+
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
@@ -56,14 +70,14 @@ export default function InstagramFollowersKoreaPage() {
           <nav className="flex items-center justify-center gap-2 text-sm text-white/50 mb-8">
             <Link href="/" className="hover:text-white">홈</Link>
             <span>/</span>
-            <Link href="/services/instagram" className="hover:text-white">인스타그램</Link>
+            <Link href="/order" className="hover:text-white">주문</Link>
             <span>/</span>
             <span className="text-white">한국인 팔로워</span>
           </nav>
 
           <Badge className="mb-4 bg-pink-500/20 text-pink-400 border-pink-500/30">
             <FaInstagram className="w-3 h-3 mr-1" />
-            인스타그램 공식 파트너
+            인스타그램 팔로워 서비스
           </Badge>
 
           <h1 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
@@ -91,9 +105,11 @@ export default function InstagramFollowersKoreaPage() {
             </Button>
           </div>
 
-          <p className="text-sm text-white/50 mt-4">
-            500원부터 시작 | 24시간 자동 처리 | 100% 안전 보장
-          </p>
+          {minStartPrice && (
+            <p className="text-sm text-white/50 mt-4">
+              {minStartPrice.toLocaleString()}원부터 시작 | 24시간 자동 처리
+            </p>
+          )}
         </div>
       </section>
 
@@ -159,8 +175,8 @@ export default function InstagramFollowersKoreaPage() {
               <div className="flex gap-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-bold text-white mb-1">100% 실제 한국 계정</h3>
-                  <p className="text-white/60 text-sm">봇이나 가짜 계정이 아닌, 실제 활동하는 한국인 계정입니다.</p>
+                  <h3 className="font-bold text-white mb-1">한국인 타겟 계정</h3>
+                  <p className="text-white/60 text-sm">한국에서 활동하는 계정으로 구성되어 있습니다.</p>
                 </div>
               </div>
 
@@ -175,41 +191,42 @@ export default function InstagramFollowersKoreaPage() {
               <div className="flex gap-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-bold text-white mb-1">이탈률 최소화</h3>
-                  <p className="text-white/60 text-sm">품질 높은 계정으로 팔로워 이탈을 최소화합니다.</p>
+                  <h3 className="font-bold text-white mb-1">비밀번호 불필요</h3>
+                  <p className="text-white/60 text-sm">계정 정보 없이 사용자명만으로 안전하게 진행됩니다.</p>
                 </div>
               </div>
 
               <div className="flex gap-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-bold text-white mb-1">비밀번호 불필요</h3>
-                  <p className="text-white/60 text-sm">계정 정보 없이 사용자명만으로 안전하게 진행됩니다.</p>
+                  <h3 className="font-bold text-white mb-1">24시간 자동 처리</h3>
+                  <p className="text-white/60 text-sm">주문 후 자동으로 처리되며 진행 상황을 확인할 수 있습니다.</p>
                 </div>
               </div>
             </div>
 
             <div className="bg-gradient-to-br from-pink-500/10 to-purple-500/10 rounded-2xl p-8 border border-white/10">
-              <h3 className="text-xl font-bold text-white mb-6">한국인 팔로워 패키지</h3>
+              <h3 className="text-xl font-bold text-white mb-6">한국인 팔로워 가격</h3>
 
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-3 border-b border-white/10">
-                  <span className="text-white">100명</span>
-                  <span className="text-pink-400 font-bold">₩5,000</span>
+              {packages.length > 0 ? (
+                <div className="space-y-4">
+                  {packages.map((pkg, idx) => (
+                    <div
+                      key={pkg.quantity}
+                      className={`flex justify-between items-center py-3 ${
+                        idx < packages.length - 1 ? 'border-b border-white/10' : ''
+                      }`}
+                    >
+                      <span className="text-white">{pkg.quantity.toLocaleString()}명</span>
+                      <span className="text-pink-400 font-bold">₩{pkg.price.toLocaleString()}</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="flex justify-between items-center py-3 border-b border-white/10">
-                  <span className="text-white">500명</span>
-                  <span className="text-pink-400 font-bold">₩20,000</span>
-                </div>
-                <div className="flex justify-between items-center py-3 border-b border-white/10">
-                  <span className="text-white">1,000명</span>
-                  <span className="text-pink-400 font-bold">₩35,000</span>
-                </div>
-                <div className="flex justify-between items-center py-3">
-                  <span className="text-white">5,000명</span>
-                  <span className="text-pink-400 font-bold">₩150,000</span>
-                </div>
-              </div>
+              ) : (
+                <p className="text-white/60 text-sm mb-4">
+                  실시간 가격은 주문 페이지에서 확인하세요.
+                </p>
+              )}
 
               <Button className="w-full mt-6 bg-gradient-to-r from-pink-500 to-purple-600" asChild>
                 <Link href="/order">주문하기</Link>
@@ -228,14 +245,6 @@ export default function InstagramFollowersKoreaPage() {
 
           <div className="space-y-6">
             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-              <h3 className="font-bold text-white mb-2">계정이 정지되지 않나요?</h3>
-              <p className="text-white/60 text-sm">
-                INFLUX는 인스타그램 정책을 준수하며, 자연스러운 방식으로 팔로워를 증가시킵니다.
-                지금까지 계정 정지 사례가 없습니다.
-              </p>
-            </div>
-
-            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="font-bold text-white mb-2">얼마나 빨리 팔로워가 늘어나나요?</h3>
               <p className="text-white/60 text-sm">
                 주문 후 1~24시간 내에 시작되며, 자연스러운 증가를 위해
@@ -246,8 +255,7 @@ export default function InstagramFollowersKoreaPage() {
             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="font-bold text-white mb-2">팔로워가 빠지면 어떻게 하나요?</h3>
               <p className="text-white/60 text-sm">
-                30일 이내 이탈 시 무료로 재충전해드립니다.
-                다만 한국인 고품질 팔로워는 이탈률이 매우 낮습니다.
+                상품별로 리필 정책이 다르며, 주문 페이지에서 각 상품의 리필 기간을 확인할 수 있습니다.
               </p>
             </div>
 
@@ -256,6 +264,14 @@ export default function InstagramFollowersKoreaPage() {
               <p className="text-white/60 text-sm">
                 팔로워 서비스 이용 중에는 계정을 공개로 설정해주세요.
                 서비스 완료 후 비공개로 변경 가능합니다.
+              </p>
+            </div>
+
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h3 className="font-bold text-white mb-2">결제는 어떻게 하나요?</h3>
+              <p className="text-white/60 text-sm">
+                무통장입금 또는 USDT 암호화폐 결제를 지원합니다.
+                충전 후 잔액으로 주문하는 방식입니다.
               </p>
             </div>
           </div>
@@ -269,7 +285,7 @@ export default function InstagramFollowersKoreaPage() {
             지금 바로 시작하세요
           </h2>
           <p className="text-white/60 mb-8">
-            500원부터 테스트 가능. 만족하지 않으면 100% 환불.
+            무료 체험으로 먼저 테스트해보세요.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
