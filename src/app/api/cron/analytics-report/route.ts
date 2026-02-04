@@ -45,13 +45,13 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // 최근 3시간 데이터 조회
-    const threeHoursAgo = new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString();
+    // 최근 24시간 데이터 조회 (Vercel Hobby 플랜은 일 1회 cron만 지원)
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
     const { data: logs, error } = await getSupabase()
       .from('visitor_logs')
       .select('ip_hash, page_path, device_type, browser, country, referrer, is_new_visitor, created_at')
-      .gte('created_at', threeHoursAgo)
+      .gte('created_at', twentyFourHoursAgo)
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
 
     // 방문자가 없으면 리포트 생략
     if (visitorLogs.length === 0) {
-      console.log('[AnalyticsReport] No visitors in last 3 hours, skipping report');
+      console.log('[AnalyticsReport] No visitors in last 24 hours, skipping report');
       return NextResponse.json({ success: true, message: 'No visitors' });
     }
 
@@ -154,10 +154,10 @@ export async function GET(request: NextRequest) {
 
     // === 텔레그램 메시지 생성 ===
     const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-    const message = `📊 <b>방문자 리포트</b> (최근 3시간)
+    const message = `📊 <b>일일 방문자 리포트</b>
 ━━━━━━━━━━━━━━━
 
-👥 <b>방문자 요약</b>
+👥 <b>방문자 요약 (24시간)</b>
 • 순방문자: <b>${uniqueVisitors}명</b>
 • 총 페이지뷰: <b>${totalPageViews}회</b>
 • 신규 방문자: ${newVisitors}명
@@ -176,7 +176,7 @@ ${topPages.map((p, i) => `${i + 1}. ${p}`).join('\n')}
 🔗 <b>유입 경로</b>
 ${topReferrers || '데이터 없음'}
 
-📈 <b>시간대 패턴</b>
+📈 <b>시간대 분포</b>
 ${hourlyPattern}
 
 🔄 <b>중복 방문</b>
@@ -218,23 +218,28 @@ function countryFlag(code: string): string {
   }
 }
 
-// 시간대별 패턴 (막대 그래프)
+// 시간대별 패턴 (24시간을 4시간 단위 6개로)
 function getHourlyPattern(logs: VisitorLog[]): string {
-  const slots: number[] = [0, 0, 0, 0, 0, 0]; // 30분 단위 6개
-  const now = Date.now();
+  // 0-4시, 4-8시, 8-12시, 12-16시, 16-20시, 20-24시
+  const slots: number[] = [0, 0, 0, 0, 0, 0];
+  const labels = ['0-4', '4-8', '8-12', '12-16', '16-20', '20-24'];
 
   logs.forEach(log => {
-    const logTime = new Date(log.created_at).getTime();
-    const minutesAgo = (now - logTime) / (1000 * 60);
-    const slotIndex = Math.min(5, Math.floor(minutesAgo / 30));
-    slots[5 - slotIndex]++; // 최신이 오른쪽
+    const hour = new Date(log.created_at).getHours();
+    const slotIndex = Math.min(5, Math.floor(hour / 4));
+    slots[slotIndex]++;
   });
 
   const max = Math.max(...slots, 1);
-  const bars = slots.map(count => {
+  const bars = slots.map((count, i) => {
     const height = Math.round((count / max) * 4);
-    return ['▁', '▂', '▃', '▄', '█'][height] || '▁';
+    const bar = ['▁', '▂', '▃', '▄', '█'][height] || '▁';
+    return bar;
   });
 
-  return bars.join('') + ` (${Math.min(...slots)}~${Math.max(...slots)}명/30분)`;
+  // 피크 시간대 찾기
+  const peakIndex = slots.indexOf(Math.max(...slots));
+  const peakTime = labels[peakIndex];
+
+  return `${bars.join('')} (피크: ${peakTime}시, ${slots[peakIndex]}명)`;
 }

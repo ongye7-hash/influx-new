@@ -28,7 +28,7 @@
     },
     {
       "path": "/api/cron/analytics-report",
-      "schedule": "0 */3 * * *"
+      "schedule": "0 12 * * *"
     }
   ],
   "regions": ["icn1"]
