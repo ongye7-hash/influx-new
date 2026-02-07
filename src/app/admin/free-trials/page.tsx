@@ -1,5 +1,6 @@
 // ============================================
 // 무료 체험 관리 페이지
+// admin_products 기반 + API 연결 정보 표시
 // ============================================
 
 'use client';
@@ -16,8 +17,10 @@ import {
   RefreshCw,
   Gift,
   Users,
-  TrendingUp,
   Clock,
+  Server,
+  ArrowRight,
+  Zap,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -59,57 +62,78 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
+import { formatCurrency } from '@/lib/utils';
 
-interface Service {
+interface Category {
   id: string;
+  platform: string;
   name: string;
-  price: number;
-  is_active: boolean;
 }
 
-interface FreeTrialService {
+interface Provider {
   id: string;
-  service_id: string;
+  name: string;
+  slug?: string;
+}
+
+interface AdminProduct {
+  id: string;
+  name: string;
+  price_per_1000: number;
+  min_quantity: number;
+  max_quantity: number;
+  is_active: boolean;
+  primary_provider_id: string | null;
+  primary_service_id: string | null;
+  fallback1_provider_id: string | null;
+  fallback1_service_id: string | null;
+  fallback2_provider_id: string | null;
+  fallback2_service_id: string | null;
+  category?: Category;
+  primary_provider?: Provider;
+}
+
+interface FreeTrialProduct {
+  id: string;
+  admin_product_id: string;
   trial_quantity: number;
   daily_limit: number;
   today_used: number;
   is_active: boolean;
   created_at: string;
-  service?: Service;
+  product?: AdminProduct;
 }
 
 interface FreeTrialRequest {
   id: string;
   user_id: string;
-  service_id: string;
+  admin_product_id: string;
   link: string;
   quantity: number;
   status: string;
   created_at: string;
   completed_at: string | null;
-  user?: {
-    email: string;
-  };
-  service?: {
-    name: string;
-  };
+  user?: { email: string };
+  product?: { name: string };
 }
 
 export default function FreeTrialsPage() {
-  const [trialServices, setTrialServices] = useState<FreeTrialService[]>([]);
+  const [trialProducts, setTrialProducts] = useState<FreeTrialProduct[]>([]);
   const [trialRequests, setTrialRequests] = useState<FreeTrialRequest[]>([]);
-  const [services, setServices] = useState<Service[]>([]);
+  const [availableProducts, setAvailableProducts] = useState<AdminProduct[]>([]);
+  const [providers, setProviders] = useState<Provider[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<FreeTrialService | null>(null);
+  const [selectedTrial, setSelectedTrial] = useState<FreeTrialProduct | null>(null);
   const [saving, setSaving] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState<'services' | 'requests'>('services');
+  const [activeTab, setActiveTab] = useState<'products' | 'requests'>('products');
+  const [isLegacyMode, setIsLegacyMode] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
-    service_id: '',
+    admin_product_id: '',
     trial_quantity: 50,
     daily_limit: 100,
     is_active: true,
@@ -119,42 +143,48 @@ export default function FreeTrialsPage() {
     setLoading(true);
 
     try {
-      // Fetch all data in parallel using admin API
       const results = await Promise.allSettled([
-        fetch('/api/admin/free-trials?type=services').then(r => r.json()),
+        fetch('/api/admin/free-trials?type=trials').then(r => r.json()),
         fetch('/api/admin/free-trials?type=requests').then(r => r.json()),
-        fetch('/api/admin/free-trials?type=all-services').then(r => r.json()),
+        fetch('/api/admin/free-trials?type=products').then(r => r.json()),
+        fetch('/api/admin/free-trials?type=providers').then(r => r.json()),
       ]);
 
-      // Extract results with fallbacks
-      const trialServicesRes = results[0].status === 'fulfilled' ? results[0].value : { success: false };
+      const trialsRes = results[0].status === 'fulfilled' ? results[0].value : { success: false };
       const requestsRes = results[1].status === 'fulfilled' ? results[1].value : { success: false };
-      const servicesListRes = results[2].status === 'fulfilled' ? results[2].value : { success: false };
+      const productsRes = results[2].status === 'fulfilled' ? results[2].value : { success: false };
+      const providersRes = results[3].status === 'fulfilled' ? results[3].value : { success: false };
 
-      if (!trialServicesRes.success) {
-        console.error('Trial services error:', trialServicesRes.error);
-        setTrialServices([]);
+      if (trialsRes.success) {
+        setTrialProducts(trialsRes.data || []);
+        setIsLegacyMode(trialsRes.legacy || false);
       } else {
-        setTrialServices(trialServicesRes.data || []);
+        console.error('Trials error:', trialsRes.error);
+        setTrialProducts([]);
       }
 
-      if (!requestsRes.success) {
+      if (requestsRes.success) {
+        setTrialRequests(requestsRes.data || []);
+      } else {
         console.error('Requests error:', requestsRes.error);
         setTrialRequests([]);
-      } else {
-        setTrialRequests(requestsRes.data || []);
       }
 
-      if (!servicesListRes.success) {
-        console.error('Services list error:', servicesListRes.error);
+      if (productsRes.success) {
+        setAvailableProducts(productsRes.data || []);
       } else {
-        setServices(servicesListRes.data || []);
+        console.error('Products error:', productsRes.error);
+        setAvailableProducts([]);
+      }
+
+      if (providersRes.success) {
+        setProviders(providersRes.data || []);
       }
     } catch (error) {
-      console.error('Unexpected fetch error:', error);
-      setTrialServices([]);
+      console.error('Fetch error:', error);
+      setTrialProducts([]);
       setTrialRequests([]);
-      setServices([]);
+      setAvailableProducts([]);
     }
 
     setLoading(false);
@@ -165,9 +195,9 @@ export default function FreeTrialsPage() {
   }, [fetchData]);
 
   const openCreateDialog = () => {
-    setSelectedService(null);
+    setSelectedTrial(null);
     setFormData({
-      service_id: '',
+      admin_product_id: '',
       trial_quantity: 50,
       daily_limit: 100,
       is_active: true,
@@ -175,24 +205,24 @@ export default function FreeTrialsPage() {
     setIsDialogOpen(true);
   };
 
-  const openEditDialog = (service: FreeTrialService) => {
-    setSelectedService(service);
+  const openEditDialog = (trial: FreeTrialProduct) => {
+    setSelectedTrial(trial);
     setFormData({
-      service_id: service.service_id,
-      trial_quantity: service.trial_quantity,
-      daily_limit: service.daily_limit,
-      is_active: service.is_active,
+      admin_product_id: trial.admin_product_id,
+      trial_quantity: trial.trial_quantity,
+      daily_limit: trial.daily_limit,
+      is_active: trial.is_active,
     });
     setIsDialogOpen(true);
   };
 
-  const openDeleteDialog = (service: FreeTrialService) => {
-    setSelectedService(service);
+  const openDeleteDialog = (trial: FreeTrialProduct) => {
+    setSelectedTrial(trial);
     setIsDeleteDialogOpen(true);
   };
 
   const handleSave = async () => {
-    if (!formData.service_id) {
+    if (!formData.admin_product_id) {
       toast.error('상품을 선택해주세요');
       return;
     }
@@ -200,13 +230,12 @@ export default function FreeTrialsPage() {
     setSaving(true);
 
     try {
-      if (selectedService) {
-        // Update existing
+      if (selectedTrial) {
         const res = await fetch('/api/admin/free-trials', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            id: selectedService.id,
+            id: selectedTrial.id,
             trial_quantity: formData.trial_quantity,
             daily_limit: formData.daily_limit,
             is_active: formData.is_active,
@@ -214,14 +243,13 @@ export default function FreeTrialsPage() {
         });
         const data = await res.json();
         if (!data.success) throw new Error(data.error);
-        toast.success('무료 체험 서비스가 수정되었습니다');
+        toast.success('무료 체험 설정이 수정되었습니다');
       } else {
-        // Create new
         const res = await fetch('/api/admin/free-trials', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            service_id: formData.service_id,
+            admin_product_id: formData.admin_product_id,
             trial_quantity: formData.trial_quantity,
             daily_limit: formData.daily_limit,
             is_active: formData.is_active,
@@ -229,7 +257,7 @@ export default function FreeTrialsPage() {
         });
         const data = await res.json();
         if (!data.success) throw new Error(data.error);
-        toast.success('무료 체험 서비스가 추가되었습니다');
+        toast.success('무료 체험 상품이 추가되었습니다');
       }
 
       setIsDialogOpen(false);
@@ -242,16 +270,16 @@ export default function FreeTrialsPage() {
   };
 
   const handleDelete = async () => {
-    if (!selectedService) return;
+    if (!selectedTrial) return;
 
     try {
-      const res = await fetch(`/api/admin/free-trials?id=${selectedService.id}`, {
+      const res = await fetch(`/api/admin/free-trials?id=${selectedTrial.id}`, {
         method: 'DELETE',
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.error);
 
-      toast.success('무료 체험 서비스가 삭제되었습니다');
+      toast.success('무료 체험 설정이 삭제되었습니다');
       setIsDeleteDialogOpen(false);
       fetchData();
     } catch (error: unknown) {
@@ -259,21 +287,21 @@ export default function FreeTrialsPage() {
     }
   };
 
-  const toggleActive = async (service: FreeTrialService) => {
+  const toggleActive = async (trial: FreeTrialProduct) => {
     try {
       const res = await fetch('/api/admin/free-trials', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          id: service.id,
-          is_active: !service.is_active,
+          id: trial.id,
+          is_active: !trial.is_active,
         }),
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.error);
 
       fetchData();
-      toast.success(service.is_active ? '비활성화됨' : '활성화됨');
+      toast.success(trial.is_active ? '비활성화됨' : '활성화됨');
     } catch (error: unknown) {
       toast.error(error instanceof Error ? error.message : '오류 발생');
     }
@@ -298,24 +326,32 @@ export default function FreeTrialsPage() {
     }
   };
 
-  const filteredServices = trialServices.filter((trialService) =>
-    trialService.service?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  const getProviderName = (providerId: string | null) => {
+    if (!providerId) return '-';
+    const provider = providers.find((p) => p.id === providerId);
+    return provider?.name || providerId.slice(0, 8);
+  };
+
+  const filteredProducts = trialProducts.filter((trial) =>
+    trial.product?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    trial.product?.category?.name?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const filteredRequests = trialRequests.filter(
     (request) =>
       request.user?.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.service?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      request.product?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       request.link?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Stats
-  const totalServices = trialServices.length;
-  const activeServices = trialServices.filter((s) => s.is_active).length;
-  const todayUsed = trialServices.reduce((sum, s) => sum + s.today_used, 0);
+  const totalProducts = trialProducts.length;
+  const activeProducts = trialProducts.filter((t) => t.is_active).length;
+  const todayUsed = trialProducts.reduce((sum, t) => sum + t.today_used, 0);
   const todayRequests = trialRequests.filter(
     (r) => new Date(r.created_at).toDateString() === new Date().toDateString()
   ).length;
+  const apiConnected = trialProducts.filter((t) => t.product?.primary_provider_id).length;
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -332,6 +368,11 @@ export default function FreeTrialsPage() {
     }
   };
 
+  // 이미 무료체험 설정된 상품 제외
+  const unusedProducts = availableProducts.filter(
+    (product) => !trialProducts.some((trial) => trial.admin_product_id === product.id)
+  );
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -342,7 +383,7 @@ export default function FreeTrialsPage() {
             무료 체험 관리
           </h1>
           <p className="text-muted-foreground mt-1">
-            무료 체험 서비스 및 신청 내역을 관리합니다
+            admin_products 기반 무료 체험 설정 (API 연결 포함)
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -352,32 +393,61 @@ export default function FreeTrialsPage() {
           </Button>
           <Button onClick={openCreateDialog}>
             <Plus className="mr-2 h-4 w-4" />
-            체험 서비스 추가
+            체험 상품 추가
           </Button>
         </div>
       </div>
 
+      {/* Legacy Mode Warning */}
+      {isLegacyMode && (
+        <Card className="border-amber-500/50 bg-amber-500/10">
+          <CardContent className="py-4">
+            <div className="flex items-center gap-3">
+              <AlertCircle className="h-5 w-5 text-amber-500" />
+              <div>
+                <p className="font-medium text-amber-500">레거시 모드</p>
+                <p className="text-sm text-muted-foreground">
+                  free_trial_products 테이블이 없습니다. DB 마이그레이션이 필요합니다.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              전체 서비스
+              전체 상품
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-lg sm:text-2xl font-bold">{totalServices}</div>
+            <div className="text-lg sm:text-2xl font-bold">{totalProducts}</div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              활성 서비스
+              활성 상품
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-lg sm:text-2xl font-bold text-green-400">
-              {activeServices}
+              {activeProducts}
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              API 연결됨
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-lg sm:text-2xl font-bold text-blue-400">
+              {apiConnected}
             </div>
           </CardContent>
         </Card>
@@ -400,7 +470,7 @@ export default function FreeTrialsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-lg sm:text-2xl font-bold text-blue-400">
+            <div className="text-lg sm:text-2xl font-bold text-purple-400">
               {todayRequests}
             </div>
           </CardContent>
@@ -410,11 +480,11 @@ export default function FreeTrialsPage() {
       {/* Tab Buttons */}
       <div className="flex gap-2">
         <Button
-          variant={activeTab === 'services' ? 'default' : 'outline'}
-          onClick={() => setActiveTab('services')}
+          variant={activeTab === 'products' ? 'default' : 'outline'}
+          onClick={() => setActiveTab('products')}
         >
           <Gift className="mr-2 h-4 w-4" />
-          체험 서비스 ({totalServices})
+          체험 상품 ({totalProducts})
         </Button>
         <Button
           variant={activeTab === 'requests' ? 'default' : 'outline'}
@@ -435,7 +505,7 @@ export default function FreeTrialsPage() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder={activeTab === 'services' ? '상품명 검색...' : '이메일, 상품명, 링크 검색...'}
+              placeholder={activeTab === 'products' ? '상품명, 카테고리 검색...' : '이메일, 상품명, 링크 검색...'}
               className="pl-10"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -444,13 +514,16 @@ export default function FreeTrialsPage() {
         </CardContent>
       </Card>
 
-      {/* Services Tab */}
-      {activeTab === 'services' && (
+      {/* Products Tab */}
+      {activeTab === 'products' && (
         <Card>
           <CardHeader>
-            <CardTitle>체험 서비스 목록</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Server className="h-5 w-5" />
+              체험 상품 목록
+            </CardTitle>
             <CardDescription>
-              무료 체험이 가능한 서비스를 관리합니다
+              무료 체험이 가능한 상품 (API 연결 + 폴백 설정 자동 사용)
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -458,13 +531,13 @@ export default function FreeTrialsPage() {
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
               </div>
-            ) : filteredServices.length === 0 ? (
+            ) : filteredProducts.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-8 text-center">
                 <AlertCircle className="h-12 w-12 text-muted-foreground mb-4" />
-                <p className="text-muted-foreground">등록된 무료 체험 서비스가 없습니다</p>
+                <p className="text-muted-foreground">등록된 무료 체험 상품이 없습니다</p>
                 <Button className="mt-4" onClick={openCreateDialog}>
                   <Plus className="mr-2 h-4 w-4" />
-                  첫 체험 서비스 추가하기
+                  첫 체험 상품 추가하기
                 </Button>
               </div>
             ) : (
@@ -474,45 +547,81 @@ export default function FreeTrialsPage() {
                     <TableRow>
                       <TableHead>상태</TableHead>
                       <TableHead>상품명</TableHead>
+                      <TableHead>카테고리</TableHead>
                       <TableHead>체험 수량</TableHead>
                       <TableHead>일일 한도</TableHead>
                       <TableHead>오늘 사용</TableHead>
-                      <TableHead>남은 수량</TableHead>
+                      <TableHead>API 연결</TableHead>
                       <TableHead className="text-right">액션</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredServices.map((service) => (
-                      <TableRow key={service.id}>
+                    {filteredProducts.map((trial) => (
+                      <TableRow key={trial.id}>
                         <TableCell>
                           <Switch
-                            checked={service.is_active}
-                            onCheckedChange={() => toggleActive(service)}
+                            checked={trial.is_active}
+                            onCheckedChange={() => toggleActive(trial)}
                           />
                         </TableCell>
                         <TableCell>
-                          <div className="font-medium">{service.service?.name || '알 수 없음'}</div>
+                          <div className="font-medium">{trial.product?.name || '알 수 없음'}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {formatCurrency(trial.product?.price_per_1000 || 0)}/1K
+                          </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary">{service.trial_quantity}개</Badge>
+                          <Badge variant="outline">
+                            {trial.product?.category?.platform} / {trial.product?.category?.name}
+                          </Badge>
                         </TableCell>
-                        <TableCell>{service.daily_limit}회/일</TableCell>
                         <TableCell>
-                          <span className={service.today_used >= service.daily_limit ? 'text-red-500' : 'text-amber-400'}>
-                            {service.today_used}회
+                          <Badge variant="secondary">{trial.trial_quantity}개</Badge>
+                        </TableCell>
+                        <TableCell>{trial.daily_limit}회/일</TableCell>
+                        <TableCell>
+                          <span className={trial.today_used >= trial.daily_limit ? 'text-red-500' : 'text-amber-400'}>
+                            {trial.today_used}회
+                          </span>
+                          <span className="text-muted-foreground text-xs ml-1">
+                            ({Math.max(0, trial.daily_limit - trial.today_used)} 남음)
                           </span>
                         </TableCell>
                         <TableCell>
-                          <span className={service.daily_limit - service.today_used <= 0 ? 'text-red-500' : 'text-green-400'}>
-                            {Math.max(0, service.daily_limit - service.today_used)}회
-                          </span>
+                          <div className="flex items-center gap-1 text-xs">
+                            {trial.product?.primary_provider_id ? (
+                              <>
+                                <Badge variant="secondary" className="text-xs bg-green-500/20 text-green-400">
+                                  {getProviderName(trial.product.primary_provider_id)}
+                                </Badge>
+                                {trial.product.fallback1_provider_id && (
+                                  <>
+                                    <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                                    <Badge variant="outline" className="text-xs">
+                                      {getProviderName(trial.product.fallback1_provider_id)}
+                                    </Badge>
+                                  </>
+                                )}
+                                {trial.product.fallback2_provider_id && (
+                                  <>
+                                    <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                                    <Badge variant="outline" className="text-xs">
+                                      {getProviderName(trial.product.fallback2_provider_id)}
+                                    </Badge>
+                                  </>
+                                )}
+                              </>
+                            ) : (
+                              <span className="text-red-400">미연결</span>
+                            )}
+                          </div>
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex items-center justify-end gap-1">
                             <Button
                               variant="ghost"
                               size="icon"
-                              onClick={() => openEditDialog(service)}
+                              onClick={() => openEditDialog(trial)}
                             >
                               <Edit className="h-4 w-4" />
                             </Button>
@@ -520,7 +629,7 @@ export default function FreeTrialsPage() {
                               variant="ghost"
                               size="icon"
                               className="text-destructive hover:text-destructive"
-                              onClick={() => openDeleteDialog(service)}
+                              onClick={() => openDeleteDialog(trial)}
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -575,7 +684,7 @@ export default function FreeTrialsPage() {
                           <div className="font-medium">{request.user?.email || '알 수 없음'}</div>
                         </TableCell>
                         <TableCell>
-                          <div className="text-sm">{request.service?.name || '알 수 없음'}</div>
+                          <div className="text-sm">{request.product?.name || '알 수 없음'}</div>
                         </TableCell>
                         <TableCell>
                           <a
@@ -606,44 +715,113 @@ export default function FreeTrialsPage() {
 
       {/* Create/Edit Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
-            <DialogTitle>
-              {selectedService ? '체험 서비스 수정' : '새 체험 서비스 추가'}
+            <DialogTitle className="flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-amber-400" />
+              {selectedTrial ? '체험 설정 수정' : '새 체험 상품 추가'}
             </DialogTitle>
             <DialogDescription>
-              무료 체험으로 제공할 상품과 수량을 설정합니다
+              admin_products에서 상품을 선택하면 해당 상품의 API 설정(폴백 포함)이 자동으로 사용됩니다
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-6 py-4">
+            {/* 상품 선택 */}
             <div className="space-y-2">
-              <Label htmlFor="service_id">상품 선택 *</Label>
+              <Label htmlFor="admin_product_id">상품 선택 *</Label>
               <Select
-                value={formData.service_id}
+                value={formData.admin_product_id}
                 onValueChange={(value) =>
-                  setFormData({ ...formData, service_id: value })
+                  setFormData({ ...formData, admin_product_id: value })
                 }
-                disabled={!!selectedService}
+                disabled={!!selectedTrial}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="상품 선택" />
+                  <SelectValue placeholder="무료 체험할 상품 선택" />
                 </SelectTrigger>
                 <SelectContent>
-                  {services.map((svc) => (
-                    <SelectItem key={svc.id} value={svc.id}>
-                      {svc.name}
+                  {(selectedTrial ? availableProducts : unusedProducts).map((product) => (
+                    <SelectItem key={product.id} value={product.id}>
+                      <div className="flex items-center gap-2">
+                        <span>[{product.category?.platform}]</span>
+                        <span>{product.name}</span>
+                        <span className="text-muted-foreground">
+                          ({formatCurrency(product.price_per_1000)}/1K)
+                        </span>
+                        {product.primary_provider_id && (
+                          <Badge variant="secondary" className="text-[10px] ml-1">
+                            API
+                          </Badge>
+                        )}
+                      </div>
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              {selectedService && (
+              {selectedTrial && (
                 <p className="text-xs text-muted-foreground">
                   상품은 수정할 수 없습니다. 삭제 후 다시 추가해주세요.
                 </p>
               )}
             </div>
 
+            {/* 선택된 상품 API 정보 표시 */}
+            {formData.admin_product_id && (
+              <Card className="border-primary/20 bg-primary/5">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Server className="h-4 w-4" />
+                    API 연결 정보 (자동 사용)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  {(() => {
+                    const product = availableProducts.find(p => p.id === formData.admin_product_id);
+                    if (!product) return <p className="text-sm text-muted-foreground">상품 정보 없음</p>;
+
+                    return (
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {product.primary_provider_id ? (
+                          <>
+                            <Badge className="bg-green-600">
+                              1순위: {getProviderName(product.primary_provider_id)}
+                              {product.primary_service_id && ` (${product.primary_service_id})`}
+                            </Badge>
+                            {product.fallback1_provider_id && (
+                              <>
+                                <ArrowRight className="h-4 w-4" />
+                                <Badge className="bg-amber-600">
+                                  2순위: {getProviderName(product.fallback1_provider_id)}
+                                </Badge>
+                              </>
+                            )}
+                            {product.fallback2_provider_id && (
+                              <>
+                                <ArrowRight className="h-4 w-4" />
+                                <Badge className="bg-red-600">
+                                  3순위: {getProviderName(product.fallback2_provider_id)}
+                                </Badge>
+                              </>
+                            )}
+                          </>
+                        ) : (
+                          <p className="text-sm text-amber-400">
+                            ⚠️ API 미연결 상품입니다. /admin/products에서 API를 연결해주세요.
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })()}
+                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Zap className="h-3 w-3" />
+                    1순위 API 실패 시 자동으로 2순위 → 3순위 순으로 시도합니다
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* 수량 설정 */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="trial_quantity">체험 수량</Label>
@@ -683,6 +861,7 @@ export default function FreeTrialsPage() {
               </div>
             </div>
 
+            {/* 활성화 */}
             <div className="flex items-center gap-2">
               <Switch
                 id="is_active"
@@ -701,7 +880,7 @@ export default function FreeTrialsPage() {
             </Button>
             <Button onClick={handleSave} disabled={saving}>
               {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {selectedService ? '수정' : '추가'}
+              {selectedTrial ? '수정' : '추가'}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -711,9 +890,9 @@ export default function FreeTrialsPage() {
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>체험 서비스 삭제</AlertDialogTitle>
+            <AlertDialogTitle>체험 설정 삭제</AlertDialogTitle>
             <AlertDialogDescription>
-              정말 이 무료 체험 서비스를 삭제하시겠습니까?
+              정말 &quot;{selectedTrial?.product?.name}&quot; 무료 체험 설정을 삭제하시겠습니까?
               <br />이 작업은 되돌릴 수 없습니다.
             </AlertDialogDescription>
           </AlertDialogHeader>

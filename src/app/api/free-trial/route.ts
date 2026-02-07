@@ -1,25 +1,12 @@
 // ============================================
 // 무료 체험 API
-// 실제 admin_products와 연동하여 주문 생성
+// admin_products 기반 + 폴백 설정 자동 사용
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createClient as createServiceClient } from '@supabase/supabase-js';
 import { processOrderWithFallback } from '@/lib/api-fallback';
-
-// 서비스 ID → admin_product_id 매핑
-// services 테이블의 무료체험용 서비스를 실제 판매 상품과 연결
-const SERVICE_TO_PRODUCT_MAP: Record<string, string> = {
-  // 한국인 팔로워 → 인스타 외국인 AS보장 팔로워
-  'e9e7804e-e887-44a3-9cab-dfb5cb47da2f': '188ce35e-15d3-4762-b374-4c6c784c105a',
-  // 인스타 좋아요 → 외국인 스피드 좋아요
-  '7b104deb-8e89-4c3e-8b20-493ed8a37671': 'a8f9cd28-296d-4145-b547-696781a911c9',
-  // 유튜브 조회수 → 빠른 유입
-  '58b410b7-7323-44c0-b90f-a8fd6cbcc5db': 'b14ce729-f37e-448d-a886-5cf3ee3d5849',
-  // 틱톡 팔로워 → 외국인 리얼 팔로워
-  '1b0db207-8942-40bb-8e40-22629edae191': 'd4f6c24b-8f69-4c84-9aa1-617000a862c7',
-};
 
 // Service role client for order creation
 function getServiceClient() {
@@ -32,23 +19,66 @@ function getServiceClient() {
 // GET: 무료 체험 서비스 목록 조회
 export async function GET() {
   try {
-    const supabase = await createClient();
+    const serviceClient = getServiceClient();
 
-    const { data, error } = await supabase
+    // 먼저 새 테이블 시도
+    const { data: newData, error: newError } = await serviceClient
+      .from('available_free_trial_products')
+      .select('*');
+
+    if (!newError && newData) {
+      // 새 테이블 데이터 반환 (필드명 매핑)
+      const mappedData = newData.map(item => ({
+        trial_service_id: item.trial_id,
+        service_id: item.admin_product_id,
+        service_name: item.product_name,
+        price: item.price_per_1000,
+        trial_quantity: item.trial_quantity,
+        daily_limit: item.daily_limit,
+        today_used: item.today_used,
+        remaining_today: item.remaining_today,
+        is_active: item.is_active,
+        category_name: item.category_name,
+        category_slug: item.category_platform?.toLowerCase(),
+      }));
+
+      return NextResponse.json({
+        success: true,
+        data: mappedData,
+      });
+    }
+
+    // 새 테이블이 없으면 레거시 테이블 사용
+    const { data: legacyData, error: legacyError } = await serviceClient
       .from('available_free_trials')
       .select('*');
 
-    if (error) {
-      console.error('Fetch free trials error:', error);
+    if (legacyError) {
+      console.error('Fetch free trials error:', legacyError);
       return NextResponse.json(
         { success: false, error: '무료 체험 서비스를 불러올 수 없습니다.' },
         { status: 500 }
       );
     }
 
+    // 레거시 데이터 매핑
+    const mappedLegacy = (legacyData || []).map(item => ({
+      trial_service_id: item.id,
+      service_id: item.service_id,
+      service_name: item.name,
+      price: 0,
+      trial_quantity: item.quantity,
+      daily_limit: item.daily_limit,
+      today_used: item.today_used,
+      remaining_today: item.daily_limit - item.today_used,
+      is_active: item.is_active,
+      category_name: null,
+      category_slug: null,
+    }));
+
     return NextResponse.json({
       success: true,
-      data: data || [],
+      data: mappedLegacy,
     });
   } catch (error) {
     console.error('Free trial API error:', error);
@@ -81,7 +111,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 이메일 인증 확인 (정식 회원가입)
+    // 이메일 인증 확인
     if (!user.email_confirmed_at) {
       return NextResponse.json(
         {
@@ -112,41 +142,12 @@ export async function POST(request: NextRequest) {
       '0.0.0.0';
     const userAgent = request.headers.get('user-agent') || '';
 
-    // IP 유효성 검사 (비정상 IP 차단)
-    if (ip === '0.0.0.0' || ip === '127.0.0.1' || ip.startsWith('10.') || ip.startsWith('192.168.')) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: '유효하지 않은 네트워크에서의 접근입니다.',
-          code: 'INVALID_IP'
-        },
-        { status: 403 }
-      );
-    }
-
-    // 같은 IP에서 오늘 무료체험 사용 여부 확인
-    const today = new Date().toISOString().split('T')[0];
-    const { data: ipUsage } = await supabase
-      .from('free_trials')
-      .select('id')
-      .eq('ip_address', ip)
-      .gte('created_at', `${today}T00:00:00`)
-      .limit(1);
-
-    if (ipUsage && ipUsage.length > 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: '해당 네트워크에서 오늘 이미 무료 체험을 사용하셨습니다. 내일 다시 시도해주세요.',
-          code: 'IP_LIMIT_REACHED'
-        },
-        { status: 429 }
-      );
-    }
-
     // 1인당 하루 최대 2회 제한
+    const today = new Date().toISOString().split('T')[0];
+    const serviceClient = getServiceClient();
+
     const USER_DAILY_LIMIT = 2;
-    const { count: userTodayCount } = await supabase
+    const { count: userTodayCount } = await serviceClient
       .from('free_trials')
       .select('id', { count: 'exact', head: true })
       .eq('user_id', user.id)
@@ -163,9 +164,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 전체 일일 한도 체크 (모든 서비스 통합)
+    // 전체 일일 한도 체크
     const GLOBAL_DAILY_LIMIT = 100;
-    const { count: todayTotalCount } = await supabase
+    const { count: todayTotalCount } = await serviceClient
       .from('free_trials')
       .select('id', { count: 'exact', head: true })
       .gte('created_at', `${today}T00:00:00`);
@@ -182,17 +183,17 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { service_id, link } = body;
+    const { service_id, link } = body;  // service_id는 admin_product_id
 
     // 유효성 검사
     if (!service_id || !link) {
       return NextResponse.json(
-        { success: false, error: '서비스 ID와 링크가 필요합니다.' },
+        { success: false, error: '상품 ID와 링크가 필요합니다.' },
         { status: 400 }
       );
     }
 
-    // URL 유효성 검사 (http/https만 허용)
+    // URL 유효성 검사
     try {
       const parsed = new URL(link);
       if (!['http:', 'https:'].includes(parsed.protocol)) {
@@ -205,62 +206,67 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 체험 가능 여부 확인
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: availability, error: availError } = await (supabase.rpc as any)(
-      'check_trial_availability',
-      { p_user_id: user.id, p_service_id: service_id }
-    );
+    // admin_product 조회 (폴백 설정 포함)
+    const { data: product, error: productError } = await serviceClient
+      .from('admin_products')
+      .select('*')
+      .eq('id', service_id)
+      .single();
 
-    if (availError) {
-      console.error('Check availability error:', availError);
+    if (productError || !product) {
       return NextResponse.json(
-        { success: false, error: '체험 가능 여부를 확인할 수 없습니다.' },
-        { status: 500 }
+        { success: false, error: '상품을 찾을 수 없습니다.' },
+        { status: 404 }
       );
     }
 
-    if (!availability?.available) {
+    // 무료체험 설정 조회
+    const { data: trialProduct, error: trialError } = await serviceClient
+      .from('free_trial_products')
+      .select('*')
+      .eq('admin_product_id', service_id)
+      .eq('is_active', true)
+      .single();
+
+    if (trialError || !trialProduct) {
       return NextResponse.json(
-        { success: false, error: availability?.message || '무료 체험을 사용할 수 없습니다.' },
+        { success: false, error: '해당 상품은 현재 무료 체험을 제공하지 않습니다.' },
         { status: 400 }
       );
     }
 
-    // admin_product_id 매핑 확인
-    const adminProductId = SERVICE_TO_PRODUCT_MAP[service_id];
-    if (!adminProductId) {
-      console.error('No product mapping for service:', service_id);
+    // 일일 한도 확인
+    if (trialProduct.today_used >= trialProduct.daily_limit) {
       return NextResponse.json(
-        { success: false, error: '해당 서비스는 현재 무료 체험을 제공하지 않습니다.' },
-        { status: 400 }
+        {
+          success: false,
+          error: '이 상품의 오늘 무료 체험 한도가 소진되었습니다. 내일 다시 시도해주세요.',
+          code: 'PRODUCT_LIMIT_REACHED'
+        },
+        { status: 429 }
       );
     }
 
-    // 무료 체험 기록 생성 (기존 로직)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: trialId, error: trialError } = await (supabase.rpc as any)(
-      'request_free_trial',
-      {
-        p_user_id: user.id,
-        p_service_id: service_id,
-        p_link: link,
-        p_ip_address: ip,
-        p_user_agent: userAgent,
-      }
-    );
+    // 사용자가 오늘 이 상품 체험했는지 확인
+    const { count: userProductCount } = await serviceClient
+      .from('free_trials')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .eq('admin_product_id', service_id)
+      .gte('created_at', `${today}T00:00:00`);
 
-    if (trialError) {
-      console.error('Request trial error:', trialError);
+    if (userProductCount && userProductCount > 0) {
       return NextResponse.json(
-        { success: false, error: trialError.message || '체험 신청 중 오류가 발생했습니다.' },
-        { status: 500 }
+        {
+          success: false,
+          error: '오늘 이미 이 상품의 무료 체험을 사용하셨습니다.',
+          code: 'PRODUCT_ALREADY_USED'
+        },
+        { status: 429 }
       );
     }
 
-    // 실제 주문 생성 및 원청 API 연동
-    const serviceClient = getServiceClient();
-    const quantity = availability.quantity;
+    const quantity = trialProduct.trial_quantity;
 
     // 주문번호 생성
     const now = new Date();
@@ -268,17 +274,41 @@ export async function POST(request: NextRequest) {
     const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
     const orderNumber = `FREE-${dateStr}-${randomStr}`;
 
+    // 무료체험 일일 사용량 증가
+    await serviceClient
+      .from('free_trial_products')
+      .update({ today_used: trialProduct.today_used + 1 })
+      .eq('id', trialProduct.id);
+
+    // 무료체험 기록 생성
+    const { data: trialRecord, error: trialRecordError } = await serviceClient
+      .from('free_trials')
+      .insert({
+        user_id: user.id,
+        admin_product_id: service_id,
+        link: link,
+        quantity: quantity,
+        status: 'pending',
+        ip_address: ip,
+        user_agent: userAgent,
+      })
+      .select()
+      .single();
+
+    if (trialRecordError) {
+      console.error('Trial record creation error:', trialRecordError);
+    }
+
     // orders 테이블에 무료체험 주문 생성
-    // 주의: charge > 0 제약조건이 있어서 1원으로 설정 (무료체험 표시용)
     const { data: order, error: orderError } = await serviceClient
       .from('orders')
       .insert({
         order_number: orderNumber,
         user_id: user.id,
-        service_id: adminProductId, // admin_products의 ID
+        service_id: service_id, // admin_product_id
         link: link,
         quantity: quantity,
-        charge: 1, // 무료체험 (DB 제약조건 때문에 1원으로 설정)
+        charge: 1, // DB 제약조건 때문에 1원으로 설정
         unit_price: 0.001,
         status: 'pending',
       })
@@ -287,22 +317,20 @@ export async function POST(request: NextRequest) {
 
     if (orderError) {
       console.error('Order creation error:', orderError);
-      // 무료체험 기록은 이미 생성되었으므로 계속 진행
-      // 하지만 실제 주문은 실패
       return NextResponse.json({
         success: true,
         data: {
-          trial_id: trialId,
+          trial_id: trialRecord?.id,
           quantity: quantity,
-          message: '무료 체험이 신청되었습니다! 처리 중 일시적 오류가 발생했습니다. 관리자가 수동으로 처리할 예정입니다.',
+          message: '무료 체험이 신청되었습니다! 처리 중 일시적 오류가 발생했습니다.',
           warning: 'ORDER_CREATION_FAILED',
         },
       });
     }
 
-    // 원청 API로 주문 전송
+    // 원청 API로 주문 전송 (폴백 설정 자동 사용)
     const apiResult = await processOrderWithFallback({
-      product_id: adminProductId,
+      product_id: service_id,
       link: link,
       quantity: quantity,
       user_id: user.id,
@@ -319,6 +347,14 @@ export async function POST(request: NextRequest) {
         })
         .eq('id', order.id);
 
+      // 무료체험 기록도 업데이트
+      if (trialRecord) {
+        await serviceClient
+          .from('free_trials')
+          .update({ status: 'processing' })
+          .eq('id', trialRecord.id);
+      }
+
       console.log(`[Free Trial] Order ${order.id} sent to provider: ${apiResult.provider_order_id}`);
     } else {
       await serviceClient
@@ -329,13 +365,20 @@ export async function POST(request: NextRequest) {
         })
         .eq('id', order.id);
 
+      if (trialRecord) {
+        await serviceClient
+          .from('free_trials')
+          .update({ status: 'failed' })
+          .eq('id', trialRecord.id);
+      }
+
       console.error(`[Free Trial] Order ${order.id} failed: ${apiResult.error}`);
     }
 
     return NextResponse.json({
       success: true,
       data: {
-        trial_id: trialId,
+        trial_id: trialRecord?.id,
         order_id: order.id,
         quantity: quantity,
         message: apiResult.success

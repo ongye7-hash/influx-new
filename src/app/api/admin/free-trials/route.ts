@@ -1,6 +1,6 @@
 // ============================================
 // 관리자 무료 체험 관리 API
-// Service role key를 사용하여 RLS 우회
+// admin_products 기반 + Fallback 설정 사용
 // ============================================
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -30,7 +30,7 @@ async function isAdmin(supabase: ReturnType<typeof createClient> extends Promise
   return profile?.is_admin === true;
 }
 
-// GET: 무료 체험 서비스 목록 조회
+// GET: 무료 체험 설정 및 상품 목록 조회
 export async function GET(request: NextRequest) {
   try {
     const supabase = await createClient();
@@ -44,19 +44,48 @@ export async function GET(request: NextRequest) {
 
     const serviceClient = getServiceClient();
     const { searchParams } = new URL(request.url);
-    const type = searchParams.get('type') || 'services';
+    const type = searchParams.get('type') || 'trials';
 
-    if (type === 'services') {
-      // 무료 체험 서비스 목록
+    if (type === 'trials') {
+      // 무료 체험 설정 목록 (admin_products JOIN)
       const { data, error } = await serviceClient
-        .from('free_trial_services')
+        .from('free_trial_products')
         .select(`
           *,
-          service:services!service_id(id, name, price, is_active)
+          product:admin_products(
+            id,
+            name,
+            price_per_1000,
+            min_quantity,
+            max_quantity,
+            is_active,
+            primary_provider_id,
+            primary_service_id,
+            fallback1_provider_id,
+            fallback1_service_id,
+            fallback2_provider_id,
+            fallback2_service_id,
+            category:admin_categories(id, platform, name)
+          )
         `)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        // 테이블이 없으면 레거시 테이블 사용
+        if (error.code === '42P01') {
+          const { data: legacyData, error: legacyError } = await serviceClient
+            .from('free_trial_services')
+            .select(`
+              *,
+              service:services(id, name, price, is_active)
+            `)
+            .order('created_at', { ascending: false });
+
+          if (legacyError) throw legacyError;
+          return NextResponse.json({ success: true, data: legacyData || [], legacy: true });
+        }
+        throw error;
+      }
 
       return NextResponse.json({ success: true, data: data || [] });
     } else if (type === 'requests') {
@@ -66,7 +95,7 @@ export async function GET(request: NextRequest) {
         .select(`
           *,
           user:profiles(email),
-          service:services(name)
+          product:admin_products(name)
         `)
         .order('created_at', { ascending: false })
         .limit(100);
@@ -74,13 +103,39 @@ export async function GET(request: NextRequest) {
       if (error) throw error;
 
       return NextResponse.json({ success: true, data: data || [] });
-    } else if (type === 'all-services') {
-      // 전체 서비스 목록 (드롭다운용)
+    } else if (type === 'products') {
+      // 전체 admin_products 목록 (무료체험 설정 가능한 상품)
       const { data, error } = await serviceClient
-        .from('services')
-        .select('id, name, price, is_active')
+        .from('admin_products')
+        .select(`
+          id,
+          name,
+          price_per_1000,
+          min_quantity,
+          max_quantity,
+          is_active,
+          primary_provider_id,
+          primary_service_id,
+          fallback1_provider_id,
+          fallback1_service_id,
+          fallback2_provider_id,
+          fallback2_service_id,
+          category:admin_categories(id, platform, name),
+          primary_provider:api_providers!admin_products_primary_provider_id_fkey(id, name)
+        `)
         .eq('is_active', true)
         .order('name');
+
+      if (error) throw error;
+
+      return NextResponse.json({ success: true, data: data || [] });
+    } else if (type === 'providers') {
+      // API 공급자 목록
+      const { data, error } = await serviceClient
+        .from('api_providers')
+        .select('id, name, slug')
+        .eq('is_active', true)
+        .order('priority', { ascending: false });
 
       if (error) throw error;
 
@@ -97,7 +152,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST: 무료 체험 서비스 추가
+// POST: 무료 체험 설정 추가
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();
@@ -110,9 +165,9 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { service_id, trial_quantity, daily_limit, is_active } = body;
+    const { admin_product_id, trial_quantity, daily_limit, is_active } = body;
 
-    if (!service_id) {
+    if (!admin_product_id) {
       return NextResponse.json(
         { success: false, error: '상품을 선택해주세요.' },
         { status: 400 }
@@ -123,9 +178,9 @@ export async function POST(request: NextRequest) {
 
     // 중복 체크
     const { data: existing } = await serviceClient
-      .from('free_trial_services')
+      .from('free_trial_products')
       .select('id')
-      .eq('service_id', service_id)
+      .eq('admin_product_id', admin_product_id)
       .single();
 
     if (existing) {
@@ -136,12 +191,13 @@ export async function POST(request: NextRequest) {
     }
 
     const { data, error } = await serviceClient
-      .from('free_trial_services')
+      .from('free_trial_products')
       .insert({
-        service_id,
+        admin_product_id,
         trial_quantity: trial_quantity || 50,
         daily_limit: daily_limit || 100,
         is_active: is_active ?? true,
+        today_used: 0,
       })
       .select()
       .single();
@@ -158,7 +214,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PATCH: 무료 체험 서비스 수정
+// PATCH: 무료 체험 설정 수정
 export async function PATCH(request: NextRequest) {
   try {
     const supabase = await createClient();
@@ -178,7 +234,7 @@ export async function PATCH(request: NextRequest) {
     // Special action: reset all daily limits
     if (action === 'reset_all_daily_limits') {
       const { error } = await serviceClient
-        .from('free_trial_services')
+        .from('free_trial_products')
         .update({ today_used: 0 })
         .neq('id', '00000000-0000-0000-0000-000000000000');
 
@@ -200,7 +256,7 @@ export async function PATCH(request: NextRequest) {
     if (today_used !== undefined) updateData.today_used = today_used;
 
     const { data, error } = await serviceClient
-      .from('free_trial_services')
+      .from('free_trial_products')
       .update(updateData)
       .eq('id', id)
       .select()
@@ -218,7 +274,7 @@ export async function PATCH(request: NextRequest) {
   }
 }
 
-// DELETE: 무료 체험 서비스 삭제
+// DELETE: 무료 체험 설정 삭제
 export async function DELETE(request: NextRequest) {
   try {
     const supabase = await createClient();
@@ -243,7 +299,7 @@ export async function DELETE(request: NextRequest) {
     const serviceClient = getServiceClient();
 
     const { error } = await serviceClient
-      .from('free_trial_services')
+      .from('free_trial_products')
       .delete()
       .eq('id', id);
 
