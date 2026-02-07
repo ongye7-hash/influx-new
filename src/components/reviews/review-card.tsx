@@ -66,7 +66,7 @@ export function ReviewCard({ review, showService = false }: ReviewCardProps) {
               {review.is_verified && (
                 <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-green-50 text-green-700 border-green-200">
                   <CheckCircle className="h-3 w-3 mr-0.5" />
-                  구매 인증
+                  이용 인증
                 </Badge>
               )}
               {review.profiles?.tier && review.profiles.tier !== 'basic' && (

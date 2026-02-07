@@ -43,6 +43,7 @@ const routes = [
   { label: '새 주문', icon: ShoppingCart, href: '/order' },
   { label: '주문내역', icon: History, href: '/orders' },
   { label: '포인트 충전', icon: CreditCard, href: '/deposit' },
+  { label: '무료 체험', icon: Sparkles, href: '/free-trial', badge: 'FREE' },
   { label: '잔액 내역', icon: Receipt, href: '/transactions' },
   { label: '친구 추천', icon: Gift, href: '/referral' },
   { label: '고객센터', icon: Headphones, href: '/support' },

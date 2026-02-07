@@ -58,35 +58,30 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 
-interface Product {
+interface Service {
   id: string;
   name: string;
-  category_id: string;
+  price: number;
   is_active: boolean;
-  category?: {
-    platform: string;
-    name: string;
-  };
 }
 
 interface FreeTrialService {
   id: string;
-  product_id: string;
+  service_id: string;
   trial_quantity: number;
   daily_limit: number;
   today_used: number;
   is_active: boolean;
   created_at: string;
-  product?: Product;
+  service?: Service;
 }
 
 interface FreeTrialRequest {
   id: string;
   user_id: string;
-  product_id: string;
+  service_id: string;
   link: string;
   quantity: number;
   status: string;
@@ -95,7 +90,7 @@ interface FreeTrialRequest {
   user?: {
     email: string;
   };
-  product?: {
+  service?: {
     name: string;
   };
 }
@@ -103,7 +98,7 @@ interface FreeTrialRequest {
 export default function FreeTrialsPage() {
   const [trialServices, setTrialServices] = useState<FreeTrialService[]>([]);
   const [trialRequests, setTrialRequests] = useState<FreeTrialRequest[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -114,7 +109,7 @@ export default function FreeTrialsPage() {
 
   // Form state
   const [formData, setFormData] = useState({
-    product_id: '',
+    service_id: '',
     trial_quantity: 50,
     daily_limit: 100,
     is_active: true,
@@ -124,61 +119,42 @@ export default function FreeTrialsPage() {
     setLoading(true);
 
     try {
-      // Fetch all data in parallel with allSettled to handle partial failures
+      // Fetch all data in parallel using admin API
       const results = await Promise.allSettled([
-        (supabase as any)
-          .from('free_trial_services')
-          .select(`
-            *,
-            product:admin_products(id, name, category_id, is_active, category:admin_categories(platform, name))
-          `)
-          .order('created_at', { ascending: false }),
-        (supabase as any)
-          .from('free_trials')
-          .select(`
-            *,
-            user:profiles(email),
-            product:admin_products(name)
-          `)
-          .order('created_at', { ascending: false })
-          .limit(100),
-        (supabase as any)
-          .from('admin_products')
-          .select('id, name, category_id, is_active, category:admin_categories(platform, name)')
-          .eq('is_active', true)
-          .order('name'),
+        fetch('/api/admin/free-trials?type=services').then(r => r.json()),
+        fetch('/api/admin/free-trials?type=requests').then(r => r.json()),
+        fetch('/api/admin/free-trials?type=all-services').then(r => r.json()),
       ]);
 
       // Extract results with fallbacks
-      const servicesRes = results[0].status === 'fulfilled' ? results[0].value : { data: null, error: 'fetch failed' };
-      const requestsRes = results[1].status === 'fulfilled' ? results[1].value : { data: null, error: 'fetch failed' };
-      const productsRes = results[2].status === 'fulfilled' ? results[2].value : { data: null, error: 'fetch failed' };
+      const trialServicesRes = results[0].status === 'fulfilled' ? results[0].value : { success: false };
+      const requestsRes = results[1].status === 'fulfilled' ? results[1].value : { success: false };
+      const servicesListRes = results[2].status === 'fulfilled' ? results[2].value : { success: false };
 
-      if (servicesRes.error) {
-        console.error('Services error:', servicesRes.error);
-        // If table doesn't exist, show empty state
+      if (!trialServicesRes.success) {
+        console.error('Trial services error:', trialServicesRes.error);
         setTrialServices([]);
       } else {
-        setTrialServices(servicesRes.data || []);
+        setTrialServices(trialServicesRes.data || []);
       }
 
-      if (requestsRes.error) {
+      if (!requestsRes.success) {
         console.error('Requests error:', requestsRes.error);
         setTrialRequests([]);
       } else {
         setTrialRequests(requestsRes.data || []);
       }
 
-      if (productsRes.error) {
-        console.error('Products error:', productsRes.error);
+      if (!servicesListRes.success) {
+        console.error('Services list error:', servicesListRes.error);
       } else {
-        setProducts(productsRes.data || []);
+        setServices(servicesListRes.data || []);
       }
     } catch (error) {
       console.error('Unexpected fetch error:', error);
       setTrialServices([]);
       setTrialRequests([]);
-      setProducts([]);
+      setServices([]);
     }
 
     setLoading(false);
@@ -191,7 +167,7 @@ export default function FreeTrialsPage() {
   const openCreateDialog = () => {
     setSelectedService(null);
     setFormData({
-      product_id: '',
+      service_id: '',
       trial_quantity: 50,
       daily_limit: 100,
       is_active: true,
@@ -202,7 +178,7 @@ export default function FreeTrialsPage() {
   const openEditDialog = (service: FreeTrialService) => {
     setSelectedService(service);
     setFormData({
-      product_id: service.product_id,
+      service_id: service.service_id,
       trial_quantity: service.trial_quantity,
       daily_limit: service.daily_limit,
       is_active: service.is_active,
@@ -216,7 +192,7 @@ export default function FreeTrialsPage() {
   };
 
   const handleSave = async () => {
-    if (!formData.product_id) {
+    if (!formData.service_id) {
       toast.error('상품을 선택해주세요');
       return;
     }
@@ -224,47 +200,42 @@ export default function FreeTrialsPage() {
     setSaving(true);
 
     try {
-      const payload = {
-        product_id: formData.product_id,
-        trial_quantity: formData.trial_quantity,
-        daily_limit: formData.daily_limit,
-        is_active: formData.is_active,
-      };
-
       if (selectedService) {
-        const { error } = await (supabase as any)
-          .from('free_trial_services')
-          .update(payload)
-          .eq('id', selectedService.id);
-
-        if (error) throw error;
+        // Update existing
+        const res = await fetch('/api/admin/free-trials', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: selectedService.id,
+            trial_quantity: formData.trial_quantity,
+            daily_limit: formData.daily_limit,
+            is_active: formData.is_active,
+          }),
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error);
         toast.success('무료 체험 서비스가 수정되었습니다');
       } else {
-        // Check if product already has free trial
-        const { data: existing } = await (supabase as any)
-          .from('free_trial_services')
-          .select('id')
-          .eq('product_id', formData.product_id)
-          .single();
-
-        if (existing) {
-          toast.error('이미 무료 체험이 설정된 상품입니다');
-          setSaving(false);
-          return;
-        }
-
-        const { error } = await (supabase as any)
-          .from('free_trial_services')
-          .insert(payload);
-
-        if (error) throw error;
+        // Create new
+        const res = await fetch('/api/admin/free-trials', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            service_id: formData.service_id,
+            trial_quantity: formData.trial_quantity,
+            daily_limit: formData.daily_limit,
+            is_active: formData.is_active,
+          }),
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error);
         toast.success('무료 체험 서비스가 추가되었습니다');
       }
 
       setIsDialogOpen(false);
       fetchData();
-    } catch (error: any) {
-      toast.error(error.message || '저장 실패');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : '저장 실패');
     } finally {
       setSaving(false);
     }
@@ -274,58 +245,67 @@ export default function FreeTrialsPage() {
     if (!selectedService) return;
 
     try {
-      const { error } = await (supabase as any)
-        .from('free_trial_services')
-        .delete()
-        .eq('id', selectedService.id);
+      const res = await fetch(`/api/admin/free-trials?id=${selectedService.id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error);
 
-      if (error) throw error;
       toast.success('무료 체험 서비스가 삭제되었습니다');
       setIsDeleteDialogOpen(false);
       fetchData();
-    } catch (error: any) {
-      toast.error(error.message || '삭제 실패');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : '삭제 실패');
     }
   };
 
   const toggleActive = async (service: FreeTrialService) => {
     try {
-      const { error } = await (supabase as any)
-        .from('free_trial_services')
-        .update({ is_active: !service.is_active })
-        .eq('id', service.id);
+      const res = await fetch('/api/admin/free-trials', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: service.id,
+          is_active: !service.is_active,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error);
 
-      if (error) throw error;
       fetchData();
       toast.success(service.is_active ? '비활성화됨' : '활성화됨');
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : '오류 발생');
     }
   };
 
   const resetDailyLimits = async () => {
     try {
-      const { error } = await (supabase as any)
-        .from('free_trial_services')
-        .update({ today_used: 0 })
-        .neq('id', '00000000-0000-0000-0000-000000000000'); // Update all rows
+      const res = await fetch('/api/admin/free-trials', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'reset_all_daily_limits',
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error);
 
-      if (error) throw error;
       fetchData();
       toast.success('일일 사용량이 초기화되었습니다');
-    } catch (error: any) {
-      toast.error(error.message || '초기화 실패');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : '초기화 실패');
     }
   };
 
-  const filteredServices = trialServices.filter((service) =>
-    service.product?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredServices = trialServices.filter((trialService) =>
+    trialService.service?.name?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const filteredRequests = trialRequests.filter(
     (request) =>
       request.user?.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.product?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      request.service?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       request.link?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -511,12 +491,7 @@ export default function FreeTrialsPage() {
                           />
                         </TableCell>
                         <TableCell>
-                          <div className="font-medium">{service.product?.name || '알 수 없음'}</div>
-                          {service.product?.category && (
-                            <div className="text-xs text-muted-foreground">
-                              {service.product.category.platform} / {service.product.category.name}
-                            </div>
-                          )}
+                          <div className="font-medium">{service.service?.name || '알 수 없음'}</div>
                         </TableCell>
                         <TableCell>
                           <Badge variant="secondary">{service.trial_quantity}개</Badge>
@@ -600,7 +575,7 @@ export default function FreeTrialsPage() {
                           <div className="font-medium">{request.user?.email || '알 수 없음'}</div>
                         </TableCell>
                         <TableCell>
-                          <div className="text-sm">{request.product?.name || '알 수 없음'}</div>
+                          <div className="text-sm">{request.service?.name || '알 수 없음'}</div>
                         </TableCell>
                         <TableCell>
                           <a
@@ -643,11 +618,11 @@ export default function FreeTrialsPage() {
 
           <div className="space-y-6 py-4">
             <div className="space-y-2">
-              <Label htmlFor="product_id">상품 선택 *</Label>
+              <Label htmlFor="service_id">상품 선택 *</Label>
               <Select
-                value={formData.product_id}
+                value={formData.service_id}
                 onValueChange={(value) =>
-                  setFormData({ ...formData, product_id: value })
+                  setFormData({ ...formData, service_id: value })
                 }
                 disabled={!!selectedService}
               >
@@ -655,9 +630,9 @@ export default function FreeTrialsPage() {
                   <SelectValue placeholder="상품 선택" />
                 </SelectTrigger>
                 <SelectContent>
-                  {products.map((product) => (
-                    <SelectItem key={product.id} value={product.id}>
-                      [{product.category?.platform}] {product.name}
+                  {services.map((svc) => (
+                    <SelectItem key={svc.id} value={svc.id}>
+                      {svc.name}
                     </SelectItem>
                   ))}
                 </SelectContent>

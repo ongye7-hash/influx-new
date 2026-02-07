@@ -125,7 +125,7 @@ export function CountdownTimer() {
         >
           <Link href="/login">
             <Zap className="w-4 h-4 mr-2" />
-            지금 구매
+            지금 시작
             <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
         </Button>
