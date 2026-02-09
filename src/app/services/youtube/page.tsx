@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   keywords: [
     '유튜브 구독자 늘리기', '유튜브 조회수 늘리기', '유튜브 수익창출',
     '유튜브 시청시간', '유튜브 좋아요', '유튜브 마케팅',
-    '유튜브 채널 성장', '유튜브 구독자 구매', '유튜브 조회수 구매',
+    '유튜브 채널 성장', '유튜브 구독자 서비스', '유튜브 조회수 서비스',
     'YouTube subscribers', 'YouTube views', 'YouTube marketing'
   ],
   openGraph: {
@@ -365,7 +365,7 @@ export default function YouTubeServicesPage() {
                 className="w-full mt-6 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-full"
               >
                 <Link href="/login">
-                  패키지 주문하기
+                  서비스 시작하기
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

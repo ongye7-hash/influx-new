@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description: '인스타그램 팔로워, 좋아요, 댓글, 릴스 조회수를 안전하고 빠르게 늘려드립니다. 24시간 자동화 시스템으로 인스타 계정 성장을 가속화하세요.',
   keywords: [
     '인스타 팔로워 늘리기', '인스타 좋아요', '인스타그램 마케팅',
-    '인스타 릴스 조회수', '인스타 팔로워 구매', '인스타 댓글',
+    '인스타 릴스 조회수', '인스타 팔로워 서비스', '인스타 댓글',
     '인스타그램 성장', 'Instagram followers', 'Instagram likes',
     '인스타 마케팅', '인스타그램 홍보'
   ],
@@ -365,7 +365,7 @@ export default function InstagramServicesPage() {
                 className="w-full mt-6 bg-gradient-to-r from-[#E1306C] to-[#F77737] hover:from-[#C91B5A] hover:to-[#E56628] text-white rounded-full"
               >
                 <Link href="/login">
-                  패키지 주문하기
+                  서비스 시작하기
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

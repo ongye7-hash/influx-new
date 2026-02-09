@@ -29,11 +29,11 @@ export const metadata: Metadata = {
   keywords: [
     '인스타 팔로워 한국인',
     '인스타그램 한국인 팔로워',
-    '인스타 한국인 팔로워 구매',
+    '인스타 한국인 팔로워 늘리기',
     '인스타그램 팔로워 늘리기',
     '인스타 팔로워 늘리는법',
     '한국인 팔로워',
-    '인스타 팔로워 구매',
+    '인스타 팔로워 서비스',
     '인스타그램 마케팅',
   ],
   openGraph: {
@@ -229,7 +229,7 @@ export default async function InstagramFollowersKoreaPage() {
               )}
 
               <Button className="w-full mt-6 bg-gradient-to-r from-pink-500 to-purple-600" asChild>
-                <Link href="/order">주문하기</Link>
+                <Link href="/order">서비스 시작</Link>
               </Button>
             </div>
           </div>
@@ -291,7 +291,7 @@ export default async function InstagramFollowersKoreaPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-gradient-to-r from-pink-500 to-purple-600" asChild>
               <Link href="/order">
-                한국인 팔로워 주문하기
+                한국인 팔로워 서비스 시작
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>

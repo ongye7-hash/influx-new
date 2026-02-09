@@ -365,7 +365,7 @@ export default function TelegramServicesPage() {
                 className="w-full mt-6 bg-gradient-to-r from-sky-400 to-sky-600 hover:from-sky-500 hover:to-sky-700 text-white rounded-full"
               >
                 <Link href="/login">
-                  패키지 주문하기
+                  서비스 시작하기
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

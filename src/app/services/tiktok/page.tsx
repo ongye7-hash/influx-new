@@ -365,7 +365,7 @@ export default function TikTokServicesPage() {
                 className="w-full mt-6 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-full"
               >
                 <Link href="/login">
-                  패키지 주문하기
+                  서비스 시작하기
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

@@ -366,7 +366,7 @@ export default function FacebookServicesPage() {
                 className="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-full"
               >
                 <Link href="/login">
-                  패키지 주문하기
+                  서비스 시작하기
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

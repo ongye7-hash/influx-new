@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   keywords: [
     '유튜브 조회수',
     '유튜브 조회수 늘리기',
-    '유튜브 조회수 구매',
+    '유튜브 조회수 서비스',
     '유튜브 트래픽',
     '유튜브 트래픽 업체',
     '유튜브 조회수 올리기',
@@ -241,7 +241,7 @@ export default async function YouTubeViewsPage() {
               </p>
 
               <Button className="w-full mt-6 bg-red-600 hover:bg-red-700" asChild>
-                <Link href="/order">주문하기</Link>
+                <Link href="/order">서비스 시작</Link>
               </Button>
             </div>
           </div>
@@ -304,7 +304,7 @@ export default async function YouTubeViewsPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-red-600 hover:bg-red-700" asChild>
               <Link href="/order">
-                조회수 주문하기
+                조회수 서비스 시작
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>

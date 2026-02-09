@@ -65,7 +65,19 @@
       "WebFetch(domain:connect.gprized.com)",
       "WebFetch(domain:theorem2020.com)",
       "WebFetch(domain:www.instaget.com)",
-      "Bash(timeout 60 npx vercel logs:*)"
+      "Bash(timeout 60 npx vercel logs:*)",
+      "Bash(node search-likes.mjs:*)",
+      "Bash(node fix-products.mjs)",
+      "Bash(node fix-korean.mjs:*)",
+      "Bash(node search-reels.mjs:*)",
+      "Bash(node search-kr.mjs:*)",
+      "WebFetch(domain:www.instagram.com)",
+      "Bash(tasklist:*)",
+      "WebFetch(domain:mkt24.co.kr)",
+      "WebFetch(domain:mkt24.net)",
+      "WebFetch(domain:dailysns.co.kr)",
+      "WebFetch(domain:marketingonline.imweb.me)",
+      "WebFetch(domain:marketingfactory.co.kr)"
     ]
   }
 }

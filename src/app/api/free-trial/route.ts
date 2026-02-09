@@ -61,19 +61,19 @@ export async function GET() {
       );
     }
 
-    // 레거시 데이터 매핑
+    // 레거시 데이터 매핑 (뷰 컬럼명에 맞게)
     const mappedLegacy = (legacyData || []).map(item => ({
-      trial_service_id: item.id,
+      trial_service_id: item.trial_service_id,
       service_id: item.service_id,
-      service_name: item.name,
-      price: 0,
-      trial_quantity: item.quantity,
+      service_name: item.service_name,
+      price: item.price || 0,
+      trial_quantity: item.trial_quantity,
       daily_limit: item.daily_limit,
       today_used: item.today_used,
-      remaining_today: item.daily_limit - item.today_used,
+      remaining_today: item.remaining_today,
       is_active: item.is_active,
-      category_name: null,
-      category_slug: null,
+      category_name: item.category_name,
+      category_slug: item.category_slug,
     }));
 
     return NextResponse.json({

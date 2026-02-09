@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   keywords: [
     '유튜브 구독자',
     '유튜브 구독자 늘리기',
-    '유튜브 구독자 구매',
+    '유튜브 구독자 서비스',
     '유튜브 구독자 1000명',
     '유튜브 수익창출',
     '유튜브 채널 성장',
@@ -238,7 +238,7 @@ export default async function YouTubeSubscribersPage() {
             </p>
 
             <Button className="w-full mt-6 bg-red-600 hover:bg-red-700" asChild>
-              <Link href="/order">주문하기</Link>
+              <Link href="/order">서비스 시작</Link>
             </Button>
           </div>
         </div>
@@ -333,7 +333,7 @@ export default async function YouTubeSubscribersPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-red-600 hover:bg-red-700" asChild>
               <Link href="/order">
-                구독자 주문하기
+                구독자 서비스 시작
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
