@@ -33,6 +33,14 @@ export interface TelegramSettings {
   notify_sleeping_whale: boolean;
   notify_new_vip: boolean;
   large_deposit_threshold: number;
+  // 실시간 알림 설정
+  realtime_enabled?: boolean;
+  notify_order_failure?: boolean;
+  notify_low_balance?: boolean;
+  notify_new_signup?: boolean;
+  notify_all_deposits?: boolean;
+  low_balance_threshold?: number; // USD
+  ignore_quiet_hours_urgent?: boolean;
 }
 
 export interface InlineButton {
@@ -299,6 +307,158 @@ VIP 혜택 안내 메시지를 보내시겠습니까?
   ];
 
   await sendTelegramMessage(message, buttons, config);
+}
+
+// ============================================
+// 실시간 알림 (긴급)
+// ============================================
+
+/**
+ * 주문 실패 알림 (실시간)
+ */
+export async function notifyOrderFailure(order: {
+  orderId: string;
+  orderNumber: string;
+  userEmail: string;
+  productName: string;
+  quantity: number;
+  charge: number;
+  errorMessage: string;
+  allProvidersFailed: boolean;
+}): Promise<void> {
+  const config = await getTelegramSettings();
+  if (!config?.realtime_enabled || !config?.notify_order_failure) return;
+
+  const message = `🚨 <b>주문 실패</b>
+━━━━━━━━━━━━━━━
+주문번호: <code>${order.orderNumber}</code>
+상품: ${order.productName}
+수량: ${order.quantity.toLocaleString()}
+금액: ₩${order.charge.toLocaleString()}
+유저: ${order.userEmail}
+
+❌ 오류: ${order.errorMessage}
+${order.allProvidersFailed ? '\n⚠️ 모든 원청 API 실패 - 잔액 확인 필요!' : ''}
+`;
+
+  // 긴급 알림은 야간시간 무시
+  await sendRealtimeMessage(message, config);
+}
+
+/**
+ * 원청 잔액 부족 알림 (실시간)
+ */
+export async function notifyLowBalance(provider: {
+  name: string;
+  balance: number;
+  threshold: number;
+  currency: string;
+}): Promise<void> {
+  const config = await getTelegramSettings();
+  if (!config?.realtime_enabled || !config?.notify_low_balance) return;
+
+  const message = `💸 <b>원청 잔액 부족!</b>
+━━━━━━━━━━━━━━━
+Provider: <b>${provider.name}</b>
+현재 잔액: <b>${provider.currency}${provider.balance.toFixed(2)}</b>
+최소 기준: ${provider.currency}${provider.threshold}
+
+⚠️ 즉시 충전이 필요합니다!
+`;
+
+  // 긴급 알림은 야간시간 무시
+  await sendRealtimeMessage(message, config);
+}
+
+/**
+ * 신규 회원가입 알림 (실시간)
+ */
+export async function notifyNewSignup(user: {
+  email: string;
+  username: string;
+  signupMethod: string;
+}): Promise<void> {
+  const config = await getTelegramSettings();
+  if (!config?.realtime_enabled || !config?.notify_new_signup) return;
+
+  const message = `👤 <b>신규 가입</b>
+━━━━━━━━━━━━━━━
+이메일: ${user.email}
+닉네임: ${user.username}
+가입방식: ${user.signupMethod}
+`;
+
+  await sendTelegramMessage(message, undefined, config);
+}
+
+/**
+ * 모든 충전 알림 (실시간, 금액 무관)
+ */
+export async function notifyAllDeposit(deposit: {
+  id: string;
+  amount: number;
+  userEmail: string;
+  method: string;
+}): Promise<void> {
+  const config = await getTelegramSettings();
+  if (!config?.realtime_enabled || !config?.notify_all_deposits) return;
+
+  const methodEmoji = deposit.method === 'crypto' ? '₿' : '🏦';
+
+  const message = `${methodEmoji} <b>충전 요청</b>
+━━━━━━━━━━━━━━━
+금액: <b>₩${deposit.amount.toLocaleString()}</b>
+유저: ${deposit.userEmail}
+방식: ${deposit.method === 'crypto' ? 'USDT' : '무통장'}
+ID: <code>${deposit.id.substring(0, 8)}</code>
+`;
+
+  const buttons: InlineButton[][] = [
+    [
+      { text: '✅ 승인', callback_data: `approve_deposit:${deposit.id}` },
+      { text: '❌ 거절', callback_data: `reject_deposit:${deposit.id}` },
+    ],
+  ];
+
+  await sendTelegramMessage(message, buttons, config);
+}
+
+/**
+ * 실시간 메시지 발송 (야간시간 무시 옵션)
+ */
+async function sendRealtimeMessage(
+  message: string,
+  config: TelegramSettings
+): Promise<boolean> {
+  if (!config?.enabled || !config.bot_token || !config.chat_id) {
+    return false;
+  }
+
+  // 긴급 알림은 야간시간 무시 옵션 체크
+  if (!config.ignore_quiet_hours_urgent && isQuietHours(config)) {
+    console.log('[Telegram] Quiet hours, but urgent - checking ignore setting');
+    return false;
+  }
+
+  try {
+    const payload: TelegramMessage = {
+      chat_id: config.chat_id,
+      text: message,
+      parse_mode: 'HTML',
+    };
+
+    const response = await fetch(`${TELEGRAM_API}${config.bot_token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json();
+    return result.ok;
+  } catch (error) {
+    console.error('[Telegram] Realtime error:', error);
+    return false;
+  }
 }
 
 /**

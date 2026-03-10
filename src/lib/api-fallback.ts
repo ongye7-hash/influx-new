@@ -15,6 +15,7 @@ import {
   ApiProvider,
   ProviderRoute,
 } from '@/lib/services/provider-router';
+import { notifyOrderFailure, notifyLowBalance } from '@/lib/services/telegram-bot';
 
 // Service role client (lazy initialization)
 let supabase: SupabaseClient | null = null;
@@ -224,8 +225,37 @@ export async function processOrderWithFallback(
       `[Order ${request.order_id}] FAILED with ${provider.name}: ${result.error} (${result.responseTimeMs}ms)`
     );
 
+    // 잔액 부족 에러 시 즉시 알림
+    if (result.error?.toLowerCase().includes('not enough funds') ||
+        result.error?.toLowerCase().includes('balance')) {
+      await notifyLowBalance({
+        name: provider.name,
+        balance: 0, // 실제 잔액 조회 필요 시 추가
+        threshold: 10,
+        currency: '$',
+      });
+    }
+
     // 다음 Fallback 시도
   }
+
+  // 모든 Provider 실패 시 알림 발송
+  const { data: profile } = await getSupabase()
+    .from('profiles')
+    .select('email')
+    .eq('id', request.user_id)
+    .single();
+
+  await notifyOrderFailure({
+    orderId: request.order_id,
+    orderNumber: request.order_id.substring(0, 8),
+    userEmail: profile?.email || 'unknown',
+    productName: product.name || 'Unknown Product',
+    quantity: request.quantity,
+    charge: 0, // 차후 계산 필요
+    errorMessage: '모든 API 공급자 시도 실패',
+    allProvidersFailed: true,
+  });
 
   return {
     success: false,

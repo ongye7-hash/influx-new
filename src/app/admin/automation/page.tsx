@@ -42,6 +42,14 @@ interface TelegramSettings {
   notify_sleeping_whale: boolean;
   notify_new_vip: boolean;
   large_deposit_threshold: number;
+  // 실시간 알림
+  realtime_enabled: boolean;
+  notify_order_failure: boolean;
+  notify_low_balance: boolean;
+  notify_new_signup: boolean;
+  notify_all_deposits: boolean;
+  low_balance_threshold: number;
+  ignore_quiet_hours_urgent: boolean;
 }
 
 interface AutomationSettings {
@@ -69,6 +77,14 @@ const defaultTelegram: TelegramSettings = {
   notify_sleeping_whale: true,
   notify_new_vip: true,
   large_deposit_threshold: 50000,
+  // 실시간 알림 기본값
+  realtime_enabled: false,
+  notify_order_failure: true,
+  notify_low_balance: true,
+  notify_new_signup: false,
+  notify_all_deposits: false,
+  low_balance_threshold: 10,
+  ignore_quiet_hours_urgent: true,
 };
 
 const defaultAutomation: AutomationSettings = {
@@ -408,6 +424,111 @@ export default function AdminAutomationPage() {
                   />
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* 실시간 알림 설정 */}
+          <Card className="border-orange-500/30">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Zap className="h-5 w-5 text-orange-500" />
+                실시간 알림
+                {telegram.realtime_enabled && <Badge variant="outline" className="bg-orange-500/10 text-orange-500">활성</Badge>}
+              </CardTitle>
+              <CardDescription>
+                주문 실패, 잔액 부족 등 긴급 상황 즉시 알림
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
+                <div>
+                  <Label className="text-orange-500">실시간 알림 활성화</Label>
+                  <p className="text-xs text-muted-foreground">문제 발생 시 즉시 텔레그램으로 알림</p>
+                </div>
+                <Switch
+                  checked={telegram.realtime_enabled}
+                  onCheckedChange={(checked) => setTelegram({ ...telegram, realtime_enabled: checked })}
+                />
+              </div>
+
+              {telegram.realtime_enabled && (
+                <div className="space-y-3 pl-4 border-l-2 border-orange-500/30">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>주문 실패 알림</Label>
+                      <p className="text-xs text-muted-foreground">모든 원청 API 실패 시</p>
+                    </div>
+                    <Switch
+                      checked={telegram.notify_order_failure}
+                      onCheckedChange={(checked) => setTelegram({ ...telegram, notify_order_failure: checked })}
+                    />
+                  </div>
+
+                  <Separator />
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>원청 잔액 부족 알림</Label>
+                      <p className="text-xs text-muted-foreground">잔액 부족 에러 발생 시</p>
+                    </div>
+                    <Switch
+                      checked={telegram.notify_low_balance}
+                      onCheckedChange={(checked) => setTelegram({ ...telegram, notify_low_balance: checked })}
+                    />
+                  </div>
+
+                  {telegram.notify_low_balance && (
+                    <div className="ml-4 space-y-2">
+                      <Label>최소 잔액 기준 (USD)</Label>
+                      <Input
+                        type="number"
+                        value={telegram.low_balance_threshold}
+                        onChange={(e) => setTelegram({ ...telegram, low_balance_threshold: parseInt(e.target.value) || 0 })}
+                        className="w-32"
+                      />
+                    </div>
+                  )}
+
+                  <Separator />
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>신규 가입 알림</Label>
+                      <p className="text-xs text-muted-foreground">새 회원가입 시</p>
+                    </div>
+                    <Switch
+                      checked={telegram.notify_new_signup}
+                      onCheckedChange={(checked) => setTelegram({ ...telegram, notify_new_signup: checked })}
+                    />
+                  </div>
+
+                  <Separator />
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>모든 충전 요청 알림</Label>
+                      <p className="text-xs text-muted-foreground">금액 관계없이 모든 충전</p>
+                    </div>
+                    <Switch
+                      checked={telegram.notify_all_deposits}
+                      onCheckedChange={(checked) => setTelegram({ ...telegram, notify_all_deposits: checked })}
+                    />
+                  </div>
+
+                  <Separator />
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>긴급 알림 야간 무시</Label>
+                      <p className="text-xs text-muted-foreground">주문 실패/잔액 부족은 야간에도 알림</p>
+                    </div>
+                    <Switch
+                      checked={telegram.ignore_quiet_hours_urgent}
+                      onCheckedChange={(checked) => setTelegram({ ...telegram, ignore_quiet_hours_urgent: checked })}
+                    />
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
 
